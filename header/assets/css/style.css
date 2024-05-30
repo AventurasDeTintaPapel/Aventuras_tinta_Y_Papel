@@ -1,0 +1,114 @@
+
+
+.contenedor{
+    background-color: rgb(255, 0, 0);
+}
+
+/*header parte 1*/
+/*img logo*/
+/*buscador*/
+/*botones de usario y de carrito*/
+
+.parte1{
+    display: grid;
+    grid-template-columns: 12% 1fr 18%;
+}
+
+.imgLogo{
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: 30%;
+    grid-column: 1;
+}
+
+.buscador{
+    grid-column: 2;
+    margin-top: 40px;
+    margin-left: 16%;
+}
+
+.barradelBuscador{
+    width: 55%;
+    height: 45px ;
+    position: absolute;
+    border-radius: 25px
+}
+
+.feather-search{
+    /* background-color: rgb(255, 255, 255); */
+    height: 39px;
+    width: 3%;
+    margin-top: 2px;
+    margin-left: 89%; 
+    position:relative;
+}
+
+
+.BotonesDelHeader{
+    display: flex;
+    gap: 15%;
+    margin-left: 5%;
+}
+
+.botonHeader{
+    border-radius: 100%;
+    width: 48px;
+    height: 47px;
+    margin-top: 40px;
+}
+
+/*botones productos*/
+
+.botonesProductos{
+    background-color: rgb(255, 255, 0);
+    width: 130px;
+    margin-left: 45%;
+    border-right:  10px solid;
+    padding-bottom: 1px;
+    padding-top: 10px;
+}
+.pepino{
+    display: none;
+}
+
+
+.linkProducto{
+    text-decoration: none;
+    color: black;
+}
+
+/*nav*/
+
+nav{
+    grid-column: 3;
+}
+
+.botonesNav{
+    display: flex;
+    gap: 2%;
+    justify-content: center;
+}
+
+/* .decoracionNav{
+    background-color: rgb(115, 12, 26);
+    height: 20px;
+} */
+
+.botonNav{
+    color: rgb(255, 255, 255);
+    background-color: rgb(188, 29, 29);
+    text-decoration: none;
+    font-size: 20px;
+    padding-left: 1%;
+    padding-right: 1%;
+    /* margin-bottom: 10px; */
+    border-right:  13px solid rgb(115, 12, 26);
+    /* border-bottom:  3px solid rgb(115, 12, 26); */
+    padding-right: 1%;
+}
+
+/* .linea{
+    border-right:  15px solid rgb(115, 12, 26);
+    padding-right: 1%;
+} */
