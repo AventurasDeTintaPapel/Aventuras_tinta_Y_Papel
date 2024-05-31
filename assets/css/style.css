@@ -1,19 +1,15 @@
-
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;}
+/* header */
 .contenedor{
     background-color: rgb(255, 0, 0);
 }
-
-/*header parte 1*/
-/*img logo*/
-/*buscador*/
-/*botones de usario y de carrito*/
-
 .parte1{
     display: grid;
     grid-template-columns: 12% 1fr 18%;
 }
-
 .imgLogo{
     width: 100%;
     height: 100px;
@@ -21,45 +17,36 @@
     margin-left: 30%;
     grid-column: 1;
 }
-
 .buscador{
     grid-column: 2;
     margin-top: 40px;
     margin-left: 16%;
 }
-
 .barradelBuscador{
     width: 55%;
     height: 45px ;
     position: absolute;
     border-radius: 25px
 }
-
 .feather-search{
-    /* background-color: rgb(255, 255, 255); */
     height: 39px;
     width: 3%;
     margin-top: 2px;
     margin-left: 89%; 
     position:relative;
 }
-
-
 .BotonesDelHeader{
     display: flex;
     gap: 15%;
     margin-left: 5%;
 }
-
 .botonHeader{
     border-radius: 100%;
     width: 48px;
     height: 47px;
     margin-top: 40px;
 }
-
 /*botones productos*/
-
 .botonesProductos{
     background-color: rgb(255, 255, 0);
     width: 130px;
@@ -71,30 +58,19 @@
 .pepino{
     display: none;
 }
-
-
 .linkProducto{
     text-decoration: none;
     color: black;
 }
-
 /*nav*/
-
 nav{
     grid-column: 3;
 }
-
 .botonesNav{
     display: flex;
     gap: 2%;
     justify-content: center;
 }
-
-/* .decoracionNav{
-    background-color: rgb(115, 12, 26);
-    height: 20px;
-} */
-
 .botonNav{
     color: rgb(255, 255, 255);
     background-color: rgb(188, 29, 29);
@@ -102,13 +78,63 @@ nav{
     font-size: 20px;
     padding-left: 1%;
     padding-right: 1%;
-    /* margin-bottom: 10px; */
     border-right:  13px solid rgb(115, 12, 26);
-    /* border-bottom:  3px solid rgb(115, 12, 26); */
-    padding-right: 1%;
 }
 
-/* .linea{
-    border-right:  15px solid rgb(115, 12, 26);
-    padding-right: 1%;
-} */
+/* Carrucel */
+.contendorMain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+   margin-top: 14%;
+}
+.contenedorCarrusel{
+    width: 500px;
+    height: 400px;
+    background-color: black;
+    box-shadow:  0 8px 32px 0 rgba(0,0,0,0.66);
+    overflow: hidden;
+    position: absolute;
+}
+.carruseles{
+    width: 400%;
+    height: 100%;
+    display: flex;
+
+}
+.sliderSection{
+    width: calc(100%/4);
+    height: 100%;
+}
+.sliderSection img{
+    width: 500px;
+    height: 100%;
+    object-fit: cover;
+}
+/* botones del carrucel */
+.btnleft:hover,.btnRight:hover{
+    
+    color:white;
+}
+.btnleft,.btnRight{
+ display: flex;
+ position: absolute;
+ font-size: 2rem;
+ top: 50%;
+ background-color: transparent;
+ border-radius: 50%;
+ padding: 5px;
+ font-weight: 600;
+ cursor: pointer;
+ color: #eee9e981;
+ transform: translate(0,-50%);
+ transition: .5s ease;
+ user-select: none;
+}
+.btnleft{
+    left: 10px;
+}
+.btnRight{
+    right: 10px;
+}
