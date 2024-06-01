@@ -4,7 +4,7 @@
     box-sizing: border-box;}
 /* header */
 .contenedor{
-    background-color: rgb(255, 0, 0);
+    background-color: #573bb6;
 }
 .parte1{
     display: grid;
@@ -37,7 +37,7 @@
 }
 .BotonesDelHeader{
     display: flex;
-    gap: 15%;
+    gap: 10px;
     margin-left: 5%;
 }
 .botonHeader{
@@ -65,6 +65,7 @@
 /*nav*/
 nav{
     grid-column: 3;
+    background-color:#4121a1;
 }
 .botonesNav{
     display: flex;
@@ -73,38 +74,32 @@ nav{
 }
 .botonNav{
     color: rgb(255, 255, 255);
-    background-color: rgb(188, 29, 29);
     text-decoration: none;
-    font-size: 20px;
+    font-size: 22px;
     padding-left: 1%;
     padding-right: 1%;
-    border-right:  13px solid rgb(115, 12, 26);
 }
+.linea{
+    border-right: 1px solid black;
+}
+.botonNav:hover{
+    color: blue;
+}
+/* Carrucel  principal*/
 
-/* Carrucel */
-/* Carrucel */
-.contendorMain{
-    grid-row: 3/4;
-    padding:50px;
-    background-color: aqua;
-}
-h3{
-    margin-top: 400px;
-}
-.contendorMain{
-    display: flex;
-    padding: 20px;  
+.contenedorCarrusel{
+    margin-top: 30px;
 }
 .contenedorCarrusel{
     width: 100%;
-    height: 38%;
+    height: 48%;
     background-color: black;
-    box-shadow:  0 8px 32px 0 rgba(0,0,0,0.66);
+    /* box-shadow:  0 8px 32px 0 rgba(0,0,0,0.66); */
     overflow: hidden;
-    position: absolute;
+
 }
 .carruseles{
-    width: 400%;
+    width: 300%;
     height: 100%;
     display: flex;
 
@@ -113,24 +108,10 @@ h3{
     width: calc(100%/4);
     height: 400px;
 }
-/* img .imagen1{
-    position: absolute;
-} */
-
 .sliderSection img{
-    width: 100%;
-    height: 300px;
-    /* object-fit: cover; */
-    position: absolute;
+    width: 170vh;
+    height: 100%;
 }
-/* h2{
-   
-    background-color: rgba(0, 0, 0, 0.5);
-    color:black;
-    padding: 5px;
-    top: 200rem;
-    border-radius: 3px;
-} */
 
 /* botones del carrucel */
 .btnleft:hover,.btnRight:hover{
@@ -156,4 +137,106 @@ h3{
 }
 .btnRight{
     right: 10px;
+}
+.contenedorNovedades{
+    margin-top: 30px;
+}
+.contenedorTarjetas{
+    width: 300%;
+    height: 150%;
+    display: flex;
+    gap: 40px;
+
+}
+.contenedorNovedades{
+    width: 100%;
+    height: 500px;
+    background-color: rgb(255, 253, 253);
+    overflow: hidden;
+}
+.botonINovedades:hover,.botonDNovedades:hover{
+    color:white;
+}
+.botonINovedades,.botonDNovedades{
+    display: flex;
+    position: absolute;
+    font-size: 2rem;
+    top: 108%; 
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #eee9e981;
+    transform: translate(0,-50%);
+    transition: .5s ease;
+
+}
+
+/* botones del carrucel */
+
+.botonDNovedades{
+    right: 10px;
+}
+.botonINovedades{
+    left:  10px;
+}  
+/* Decoracion */
+.tarjetas{
+    height: 400px;
+    margin-left: 13px;
+ } 
+ .botonesNovedades{
+    display: flex;
+    border-radius: 30px;
+    gap: 5px;
+ }
+
+.tarjetas img{
+    width: 35vh;
+    height: 75%;
+
+}
+.precio{
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+}
+.comprar{
+    background-color:#4121a1 ;
+    color:white;
+    display: flex;
+    gap: 1px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+}
+
+.novedades{
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
+}
+.detalles{
+   padding: 10px 20px 10px 20px;
+    border:solid 1px #4121a1;
+    background-color:#4121a1 ;
+    color:white;
+    border-radius: 10px;
+    display: flex;
+    gap: 3px;
 } 
+.detalles a {
+    color: white;
+    text-decoration: none;
+}
+.tarjetas h5{
+    font-size: 23px;
+    color: blueviolet
+}
+hr{
+    color: #573bb6;
+   border: #4121a1 1px solid;
+
+}
+.tarjetas{
+    border: #573bb6 solid 3px;
+}
