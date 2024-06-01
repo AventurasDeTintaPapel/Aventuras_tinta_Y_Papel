@@ -10,6 +10,7 @@ btnProductos.addEventListener("mouseenter", ()=>{
     }
 
 })
+
 // declaracion de variables
 const btnLeft = document.querySelector(".btnleft");
 const btnRight = document.querySelector(".btnRight");
@@ -26,27 +27,27 @@ let operacion=0;
 let whitdImg = 100/sliderSection.length;
 let counter=0;
 function moveToRight() {
-     if(counter>=sliderSection.length){
+    if(counter>=sliderSection.length){
         counter=0;
         operacion=0;
-     }else{ 
-         carrusel.style.transform = `translate(-${operacion}%)`;
+    }else{ 
+        carrusel.style.transform = `translate(-${operacion}%)`;
         counter++;
-        operacion=operacion+25;
+        operacion=operacion+whitdImg;
         carrusel.style.transition= "all ease .6s"
-     }
-     console.log("si")
-        console.log(counter);
-        
-       
-      
-    // }  
+    }
 }
 
 function moveToLeft(){
-    operacion=operacion-25;
-    carrusel.style.transform = `translate(-${operacion}%)`;
-    carrusel.style.transition= "all ease .6s"
+    counter--;
+    if(counter<0){
+        counter=sliderSection.length-1;
+        operacion= whitdImg*(sliderSection.length-1)
+        carrusel.style.transform = `translate(-${operacion}%)`;
+    }else{
+        operacion=operacion-whitdImg;
+        carrusel.style.transform = `translate(-${operacion}%)`;
+        carrusel.style.transition= "all ease .6s"
+    }
 }
-
 
