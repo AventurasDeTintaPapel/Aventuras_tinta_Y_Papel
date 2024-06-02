@@ -3,42 +3,35 @@
     padding: 0;
     box-sizing: border-box;}
 /* header */
-.contenedor{
+.contenedorHeader{
     background-color: #573bb6;
 }
-.parte1{
-    display: grid;
-    grid-template-columns: 12% 1fr 18%;
+.contenedorHeader{
+    display: flex;
 }
 .imgLogo{
-    width: 100%;
-    height: 100px;
-    margin-top: 20px;
-    margin-left: 30%;
-    grid-column: 1;
+    width: 12%;
+    height: 110px;
+    margin-top: 10px;
 }
 .buscador{
-    grid-column: 2;
-    margin-top: 40px;
-    margin-left: 16%;
+    margin:45px 40px;
 }
 .barradelBuscador{
     width: 55%;
-    height: 45px ;
+    height: 45px ; 
+    border-radius: 25px;
     position: absolute;
-    border-radius: 25px
 }
-.feather-search{
-    height: 39px;
-    width: 3%;
-    margin-top: 2px;
-    margin-left: 89%; 
-    position:relative;
+.lupita{
+position: relative;
+left: 49rem;
+top: 1px;
 }
 .BotonesDelHeader{
     display: flex;
     gap: 10px;
-    margin-left: 5%;
+    margin-left: 55%;
 }
 .botonHeader{
     border-radius: 100%;
@@ -92,35 +85,27 @@ nav{
 }
 .contenedorCarrusel{
     width: 100%;
-    height: 48%;
+    height: 50%;
     background-color: black;
     /* box-shadow:  0 8px 32px 0 rgba(0,0,0,0.66); */
     overflow: hidden;
 
 }
 .carruseles{
-    width: 300%;
+    width: 440%;
     height: 100%;
     display: flex;
 
 }
 .sliderSection{
-    width: calc(100%/4);
-    height: 400px;
+    width:500% ;
+    height: 420px;
 }
 .sliderSection img{
-    width: 170vh;
+    width: 230vh;
     height: 100%;
-    position: absolute;
 }
-.categoria{
-    position: relative;
-    font-size: 45px;
-    color: white;
-    top: 85%;
-    left: 180px;
-    text-align: center;
-}
+
 /* botones del carrucel */
 .btnleft:hover,.btnRight:hover{
     color:white;

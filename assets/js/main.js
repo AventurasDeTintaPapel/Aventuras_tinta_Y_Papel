@@ -1,15 +1,15 @@
-//eventos del header 
-const btnProductos = document.getElementById("BtnProduc");
-const productos = document.getElementById("contenedorProductos");
-const lista = document.getElementById("lista")
-btnProductos.addEventListener("mouseenter", ()=>{
-    if(productos.className == "pepino"){
-        productos.className = "botonesProductos";
-    }else{
-        productos.className = "pepino";
-    }
-})
-// declaracion de variables
+// //eventos del header 
+// const btnProductos = document.getElementById("BtnProduc");
+// const productos = document.getElementById("contenedorProductos");
+// const lista = document.getElementById("lista")
+// btnProductos.addEventListener("mouseenter", ()=>{
+//     if(productos.className == "pepino"){
+//         productos.className = "botonesProductos";
+//     }else{
+//         productos.className = "pepino";
+//     }
+// })
+// declaracion de variables8
 const btnLeft = document.querySelector(".btnleft");
 const btnRight = document.querySelector(".btnRight");
 const carrusel = document.querySelector("#carruseles");
