@@ -111,8 +111,16 @@ nav{
 .sliderSection img{
     width: 170vh;
     height: 100%;
+    position: absolute;
 }
-
+.categoria{
+    position: relative;
+    font-size: 45px;
+    color: white;
+    top: 85%;
+    left: 180px;
+    text-align: center;
+}
 /* botones del carrucel */
 .btnleft:hover,.btnRight:hover{
     color:white;
@@ -130,7 +138,7 @@ nav{
     color: #eee9e981;
     transform: translate(0,-50%);
     transition: .5s ease;
- /* user-select: none; */
+    user-select: none;
 }
 .btnleft{
     left: 10px;
@@ -138,6 +146,7 @@ nav{
 .btnRight{
     right: 10px;
 }
+/* carrusel de novedades */
 .contenedorNovedades{
     margin-top: 30px;
 }
@@ -161,7 +170,7 @@ nav{
     display: flex;
     position: absolute;
     font-size: 2rem;
-    top: 108%; 
+    top: 120%; 
     background-color: transparent;
     border-radius: 50%;
     padding: 5px;
@@ -170,7 +179,7 @@ nav{
     color: #eee9e981;
     transform: translate(0,-50%);
     transition: .5s ease;
-
+    user-select: none;
 }
 
 /* botones del carrucel */
@@ -193,20 +202,20 @@ nav{
  }
 
 .tarjetas img{
-    width: 35vh;
-    height: 75%;
-
+    width: 33vh;
+    height: 77%;
 }
 .precio{
     color: rgb(0, 0, 0);
-    font-size: 20px;
+    font-size: 25px;
+    margin: 6px 0 6px 0;
 }
 .comprar{
     background-color:#4121a1 ;
     color:white;
     display: flex;
     gap: 1px;
-    padding: 10px 20px 10px 20px;
+    padding: 9px 20px 9px 20px;
     border-radius: 10px;
 }
 
@@ -216,7 +225,7 @@ nav{
     margin-top: 10px;
 }
 .detalles{
-   padding: 10px 20px 10px 20px;
+    padding: 9px 20px 9px 20px;
     border:solid 1px #4121a1;
     background-color:#4121a1 ;
     color:white;
@@ -230,13 +239,27 @@ nav{
 }
 .tarjetas h5{
     font-size: 23px;
+    display: flex;
+    gap: 10px;
     color: blueviolet
 }
 hr{
     color: #573bb6;
-   border: #4121a1 1px solid;
+    border: #4121a1 1px solid;
 
 }
-.tarjetas{
-    border: #573bb6 solid 3px;
+.nombre{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    color: black;
+    font-size: 20px;
 }
+.corazon{
+    width: 20px;
+}
+/* .detalles:hover,.comprar:hover{
+    color: white;
+} */
+/* .tarjetas{
+    border: #573bb6 solid 3px;
+} */
