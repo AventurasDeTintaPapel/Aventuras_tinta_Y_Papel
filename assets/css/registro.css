@@ -6,13 +6,15 @@ h1 {
 main {
     background-image:url("img/registro2.jpg");
     background-size: cover;
-    background-position: center;
+    height: 100vh;
+    
 }
 form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     font-size: 18px;
 }
 label{
@@ -57,13 +59,6 @@ border-color: rgb(228, 226, 222)
 }
 .form-text{
     color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-weight: bold;
 }
-p{
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-}
-a {
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-}
+

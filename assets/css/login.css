@@ -1,0 +1,51 @@
+.titulo {
+    text-align: center;
+    color: white;
+    font-family: serif;
+}
+
+main {
+    background-image:url("img/registro2.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+label{
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+#nombre-usuario{
+    width: 400px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: rgb(228, 226, 222)
+    }
+
+#contraseña{
+    width: 400px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: rgb(228, 226, 222)
+}
+
+p{
+color: white;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.link {
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
