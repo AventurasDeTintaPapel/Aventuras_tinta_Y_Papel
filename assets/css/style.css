@@ -1,169 +1,112 @@
 
-
-.contenedor{
-    background-color: rgb(255, 0, 0);
+*{
+    margin: 0;
+    padding: 0;
 }
-
-/*header parte 1*/
-/*img logo*/
-/*buscador*/
-/*botones de usario y de carrito*/
-
-header{
-    position: relative;
+/* header */
+.contenedorHeader{
+    background-color: #573bb6;
 }
-
-.parte1{
-    display: grid;
-    grid-template-columns: 12% 1fr 18%;
+.contenedorHeader{
+    display: flex;
 }
-
 .imgLogo{
-    width: 100%;
+    width: 12%;
     height: 100px;
-    margin-top: 20px;
-    margin-left: 30%;
-    grid-column: 1;
+    margin-top: 10px;
 }
-
 .buscador{
-    grid-column: 2;
-    margin-top: 40px;
-    margin-left: 16%;
+    margin: 35px 40px;
 }
 
 .barradelBuscador{
     width: 55%;
-    height: 45px ;
+    height: 40px ; 
+    border-radius: 25px;
     position: absolute;
-    border-radius: 25px
 }
 
-.feather-search{
-    /* background-color: rgb(255, 255, 255); */
-    height: 39px;
-    width: 3%;
-    margin-top: 2px;
-    margin-left: 89%; 
-    position:relative;
+.lupita{
+position: relative;
+top: 5px;
+margin-left: 100%;
 }
 
-
+.carrito{
+    border-radius:50% ;
+    background-color: aliceblue;
+}
 .BotonesDelHeader{
     display: flex;
-    gap: 15%;
-    margin-left: 10%;
+    gap: 10px;
+    margin-left: 55%;
 }
-
 .botonHeader{
     border-radius: 100%;
     width: 48px;
     height: 47px;
-    margin-top: 40px;
+    margin-top: 30px;
+}
+.favoritos{
+    font-size: 20px;
+    color:white;
 }
 
-/*botones productos*/
 
-.botonesProductos{
-    background-color: rgb(255, 255, 0);
-    width: 130px;
-    margin-left: 45%;
-    border-right:  10px solid;
-    padding-bottom: 1px;
-    padding-top: 10px;
+/* nav */
+ul, li {
+    list-style: none;
 }
 
-.productosDespegableNotVisible{
-    display: none;
-}
-
-.linkProducto{
-    text-decoration: none;
-    color: black;
-}
-
-.contenedoresVisibles{
+.Nav, .botonNav {
     display: flex;
+    align-items: center;
 }
-
-/*botones usario*/
-
-.partesArribaUsuario {
-    background-color: aquamarine;
-    margin: 0;
-    padding: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    
-    grid-row: 1;
-}
-
-.iconoUsario{
-    background-color: antiquewhite;
-    border-radius: 100%;
-    margin-left: 25%;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 20px;
-}
-
-.parteDeAbajoUsario{
-    grid-row: 2;
-    
-    padding-top: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    width: 100%;
-    margin: 0;
-    background-color: antiquewhite;
-}
-
-.usuarioDespegableVisible{
-    display: grid;
-    grid-template-rows: 1fr 100px;
-
-    width: 160px;
-    margin-top: -60px;
-    margin-left: 80%;
-
-    position: absolute;
-}
-
-.usuarioDespegableNotVisible{
-    display: none;
-}
-
-/*nav*/
 
 nav{
-    grid-column: 3;
+    padding: 9px 0 9px 0;
+    background-color: #4121a1;
 }
 
-.botonesNav{
-    display: flex;
-    gap: 2%;
+ul a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding-top: 5px ;
+}
+
+ul a:hover {
+    background-color: rgba(0, 0, 255, 0.323);
+}
+
+
+.Nav{
+    gap: 5%;
     justify-content: center;
 }
 
-.decoracionNav{
-    background-color: rgb(115, 12, 26);
-    height: 5px;
-}
-
-.botonNav{
-    color: rgb(255, 255, 255);
-    background-color: rgb(188, 29, 29);
-    text-decoration: none;
+.botonNav, li a {
+    color: white;
     font-size: 20px;
-    padding-left: 1%;
-    padding-right: 1%;
-    /* margin-bottom: 10px; */
-    border-right:  13px solid rgb(115, 12, 26);
-    /* border-bottom:  3px solid rgb(115, 12, 26); */
-    padding-right: 1%;
 }
 
-/* .linea{
-    border-right:  15px solid rgb(115, 12, 26);
-    padding-right: 1%;
-} */
+.contenedorNav li ul {
+    display: none;
+    position: absolute;
+    margin-top: 6px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+.contenedorNav li:hover > ul {
+    display: block;
+    background-color: #4121a1c1;
+}
+
+.contenedorNav {
+    z-index: 1;
+    position: relative;
+}
