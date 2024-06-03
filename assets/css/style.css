@@ -11,21 +11,21 @@
 }
 .imgLogo{
     width: 12%;
-    height: 110px;
+    height: 100px;
     margin-top: 10px;
 }
 .buscador{
-    margin:45px 40px;
+    margin:35px 40px;
 }
 .barradelBuscador{
     width: 55%;
-    height: 45px ; 
+    height: 40px ; 
     border-radius: 25px;
     position: absolute;
 }
 .lupita{
 position: relative;
-left: 49rem;
+left: 39rem;
 top: 1px;
 }
 .BotonesDelHeader{
@@ -37,74 +37,82 @@ top: 1px;
     border-radius: 100%;
     width: 48px;
     height: 47px;
-    margin-top: 40px;
-}
-/*botones productos*/
-.botonesProductos{
-    background-color: rgb(255, 255, 0);
-    width: 130px;
-    margin-left: 45%;
-    border-right:  10px solid;
-    padding-bottom: 1px;
-    padding-top: 10px;
-}
-.pepino{
-    display: none;
-}
-.linkProducto{
-    text-decoration: none;
-    color: black;
-}
-/*nav*/
-nav{
-    grid-column: 3;
-    background-color:#4121a1;
-}
-.botonesNav{
-    display: flex;
-    gap: 2%;
-    justify-content: center;
-}
-.botonNav{
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    font-size: 22px;
-    padding-left: 1%;
-    padding-right: 1%;
-}
-.linea{
-    border-right: 1px solid black;
-}
-.botonNav:hover{
-    color: blue;
-}
-/* Carrucel  principal*/
-
-.contenedorCarrusel{
     margin-top: 30px;
 }
+.favoritos{
+    font-size: 20px;
+    color:white;
+}
+/* nav */
+ul, li {
+    list-style: none;
+}
+.Nav, .botonNav {
+    display: flex;
+    align-items: center;
+}
+nav{
+    padding: 9px 0 9px 0;
+    background-color: #4121a1;
+}
+ul a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    /* padding: 10px 20px; */
+    transition: background-color 0.3s ease;
+}
+ul a:hover {
+    background-color: rgba(0, 0, 255, 0.323);
+}
+.botonNav, li a {
+    color: white;
+    font-size: 20px;
+}
+.Nav{
+    margin-left: 23rem;
+    gap: 10px;
+}
+.contenedorNav li ul {
+    display: none;
+    position: absolute;
+    max-width: 150px;
+    z-index: 10; /* Asegúrate de que la lista esté sobre otros elementos */
+}
+.contenedorNav li:hover > ul {
+    display: block;
+    background-color: #4121a1c1;
+    padding: 0 30px 0 30px;
+}
+.contenedorNav {
+    position: relative;
+    z-index: 1;
+}
+/* Carrucel  principal*/
 .contenedorCarrusel{
-    width: 100%;
-    height: 50%;
+    margin-top: 20px;
+}
+.contenedorCarrusel{
+    width: 1210px;
+    height: 380px;
     background-color: black;
-    /* box-shadow:  0 8px 32px 0 rgba(0,0,0,0.66); */
     overflow: hidden;
-
 }
 .carruseles{
-    width: 440%;
+    width: 500%;
     height: 100%;
+    border: #4121a1 solid 2px;
     display: flex;
-
 }
 .sliderSection{
-    width:500% ;
-    height: 420px;
+    width:calc(100%/3) ;
 }
 .sliderSection img{
-    width: 230vh;
+    width: 1210px;
     height: 100%;
+    /* left: 20px;  */
 }
+
 
 /* botones del carrucel */
 .btnleft:hover,.btnRight:hover{
@@ -114,7 +122,7 @@ nav{
     display: flex;
     position: absolute;
     font-size: 2rem;
-    top: 50%;
+    top: 72%;
     background-color: transparent;
     border-radius: 50%;
     padding: 5px;
@@ -135,19 +143,29 @@ nav{
 .contenedorNovedades{
     margin-top: 30px;
 }
-.contenedorTarjetas{
-    width: 300%;
-    height: 150%;
-    display: flex;
-    gap: 40px;
-
-}
 .contenedorNovedades{
-    width: 100%;
-    height: 500px;
+    width: 1190px;
+    height: 400px;
     background-color: rgb(255, 253, 253);
     overflow: hidden;
+    left: 10px;
 }
+.contenedorTarjetas{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.tarjetas{
+    width:calc(100%/2) ;
+    margin-left: 20px;
+} 
+.tarjetas img{
+    width: 250px;
+    height: 70%;
+    object-fit: cover;
+} 
 .botonINovedades:hover,.botonDNovedades:hover{
     color:white;
 }
@@ -155,44 +173,39 @@ nav{
     display: flex;
     position: absolute;
     font-size: 2rem;
-    top: 120%; 
+    top: 145%; 
     background-color: transparent;
     border-radius: 50%;
     padding: 5px;
     font-weight: 600;
     cursor: pointer;
-    color: #eee9e981;
+    color: #d4d2d2a9;
     transform: translate(0,-50%);
     transition: .5s ease;
     user-select: none;
 }
-
 /* botones del carrucel */
 
 .botonDNovedades{
     right: 10px;
 }
 .botonINovedades{
-    left:  10px;
+    left: 10px;
 }  
 /* Decoracion */
-.tarjetas{
-    height: 400px;
-    margin-left: 13px;
- } 
- .botonesNovedades{
+
+.botonesNovedades{
     display: flex;
     border-radius: 30px;
     gap: 5px;
- }
-
-.tarjetas img{
-    width: 33vh;
-    height: 77%;
 }
+ /* .tarjetas{
+    width:calc(100%/6) ;
+} */
+
 .precio{
     color: rgb(0, 0, 0);
-    font-size: 25px;
+    font-size: 20px;
     margin: 6px 0 6px 0;
 }
 .comprar{
@@ -210,7 +223,7 @@ nav{
     margin-top: 10px;
 }
 .detalles{
-    padding: 9px 20px 9px 20px;
+    padding: 9px 10px 9px 10px;
     border:solid 1px #4121a1;
     background-color:#4121a1 ;
     color:white;
@@ -221,9 +234,10 @@ nav{
 .detalles a {
     color: white;
     text-decoration: none;
+    font-size: 15px;
 }
 .tarjetas h5{
-    font-size: 23px;
+    font-size: 20px;
     display: flex;
     gap: 10px;
     color: blueviolet
@@ -237,14 +251,80 @@ hr{
     display: flex;
     flex-wrap: wrap-reverse;
     color: black;
-    font-size: 20px;
+    font-size: 10px;
 }
 .corazon{
     width: 20px;
 }
-/* .detalles:hover,.comprar:hover{
+.decoracionNovedades{
+    padding:  10px 6rem 10px 6rem; 
+    border: #4121a1 solid 1px;
+    background-color: #4121a1;
+    margin-left: 40%;
+}
+
+.decoracionNovedades{
     color: white;
-} */
-/* .tarjetas{
-    border: #573bb6 solid 3px;
-} */
+    font-size: 20px;
+    text-decoration: none;
+}
+  /*carrusel de categorias  */
+.contenedorCategoria{
+    margin-top: 30px;
+}
+.contenedorCategoria{
+    width: 1190px;
+    height: 195px;
+    background-color: rgb(255, 253, 253);
+    overflow: hidden;
+    left: 10px;
+      border-radius: 20px;
+}
+.contenedorImagenes{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 15px;
+  
+}
+.imagenes{
+    width:calc(100%/5) ;
+    margin-left: 20px;
+    border-radius: 20px;
+}
+.imagenes img{
+    width: 240px;
+    height: 80%;
+    border-radius: 20px;
+}
+.categoriaImg{
+    margin-top: 230px;
+}
+.imagenes h5{
+    color: #4121a1;
+    font-size: 30px;
+}
+.btnIimagenes:hover,.btnDimagenes:hover{
+    color:white;
+}
+.btnIimagenes,.btnDimagenes{
+    display: flex;
+    position: absolute;
+    font-size: 2rem;
+    top: 212%; 
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #e70682e4;
+    transform: translate(0,-50%);
+    transition: .5s ease;
+    user-select: none;
+}
+.btnDimagenes{
+    right: 10px;
+}
+.btnIimagenes{
+    left: 10px;
+}  
