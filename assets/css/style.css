@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
 }
+
 /* header */
 .contenedorHeader{
     background-color: #573bb6;
@@ -10,46 +11,51 @@
 .contenedorHeader{
     display: flex;
 }
+
 .imgLogo{
-    width: 12%;
+    width: 200px;
     height: 100px;
     margin-top: 10px;
+    margin-left: 2%;
 }
+
+
 .buscador{
     margin: 35px 40px;
+    width: 100%;
 }
 
 .barradelBuscador{
-    width: 55%;
+    width: 96%;
     height: 40px ; 
     border-radius: 25px;
-    position: absolute;
+    position: relative;
 }
 
 .lupita{
-position: relative;
-top: 5px;
-margin-left: 100%;
+    position: absolute;
+    top: 41px;
+    left: 77%;
 }
 
-.carrito{
-    border-radius:50% ;
+
+/*botones del*/
+.ususario, .corazon, .carrito {
     background-color: aliceblue;
-}
-.BotonesDelHeader{
-    display: flex;
-    gap: 10px;
-    margin-left: 55%;
-}
-.botonHeader{
     border-radius: 100%;
-    width: 48px;
-    height: 47px;
-    margin-top: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px; 
 }
-.favoritos{
-    font-size: 20px;
-    color:white;
+
+.BotonesDelHeader {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    margin-right: 60px;
 }
 
 
