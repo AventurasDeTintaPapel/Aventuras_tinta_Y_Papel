@@ -35,7 +35,7 @@
 .lupita{
     position: absolute;
     top: 41px;
-    left: 77%;
+    margin-left: -45px;
 }
 
 
@@ -48,6 +48,7 @@
     align-items: center;
     justify-content: center;
     width: 20px;
+    color: black;
     height: 20px; 
 }
 
@@ -69,6 +70,7 @@ ul, li {
     align-items: center;
 }
 
+
 nav{
     padding: 9px 0 9px 0;
     background-color: #4121a1;
@@ -82,7 +84,9 @@ ul a {
 }
 
 ul a:hover {
-    background-color: rgba(0, 0, 255, 0.323);
+    background-color: rgba(111, 33, 147, 0.464);
+    padding: 10px;
+    font-size: 30px;
 }
 
 
@@ -93,13 +97,13 @@ ul a:hover {
 
 .botonNav, li a {
     color: white;
-    font-size: 20px;
+    font-size: 1.5vw;
 }
 
 .contenedorNav li ul {
     display: none;
     position: absolute;
-    margin-top: 6px;
+    margin-top: 0px;
     width: 100%;
     text-align: center;
     z-index: 2;
