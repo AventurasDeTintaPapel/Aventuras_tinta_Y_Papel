@@ -4,3 +4,7 @@ main{
     margin: 10px;
     padding: 10px;
 }
+
+.card-body{
+    text-align: center;
+}
