@@ -1,12 +1,19 @@
 
 body{
-
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 1fr 20%;
     
     margin: 0;
     padding: 0;
 }
 
 /* header */
+header{
+    grid-row: 1;
+    grid-column: 1/3;
+}
+
 .contenedorHeader{
     background-color: #573bb6;
 }
@@ -85,7 +92,7 @@ ul a {
 }
 
 ul a:hover {
-    background-color: rgba(88, 33, 147, 0.855);
+    background-color: rgba(115, 43, 192, 0.684);
     padding: 10px;
     font-size: 2vw;
     margin-left: -20px;
@@ -99,14 +106,14 @@ ul a:hover {
 
 .botonNav, li a {
     color: white;
-    font-size: 1.5vw;
+    font-size: 2vw;
 }
 
 
 .contenedorNav li ul {
     display: none;
     position: absolute;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     width: 100%;
     text-align: center;
     z-index: 2;
@@ -116,10 +123,48 @@ ul a:hover {
 
 .contenedorNav li:hover > ul {
     display: block;
-    background-color: #4121a1b3;
+    background-color: #4121a16f;
 }
 
 .contenedorNav {
     z-index: 1;
     position: relative;
+}
+
+
+/*main*/
+main{
+    grid-column: 1;
+    grid-row: 2;
+
+    display: flex;
+    justify-content: center;
+}
+
+.contenedorProductos{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.producto{
+    border: 1px solid;
+    width: 290px;
+    text-align: center;
+    padding: 10px;
+}
+
+.producto img{
+    width: 80%;
+}
+
+aside{
+    grid-column: 2 ;
+    grid-row: 2;
+    background-color: #573bb6;
+}
+
+footer{
+    background-color: #6a50b8;
 }
