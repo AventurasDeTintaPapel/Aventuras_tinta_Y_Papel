@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Yatra+One&display=swap');
+
+:root{
+    --color-linea: rgb(87, 15, 139);
+    --color-titulo: rgb(105, 37, 124);
+    --color-header-footer: #573bb6;
+}
 
 body{
     display: grid;
     grid-template-columns: 1fr 30%;
-    grid-template-rows: 200px 1fr 20%;
+    grid-template-rows: 200px 60px 1fr 20%;
     
     margin: 0;
     padding: 0;
@@ -15,7 +22,7 @@ header{
 }
 
 .contenedorHeader{
-    background-color: #573bb6;
+    background-color: var(--color-header-footer);
 }
 .contenedorHeader{
     display: flex;
@@ -92,9 +99,9 @@ ul a {
 }
 
 ul a:hover {
-    background-color: rgba(115, 43, 192, 0.684);
-    padding: 10px;
+    background-color: rgba(115, 43, 192, 0.9);
     font-size: 2vw;
+    padding: 3px;
     margin-left: -20px;
 }
 
@@ -113,7 +120,6 @@ ul a:hover {
 .contenedorNav li ul {
     display: none;
     position: absolute;
-    /* margin-top: 5px; */
     width: 100%;
     text-align: center;
     z-index: 2;
@@ -135,38 +141,126 @@ ul a:hover {
 /*main*/
 main{
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
+    margin-bottom: 20px;
+}
 
+.cotainerInfoPro{
     display: flex;
-    justify-content: center;
+    align-items: center;
+    margin-inline: 2%;
+}
+
+.botonesProducto p{
+    margin-top: 0;
+    margin-left: 10%;
+}
+
+.comprProd{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btnProductoDirecto{
+    padding: 10px 0px 10px 0px ;
+    width: 100%;
+    border: 2px solid;
+    text-decoration: none;
+    color: black;
+    background-color: aliceblue;
 }
 
 .contenedorProductos{
+    justify-content: center;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    padding: 20px;
+}
+
+.inconoFavoritos{
+    color: var(--color-linea);
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comprProd{
+    text-align: center;
 }
 
 .producto{
     border: 1px solid;
-    width: 290px;
-    text-align: center;
-    padding: 10px;
+    width:200px;
+}
+
+.productoContainer{
+    margin: 20px 20px 0px 20px;
 }
 
 .producto img{
-    width: 80%;
+    width: 100%;
+}
+
+.tituloProManga{
+    grid-column: 1/3;
+    grid-row: 2;
+
+    font-family: "Permanent Marker", cursive;
+    font-weight: 100;
+    font-style: normal;
+
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+}
+
+.tituloAside{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 100;
+    font-style: normal;
+    margin-top: 7px;
+}
+
+
+.tituloProManga p{
+    margin-inline: 10px;
+    color: var(--color-titulo);
+}
+
+.linea1{
+    width: 5%;
+    height: 1px;
+    margin-top: 8px;
+    background-color: var(--color-linea);
+}
+
+.linea{
+    width: 100%;
+    height: 1px;
+    margin-top: 8px;
+    background-color: var(--color-linea);
+}
+
+.lineaAside{
+    height: 1px;
+    background-color: var(--color-linea);
+}
+
+.tituloAside p{
+    margin-bottom: 0;
+    font-size: 20px;
+    color: var(--color-titulo);
 }
 
 aside{
     grid-column: 2 ;
-    grid-row: 2;
-    background-color: #efebff;
+    grid-row: 3;
 }
 
 footer{
-    background-color: #9488b7;
-    grid-row: 3;
+    background-color: var(--color-header-footer);
+    grid-row: 4;
     grid-column: 1/3;
 }
