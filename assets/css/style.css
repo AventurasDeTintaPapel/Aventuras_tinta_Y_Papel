@@ -142,6 +142,7 @@ ul a:hover {
 /* carrusel de novedades */
 .contenedorNovedades{
     margin-top: 30px;
+    margin-bottom: 40px;
 }
 .contenedorNovedades{
     width: 1190px;
@@ -162,7 +163,7 @@ ul a:hover {
     margin-left: 20px;
 } 
 .tarjetas img{
-    width: 250px;
+    width: 220px;
     height: 70%;
     object-fit: cover;
 } 
@@ -185,7 +186,15 @@ ul a:hover {
     user-select: none;
 }
 /* botones del carrucel */
-
+.decoracioSeparador{
+    display: flex;
+    flex-direction: column;
+    background-color: #4121a1;
+    color: white;
+    align-items: center;
+    margin: 20px 0 40px 0;
+    padding: 30px;
+}
 .botonDNovedades{
     right: 10px;
 }
@@ -260,71 +269,33 @@ hr{
     padding:  10px 6rem 10px 6rem; 
     border: #4121a1 solid 1px;
     background-color: #4121a1;
+ 
     margin-left: 40%;
 }
-
+.contenedorNovedadesDeSemana{
+    display: flex;
+}
 .decoracionNovedades{
     color: white;
     font-size: 20px;
     text-decoration: none;
 }
-  /*carrusel de categorias  */
-.contenedorCategoria{
-    margin-top: 30px;
+ 
+.decoracion{
+    color :#ffffff;
+    display:flex;
+    background-color: #4121a1;
+    flex-direction: row;
+    gap: 30px;
+    padding: 20px;
+    margin: 40px 0 40px 0;
+    /* text-align: center; */
+     /* margin-left:60px ; */
 }
-.contenedorCategoria{
-    width: 1190px;
-    height: 195px;
-    background-color: rgb(255, 253, 253);
-    overflow: hidden;
-    left: 10px;
-      border-radius: 20px;
-}
-.contenedorImagenes{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    gap: 15px;
-  
-}
-.imagenes{
-    width:calc(100%/5) ;
-    margin-left: 20px;
-    border-radius: 20px;
-}
-.imagenes img{
-    width: 240px;
-    height: 80%;
-    border-radius: 20px;
-}
-.categoriaImg{
-    margin-top: 230px;
-}
-.imagenes h5{
-    color: #4121a1;
+.prueba{
+    display:flex;
+    margin: auto;
     font-size: 30px;
+    gap: 5px;
+    padding: 10px;
 }
-.btnIimagenes:hover,.btnDimagenes:hover{
-    color:white;
-}
-.btnIimagenes,.btnDimagenes{
-    display: flex;
-    position: absolute;
-    font-size: 2rem;
-    top: 212%; 
-    background-color: transparent;
-    border-radius: 50%;
-    padding: 5px;
-    font-weight: 600;
-    cursor: pointer;
-    color: #e70682e4;
-    transform: translate(0,-50%);
-    transition: .5s ease;
-    user-select: none;
-}
-.btnDimagenes{
-    right: 10px;
-}
-.btnIimagenes{
-    left: 10px;
-}  

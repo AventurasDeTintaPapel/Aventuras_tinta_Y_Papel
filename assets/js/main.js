@@ -44,7 +44,7 @@ function moveToLeft(){
 }
 
 // Variables del carrusel de novedades
-const btnI = document.querySelector(".botonINovedades");
+const btnI = document.querySelector(".botonINoveddes");
 const btnD = document.querySelector(".botonDNovedades");
 const carruselNovedades = document.querySelector("#contenedorTarjetas");
 const tarjetas = document.querySelectorAll(".tarjetas");
@@ -88,7 +88,7 @@ function moveToD() {
         tarjeta.style.transition = "all ease .2s";
     });
 }
-// Variables del carrusel de novedades
+// Variables del carrusel de categorias
 const btnImg = document.querySelector(".btnIimagenes");
 const btnDImg = document.querySelector(".btnDimagenes");
 const carruselCategoria = document.querySelector("#contenedorImagenes");
@@ -127,5 +127,92 @@ function moveToDimg() {
     imagenes.forEach(imagen => {
         imagen.style.transform = `translateX(-${operacionImg}%)`;
         imagen.style.transition = "all ease .6s";
+    });
+}
+// Variables del carrusel de 
+const btnI2 = document.querySelector(".botonIPreventa");
+const btnD2 = document.querySelector(".botonDPreventa");
+const carruselPreventa = document.querySelector("#contenedorTarjetas");
+const tarjetas2 = document.querySelectorAll(".tarjetas");
+
+// Eventos
+btnI.addEventListener('click', (e) => moveToI());
+btnD.addEventListener('click', (e) => moveToD());
+
+let operacion2 = 0;
+let contador2 = 0;
+let whitdImg4 = 100 / tarjetas.length;
+
+function moveToI() {
+    contador2--;
+    if (contador2 < 0) {
+        contador2 = tarjetas.length ;
+        operacion2 = whitdImg4 * (tarjetas.length );
+        tarjetas.forEach(tarjeta => {
+            tarjeta.style.transform = `translate(-${operacion2}%)`;
+            tarjeta.style.transition = "all ease .2s";
+        });
+    } else {
+        operacion2 = operacion2 - whitdImg4;
+        tarjetas.forEach(tarjeta => {
+            tarjeta.style.transform = `translate(-${operacionN}%)`;
+            tarjeta.style.transition = "all ease .2s";
+        });
+    }
+}
+
+function moveToD() {
+    if (contador2 >= tarjetas.length ) {
+        contador2 = 0;
+        operacion2 = 0;
+    } else {
+        contador2++;
+        operacion2 = operacion2 + whitdImg2;
+    }
+    tarjetas.forEach(tarjeta => {
+        tarjeta.style.transform = `translate(-${operacion2}%)`;
+        tarjeta.style.transition = "all ease .2s";
+    });
+}
+// Variables del carrusel de novedades
+// Variables del carrusel de novedades
+const btnI3 = document.querySelector(".botonIrecomendados");
+const btnD3 = document.querySelector(".botonDrecomendados");
+const carruselNovedades3 = document.querySelector("#contenedorTarjetas3");
+const tarjetas3 = document.querySelectorAll(".tarjetas");
+
+// Eventos
+btnI3.addEventListener('click', (e) => moveToI());
+btnD3.addEventListener('click', (e) => moveToD());
+
+let operacion3 = 0;
+let contador3 = 0;
+let widthImg5 = 100 / tarjetas3.length;
+
+function moveToI() {
+    contador3--;
+    if (contador3 < 0) {
+        contador3 = tarjetas3.length - 1;
+        operacion3 = widthImg5 * (tarjetas3.length - 1);
+    } else {
+        operacion3 = operacion3 - widthImg5;
+    }
+    tarjetas3.forEach(tarjeta => {
+        tarjeta.style.transform = `translateX(-${operacion3}%)`;
+        tarjeta.style.transition = "all ease .2s";
+    });
+}
+
+function moveToD() {
+    contador3++;
+    if (contador3 >= tarjetas3.length) {
+        contador3 = 0;
+        operacion3 = 0;
+    } else {
+        operacion3 = operacion3 + widthImg5;
+    }
+    tarjetas3.forEach(tarjeta => {
+        tarjeta.style.transform = `translateX(-${operacion3}%)`;
+        tarjeta.style.transition = "all ease .2s";
     });
 }
