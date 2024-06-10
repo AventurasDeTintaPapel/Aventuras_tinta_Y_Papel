@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Yatra+One&display=swap');
 
 :root{
-    --color-linea: rgb(87, 15, 139);
-    --color-titulo: rgb(105, 37, 124);
+    --color-linea: rgb(50, 14, 193);
+    --color-titulo: rgb(53, 31, 181);
     --color-header-footer: #573bb6;
-    --color-subtitulos:rgb(118, 85, 117);
+    --color-subtitulos:rgb(43, 82, 160);
     --letra-font: "Permanent Marker", cursive;
 }
 
 body{
     display: grid;
-    grid-template-columns: 1fr 20%;
+    grid-template-columns: 1fr 30%;
     grid-template-rows: auto 60px 1fr auto;
     
     margin: 0;
@@ -177,12 +177,10 @@ main{
 .btnProductoDirecto{
     padding: 10px 0px 10px 0px ;
     width: 100%;
-    border: 1px solid;
+    border: 2px solid;
     text-decoration: none;
     color: black;
-    background-color: rgb(87, 15, 139);
-    color: aliceblue;
-
+    background-color: aliceblue;
 }
 
 .contenedorProductos{
@@ -195,7 +193,6 @@ main{
 .inconoFavoritos{
     color: var(--color-linea);
     width: 80px;
-    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -206,14 +203,13 @@ main{
 }
 
 .producto{
-    /* border: 1px solid; */
-    background-color: rgb(239, 239, 240);
-    width:250px;
+    border: 1px solid;
+    width:200px;
 }
 
-/* .productoContainer{
+.productoContainer{
     margin: 20px 20px 0px 20px;
-} */
+}
 
 .producto img{
     width: 100%;
