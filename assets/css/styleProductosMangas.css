@@ -4,12 +4,14 @@
     --color-linea: rgb(87, 15, 139);
     --color-titulo: rgb(105, 37, 124);
     --color-header-footer: #573bb6;
+    --color-subtitulos:rgb(118, 85, 117);
+    --letra-font: "Permanent Marker", cursive;
 }
 
 body{
     display: grid;
     grid-template-columns: 1fr 30%;
-    grid-template-rows: 200px 60px 1fr 20%;
+    grid-template-rows: auto 60px 1fr auto;
     
     margin: 0;
     padding: 0;
@@ -19,6 +21,7 @@ body{
 header{
     grid-row: 1;
     grid-column: 1/3;
+
 }
 
 .contenedorHeader{
@@ -77,6 +80,7 @@ header{
 
 
 /* nav */
+
 ul, li {
     list-style: none;
 }
@@ -84,6 +88,8 @@ ul, li {
 .Nav, .botonNav {
     display: flex;
     align-items: center;
+    color: aliceblue;
+    font-size: 1.7vw;
 }
 
 
@@ -92,13 +98,11 @@ nav{
     background-color: #4121a1;
 }
 
-ul a {
+ul .botonNav {
     text-decoration: none;
-    color: white;
-    display: block;
 }
 
-ul a:hover {
+ul .botonNav:hover {
     background-color: rgba(115, 43, 192, 0.9);
     font-size: 2vw;
     padding: 3px;
@@ -111,9 +115,10 @@ ul a:hover {
     justify-content: center;
 }
 
-.botonNav, li a {
+.botonNav1{
     color: white;
     font-size: 2vw;
+    text-decoration: none;
 }
 
 
@@ -132,6 +137,12 @@ ul a:hover {
     background-color: #4121a16f;
 }
 
+.contenedorNav li :hover{
+    background-color: var(--color-linea);
+    padding: 10px;
+}
+
+
 .contenedorNav {
     z-index: 1;
     position: relative;
@@ -143,6 +154,7 @@ main{
     grid-column: 1;
     grid-row: 3;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .cotainerInfoPro{
@@ -210,6 +222,7 @@ main{
     font-family: "Permanent Marker", cursive;
     font-weight: 100;
     font-style: normal;
+    margin-top: 20px;
 
     display: flex;
     align-items: center;
@@ -223,6 +236,12 @@ main{
     margin-top: 7px;
 }
 
+.SubTituloAside{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 100;
+    font-style: normal;
+    margin-top: 7px;
+}
 
 .tituloProManga p{
     margin-inline: 10px;
@@ -254,13 +273,84 @@ main{
     color: var(--color-titulo);
 }
 
+.filtrodosPrecios{
+    display: flex;
+    width: 80%;
+    gap: 20px;
+
+    color: var(--color-subtitulos);
+}
+
+.filtroPArt2 h2{
+    margin-top: 10px;
+    color: var(--color-subtitulos);
+}
+
+.Filtro{
+    width: 50%;
+}
+
+.Filtro h3{
+    margin-bottom: 0;
+}
+
+.inputPrecio{
+    width: 80%;
+}
+
+.SubTituloAside p{
+    margin-bottom: 0;
+    font-size: 20px;
+    color: var(--color-titulo);
+}
+
 aside{
     grid-column: 2 ;
     grid-row: 3;
+}
+
+
+.filtroLi {
+    color:var(--color-subtitulos);
+    text-decoration: none;
 }
 
 footer{
     background-color: var(--color-header-footer);
     grid-row: 4;
     grid-column: 1/3;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer1, .footer2{
+    width: 50%;
+    padding: 0px 0px 0px 3%;
+
+}
+
+.infoFooter1 p, .footer2 h2,li{
+    color: aliceblue;
+    font-family: var(--letra-font);
+    font-weight: 100;
+    font-style: normal;
+
+    font-size: 1.5vw;
+}
+
+.listaFooter, #listaFooter{
+    color: aliceblue;
+    text-decoration: none;
+    list-style: disc ;
+}
+
+
+.tituloFooter{
+    display: flex;
+    width: 100%;
+}
+
+b{
+    font-size: 2.5vw;
 }
