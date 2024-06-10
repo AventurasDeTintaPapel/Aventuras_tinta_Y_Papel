@@ -1,11 +1,14 @@
-body {
+main {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     height: 100vh;
-    margin: 0;
+    margin: 10px;
+    margin: 10px;
+    gap: 5px;
 }
 
 .product-card {
@@ -32,18 +35,30 @@ body {
 }
 
 .product-title {
+    text-align: center;
     font-size: 1.2em; /* Reduce el tamaño de fuente */
     margin: 0 0 8px 0; /* Reduce el margen inferior */
 }
 
 .product-description {
+    text-align: center;
     font-size: 0.9em; /* Reduce el tamaño de fuente */
     color: #555;
     margin: 0 0 12px 0; /* Reduce el margen inferior */
 }
 
+.containerInfoPro{
+display: flex;
+align-items: center;
+justify-content: space-evenly;
+}
+
+.button-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 2px;
+}
 .product-button {
-    display: block;
     width: 100%;
     padding: 8px; /* Reduce el padding */
     background-color: #007bff;
