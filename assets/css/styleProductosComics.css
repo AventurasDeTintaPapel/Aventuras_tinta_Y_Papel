@@ -6,7 +6,7 @@
     --color-header-footer: #573bb6;
     --color-subtitulos:rgb(72, 100, 201);
     --letra-font: "Permanent Marker", cursive;
-} 
+}
 
 body{
     display: grid;
@@ -178,7 +178,7 @@ main{
     border: 1px solid;
     text-decoration: none;
     color: black;
-    background-color: rgb(22, 49, 138);
+    background-color:  rgb(22, 49, 138);
     color: aliceblue;
 
 }
@@ -191,7 +191,7 @@ main{
 }
 
 .inconoFavoritos{
-    color: var(--color-linea);
+    color: rgb(21, 15, 139);
     width: 80px;
     font-size: 30px;
     display: flex;

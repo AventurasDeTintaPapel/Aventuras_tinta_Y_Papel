@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Yatra+One&display=swap');
 
 :root{
-    --color-linea: rgb(87, 15, 139);
-    --color-titulo: rgb(105, 37, 124);
+    --color-linea: rgb(21, 15, 139);
+    --color-titulo: rgb(37, 54, 124);
     --color-header-footer: #573bb6;
-    --color-subtitulos:rgb(118, 85, 117);
+    --color-subtitulos:rgb(72, 100, 201);
     --letra-font: "Permanent Marker", cursive;
 }
 
@@ -81,15 +81,13 @@ header{
 
 /* nav */
 
-ul, li {
-    list-style: none;
-}
-
 .Nav, .botonNav {
     display: flex;
     align-items: center;
     color: aliceblue;
     font-size: 1.7vw;
+
+    list-style: none;
 }
 
 
@@ -103,7 +101,6 @@ ul .botonNav {
 }
 
 ul .botonNav:hover {
-    background-color: rgba(115, 43, 192, 0.9);
     font-size: 2vw;
     padding: 3px;
     margin-left: -20px;
@@ -138,8 +135,8 @@ ul .botonNav:hover {
 }
 
 .contenedorNav li :hover{
-    background-color: var(--color-linea);
-    padding: 10px;
+    background-color: #4121a16f;
+    padding: 5px;
 }
 
 
@@ -180,7 +177,7 @@ main{
     border: 1px solid;
     text-decoration: none;
     color: black;
-    background-color: rgb(87, 15, 139);
+    background-color: rgb(22, 49, 138);
     color: aliceblue;
 
 }
@@ -193,7 +190,7 @@ main{
 }
 
 .inconoFavoritos{
-    color: var(--color-linea);
+    color: rgb(21, 15, 139);
     width: 80px;
     font-size: 30px;
     display: flex;
@@ -206,14 +203,9 @@ main{
 }
 
 .producto{
-    /* border: 1px solid; */
-    background-color: rgb(239, 239, 240);
+    background-color: rgb(247, 247, 247);
     width:250px;
 }
-
-/* .productoContainer{
-    margin: 20px 20px 0px 20px;
-} */
 
 .producto img{
     width: 100%;
@@ -230,7 +222,6 @@ main{
 
     display: flex;
     align-items: center;
-    font-size: 30px;
 }
 
 .tituloAside{
@@ -250,6 +241,7 @@ main{
 .tituloProManga p{
     margin-inline: 10px;
     color: var(--color-titulo);
+    font-size: 2.5vw;
 }
 
 .linea1{
@@ -273,8 +265,9 @@ main{
 
 .tituloAside p{
     margin-bottom: 0;
-    font-size: 20px;
     color: var(--color-titulo);
+
+    font-size: 2vw;
 }
 
 .filtrodosPrecios{
@@ -285,17 +278,24 @@ main{
     color: var(--color-subtitulos);
 }
 
-.filtroPArt2 h2{
+.filtroPArt2 p{
     margin-top: 10px;
     color: var(--color-subtitulos);
+
+    font-size: 1.8vw;
 }
 
 .Filtro{
     width: 50%;
 }
 
-.Filtro h3{
+.listaDeCategorias ul li{
+    color: var(--color-titulo);
+}
+
+.Filtro p{
     margin-bottom: 0;
+    font-size: 1.3vw;
 }
 
 .inputPrecio{
@@ -304,8 +304,9 @@ main{
 
 .SubTituloAside p{
     margin-bottom: 0;
-    font-size: 20px;
     color: var(--color-titulo);
+
+    font-size: 2vw;
 }
 
 aside{
@@ -317,6 +318,8 @@ aside{
 .filtroLi {
     color:var(--color-subtitulos);
     text-decoration: none;
+
+    font-size: 1.3vw;
 }
 
 footer{
@@ -326,34 +329,43 @@ footer{
 
     display: flex;
     justify-content: space-around;
+    padding-bottom: 20px;
 }
 
 .footer1, .footer2{
     width: 50%;
-    padding: 0px 0px 0px 3%;
+    padding-inline: 3%;
 
 }
 
-.infoFooter1 p, .footer2 h2,li{
+.footer1 p{
     color: aliceblue;
     font-family: var(--letra-font);
     font-weight: 100;
     font-style: normal;
+    font-size: 1.5vw;
+
+    margin-bottom: 0px;
+}
+
+.footer2 h2, .listaFooter{
+    color: aliceblue;
+    font-family: var(--letra-font);
+    font-weight: 100;
+    font-style: normal;
+    text-align: center;
 
     font-size: 1.5vw;
 }
 
-.listaFooter, #listaFooter{
+.listaFooter{
+    display: flex;
+    flex-direction: column;
     color: aliceblue;
     text-decoration: none;
-    list-style: disc ;
+    text-align: center;
 }
 
-
-.tituloFooter{
-    display: flex;
-    width: 100%;
-}
 
 b{
     font-size: 2.5vw;
