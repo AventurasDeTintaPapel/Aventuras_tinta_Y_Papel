@@ -32,3 +32,8 @@ main {
     margin-bottom: 5px;
     
 }
+
+#payment_method{
+    width: 255px;
+    height: 35px;
+}
