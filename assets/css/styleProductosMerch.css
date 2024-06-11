@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Yatra+One&display=swap');
+
+:root{
+    --color-linea: rgb(21, 15, 139);
+    --color-titulo: rgb(37, 54, 124);
+    --color-header-footer: #573bb6;
+    --color-subtitulos:rgb(72, 100, 201);
+    --letra-font: "Permanent Marker", cursive;
+} 
+
+body{
+    display: grid;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: auto 60px 1fr auto;
+    
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+header{
+    grid-row: 1;
+    grid-column: 1/3;
+
+}
+
+.contenedorHeader{
+    background-color: var(--color-header-footer);
+}
+.contenedorHeader{
+    display: flex;
+}
+
+.imgLogo{
+    width: 200px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 2%;
+}
+
+
+.buscador{
+    margin: 35px 40px;
+    width: 100%;
+}
+
+.barradelBuscador{
+    width: 96%;
+    height: 40px ; 
+    border-radius: 25px;
+    position: relative;
+}
+
+.lupita{
+    position: absolute;
+    top: 41px;
+    margin-left: -45px;
+}
+
+
+/*botones del*/
+.ususario, .corazon, .carrito {
+    background-color: aliceblue;
+    border-radius: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    color: black;
+    height: 20px; 
+}
+
+.BotonesDelHeader {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    margin-right: 60px;
+}
+
+
+/* nav */
+
+
+.Nav, .botonNav {
+    display: flex;
+    align-items: center;
+    color: aliceblue;
+    font-size: 1.7vw;
+
+    list-style: none;
+}
+
+
+nav{
+    padding: 9px 0 9px 0;
+    background-color: #4121a1;
+}
+
+ul .botonNav {
+    text-decoration: none;
+}
+
+ul .botonNav:hover {
+    font-size: 2vw;
+    padding: 3px;
+    margin-left: -20px;
+}
+
+
+.Nav{
+    gap: 5%;
+    justify-content: center;
+}
+
+.botonNav1{
+    color: white;
+    font-size: 2vw;
+    text-decoration: none;
+}
+
+
+.contenedorNav li ul {
+    display: none;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+.contenedorNav li:hover > ul {
+    display: block;
+    background-color: #4121a16f;
+}
+
+.contenedorNav li :hover{
+    background-color: #4121a16f;
+    padding: 5px;
+}
+
+
+.contenedorNav {
+    z-index: 1;
+    position: relative;
+}
+
+
+/*main*/
+main{
+    grid-column: 1;
+    grid-row: 3;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.cotainerInfoPro{
+    display: flex;
+    align-items: center;
+    margin-inline: 2%;
+}
+
+.botonesProducto p{
+    margin-top: 0;
+    margin-left: 10%;
+}
+
+.comprProd{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btnProductoDirecto{
+    padding: 10px 0px 10px 0px ;
+    width: 100%;
+    border: 1px solid;
+    text-decoration: none;
+    color: black;
+    background-color: rgb(22, 49, 138);
+    color: aliceblue;
+
+}
+
+.contenedorProductos{
+    justify-content: center;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.inconoFavoritos{
+    color: var(--color-linea);
+    width: 80px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comprProd{
+    text-align: center;
+}
+
+.producto{
+    background-color:rgb(247, 247, 247);
+    width:200px;
+}
+
+.producto img{
+    width: 100%;
+}
+
+.tituloProManga{
+    grid-column: 1/3;
+    grid-row: 2;
+
+    font-family: "Permanent Marker", cursive;
+    font-weight: 100;
+    font-style: normal;
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+}
+
+.tituloAside{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 100;
+    font-style: normal;
+    margin-top: 7px;
+}
+
+.SubTituloAside{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 100;
+    font-style: normal;
+    margin-top: 7px;
+}
+
+.tituloProManga p{
+    margin-inline: 10px;
+    color: var(--color-titulo);
+    font-size: 2.5vw;
+}
+
+.linea1{
+    width: 5%;
+    height: 1px;
+    margin-top: 8px;
+    background-color: var(--color-linea);
+}
+
+.linea{
+    width: 100%;
+    height: 1px;
+    margin-top: 8px;
+    background-color: var(--color-linea);
+}
+
+.lineaAside{
+    height: 1px;
+    background-color: var(--color-linea);
+}
+
+.tituloAside p{
+    margin-bottom: 0;
+    font-size: 2vw;
+    color: var(--color-titulo);
+}
+
+.filtrodosPrecios{
+    display: flex;
+    width: 80%;
+    gap: 20px;
+
+    color: var(--color-subtitulos);
+}
+
+.filtroPArt2 p{
+    margin-top: 10px;
+    color: var(--color-subtitulos);
+
+    font-size: 1.8vw;
+}
+
+.Filtro{
+    width: 50%;
+}
+
+.Filtro p{
+    margin-bottom: 0;
+    font-size: 1.3vw;
+}
+
+.inputPrecio{
+    width: 80%;
+}
+
+.SubTituloAside p{
+    margin-bottom: 0;
+    font-size: 2vw;
+    color: var(--color-titulo);
+}
+
+aside{
+    grid-column: 2 ;
+    grid-row: 3;
+}
+
+
+.filtroLi {
+    color: var(--color-subtitulos);
+    text-decoration: none;
+
+    font-size: 1.3vw;
+}
+
+.listaDeCategorias ul li{
+    color: var(--color-titulo);
+}
+
+footer{
+    background-color: var(--color-header-footer);
+    grid-row: 4;
+    grid-column: 1/3;
+
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 20px;
+}
+
+.footer1, .footer2{
+    width: 50%;
+    padding-inline: 3%;
+
+}
+
+.footer1 p{
+    color: aliceblue;
+    font-family: var(--letra-font);
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.5vw;
+    margin-bottom: 0px;
+}
+
+.footer2 h2, .listaFooter{
+    color: aliceblue;
+    font-family: var(--letra-font);
+    font-weight: 100;
+    font-style: normal;
+    text-align: center;
+
+    font-size: 1.5vw;
+}
+
+.listaFooter{
+    display: flex;
+    flex-direction: column;
+    color: aliceblue;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+b{
+    font-size: 2.5vw;
+}
