@@ -33,8 +33,9 @@ header{
 
 .imgLogo{
     width: 200px;
-    height: 100px;
-    margin-top: 10px;
+    height: 200px;
+    margin-top: -20px;
+    margin-bottom: -40px;
     margin-left: 2%;
 }
 
