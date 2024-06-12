@@ -1,3 +1,5 @@
+
+
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Yatra+One&display=swap');
 
 :root{
@@ -5,8 +7,9 @@
     --color-titulo: rgb(37, 54, 124);
     --color-header-footer: #573bb6;
     --color-subtitulos:rgb(72, 100, 201);
+    --color-celular: rgb(137, 88, 230);
     --letra-font: "Permanent Marker", cursive;
-} 
+}
 
 body{
     display: grid;
@@ -15,6 +18,7 @@ body{
     
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 /* header */
@@ -25,10 +29,8 @@ header{
 }
 
 .contenedorHeader{
-    background-color: var(--color-header-footer);
-}
-.contenedorHeader{
     display: flex;
+    background-color: var(--color-header-footer);
 }
 
 .imgLogo{
@@ -60,7 +62,7 @@ header{
 
 
 /*botones del*/
-.ususario, .corazon, .carrito {
+.ususario, .corazon, .carrito{
     background-color: aliceblue;
     border-radius: 100%;
     padding: 10px;
@@ -71,6 +73,7 @@ header{
     color: black;
     height: 20px; 
 }
+
 
 .BotonesDelHeader {
     display: flex;
@@ -121,8 +124,11 @@ ul .botonNav:hover {
 }
 
 
-.contenedorNav li ul {
+.Nav li ul {
+    list-style: none;
+
     display: none;
+
     position: absolute;
     width: 100%;
     text-align: center;
@@ -131,7 +137,7 @@ ul .botonNav:hover {
     transform: translateX(-50%); 
 }
 
-.contenedorNav li:hover > ul {
+.Nav li:hover > ul {
     display: block;
     background-color: #4121a16f;
 }
@@ -179,7 +185,7 @@ main{
     border: 1px solid;
     text-decoration: none;
     color: black;
-    background-color: rgb(22, 49, 138);
+    background-color:  rgb(22, 49, 138);
     color: aliceblue;
 
 }
@@ -192,7 +198,7 @@ main{
 }
 
 .inconoFavoritos{
-    color: var(--color-linea);
+    color: rgb(21, 15, 139);
     width: 80px;
     font-size: 30px;
     display: flex;
@@ -206,7 +212,7 @@ main{
 
 .producto{
     background-color:rgb(247, 247, 247);
-    width:200px;
+    width:250px;
 }
 
 .producto img{
@@ -238,12 +244,14 @@ main{
     font-weight: 100;
     font-style: normal;
     margin-top: 7px;
+
 }
 
 .tituloProManga p{
     margin-inline: 10px;
     color: var(--color-titulo);
     font-size: 2.5vw;
+
 }
 
 .linea1{
@@ -315,7 +323,7 @@ aside{
     color: var(--color-subtitulos);
     text-decoration: none;
 
-    font-size: 1.3vw;
+    font-size: 2vw;
 }
 
 .listaDeCategorias ul li{
@@ -368,4 +376,254 @@ footer{
 
 b{
     font-size: 2.5vw;
+}
+
+.asideCelular{
+    display: none;
+}
+
+.iconosManual{
+    display:none;
+    cursor: pointer;
+}
+
+.lupitaPepino{
+    display: none;
+    background-color: aliceblue;
+    border-radius: 100%;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    color: black;
+    height: 20px; 
+    display: none;
+    position: relative;
+    z-index: 2;
+}
+
+
+.barraIcono{
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out ;
+    transition: all 0.3s ease-in-out ;
+    background-color: aliceblue;
+}
+
+.navResposive{
+    align-items: center;
+    margin-inline: 3% ;
+    display: flex;
+}
+
+.barraBuscadorNAV{
+    display: none;
+}
+
+.barraBuscadorNAV.ON{
+    padding-left: 30px;
+    height: 27px;
+    left: 65px;
+    top: -2px;
+
+    border-radius: 20px;
+    width: 70%;
+    height: 30px;
+    transition: 2s;
+}
+
+.barraBuscadorNAV{
+    width: 0%;
+    height: 27px;
+    left: 75px;
+    top: -2px;
+    position: absolute;
+    z-index: 1;
+    border-radius: 20px;
+}
+
+
+.containerBuscador{
+    width: 60%;
+    background-color: antiquewhite;
+}
+
+
+
+@media(max-width:701px){
+    body{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 60px 1fr auto;
+    }
+
+/*todo lo relacionado con el HEADER*/
+    header{
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .botonesCElularNAV{
+        display: flex;
+        gap: 20px;
+    }
+
+    .lupitaPepino{
+        display: block;
+    }
+
+    .contenedorHeader{
+        justify-content: space-between;
+    }
+
+
+    .buscador{
+        display: none;
+    }
+
+
+    /*Nav*/
+
+    .iconosManual{
+        display: block;
+    }
+
+    .iconosManual.active.barraIcono:nth-child(2){
+        opacity: 0%;
+    }
+
+    .iconosManual.active.barraIcono:nth-child(1){
+        transform: translateY(8px) rotate(45deg) 
+    }
+
+    .iconosManual.active.barraIcono:nth-child(3){
+        transform: translateY(-8px) rotate(-45deg)
+    }
+
+    .Nav{
+        position: fixed;
+        left: -100%;
+        gap: 0;
+        top: auto;
+        width: 20%;
+        flex-direction: column;
+        background-color: #4121a1de;
+        transition: 0.3s;
+        align-items: start;
+        padding-left: 15px;
+    }
+
+    .botonNav1{
+        display: none;
+    }
+
+    .botonNav{
+        font-size: 18px;
+        margin: 10px 0px;
+    }
+
+    .Nav.active{
+        left:0;
+    }
+
+    .barraBuscadorNAV{
+        display: block;
+    }
+
+
+
+
+/*todo lo relacionado al ASIDE*/
+    aside{
+        grid-column: 1;
+        grid-row: 2 ;
+    }
+
+        /*esto es para cambiar de modo celular a pc*/
+
+    .asideTabletPC{
+        display: none;
+    }
+
+    .asideCelular{
+        display: block;
+    }
+
+    .categoriasFiltrosOff{
+        display: none;
+    }
+
+    .categoriasFiltrosOn{
+        text-align: center;
+        padding-top: 1px;
+        padding-bottom: 5px;
+        background-color: rgb(249, 231, 254);
+    }
+
+    .TitulosAsideDes{
+        font-size: 20px;
+        color: aliceblue;
+        height: 40px;
+        background-color: var(--color-celular);
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .filtroLiCelular{
+        font-size: 18px;
+        text-decoration: none;
+    }
+
+    .filtrodosPrecios{
+        text-align: center;
+        width: 100%;
+    }
+
+    .flechaAside{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenedorAsidePrecio p{
+        text-align: center;
+        font-size: 18px;
+        color: #4121a1;
+    }
+
+    .inputPrecio{
+        width: 50%;
+    }
+
+
+/*esta para es todo lo relacionado al MAIN*/
+
+    .tituloProManga{
+    grid-column: 1;
+    grid-row: 3;
+    }
+
+    .producto{
+        width: 65%;
+    }
+
+    main{
+        grid-column: 1;
+        grid-row: 4;
+    }
+
+/*esta para es todo lo relacionado al FOOTER*/
+    footer{
+        grid-column: 1;
+        grid-row: 5;
+    }
+
+
 }
