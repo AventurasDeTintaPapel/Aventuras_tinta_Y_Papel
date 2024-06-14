@@ -212,7 +212,7 @@ main{
 
 .producto{
     background-color:rgb(247, 247, 247);
-    width:250px;
+    width:200px;
 }
 
 .producto img{
@@ -611,7 +611,7 @@ b{
     }
 
     .producto{
-        width: 65%;
+        width: 230px;
     }
 
     main{
