@@ -14,7 +14,7 @@ app.use(express.json());
 
 
 //rutas
-
+app.use(require('./routers/auth.routes'))
 //configuracion del puerto
 const PORT = 3400;
 
