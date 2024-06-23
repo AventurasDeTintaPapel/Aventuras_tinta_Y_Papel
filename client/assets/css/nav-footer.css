@@ -70,14 +70,20 @@ header{
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    width: 20px;
+    width: 18px;
     color: black;
     height: 10px; 
 }
-.registros{
-    display: none;
+.usuarios{
+display: flex;
+color: white;
+text-decoration: none;
+gap: 6px;
 }
-
+#seccion{
+    list-style: none;
+    margin-top: 1.5%;
+}
 .BotonesDelHeader {
     display: flex;
     gap: 20px;
@@ -118,7 +124,6 @@ header{
     align-items: center;
     color: aliceblue;
     font-size: 1.7vw;
-
     list-style: none;
 }
 
