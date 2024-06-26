@@ -26,5 +26,5 @@ const validarJWT = async (token) => {
     }
 
 }
-
+    
 module.exports = validarJWT;

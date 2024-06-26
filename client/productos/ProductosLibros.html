@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-straight/css/uicons-regular-straight.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel="stylesheet" href="../assets/css/styleProductosMangas.css">
+    <link rel="stylesheet" href="../assets/css/styleProductos.css">
     <link rel="stylesheet" href="../assets/css/nav-footer.css">
     <title>Productos-Libros</title>
     <link rel="icon" href="../assets/css/imagenes/Boutique (2).png">
@@ -21,15 +22,16 @@
 
             </div>
             <div class="BotonesDelHeader">
-
-                <a href="../registro/login.html"><i class="ususario fi-ss-admin"></i></a>
-
+                <i id="btnUsuario" class="ususario fi-ss-admin"></i>
+                <div id="seccion">
+                
+                </div>
+                
                 <a href=""><i class="corazon fi-ss-heart"></i></a>
 
                 <a href=""><i class="carrito fi-ss-shopping-cart"></i></a>
 
             </div>
-            
     </div>
             <nav>
                 <div class="contenedorNav">
@@ -67,7 +69,7 @@
                                 <li><a class="botonNav1" href="../productos/ProductosLibros.html">Infatiles</a></li>
                             </ul>
                         </li>
-                        <li><a href="#" class="botonNav">Mangas</a>
+                        <li><a href="../productos/ProductosMangas.html" class="botonNav">Mangas</a>
                             <ul>
                                 <li><a class="botonNav1"  href="../productos/ProductosMangas.html">Shonen</a></li>
                                 <li><a class="botonNav1" href="../productos/ProductosMangas.html">Seinen</a></li>
@@ -104,7 +106,7 @@
 
                 </div>
             </nav>
-</header>
+    </header>
 
 <!-- titulo del producto -->
 <div class="tituloProManga">
@@ -115,151 +117,145 @@
 
 <!--main-->
 <main>
-<div class="contenedorProductos">
-
-
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
+    <div class="contenedorProductos">
+            <div class="producto">
+                        <img src="https://th.bing.com/th/id/OIP.5oRFEVCcgJc-JgRlggel2QHaLW?rs=1&pid=ImgDetMain" alt="">
+                        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+                        <p>Precio: </p>
+                        <div class="botonesProducto">
+                            <a href="">Detalles</a>
+                            <button id="comprar" >Comprar</button>
+                        </div>
             </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://i.pinimg.com/originals/ab/ec/d5/abecd51b79366c089872d1e88e6c7424.jpg" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://static-cse.canva.com/blob/439109/1024w-qIvQK6RTXxg.jpg" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://www.recreoviral.com/wp-content/uploads/2015/06/30-asombrosas-portadas-de-libros-28.jpg" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://th.bing.com/th/id/OIP.M3xv7KN64A6StoaXbJvKRAHaLI?rs=1&pid=ImgDetMain" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
+           <div class="producto">
+                        <img src="https://th.bing.com/th/id/OIP.5oRFEVCcgJc-JgRlggel2QHaLW?rs=1&pid=ImgDetMain" alt="">
+                        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+                        <p>Precio: </p>
+                        <div class="botonesProducto">
+                            <a href="">Detalles</a>
+                            <button id="comprar" >Comprar</button>
+                        </div>
             </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://i.pinimg.com/originals/ab/ec/d5/abecd51b79366c089872d1e88e6c7424.jpg" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://static-cse.canva.com/blob/439109/1024w-qIvQK6RTXxg.jpg" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://www.recreoviral.com/wp-content/uploads/2015/06/30-asombrosas-portadas-de-libros-28.jpg" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://th.bing.com/th/id/OIP.M3xv7KN64A6StoaXbJvKRAHaLI?rs=1&pid=ImgDetMain" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
+  
+            <div class="producto">
+                <img src="https://th.bing.com/th/id/OIP.5oRFEVCcgJc-JgRlggel2QHaLW?rs=1&pid=ImgDetMain" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+                <p>Precio: </p>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
+                </div>
+            </div>
+            <div class="producto">
+        <img src="https://i.pinimg.com/originals/ab/ec/d5/abecd51b79366c089872d1e88e6c7424.jpg" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+            </div>
+            <div class="producto">
+        <img src="https://static-cse.canva.com/blob/439109/1024w-qIvQK6RTXxg.jpg" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+            </div>
+            <div class="producto">
+        <img src="https://www.recreoviral.com/wp-content/uploads/2015/06/30-asombrosas-portadas-de-libros-28.jpg" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+            </div>
+            <div class="producto">
+        <img src="https://th.bing.com/th/id/OIP.M3xv7KN64A6StoaXbJvKRAHaLI?rs=1&pid=ImgDetMain" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+            </div>
+
     </div>
-
-
-
 </main>
 
 <aside>
@@ -296,7 +292,7 @@
 
     <div class="asideTabletPC">
         <div class="tituloAside">
-            <p>CATEROGORIAS</p>
+            <p>CATEGORIAS</p>
             <div class="lineaAside"></div>
         </div>
         <div class="listaDeCategorias">
@@ -350,7 +346,9 @@
 </footer>
 
     <!--vinculaciones con js y boostrap-->
-
+    <script src="../assets/js/auten.js"></script>
     <script src="assets/js/ProductosLibros.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/producto.js"></script>
 </body>
 </html>

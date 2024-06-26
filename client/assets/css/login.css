@@ -29,7 +29,7 @@ label{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
-#nombre-usuario{
+#usuario{
     width: 400px;
     height: 40px;
     border: 1px solid;
@@ -45,7 +45,7 @@ label{
     border-color: rgb(228, 226, 222)
 }
 
-p{
+.link2{
 color: white;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }

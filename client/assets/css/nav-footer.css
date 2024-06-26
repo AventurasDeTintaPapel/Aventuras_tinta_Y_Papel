@@ -75,15 +75,10 @@ header{
     height: 10px; 
 }
 .usuarios{
-display: flex;
 color: white;
 text-decoration: none;
-gap: 6px;
 }
-#seccion{
-    list-style: none;
-    margin-top: 1.5%;
-}
+
 .BotonesDelHeader {
     display: flex;
     gap: 20px;
@@ -91,11 +86,7 @@ gap: 6px;
     margin-right: 60px;
 }
 
-.botonesDelHeader .ususario:hover> .registros {
-    display: block;
-    background-color: #512bc2;
 
-}
 .BotonesDelHeader .ususario {
     position: relative;
 }

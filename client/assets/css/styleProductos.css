@@ -1,25 +1,31 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Yatra+One&display=swap');
 
 :root{
     --color-linea: rgb(21, 15, 139);
     --color-titulo: rgb(37, 54, 124);
-    --color-header-footer: #3e15c3;
+    --color-header-footer: #573bb6;
     --color-subtitulos:rgb(72, 100, 201);
     --color-celular: rgb(137, 88, 230);
     --letra-font: "Permanent Marker", cursive;
 }
 
-body{    
+body{
+    display: grid;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: auto 60px 1fr auto;
+    
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
 /*main*/
 main{
     grid-column: 1;
-    grid-row: 3;
+    /* grid-row: 3; */
     margin-bottom: 20px;
     margin-top: 20px;
 }
@@ -60,25 +66,32 @@ main{
 }
 
 .inconoFavoritos{
-    color: rgb(21, 15, 139);
-    width: 80px;
-    font-size: 30px;
+    color:rgb(107, 50, 212);
+    width: 20px;
+}
+
+.producto h2{
+    font-size: 20px;
+}
+.botonesProducto a ,button{
+    padding: 12px 32px 12px 32px ;
+    text-decoration: none;
+    color: black;
+    background-color: #4121a1;
+    border-radius: 10px;
+    outline: none;
+    color: aliceblue;
+}
+.botonesProducto{
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.comprProd{
-    text-align: center;
-}
-
-.producto{
-    background-color:rgb(247, 247, 247);
-    width:200px;
+    flex-wrap: wrap;
+    width: 150%;
+    gap: 4px;
+    
 }
 
 .producto img{
-    width: 100%;
+    width: 250px;
 }
 
 .tituloProManga{
@@ -190,16 +203,6 @@ aside{
 
 .listaDeCategorias ul li{
     color: var(--color-titulo);
-}
-
-
-.asideCelular{
-    display: none;
-}
-
-.iconosManual{
-    display:none;
-    cursor: pointer;
 }
 
 
@@ -362,12 +365,19 @@ aside{
     }
 
     .producto{
-        width: 230px;
+        width: 65%;
     }
 
     main{
         grid-column: 1;
         grid-row: 4;
     }
+
+/*esta para es todo lo relacionado al FOOTER*/
+    footer{
+        grid-column: 1;
+        grid-row: 5;
+    }
+
 
 }

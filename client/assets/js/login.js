@@ -36,7 +36,7 @@ const login = async (e) => {
         localStorage.setItem('token', respuesta.token);
 
         // Redirigimos al usuario a la landingPage.
-        window.location.href = 'http://127.0.0.1:5500/Aventuras_tinta_Y_Papel/client/inicio/inicio.html'
+        window.location.href = 'http://127.0.0.1:5501/client/inicio/inicio.html'
     }
 
 }

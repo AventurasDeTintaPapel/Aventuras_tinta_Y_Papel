@@ -36,7 +36,7 @@ const register = async (e) => {
         alert(respuesta.msg)
 
         // Redirigimos al usuario al login.
-        window.location.href ='http://127.0.0.1:5500/Aventuras_tinta_Y_Papel/client/registro/login.html'
+        window.location.href ='/client/registro/login.html'
 
     }
 }

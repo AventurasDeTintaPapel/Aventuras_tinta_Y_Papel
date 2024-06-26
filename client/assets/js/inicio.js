@@ -29,7 +29,7 @@ function moveToRight() {
         carrusel.style.transition= "all ease .6s"
     }
 }
-     console.log(moveToRight() ,counter);
+
 function moveToLeft(){
     counter--;
     if(counter<0){
@@ -43,37 +43,37 @@ function moveToLeft(){
     }
 }
 
-const botonActivacion = document.getElementById("TitulosAsideDes")
-const iconosManual = document.querySelector(".iconosManual");
-const NAV = document.querySelector(".Nav");
-const botonNav = document.querySelector(".botonNav");
-const lupitaPepino = document.getElementById("lupitaPepino")
+// const botonActivacion = document.getElementById("TitulosAsideDes")
+// const iconosManual = document.querySelector(".iconosManual");
+// const NAV = document.querySelector(".Nav");
+// const botonNav = document.querySelector(".botonNav");
+// const lupitaPepino = document.getElementById("lupitaPepino")
 
-botonActivacion.addEventListener("click", ()=>{
+// botonActivacion.addEventListener("click", ()=>{
 
-    const categoriasFiltros = document.getElementById("categoriasFiltros")
+//     const categoriasFiltros = document.getElementById("categoriasFiltros")
 
-    if (categoriasFiltros.className == "categoriasFiltrosOff"){
-        categoriasFiltros.className = "categoriasFiltrosOn"
-    }
-    else{
-        categoriasFiltros.className = "categoriasFiltrosOff"
-    }
-})
-
-
-iconosManual.addEventListener("click",()=>{
-    iconosManual.classList.toggle("active");
-    NAV.classList.toggle("active");
-    botonNav.classList.toggle("active")
-})
+//     if (categoriasFiltros.className == "categoriasFiltrosOff"){
+//         categoriasFiltros.className = "categoriasFiltrosOn"
+//     }
+//     else{
+//         categoriasFiltros.className = "categoriasFiltrosOff"
+//     }
+// })
 
 
+// iconosManual.addEventListener("click",()=>{
+//     iconosManual.classList.toggle("active");
+//     NAV.classList.toggle("active");
+//     botonNav.classList.toggle("active")
+// })
 
-lupitaPepino.addEventListener("click", ()=>{
 
-    const buscador = document.getElementById("barraBuscadorNAV")
 
-    buscador.classList.toggle("ON");
+// lupitaPepino.addEventListener("click", ()=>{
 
-} )
+//     const buscador = document.getElementById("barraBuscadorNAV")
+
+//     buscador.classList.toggle("ON");
+
+// } )

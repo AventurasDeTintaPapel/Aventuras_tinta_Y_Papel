@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-straight/css/uicons-regular-straight.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel="stylesheet" href="./assets/css/styleProductosMerch.css">
+    <link rel="stylesheet" href="../assets/css/styleProductos.css">
+    <link rel="stylesheet" href="../assets/css/nav-footer.css">
     <title>Productos-Merch</title>
     <link rel="icon" href="./assets/css/imagenes/Boutique (2).png">
 
 </head>
 <body>
-<header>
     <header>
         <div class="contenedorHeader">
             <img class="imgLogo" src="../assets/css/img/Aventuras (3) (1).png" alt="">
@@ -21,15 +22,16 @@
 
             </div>
             <div class="BotonesDelHeader">
-
-                <a href="../registro/login.html"><i class="ususario fi-ss-admin"></i></a>
-
+                <i id="btnUsuario" class="ususario fi-ss-admin"></i>
+                <div id="seccion">
+                
+                </div>
+                
                 <a href=""><i class="corazon fi-ss-heart"></i></a>
 
                 <a href=""><i class="carrito fi-ss-shopping-cart"></i></a>
 
             </div>
-            
     </div>
             <nav>
                 <div class="contenedorNav">
@@ -67,7 +69,7 @@
                                 <li><a class="botonNav1" href="../productos/ProductosLibros.html">Infatiles</a></li>
                             </ul>
                         </li>
-                        <li><a href="#" class="botonNav">Mangas</a>
+                        <li><a href="../productos/ProductosMangas.html" class="botonNav">Mangas</a>
                             <ul>
                                 <li><a class="botonNav1"  href="../productos/ProductosMangas.html">Shonen</a></li>
                                 <li><a class="botonNav1" href="../productos/ProductosMangas.html">Seinen</a></li>
@@ -77,7 +79,7 @@
                                 <li><a class="botonNav1" href="../productos/ProductosMangas.html">Boyslove</a></li>
                             </ul>
                         </li>
-                        <li><a href="#" class="botonNav">Comics</a>
+                        <li><a href="../productos/ProductosComics.html" class="botonNav">Comics</a>
                             <ul>
                                 <li><a class="botonNav1" href="../productos/ProductosComics.html">Superhéroes</a></li>
                                 <li><a class="botonNav1" href="../productos/ProductosComics.html">Ciencia Ficción</a></li>
@@ -89,7 +91,7 @@
                                 <li><a class="botonNav1" href="../productos/ProductosComics.html">Histórico</a></li>
                             </ul>
                         </li>
-                        <li><a href="#" class="botonNav">Merch</a>
+                        <li><a href="../productos/ProductosMerch.html" class="botonNav">Merch</a>
                             <ul>
                                 <li><a class="botonNav1" href="../productos/ProductosMerch.html">Mangas</a></li>
                                 <li><a class="botonNav1" href="../productos/ProductosMerch.html"">Libros</a></li>
@@ -104,7 +106,7 @@
 
                 </div>
             </nav>
-</header>
+    </header>
 
 <!-- titulo del producto -->
 <div class="tituloProManga">
@@ -115,153 +117,172 @@
 
 <!--main-->
 <main>
-<div class="contenedorProductos">
-
-
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
+    <div class="contenedorProductos">
+            <div class="producto">
+                        <img src="https://www.emp-online.es/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dwc2dc6b96/images/5/4/7/5/547534a.jpg?sw=255&sh=250&sm=fit&sfrm=png" alt="">
+                        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+                        <p>Precio: </p>
+                        <div class="botonesProducto">
+                            <a href="">Detalles</a>
+                            <button id="comprar" >Comprar</button>
+                        </div>
             </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://th.bing.com/th/id/OIP.fpU-9svAw0Lxgc6QrkP8iQHaHa?w=1243&h=1243&rs=1&pid=ImgDetMain" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://th.bing.com/th/id/OIP.sc8jaUebGnTjb1bvPLDaiwAAAA?rs=1&pid=ImgDetMain" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://th.bing.com/th/id/OIP.iBikA_JW9u4harN6lPTkHwHaHC?w=800&h=760&rs=1&pid=ImgDetMain" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://i.pinimg.com/originals/f4/88/95/f4889593a61a6a656941ed49bda5622f.jpg" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://th.bing.com/th/id/R.a8a53d1beaa4d6ecc65f50aa805b8291?rik=uvf6UzM7FF%2flEQ&pid=ImgRaw&r=0" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
             </div>
-    </div>
-
-    
-    <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
-        </div>
-            <div class="botonesProducto">
+            <div class="producto">
+                <img src="https://www.emp-online.es/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dwc2dc6b96/images/5/4/7/5/547534a.jpg?sw=255&sh=250&sm=fit&sfrm=png" alt="">
+                <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
                 <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
+                <div class="botonesProducto">
+                    <a href="">Detalles</a>
+                    <button id="comprar" >Comprar</button>
                 </div>
-            </div>
     </div>
-
-    
     <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
+        <img src="https://th.bing.com/th/id/OIP.fpU-9svAw0Lxgc6QrkP8iQHaHa?w=1243&h=1243&rs=1&pid=ImgDetMain" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
         </div>
-            <div class="botonesProducto">
-                <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
-                </div>
-            </div>
     </div>
-
-    
     <div class="producto">
-        <div class="productoContainer">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqLrvpUA6P--6U1Tm6wcGFyZizR9ebFtm2G0GIigT6hw3UeU3LPfUpR8HobYPwyZpxOI&usqp=CAU" alt="">
-            <div class="cotainerInfoPro">
-                <h2>Titulo del Producto</h2>
-                <i class="inconoFavoritos fi-ss-heart"></i>
-            </div>
+        <img src="https://th.bing.com/th/id/OIP.sc8jaUebGnTjb1bvPLDaiwAAAA?rs=1&pid=ImgDetMain" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
         </div>
-            <div class="botonesProducto">
-                <p>Precio: </p>
-                <div class="comprProd">
-                    <a class="btnProductoDirecto" href="">Detalles</a>
-                    <button class="btnProductoDirecto" >Comprar</button>
-                </div>
-            </div>
     </div>
-
-
-
+    <div class="producto">
+        <img src="https://th.bing.com/th/id/OIP.iBikA_JW9u4harN6lPTkHwHaHC?w=800&h=760&rs=1&pid=ImgDetMain" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+    </div>
+    <div class="producto">
+        <img src="https://i.pinimg.com/originals/f4/88/95/f4889593a61a6a656941ed49bda5622f.jpg" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+    </div>
+    <div class="producto">
+        <img src="https://th.bing.com/th/id/R.a8a53d1beaa4d6ecc65f50aa805b8291?rik=uvf6UzM7FF%2flEQ&pid=ImgRaw&r=0" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+    </div>
+    <div class="producto">
+        <img src="https://www.emp-online.es/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dwc2dc6b96/images/5/4/7/5/547534a.jpg?sw=255&sh=250&sm=fit&sfrm=png" alt="">
+        <h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+        <p>Precio: </p>
+        <div class="botonesProducto">
+            <a href="">Detalles</a>
+            <button id="comprar" >Comprar</button>
+        </div>
+</div>
+<div class="producto">
+<img src="https://th.bing.com/th/id/OIP.fpU-9svAw0Lxgc6QrkP8iQHaHa?w=1243&h=1243&rs=1&pid=ImgDetMain" alt="">
+<h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+<p>Precio: </p>
+<div class="botonesProducto">
+    <a href="">Detalles</a>
+    <button id="comprar" >Comprar</button>
+</div>
+</div>
+<div class="producto">
+<img src="https://th.bing.com/th/id/OIP.sc8jaUebGnTjb1bvPLDaiwAAAA?rs=1&pid=ImgDetMain" alt="">
+<h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+<p>Precio: </p>
+<div class="botonesProducto">
+    <a href="">Detalles</a>
+    <button id="comprar" >Comprar</button>
+</div>
+</div>
+<div class="producto">
+<img src="https://th.bing.com/th/id/OIP.iBikA_JW9u4harN6lPTkHwHaHC?w=800&h=760&rs=1&pid=ImgDetMain" alt="">
+<h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+<p>Precio: </p>
+<div class="botonesProducto">
+    <a href="">Detalles</a>
+    <button id="comprar" >Comprar</button>
+</div>
+</div>
+<div class="producto">
+<img src="https://i.pinimg.com/originals/f4/88/95/f4889593a61a6a656941ed49bda5622f.jpg" alt="">
+<h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+<p>Precio: </p>
+<div class="botonesProducto">
+    <a href="">Detalles</a>
+    <button id="comprar" >Comprar</button>
+</div>
+</div>
+<div class="producto">
+<img src="https://th.bing.com/th/id/R.a8a53d1beaa4d6ecc65f50aa805b8291?rik=uvf6UzM7FF%2flEQ&pid=ImgRaw&r=0" alt="">
+<h2>Titulo del Producto <i class="inconoFavoritos fi-rs-heart favoritos"></i></h2>
+<p>Precio: </p>
+<div class="botonesProducto">
+    <a href="">Detalles</a>
+    <button id="comprar" >Comprar</button>
+</div>
+</div>
+            
+    </div>
 </main>
-
 <aside>
     
     <div class="asideCelular">
@@ -294,7 +315,7 @@
 
     <div class="asideTabletPC">
         <div class="tituloAside">
-            <p>CATEROGORIAS</p>
+            <p>CATEGORIAS</p>
             <div class="lineaAside"></div>
         </div>
         <div class="listaDeCategorias">
@@ -346,7 +367,8 @@
 </footer>
 
     <!--vinculaciones con js y boostrap-->
-
+    <script src="../assets/js/auten.js"></script>
+    <script src="../assets/js/producto.js"></script>
     <script src="assets/js/ProductosMerch.js"></script>
 </body>
 </html>
