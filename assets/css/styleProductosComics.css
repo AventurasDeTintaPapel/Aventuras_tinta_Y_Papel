@@ -197,7 +197,16 @@ main{
     flex-wrap: wrap;
 }
 
-.inconoFavoritos{
+.fi-rs-heart{
+    color: rgb(15, 139, 15);
+    width: 80px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fi-ss-heart{
     color: rgb(21, 15, 139);
     width: 80px;
     font-size: 30px;
@@ -627,3 +636,4 @@ b{
 
 
 }
+
