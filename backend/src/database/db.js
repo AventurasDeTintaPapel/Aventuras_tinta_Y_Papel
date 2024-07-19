@@ -1,17 +1,12 @@
-// Requerimos mysql.
-const mysql = require('mysql2/promise');
+const mongoose = require('mongoose');
 
-// Creamos una funcion para realizar la conexion a la bd.
-const connectDB = async ()=> {
-    return await mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'aventurastp'
-    })
-}
+(async ()=>{
+    try{
+        const db = await mongoose.connect('mongodb://localhost/aventura')
+        console.log('la coneccion fue exitosa')
+    }catch(error){
+        console.log(error)
+    }
+})();
 
-// Exportamos la funcion para realizar la conexion desde cualquier archivo.
-module.exports = {
-    connectDB
-}
+module.exports = mongoose;

@@ -18,10 +18,7 @@ body{
 }
 
 /* header */
-header{
-    width: 100%;
 
-}
 header{
     grid-row: 1;
     grid-column: 1/3;

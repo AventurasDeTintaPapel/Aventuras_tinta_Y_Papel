@@ -10,15 +10,15 @@ const register = async (e) => {
     // Tomamos los valores de los inputs.
     const nombre = document.getElementById('nombre').value;
     const apellido = document.getElementById('apellido').value;
-    const usuario = document.getElementById('usuario').value;
-    const correo = document.getElementById('email').value;
+    const nombreUsuario = document.getElementById('usuario').value;
+    const email = document.getElementById('email').value;
     const fechaNacimiento=document.getElementById('fecha-nacimiento').value;
-    const contraseña = document.getElementById('contraseña').value;
+    const contrasenia = document.getElementById('contraseña').value;
 
     // Realizamos la peticion a nuestro servidor.
     const peticion = await fetch('http://localhost:3400/register', {
         method: 'POST',
-        body: JSON.stringify({nombre, apellido, usuario, correo,fechaNacimiento, contraseña}),
+        body: JSON.stringify({nombre, apellido, nombreUsuario, email,fechaNacimiento, contrasenia}),
         headers: {
             'Content-type': 'application/json'
         }

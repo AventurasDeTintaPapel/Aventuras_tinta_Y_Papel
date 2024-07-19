@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const mongoose = require('./database/db')
 
 //inicializacion de el servidor
 const app= express();
@@ -16,8 +17,7 @@ app.use(express.json());
 //rutas
 app.use(require('./routers/auth.routes'))
 //configuracion del puerto
-const PORT = 3400;
-
-app.listen (PORT,()=>{
-    console.log(`el servidor esta funcionando en el puerto http://localhost:3400`)
-})
+const port = process.env.PORT || 3400;
+app.listen(port, () => {
+    console.log(`El servidor está funcionando en el puerto http://localhost:${port}`);
+});
