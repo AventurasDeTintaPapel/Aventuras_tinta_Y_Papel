@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt');
 const generarJWT = require("../helpers/generarJWT");
 const usuario = require("../models/usuarios.model");
-// Definimos un objeto vacio con el nombre 'ctrl' (abreviatura de controller).
+
 const ctrl = {};
 
+//controlador de registro
 ctrl.register = async(req,res)=>{
     const {nombreUsuario,apellido,fechaNacimiento,email,contrasenia,nombre}= req.body;
     try{  
@@ -21,6 +22,7 @@ ctrl.register = async(req,res)=>{
     }
    
 }
+//controlador de login
 ctrl.login = async (req, res) => {
     const { nombreUsuario, contrasenia } = req.body;
 
@@ -42,39 +44,7 @@ ctrl.login = async (req, res) => {
         }
 
         const token = await generarJWT({ id: usuarioEncontrado.id });
-        return res.status(200).json({ msg: 'Inicio de sesión exitoso', token });
-    } catch (error) {
-        console.error('Error en el login:', error);
-        return res.status(500).json({ msg: 'Error del servidor, por favor intente más tarde' });
-    }
-}
-
-ctrl.admin = async (req, res) => {
-    const { nombreUsuario, contrasenia } = req.body;
-
-    try {
-        if (!nombreUsuario || !contrasenia) {
-            return res.status(400).json({ msg: 'Datos insuficientes para la autenticación' });
-        }
-
-        const usuarioEncontrado = await usuario.findOne({ nombreUsuario });
-
-        if (!usuarioEncontrado) {
-            return res.status(400).json({ msg: 'La contraseña o el usuario son incorrectos' });
-        }
-
-        const validarContrasenia = await bcrypt.compare(contrasenia, usuarioEncontrado.contrasenia);
-
-        if (!validarContrasenia) {
-            return res.status(400).json({ msg: 'La contraseña o el usuario son incorrectos' });
-        }
-
-        if (usuarioEncontrado.rol !== 'admin') {
-            return res.status(403).json({ msg: 'Usted no es administrador' });
-        }
-
-        const token = await generarJWT({ id: usuarioEncontrado.id });
-        return res.status(200).json({ msg: 'Bienvenido administrador', token });
+        return res.status(200).json({ msg: 'Inicio de sesión exitoso', token,role:usuarioEncontrado.rol });
     } catch (error) {
         console.error('Error en el login:', error);
         return res.status(500).json({ msg: 'Error del servidor, por favor intente más tarde' });

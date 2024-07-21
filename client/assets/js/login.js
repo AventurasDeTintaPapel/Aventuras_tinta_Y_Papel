@@ -34,8 +34,18 @@ const login = async (e) => {
         // Seteamos el token en el localStorage.
         localStorage.setItem('token', respuesta.token);
 
+        localStorage.setItem('role', respuesta.role);
+
+        if (respuesta.role === 'admin') {
+             window.location.href = 'http://127.0.0.1:5501/client/inicio/inicioAdmin.html'
+        } else if (respuesta.role === 'user') {
+          window.location.href = 'http://127.0.0.1:5501/client/inicio/inicio.html'
+        } else {
+            // Manejar otros roles o un caso por defecto
+            window.location.href = 'http://127.0.0.1:5501/client/inicio/inicio.html';
+        }
         // Redirigimos al usuario a la landingPage.
-        window.location.href = 'http://127.0.0.1:5501/client/inicio/inicio.html'
+       
     }
 
 }

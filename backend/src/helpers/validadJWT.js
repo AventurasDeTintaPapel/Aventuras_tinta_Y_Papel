@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const mongoose = require('../database/db');
 const Usuario = require('../models/usuarios.model')
 
 const validarJWT = async (token) => {

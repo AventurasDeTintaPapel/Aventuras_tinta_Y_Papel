@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: repeat(4,1fr); /* Dos columnas: 1/4 para el aside, 3/4 para el main */
+    min-height: 100vh; /* Asegurar que la altura mínima sea el 100% de la ventana */
+}
+
+header {
+    background-color: #573bb6;
+    grid-column: 1 / -1; /* Hacer que el header ocupe todas las columnas */
+    padding: 10px; /* Añadir padding al header */
+}
+
+.contenedorHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espacio entre el logo y el buscador */
+}
+
+.imgLogo {
+    width: 110px;
+    height: 120px;
+}
+
+
+.barradelBuscador {
+    padding: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+
+.lupita {
+    cursor: pointer;
+}
+
+main {
+    grid-column: 2 /6 ; /* Hacer que el main ocupe la segunda columna */
+    padding: 20px;
+}
+.busqueda{
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+aside {
+    grid-column: 1 / 2; /* Hacer que el aside ocupe la primera columna */
+    border-right: 2px solid #573bb6;
+    padding: 20px;
+    margin-top: -700px;
+}
+.agregar{
+    background-color: #573bb6;
+}
+
+.contenedorAside {
+    font-size: 20px;
+}
+
+.division {
+    color: rgb(151, 5, 151);
+    margin-bottom: 20px;
+}
+
+.division a {
+    margin-top: 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.icons {
+    margin-right: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #573bb6;
+    padding: 20px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+.contenedorForm{
+    display: flex;
+    flex-direction: column;
+}

@@ -8,14 +8,18 @@ const mongoose = require('./database/db')
 const app= express();
 
 //aplicacion de los middlewares
+app.use(express.static('./public'))
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
 
 
+
+
 //rutas
 app.use(require('./routers/auth.routes'))
+app.use(require('./routers/productos.routes'))
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 app.listen(port, () => {
