@@ -104,58 +104,55 @@
         </div>
         </div>
         <div class="contenedorForm">
-            <form action="./gestionProductos.html">
-                <label class="input" for="">
-                    <h5>titulo</h5>
-                    <input name="titulo" type="text" placeholder="titulo" required>
+            <form id="form" enctype="multipart/form-data">
+                <label class="input">
+                    <h5>Título</h5>
+                    <input name="titulo" type="text" id="titulo" placeholder="Título" required>
                 </label>
-                <label class="input"  for="">
-                    <h5>autor</h5>
-                    <input name="autor" type="text" placeholder="autor" required>
+                <label class="input">
+                    <h5>Autor</h5>
+                    <input name="autor" type="text" id="autor" placeholder="Autor" required>
                 </label>
-                <label class="input"  for="">
-                    <h5>descripcion</h5>
-                    <input  class="descripcion" name="descripcion" type="text" placeholder="descripcion" required>
+                <label class="input">
+                    <h5>Descripción</h5>
+                    <input class="descripcion" id="descripcion" name="descripcion" type="text" placeholder="Descripción" required>
                 </label>
-                <label class="input"  for="">
-                    <h5>categoria</h5>
-                    <input name="categoria" type="text" placeholder="categoria" required>
+                <label class="input">
+                    <h5>Categoría</h5>
+                    <input name="categoria" id="categoria" type="text" placeholder="Categoría" required>
                 </label>
-                <label class="input"  for="">
-                    <h5>numero de edicion</h5>
-                    <input name="numeroEdicion" type="text" placeholder="numero de edicion" required>
+                <label class="input">
+                    <h5>Número de Edición</h5>
+                    <input name="numeroEdicion" id="numeroEdicion" type="text" placeholder="Número de Edición" required>
                 </label>
-                <label class="input"  name="tipo">
-                    <h5>tipo</h5>
+                <label class="input">
+                    <h5>Tipo</h5>
                     <select name="tipo" id="tipo">
-                        <option value="manga">manga</option>
-                        <option value="manga">libros</option>
-                        <option value="manga">comics</option>
-                        <option value="manga">merch</option>
+                        <option value="manga">Manga</option>
+                        <option value="libros">Libros</option>
+                        <option value="comics">Cómics</option>
+                        <option value="merch">Merch</option>
                     </select>
                 </label>
-                <label class="input"  for="">
-                    <h5>idioma</h5>
-                    <input name="idioma" type="text" placeholder="idioma" required>
+                <label class="input">
+                    <h5>Idioma</h5>
+                    <input name="idioma" id="idioma" type="text" placeholder="Idioma" required>
                 </label>
-                <label class="input"  for="">
-                    <h5>precio</h5>
-                    <input name="precio" type="text" placeholder="precio" required>
+                <label class="input">
+                    <h5>Precio</h5>
+                    <input name="precio" id="precio" type="text" placeholder="Precio" required>
                 </label>
-                <label class="input"  for="">
-                    <h5>cantidad</h5>
-                    <input name="cantidad" type="number" placeholder="cantidad" required>
+                <label class="input">
+                    <h5>Cantidad</h5>
+                    <input name="cantidad" id="cantidad" type="number" placeholder="Cantidad" required>
                 </label>
-             
-                <label class="input"  for="">
-                    <h5>imagen</h5>
-                    <input type="file" class="form-control" aria-label="file example" required>
+                <label class="input">
+                    <h5>Imagen</h5>
+                    <input type="file" name="imagen" id="imagen" required>
                 </label>
                 <br>
-                <button class="boton"  type="submit">guardar</button>
+                <button class="boton" type="submit">Guardar</button>
             </form>
-            
-            
         </div>
    </main>
     <aside>
@@ -205,6 +202,6 @@
         </div>
     </aside>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="../assets/js/obtener.js"></script>
+    <script src="../assets/js/subirProductos.js"></script>
 </body>
 </html>

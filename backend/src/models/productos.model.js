@@ -1,7 +1,7 @@
 const {Schema,model}= require('mongoose');
 
 const productosSchema = new Schema({
-    nombre:{
+    titulo:{
         type:String,
         required:true,
         trim:true
