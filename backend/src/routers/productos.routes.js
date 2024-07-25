@@ -1,4 +1,4 @@
-const {cargarProducto,obtenerProducto,editarProducto,eliminarProducto}= require('../controllers/productos.controllers');
+const {cargarProducto,obtenerProducto,editarProducto,eliminarProducto,productos}= require('../controllers/productos.controllers');
 const subirImagen = require('../../middlewares/storage')
 const router = require('express').Router();
 
@@ -10,7 +10,10 @@ router.get('/productos',obtenerProducto);
 router.get('/productos/:id',obtenerProducto);
 //ruta para eliminar productos
 router.delete('/eliminar/:id',eliminarProducto);
-router.post('/editar/:id', subirImagen.single('imagen'),editarProducto)
+//ruta para editar productos
+router.post('/editar/:id', subirImagen.single('imagen'),editarProducto);
+//ruta para obtener los libros
+router.get('/catalogo/:type',productos)
 
 
 

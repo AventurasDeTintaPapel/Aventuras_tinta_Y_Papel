@@ -17,7 +17,7 @@ form.addEventListener('submit', async (e) => {
         if (response.ok) {
             form.reset();
             alert('Producto guardado correctamente');
-            window.location.href = '127.0.0.1:5500/client/gestion/gestionProductos.html';
+            window.location.href = '/client/gestion/gestionProductos.html';
         } else {
             alert(respuesta.msg);
         }

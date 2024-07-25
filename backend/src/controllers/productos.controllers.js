@@ -12,7 +12,6 @@ ctrl.obtenerProducto= async(req,res)=>{
      
     }
 }
-
 ctrl.cargarProducto = async(req,res)=>{
     try {
         const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, cantidad, categoria } = req.body;
@@ -54,7 +53,6 @@ ctrl.cargarProducto = async(req,res)=>{
 
 
 }
-
 ctrl.eliminarProducto = async (req, res) => {
     try {
         const { id } = req.params;
@@ -105,4 +103,15 @@ ctrl.editarProducto=async(req,res)=>{
         res.status(500).json({ msg: 'Error al eliminar el producto' });
     }
 }
+ctrl.productos = async (req, res) => {
+    try {
+        const {type} = req.params;
+        const resultado = await productos.find({ tipo: type });
+        res.status(200).json(resultado);
+    } catch (error) {
+        console.error('Error al obtener libros:', error);
+        res.status(500).json({ message: 'Error al obtener libros' });
+    }
+};
+
 module.exports= ctrl;

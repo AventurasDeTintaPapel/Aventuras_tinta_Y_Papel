@@ -1,3 +1,4 @@
+//funcionalidades de los iconos
 const token = localStorage.getItem('token');
 const favorito = document.querySelectorAll('.inconoFavoritos');
 

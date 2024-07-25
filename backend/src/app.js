@@ -20,6 +20,7 @@ app.use(express.json());
 //rutas
 app.use(require('./routers/auth.routes'))
 app.use(require('./routers/productos.routes'))
+app.use(require('./routers/carr_fav.routes'))
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 app.listen(port, () => {

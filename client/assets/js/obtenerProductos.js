@@ -13,7 +13,7 @@ const listarProductos = (data) => {
         listaProductos.innerHTML += `<tr>
             
             <td><img class="imagen" src="${imagenSrc}" width="80"></td>
-            <td>${productos.nombre}</td>
+            <td>${productos.titulo}</td>
             <td>${productos.autor}</td>
             <td>${descripcionTruncada}...</td>
             <td>${productos.categoria}</td>
@@ -23,11 +23,12 @@ const listarProductos = (data) => {
             <td>${productos.precio}</td>
             <td>${productos.cantidad}</td>
              <td>
-             <a href="http://localhost:3000/reserva/editar/${productos.id}" class="btn btn-primary btn-sm agregar">Editar</a>
-                            <button onclick=eliminarReservas(event) class="btn btn-danger btn-sm" data-id="${productos.id}">Eliminar</button>
+             <a href="http://127.0.0.1:5500/client/gestion/editarProducto.html" class="btn btn-primary btn-sm agregar">Editar</a>
+            <button onclick=eliminarProducto(event) class="btn btn-danger btn-sm" data-id="${productos._id}">Eliminar</button>
                             
                         </td>
         </tr>`;
+        console.log(productos._id);
     });
 };
 
@@ -35,19 +36,30 @@ const obtenerProductos = async () => {
     try {
         const peticion = await fetch('http://localhost:3400/productos');
 
-        // Asegúrate de que la petición fue exitosa
         if (!peticion.ok) {
-            throw new Error('Network response was not ok');
+            console.log('hubo un error al obtener los productos')
         }
 
         const response = await peticion.json(); 
 
         listarProductos(response);
-        console.log(response);
+   
     } catch (error) {
         console.error('Error al obtener los productos:', error);
     }
 };
-
+function eliminarProducto(event) {
+   
+    event.preventDefault();
+    const id = event.target.dataset.id
+    const peticion = fetch(`http://localhost:3400/eliminar/${id}`, {
+        method: 'DELETE',
+    })
+        alert('producto eliminado correctamente');
+        console.log('Producto eliminado',id);
+        obtenerProductos(); 
+}
 
 document.addEventListener('DOMContentLoaded', obtenerProductos);
+
+
