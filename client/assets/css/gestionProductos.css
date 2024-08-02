@@ -6,94 +6,136 @@
 
 body {
     display: grid;
-    grid-template-columns: repeat(4,1fr); /* Dos columnas: 1/4 para el aside, 3/4 para el main */
-    min-height: 100vh; /* Asegurar que la altura mínima sea el 100% de la ventana */
+    grid-template-columns: 16% 1fr;
+    grid-template-rows: 6% 1fr;
+    height: auto;
 }
 
-header {
-    background-color: #573bb6;
-    grid-column: 1 / -1; /* Hacer que el header ocupe todas las columnas */
-    padding: 10px; /* Añadir padding al header */
-}
-
-.contenedorHeader {
+header{
+    grid-column: 1/-1;
+    grid-row: 1;
     display: flex;
-    align-items: center;
-    justify-content: space-between; /* Espacio entre el logo y el buscador */
+    flex-direction: row;
+   
 }
-
-.imgLogo {
-    width: 110px;
-    height: 120px;
+header{
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
 }
-
-
-.barradelBuscador {
-    padding: 5px;
-    font-size: 16px;
-    margin-right: 10px;
-    border-radius: 20px;
-}
-
-.lupita {
-    cursor: pointer;
+aside {
+    grid-row: 2; 
+    grid-column: 1;
+    background-color: #573bb6;
 }
 
 main {
-    grid-column: 2 /6 ; /* Hacer que el main ocupe la segunda columna */
-    padding: 20px;
+    margin-left: 30px;
+    grid-row: 2;/* Asegura que el main esté en la segunda fila */
+    grid-column: 2; /* Asegura que el main esté en la segunda columna */
 }
-.busqueda{
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-}
-aside {
-    grid-column: 1 / 2; /* Hacer que el aside ocupe la primera columna */
-    border-right: 2px solid #573bb6;
-    padding: 20px;
-    margin-top: -700px;
-}
-.agregar{
+
+.contendorHeader {
     background-color: #573bb6;
+    padding-right: 60px;
 }
 
-.contenedorAside {
-    font-size: 20px;
+.imgLogo {
+    width: 144px;
+    height: 130px;
 }
-
-.division {
-    color: rgb(151, 5, 151);
-    margin-bottom: 20px;
-}
-
-.division a {
-    margin-top: 10px;
-    text-decoration: none;
+.nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-left: 70px;
+    gap: 50px;
+}
+.btnEditar{
+    background-color: #4f2697;
+    color: white;
+    padding: 10px 20px;
+    margin-right: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+.acciones{
+    margin-top: 10px;
+}
+.btnEliminar{
+    background-color: #b22323;
+    color: white;
+    padding: 10px 10px;
+    margin-right: 20px;
+    margin-top: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.agregar  {
+    color: white;
+    background-color: #573bb6;
+    padding: 10px 20px;
+    margin-right: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+nav h2 {
+    color: white;
+    margin-right: 20px;
+}
+.division{
+    margin-top: 23px;
+}
+.division a {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    margin-top: 24px;
+    text-align: center;
+}
+.icons{
+    color: white;
+    font-size: 30px;
+}
+.buscador {
+    display: flex;
+    align-items: center;
+}
+
+.barradelBuscador {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
 .icons {
     margin-right: 10px;
 }
-
+.contenedorTabla{
+    width: 97%;
+    overflow: auto;
+    height: 500px;
+   
+}
 .table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
+
+    border-collapse: collapse; /* Añade border-collapse para mejor apariencia */
 }
 
 .table th, .table td {
     border: 1px solid #573bb6;
-    padding: 20px;
+    padding: 10px;
     text-align: left;
 }
 
 .table th {
     background-color: #f2f2f2;
 }
-.contenedorForm{
+
+.contenedorForm {
     display: flex;
     flex-direction: column;
 }

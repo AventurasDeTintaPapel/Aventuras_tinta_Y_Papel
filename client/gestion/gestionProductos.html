@@ -10,39 +10,44 @@
 </head>
 <body>
     <header>
-        <div class="contenedorHeader">
+        <div class="contendorHeader">
             <img class="imgLogo" src="../assets/css/img/Aventuras (3) (1).png" alt="">
-    </div>
-
+        
+        </div>
+        <nav class="nav">
+                    <a href="./formularioProductos.html" class="  agregar">Nuevo</a>
+                    <h2>Productos</h2>
+                    <div class="buscador">
+                        <input class="barradelBuscador" type="text" placeholder="¿Que desea buscar?">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" lupita"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+        </nav>
+        
     </header>
     
     <main>
-        <div class="busqueda">
-              <a href="./formularioProductos.html" class="btn btn-info  agregar">Nuevo</a>
-        <div class="buscador">
-            <input class="barradelBuscador" type="text" placeholder="¿Que desea buscar?">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" lupita"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-        </div>
-      
-       <table class="table">
-        <thead>
-            <tr>
-                <th>img</th>
-                <th>nombre</th>
-                <th>autor</th>
-                <th>descripcion</th>
-                <th>categoria</th>
-                <th>edicion</th>
-                <th>tipo</th>
-                <th>idioma</th>
-                <th>precio</th>
-                <th>cantidad</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="listaProductos"></tbody>
-    </table>
+        
+      <div class="contenedorTabla">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>img</th>
+                    <th>nombre</th>
+                    <th>autor</th>
+                    <th>descripcion</th>
+                    <th>categoria</th>
+                    <th>edicion</th>
+                    <th>tipo</th>
+                    <th>idioma</th>
+                    <th>precio</th>
+                    <th>cantidad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="listaProductos"></tbody>
+        </table>
+      </div>
+     
    </main>
     <aside>
 

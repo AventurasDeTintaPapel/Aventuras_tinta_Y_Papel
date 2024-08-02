@@ -7,7 +7,7 @@ const listarProductos = (data) => {
         const imagenSrc = `http://localhost:3400${productos.imagen}`
         const descripcion = productos.descripcion;
         const longitudDescripcion = descripcion.length;
-        const longitudTruncada = Math.ceil(longitudDescripcion * 0.05);
+        const longitudTruncada = Math.ceil(longitudDescripcion * 0.02);
         const descripcionTruncada = descripcion.substring(0, longitudTruncada);
         console.log(imagenSrc)
         listaProductos.innerHTML += `<tr>
@@ -23,9 +23,10 @@ const listarProductos = (data) => {
             <td>${productos.precio}</td>
             <td>${productos.cantidad}</td>
              <td>
-             <a href="http://127.0.0.1:5500/client/gestion/editarProducto.html" class="btn btn-primary btn-sm agregar">Editar</a>
-            <button onclick=eliminarProducto(event) class="btn btn-danger btn-sm" data-id="${productos._id}">Eliminar</button>
-                            
+             <div class="acciones">
+             <a href="http://127.0.0.1:5500/client/gestion/editarProducto.html" class="btnEditar">Editar</a>
+            <button onclick=eliminarProducto(event) class="btnEliminar" data-id="${productos._id}">Eliminar</button>
+             </div>               
                         </td>
         </tr>`;
         console.log(productos._id);

@@ -2,6 +2,7 @@ const carrito = require('../models/carri_Y_fav.model');
 const usuarios = require('../models/usuarios.model');
 const producto = require('../models/productos.model');
 const favoritos = require('../models/favorito.model');
+const mongoose = require('mongoose')
 const ctrl = {};
 
 // Agregar un producto al carrito
@@ -35,16 +36,39 @@ ctrl.agreCarrito = async (req, res) => {
 };
 
 // Obtener todos los carritos
-ctrl.obtener = async (req, res) => {
+ctrl.obteCarrito = async (req, res) => {
     try {
-        const obtenerCarri = await carrito.find();
-        res.json(obtenerCarri);
+        const { id } = req.params;
+        const ObjectId = require('mongoose').Types.ObjectId;
+            const result = await carrito.aggregate([
+                {
+                    $match: { usuario: new ObjectId(id) }
+                },
+                {
+                    $lookup: {
+                        from: "productos",
+                        localField: "producto",
+                        foreignField: "_id",
+                        as: "productoInfo"
+                    }
+                },  {
+                    $lookup: {
+                        from: "usuarios",
+                        localField: "usuario",
+                        foreignField: "_id",
+                        as: "usuarioInfo"
+                    }
+                },
+                { $unwind: "$productoInfo" },
+                { $unwind: "$usuarioInfo" }
+            ]);
+        res.status(200).json(result);
+        console.log(result);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Ocurrió un error al obtener los carritos' });
     }
 };
-
 // Agregar un producto a favoritos
 ctrl.agreFav = async (req, res) => {
     try {
@@ -75,10 +99,36 @@ ctrl.agreFav = async (req, res) => {
 };
 
 // Obtener todos los favoritos
-ctrl.favoritos = async (req, res) => {
+ctrl.obtFavotiros = async (req, res) => {
     try {
-        const mostrarFavs = await favoritos.find();
-        res.json(mostrarFavs);
+        const { id } = req.params;
+        const ObjectId = require('mongoose').Types.ObjectId;
+        const resultado = await favoritos.aggregate([
+            {
+                $match: { usuario: new ObjectId(id) }
+            },
+            {
+                $lookup: {
+                    from: "productos",
+                    localField: "producto",
+                    foreignField: "_id",
+                    as: "productoInfo"
+                }
+            },  {
+                $lookup: {
+                    from: "usuarios",
+                    localField: "usuario",
+                    foreignField: "_id",
+                    as: "usuarioInfo"
+                }
+            },
+            { $unwind: "$productoInfo" },
+            { $unwind: "$usuarioInfo" },
+          
+        ]);
+
+    res.status(200).json(resultado);
+    console.log(resultado);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Ocurrió un error al obtener los favoritos' });
