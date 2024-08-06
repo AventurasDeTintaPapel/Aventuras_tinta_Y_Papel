@@ -3,6 +3,7 @@ const {Schema,model}= require('mongoose');
 const carrito = new Schema({
     cantidad:{
         type:Number,
+        defaul:1,
         required:true
     },producto:{
         type: Schema.Types.ObjectId

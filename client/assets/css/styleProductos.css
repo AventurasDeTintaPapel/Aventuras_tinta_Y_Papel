@@ -30,23 +30,6 @@ main{
     margin-top: 20px;
 }
 
-.cotainerInfoPro{
-    display: flex;
-    align-items: center;
-    margin-inline: 2%;
-}
-
-.botonesProducto p{
-    margin-top: 0;
-    margin-left: 10%;
-}
-
-.comprProd{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
 
 
 .contenedorProductos{
@@ -56,16 +39,16 @@ main{
     flex-wrap: wrap;
 }
 
-.inconoFavoritos{
+.favoritos{
     color:rgb(107, 50, 212);
-    width: 20px;
+    font-size: 20px;
 }
 
 .producto h2{
     font-size: 20px;
 }
 .botonesProducto a ,button{
-    padding: 12px 32px 12px 32px ;
+    padding: 12px 25px 12px 25px ;
     text-decoration: none;
     color: black;
     background-color: #4121a1;
@@ -76,13 +59,15 @@ main{
 .botonesProducto{
     display: flex;
     flex-wrap: wrap;
-    width: 150%;
+    width: 110%;
     gap: 4px;
     
 }
-
+.cantidad{
+    display: none;
+}
 .producto img{
-    width: 150px;
+    width: 200px;
 }
 
 .tituloProManga{

@@ -57,7 +57,6 @@ ctrl.eliminarProducto = async (req, res) => {
     try {
         const { id } = req.params;
 
-        // findByIdAndDelete acepta el id directamente como argumento
         const resultado = await productos.findByIdAndDelete(id);
 
         if (resultado) {
@@ -74,8 +73,7 @@ ctrl.eliminarProducto = async (req, res) => {
 ctrl.editarProducto=async(req,res)=>{
     try{
         const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, cantidad, categoria } = req.body;
-
-        // Crear un nuevo producto
+        //productos editado
         const productoEditado = ({
             titulo,
             autor,
@@ -87,14 +85,11 @@ ctrl.editarProducto=async(req,res)=>{
             cantidad,
             categoria,
         });
-        if (req.file) {
-            productoEditado.imagen = `/uploads/${req.file.filename}`;
-        }
 
         const{id} = req.params;
         const resultado= await productos.findByIdAndUpdate(id,productoEditado,{new:true});
         if (resultado) {
-            res.status(200).json({ msg: 'Producto eliminado correctamente' });
+            res.status(200).json({ msg: 'Producto actualizado correctamente' });
         } else {
             res.status(404).json({ msg: 'Producto no encontrado' });
         }
