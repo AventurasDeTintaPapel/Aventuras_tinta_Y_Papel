@@ -7,7 +7,7 @@ const ctrl = {};
 // Agregar un producto al carrito
 ctrl.agreCarrito = async (req, res) => {
     try {
-        const { cantidad, idProducto,precioTotal } = req.body;
+        const { cantidad, idProducto,precioTota } = req.body;
         const { idUsuario } = req.params;
         
         const obtenerUsuario = await usuarios.findById(idUsuario);
@@ -108,7 +108,7 @@ ctrl.obteCarrito = async (req, res) => {
             console.log(result);
           } catch (error) {
             console.error(error);
-            if (!res.headersSent) { // Verifica si los encabezados ya han sido enviados
+            if (!res.headersSent) { 
               res.status(500).json({ error: 'Ocurrió un error al obtener los carritos' });
             }
           }
