@@ -10,7 +10,7 @@ const listarFavoritos =(favoritos)=>{
         <div class="producto" >
             <h5>${producto.titulo}</h5>
             <p id="precio">precio:${producto.precio}</p>
-            <button onclick="eliminar(event)"data-id="${elemento._id}">Borrar</button>
+            <button onclick="eliminar(event)"data-id="${elemento._id}">Bosrrar</button>
         </div>
         `
 

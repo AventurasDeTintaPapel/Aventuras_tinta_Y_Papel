@@ -175,7 +175,6 @@ ul .botonNav:hover {
 
 footer{
     background-color: var(--color-header-footer);
-    /* grid-row: 4; */
     grid-column: 1/3;
     display: flex;
     justify-content: space-around;

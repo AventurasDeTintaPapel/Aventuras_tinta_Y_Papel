@@ -73,17 +73,22 @@ const listarCarrito = (carrito) => {
 
         contenedor.innerHTML += `
             <div class="producto" data-id="${item._id}">
+            <img src="https://www.eleconomista.com.mx/__export/1618813105696/sites/eleconomista/img/2021/04/19/libros2.jpg_1015297232.jpg" alt="">
+                <div class="infoCarrito">
                 <h5>${producto.titulo}</h5>
-                <button onclick="decreme(event)" data-id="${item._id}">-</button>
-                <p type="text" id="cantidad">${cantidad}</p>
-                <button onclick="agreg(event)" data-id="${item._id}">+</button>
-                <p id="precio">Precio: ${producto.precio}</p>
+                <p id="precio" class="precioIndividual">Precio: ${producto.precio}</p>
+                <div class="cantidadProducto">
+                <button onclick="decreme(event)" data-id="${item._id}" class="boton">-</button>
+                <p type="text" id="cantidad" class="">${cantidad}</p>
+                <button onclick="agreg(event)" data-id="${item._id}" class="boton">+</button>
+                </div>
+                </div>
             </div>
         `;
     });
 
     // Añade el total después de los productos
-    contenedor.innerHTML += `<p id="total">Total: $</p>`;
+    contenedor.innerHTML += `<p id="total" class="precioTotal">Total: $</p>`;
     calcularTotal();
 };
 
