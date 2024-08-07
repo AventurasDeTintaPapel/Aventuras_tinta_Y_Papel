@@ -24,7 +24,7 @@ const listarComics = (productos) => {
                 <p id="precio">Precio: ${producto.precio}</p>
                 <div class="botonesProducto">
                     <a href="#" class="detalle">Detalles</a>
-                      <button onclick="añadirCarrito(event)" class="comprar" data-id="${producto._id}">Comprar</button>
+                    <button onclick="añadirCarrito(event)" class="comprar" data-id="${producto._id}">Comprar</button>
                     <button class="cantidad" style="display:none;">Agregado</button>
                 </div>
                 </div>
@@ -81,7 +81,6 @@ const listarComics = (productos) => {
 //funcion para añadit al carrito
 const añadirCarrito = async (event) => {
     const idProducto = event.target.dataset.id;
-    console.log(idProducto)
     const cantidad = 1
     try {
         const cargarCarrito = await fetch(`http://localhost:3400/agregarCarrito/6692cffb2772b70d5757459a`, {
