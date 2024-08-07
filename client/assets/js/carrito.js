@@ -66,7 +66,7 @@ const actualizarCantidadElemento = (idProducto, cantidad) => {
 
 // Lista los productos en el carrito
 const listarCarrito = (carrito) => {
-    contenedor.innerHTML = ''; // Limpia el contenedor antes de agregar elementos
+    contenedor.innerHTML = ''; 
     carrito.forEach(item => {
         const producto = item.productoInfo;
         const cantidad = item.cantidad;

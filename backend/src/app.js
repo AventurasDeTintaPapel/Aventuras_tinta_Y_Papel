@@ -13,10 +13,6 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
-
-
-
-
 //rutas
 app.use(require('./routers/auth.routes'))
 app.use(require('./routers/productos.routes'))

@@ -60,5 +60,21 @@ ctrl.obtFavotiros = async (req, res) => {
         res.status(500).json({ error: 'Ocurrió un error al obtener los favoritos' });
     }
 };
+ctrl.elimiFav= async (req,res)=>{
+    try{
+        const {idfav}= req.params;
+        const result= await favoritos.findByIdAndDelete(idfav);
+        if(result){
+            res.status(200).json({msg:'producto eliminado correctamente de favoritos'});
+        }else{
+            res.status(400).json({msg:'no hay productos agregados a favoritos'})
+        }
+
+    }catch(error){
+        console.log(error)
+    }
+    
+
+}
 
 module.exports = ctrl
