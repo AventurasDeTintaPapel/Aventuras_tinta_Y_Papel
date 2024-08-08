@@ -61,6 +61,6 @@ function eliminarProducto(event) {
         obtenerProductos(); 
 }
 
-document.addEventListener('DOMContentLoaded', obtenerProductos);
+document.addEventListener('DOMContentLoaded', obtenerProductos());
 
 
