@@ -1,8 +1,6 @@
 const contenedorComics = document.getElementById('Comics');
 
 
-
-
 // Función para listar los comics
 const listarComics = (productos) => {
     contenedorComics.innerHTML = '';
@@ -69,8 +67,6 @@ const listarComics = (productos) => {
             button.addEventListener('click', (event) => {
                 const button = event.target;
                 const btnAgregado = button.nextElementSibling;
-
-                // Ocultar el botón "Comprar" y mostrar el botón "Agregado"
                 button.style.display = 'none';
                 btnAgregado.style.display = 'block';
             });
@@ -83,7 +79,7 @@ const añadirCarrito = async (event) => {
     const idProducto = event.target.dataset.id;
     const cantidad = 1
     try {
-        const cargarCarrito = await fetch(`http://localhost:3400/agregarCarrito/6692cffb2772b70d5757459a`, {
+        const cargarCarrito = await fetch(`http://localhost:3400/carrito/6692cffb2772b70d5757459a`, {
             method: 'POST',
             body: JSON.stringify({
                 idProducto,

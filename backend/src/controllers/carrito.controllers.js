@@ -7,18 +7,16 @@ const ctrl = {};
 // Agregar un producto al carrito
 ctrl.agreCarrito = async (req, res) => {
     try {
-        const { cantidad, idProducto,precioTota } = req.body;
+        const { cantidad, idProducto,totalFinal } = req.body;
         const { idUsuario } = req.params;
         
         const obtenerUsuario = await usuarios.findById(idUsuario);
         const obtenerProducto = await producto.findById(idProducto);
-        // if(productoAgregado){
-        //   res.json({msg:'el producto ya se encuentra dentro de su carrito'})
-        // }else{
+
           const newCarrito = new carrito({
             usuario: obtenerUsuario._id,
             producto: obtenerProducto._id,
-            cantidad,precioTotal
+            cantidad,totalFinal
             });
           await newCarrito.save();
           res.json({ msg: 'El carrito fue cargado correctamente', newCarrito });
@@ -31,18 +29,18 @@ ctrl.agreCarrito = async (req, res) => {
 };
 ctrl.editarCarrito = async(req,res)=>{
     try{
-        const{
-            cantidad,
-            precioTotal
-        }= req.body;
+        const{cantidad,totalFinal}= req.body;
         const { id} = req.params;
           const carritoEncontrado = await carrito.findById(id);
+
         if(!carritoEncontrado){
           console.log('no encontrado')
         }
+       
+
         const carritoEdit = ({
             cantidad,
-            precioTotal
+            totalFinal
         })
         console.log(carritoEncontrado)
         const result = await carrito.findByIdAndUpdate(carritoEncontrado, carritoEdit, { new: true });
