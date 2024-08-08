@@ -5,7 +5,7 @@ const contenedorAside = document.getElementById(`contenedorAside`)
 const decreme = async (event) => {
     const button = event.target;
     const idProducto = button.dataset.id;
-    const cantidadElemento = button.nextElementSibling; // Selecciona el elemento de cantidad en relación con el botón
+    const cantidadElemento = button.nextElementSibling; 
     let cantidad = parseInt(cantidadElemento.textContent);
 
     if (cantidad > 1) {
@@ -13,9 +13,21 @@ const decreme = async (event) => {
     }
 
     try {
+        const productos = document.querySelectorAll('.producto');
+        let totalFinal = 0;
+        //funcion para obtener y calcular el precio por producto
+        productos.forEach(producto => {
+            if (producto.dataset.id === idProducto) {
+                const precio = parseFloat(producto.querySelector('#precio').textContent.replace('Precio: ', ''));
+                console.log(precio);
+                totalFinal = precio * cantidad;
+                console.log(totalFinal)
+            }
+        });
+        //funcion para actualizar la cantidad del carrito
         const actualizarCantidad = await fetch(`http://localhost:3400/carrito/${idProducto}`, {
             method: 'PUT',
-            body: JSON.stringify({ cantidad }),
+            body: JSON.stringify({ cantidad,totalFinal }),
             headers: { 'Content-Type': 'application/json' }
         });
 
@@ -37,11 +49,16 @@ const agreg = async (event) => {
     const cantidadElemento = button.previousElementSibling; 
     let cantidad = parseInt(cantidadElemento.textContent);
     cantidad++;
+    cantidadElemento.textContent = cantidad; // Actualiza la cantidad en la interfaz de usuario
 
     try {
+        const productos = document.querySelectorAll('.producto');
+        let totalFinal = 0;
+
+        // Realizar la solicitud fetch para actualizar el carrito en la base de datos
         const actualizarCantidad = await fetch(`http://localhost:3400/carrito/${idProducto}`, {
             method: 'PUT',
-            body: JSON.stringify({ cantidad }),
+            body: JSON.stringify({ cantidad, totalFinal }),
             headers: { 'Content-Type': 'application/json' }
         });
 
@@ -55,6 +72,7 @@ const agreg = async (event) => {
         console.log('Hubo un error', error);
     }
 };
+
 
 // Actualiza el elemento de cantidad en el DOM
 const actualizarCantidadElemento = (idProducto, cantidad) => {
@@ -73,14 +91,15 @@ const listarCarrito = (carrito) => {
         const producto = item.productoInfo;
         const cantidad = item.cantidad;
 
-        sumaTotalCantidad += cantidad;
+        sumaTotalCantidad += cantidad++;
 
 
         contenedor.innerHTML += `
-            <div class="producto" data-id="${item._id}">
+            <div class="producto">
                 <img src="https://www.eleconomista.com.mx/__export/1618813105696/sites/eleconomista/img/2021/04/19/libros2.jpg_1015297232.jpg" alt="">
                     <h5>${producto.titulo}</h5>
                     <p id="precio" class="precioIndividual">Precio: ${producto.precio}</p>
+                    <button onclick="eliminarEle(event)" data-id="${item._id}">eliminar</button>
                         <div class="cantidadProducto">
                             <button onclick="decreme(event)" data-id="${item._id}" class="boton">-</button>
                             <p type="text" id="cantidad" class="">${cantidad}</p>
@@ -96,12 +115,22 @@ const listarCarrito = (carrito) => {
 
         contenedorAside.innerHTML += `
             <h2>Resumen De Compra</h2>
-            <p>Producto:</p>
+            <p>Producto:${sumaTotalCantidad}</p>
             <button>Continuar Compra</button>
             <p id="total" class="precioTotal">Total:  $</p>`;
     calcularTotal();
 
 };
+
+//funcion para eliminar
+const eliminarEle =async(event)=>{
+    const id = event.target.dataset.id;
+    const peticion = fetch(`http://localhost:3400/carrito/elemento/${id}`,{
+        method:'DELETE'});
+    alert('producto eliminado correctamente');
+    console.log('Producto eliminado',id);
+    obtenerCarrito();
+}
 
 // Calcula el total del carrito y lo muestra en la consola
 const calcularTotal = () => {
@@ -114,15 +143,50 @@ const calcularTotal = () => {
         total += cantidad * precio;
     });
 
-    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-    console.log(`Total del carrito: $${total.toFixed(2)}`);
+    document.getElementById('total').textContent = `Total: $${total.toFixed(2)};`
 };
 
+
+//funcion para añadir a pedidos
+const añadirPed =async(event)=>{
+    const btn = event.target;
+    let totalFinal =0
+    let idCarrito = ""
+    const productos = document.querySelectorAll('.producto');
+    productos.forEach(producto => {
+        const cantidad = parseInt(producto.querySelector('#cantidad').textContent);
+        const precio = parseFloat(producto.querySelector('#precio').textContent.replace('Precio: ', ''));
+        totalFinal += cantidad * precio;
+        idCarrito = producto.querySelector('.boton').dataset.id;
+        
+    });
+
+    console.log('ID del producto:', idCarrito);
+    console.log(totalFinal)  
+    const isComplete ="en proceso"  
+    try{
+        const cargarPedido = await fetch(`http://localhost:3400/pedidos`, {
+            method: 'POST',
+            body: JSON.stringify({ idCarrito,isComplete,totalFinal }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        if(cargarPedido.ok){
+            alert('Se ha completado su compra');
+            const elimCar = await fetch(`http:/localhost:3400/carrito/${idCarrito}`,{
+                method:'DELETE'
+            })
+            console.log()
+        }
+    }catch(error){
+
+    }
+}
 
 // Obtiene los productos del carrito desde la base de datos
 const obtenerCarrito = async () => {
     try {
-        const peticion = await fetch('http://localhost:3400/carrito/6692cffb2772b70d5757459a');
+        const peticion = await fetch('http://localhost:3400/carrito/6692cffb2772b70d5757459a',);
 
         if (!peticion.ok) {
             console.log('Hubo un error al obtener los productos');
