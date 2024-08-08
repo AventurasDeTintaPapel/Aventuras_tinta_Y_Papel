@@ -7,7 +7,7 @@ const ctrl = {};
 // Agregar un producto al carrito
 ctrl.agreCarrito = async (req, res) => {
     try {
-        const { cantidad, idProducto } = req.body;
+        const { cantidad, idProducto,precioTota } = req.body;
         const { idUsuario } = req.params;
         
         const obtenerUsuario = await usuarios.findById(idUsuario);
@@ -18,7 +18,7 @@ ctrl.agreCarrito = async (req, res) => {
           const newCarrito = new carrito({
             usuario: obtenerUsuario._id,
             producto: obtenerProducto._id,
-            cantidad,
+            cantidad,precioTotal
             });
           await newCarrito.save();
           res.json({ msg: 'El carrito fue cargado correctamente', newCarrito });
@@ -75,16 +75,9 @@ ctrl.eliminarCarrito = async(req,res)=>{
 
 // Obtener todos los carritos
 ctrl.obteCarrito = async (req, res) => {
-        // const obtenerCarri = await carrito.find();
-        // res.json(obtenerCarri);
         try {
             const { idUsuario } = req.params;
             const ObjectId = mongoose.Types.ObjectId;
-
-
-            // if (!ObjectId.isValid(idUsuario)) {
-            //   return res.status(400).json({ error: 'ID de usuario no válido' });
-            // }
         
             const result = await carrito.aggregate([
               {
@@ -121,7 +114,5 @@ ctrl.obteCarrito = async (req, res) => {
           }
         }
         
-
-
 
 module.exports = ctrl;
