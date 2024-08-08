@@ -1,4 +1,5 @@
 const contenedor = document.getElementById('contenedor');
+const contenedorAside = document.getElementById(`contenedorAside`)
 
 // Función para descontar la cantidad del producto
 const decreme = async (event) => {
@@ -67,29 +68,39 @@ const actualizarCantidadElemento = (idProducto, cantidad) => {
 // Lista los productos en el carrito
 const listarCarrito = (carrito) => {
     contenedor.innerHTML = ''; 
+    let sumaTotalCantidad = 0;
     carrito.forEach(item => {
         const producto = item.productoInfo;
         const cantidad = item.cantidad;
 
+        sumaTotalCantidad += cantidad;
+
+
         contenedor.innerHTML += `
             <div class="producto" data-id="${item._id}">
-            <img src="https://www.eleconomista.com.mx/__export/1618813105696/sites/eleconomista/img/2021/04/19/libros2.jpg_1015297232.jpg" alt="">
-                <div class="infoCarrito">
-                <h5>${producto.titulo}</h5>
-                <p id="precio" class="precioIndividual">Precio: ${producto.precio}</p>
-                <div class="cantidadProducto">
-                <button onclick="decreme(event)" data-id="${item._id}" class="boton">-</button>
-                <p type="text" id="cantidad" class="">${cantidad}</p>
-                <button onclick="agreg(event)" data-id="${item._id}" class="boton">+</button>
-                </div>
-                </div>
+                <img src="https://www.eleconomista.com.mx/__export/1618813105696/sites/eleconomista/img/2021/04/19/libros2.jpg_1015297232.jpg" alt="">
+                    <h5>${producto.titulo}</h5>
+                    <p id="precio" class="precioIndividual">Precio: ${producto.precio}</p>
+                        <div class="cantidadProducto">
+                            <button onclick="decreme(event)" data-id="${item._id}" class="boton">-</button>
+                            <p type="text" id="cantidad" class="">${cantidad}</p>
+                            <button onclick="agreg(event)" data-id="${item._id}" class="boton">+</button>
+                        </div>
             </div>
         `;
     });
 
-    // Añade el total después de los productos
-    contenedor.innerHTML += `<p id="total" class="precioTotal">Total: $</p>`;
+    // Aside
+
+    //sumar la cantidad de producto
+
+        contenedorAside.innerHTML += `
+            <h2>Resumen De Compra</h2>
+            <p>Producto:${sumaTotalCantidad}</p>
+            <button>Continuar Compra</button>
+            <p id="total" class="precioTotal">Total:  $</p>`;
     calcularTotal();
+
 };
 
 // Calcula el total del carrito y lo muestra en la consola
@@ -106,6 +117,7 @@ const calcularTotal = () => {
     document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
     console.log(`Total del carrito: $${total.toFixed(2)}`);
 };
+
 
 // Obtiene los productos del carrito desde la base de datos
 const obtenerCarrito = async () => {
