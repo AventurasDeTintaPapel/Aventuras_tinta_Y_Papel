@@ -54,15 +54,6 @@ const agreg = async (event) => {
         const productos = document.querySelectorAll('.producto');
         let totalFinal = 0;
 
-        productos.forEach(producto => {
-            if (producto.dataset.id === idProducto) {
-                const precio = parseFloat(producto.querySelector('#precio').textContent.replace('Precio: ', ''));
-                console.log(precio);
-                totalFinal = precio * cantidad; // Calcular el precio total basado en la cantidad actualizada
-                console.log(totalFinal)
-            }
-        });
-
         // Realizar la solicitud fetch para actualizar el carrito en la base de datos
         const actualizarCantidad = await fetch(`http://localhost:3400/carrito/${idProducto}`, {
             method: 'PUT',
@@ -102,13 +93,14 @@ const listarCarrito = (carrito) => {
             <div class="producto" >
                 <img src="https://www.eleconomista.com.mx/__export/1618813105696/sites/eleconomista/    img/2021/04/19/libros2.jpg_1015297232.jpg" alt="">
                 <div class="infoCarrito">
-                <h5>${producto.titulo}</h5>
-                <p id="precio" class="precioIndividual">Precio: ${producto.precio}</p>
-                <div class="cantidadProducto">
-                <button onclick="decreme(event)" data-id="${item._id}" class="boton">-</button>
-                <p type="text" id="cantidad" class="">${cantidad}</p>
-                <button onclick="agreg(event)" data-id="${item._id}" class="boton">+</button>
-                </div>
+                    <h5>${producto.titulo}</h5>
+                    <p id="precio" class="precioIndividual">Precio: ${producto.precio}</p>
+                    <button onclick="eliminarEle(event)" data-id="${item._id}">eliminar</button>
+                    <div class="cantidadProducto">
+                        <button onclick="decreme(event)" data-id="${item._id}" class="boton">-</button>
+                        <p type="text" id="cantidad" class="">${cantidad}</p>
+                        <button onclick="agreg(event)" data-id="${item._id}" class="boton">+</button>
+                    </div>      
                 </div>
             </div>
         `;
@@ -133,32 +125,46 @@ const calcularTotal = () => {
 
     document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
 };
-
+//funcion para eliminar una collecion
+const eliminarEle =async(event)=>{
+    const id = event.target.dataset.id;
+    const peticion = fetch(`http://localhost:3400/carrito/elemento/${id}`,{
+        method:'DELETE'
+    });
+    alert('producto eliminado correctamente');
+    console.log('Producto eliminado',id);
+    obtenerCarrito();
+}
 //funcion para añadir a pedidos
 const añadirPed =async(event)=>{
     const btn = event.target;
-    let total =0
+    let totalFinal =0
     let idCarrito = ""
     const productos = document.querySelectorAll('.producto');
     productos.forEach(producto => {
         const cantidad = parseInt(producto.querySelector('#cantidad').textContent);
         const precio = parseFloat(producto.querySelector('#precio').textContent.replace('Precio: ', ''));
-        total += cantidad * precio;
+        totalFinal += cantidad * precio;
         idCarrito = producto.querySelector('.boton').dataset.id;
-      
+        
     });
+
     console.log('ID del producto:', idCarrito);
-    console.log(total)  
+    console.log(totalFinal)  
     const isComplete ="en proceso"  
     try{
         const cargarPedido = await fetch(`http://localhost:3400/pedidos`, {
             method: 'POST',
-            body: JSON.stringify({ idCarrito,isComplete }),
+            body: JSON.stringify({ idCarrito,isComplete,totalFinal }),
             headers: { 'Content-Type': 'application/json' }
         })
 
         if(cargarPedido.ok){
-            alert('Se ha completado su compra')
+            alert('Se ha completado su compra');
+            const elimCar = await fetch(`http:/localhost:3400/carrito/${idCarrito}`,{
+                method:'DELETE'
+            })
+            console.log()
         }
     }catch(error){
 

@@ -5,11 +5,11 @@ const carrito = require('../models/carrito.model')
 const crtl = {};
 crtl.agrePedido = async(req,res)=>{
     try{
-        const {idCarrito,isComplete}= req.body;
+        const {idCarrito,isComplete,totalFinal}= req.body;
         const obtenerCarrito = await carrito.findById(idCarrito)
         const newpedido = new pedido ({
             carrito:obtenerCarrito._id,
-            isComplete
+            isComplete,totalFinal
         })
         console.log(isComplete)
         await newpedido.save();

@@ -5,10 +5,6 @@ const carrito = new Schema({
         type:Number,
         defaul:1,
         required:true
-    },totalFinal:{
-        type:Number,
-        defaul:0,
-        required:true
     },
     producto:{
         type: Schema.Types.ObjectId
