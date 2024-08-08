@@ -1,6 +1,5 @@
 const contenedor = document.getElementById('contenedor');
-const contenedorAside = document.getElementById(`contenedorAside`)
-
+const contenedorAside = document.getElementById("contenedorAside")
 // Función para descontar la cantidad del producto
 const decreme = async (event) => {
     const button = event.target;
@@ -80,17 +79,19 @@ const actualizarCantidadElemento = (idProducto, cantidad) => {
     if (cantidadElemento) {
         cantidadElemento.textContent = `${cantidad}`;
     }
+
     calcularTotal();
 };
 
 // Lista los productos en el carrito
 const listarCarrito = (carrito) => {
+    
     contenedor.innerHTML = ''; 
-    let sumaTotalCantidad = 0;
     carrito.forEach(item => {
         const producto = item.productoInfo;
         const cantidad = item.cantidad;
 
+<<<<<<< HEAD
         sumaTotalCantidad += cantidad++;
 
 
@@ -105,12 +106,31 @@ const listarCarrito = (carrito) => {
                             <p type="text" id="cantidad" class="">${cantidad}</p>
                             <button onclick="agreg(event)" data-id="${item._id}" class="boton">+</button>
                         </div>
+=======
+        // sumaTotalCantidad += cantidad;
+
+        contenedor.innerHTML += `
+            <div class="producto" >
+                <img src="https://www.eleconomista.com.mx/__export/1618813105696/sites/eleconomista/    img/2021/04/19/libros2.jpg_1015297232.jpg" alt="">
+                <div class="infoCarrito">
+                    <h5>${producto.titulo}</h5>
+                    <p id="precio" class="precioIndividual">Precio: ${producto.precio}</p>
+                    <button onclick="eliminarEle(event)" data-id="${item._id}">eliminar</button>
+                    <div class="cantidadProducto">
+                        <button onclick="decreme(event)" data-id="${item._id}" class="boton">-</button>
+                        <p type="text" id="cantidad" class="">${cantidad}</p>
+                        <button onclick="agreg(event)" data-id="${item._id}" class="boton">+</button>
+                    </div>      
+                </div>
+>>>>>>> 9c04cb9ff8b5f57c5532aff41f74c4d0bfc513fe
             </div>
         `;
     });
 
+
     // Aside
 
+<<<<<<< HEAD
     //sumar la cantidad de producto
 
         contenedorAside.innerHTML += `
@@ -118,8 +138,17 @@ const listarCarrito = (carrito) => {
             <p>Producto:${sumaTotalCantidad}</p>
             <button>Continuar Compra</button>
             <p id="total" class="precioTotal">Total:  $</p>`;
+=======
+    contenedorAside.innerHTML += `
+    <h2>Resumen De Compra</h2>
+   
+    <button>Continuar Compra</button>
+    
+    
+    <p id="total" class="precioTotal">Total: $</p> 
+    <button onclick="añadirPed(event)" >confirmar</button>`    
+>>>>>>> 9c04cb9ff8b5f57c5532aff41f74c4d0bfc513fe
     calcularTotal();
-
 };
 
 //funcion para eliminar
@@ -143,9 +172,57 @@ const calcularTotal = () => {
         total += cantidad * precio;
     });
 
+<<<<<<< HEAD
     document.getElementById('total').textContent = `Total: $${total.toFixed(2)};`
+=======
+    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+>>>>>>> 9c04cb9ff8b5f57c5532aff41f74c4d0bfc513fe
 };
+//funcion para eliminar una collecion
+const eliminarEle =async(event)=>{
+    const id = event.target.dataset.id;
+    const peticion = fetch(`http://localhost:3400/carrito/elemento/${id}`,{
+        method:'DELETE'
+    });
+    alert('producto eliminado correctamente');
+    console.log('Producto eliminado',id);
+    obtenercarritos();
+}
+//funcion para añadir a pedidos
+const añadirPed =async(event)=>{
+    const btn = event.target;
+    let totalFinal =0
+    let idCarrito = ""
+    const productos = document.querySelectorAll('.producto');
+    productos.forEach(producto => {
+        const cantidad = parseInt(producto.querySelector('#cantidad').textContent);
+        const precio = parseFloat(producto.querySelector('#precio').textContent.replace('Precio: ', ''));
+        totalFinal += cantidad * precio;
+        idCarrito = producto.querySelector('.boton').dataset.id;
+        
+    });
 
+    console.log('ID del producto:', idCarrito);
+    console.log(totalFinal)  
+    const isComplete ="en proceso"  
+    try{
+        const cargarPedido = await fetch(`http://localhost:3400/pedidos`, {
+            method: 'POST',
+            body: JSON.stringify({ idCarrito,isComplete,totalFinal }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        if(cargarPedido.ok){
+            alert('Se ha completado su compra');
+            const elimCar = await fetch(`http:/localhost:3400/carrito/${idCarrito}`,{
+                method:'DELETE'
+            })
+            console.log()
+        }
+    }catch(error){
+
+    }
+}
 
 //funcion para añadir a pedidos
 const añadirPed =async(event)=>{
