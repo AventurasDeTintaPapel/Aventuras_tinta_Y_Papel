@@ -1,5 +1,5 @@
 const contenedor = document.getElementById('contenedor');
-
+const contenedorAside = document.getElementById("contenedorAside")
 // Función para descontar la cantidad del producto
 const decreme = async (event) => {
     const button = event.target;
@@ -84,10 +84,13 @@ const actualizarCantidadElemento = (idProducto, cantidad) => {
 
 // Lista los productos en el carrito
 const listarCarrito = (carrito) => {
+    
     contenedor.innerHTML = ''; 
     carrito.forEach(item => {
         const producto = item.productoInfo;
         const cantidad = item.cantidad;
+
+        // sumaTotalCantidad += cantidad;
 
         contenedor.innerHTML += `
             <div class="producto" >
@@ -104,10 +107,18 @@ const listarCarrito = (carrito) => {
                 </div>
             </div>
         `;
-      
     });
-    // Añade el total después de los productos
-    contenedor.innerHTML += `<p id="total" class="precioTotal">Total: $</p> 
+
+
+    // Aside
+
+    contenedorAside.innerHTML += `
+    <h2>Resumen De Compra</h2>
+   
+    <button>Continuar Compra</button>
+    
+    
+    <p id="total" class="precioTotal">Total: $</p> 
     <button onclick="añadirPed(event)" >confirmar</button>`    
     calcularTotal();
 };
