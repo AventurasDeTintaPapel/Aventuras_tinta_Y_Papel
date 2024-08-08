@@ -96,7 +96,7 @@ const listarCarrito = (carrito) => {
 
         contenedorAside.innerHTML += `
             <h2>Resumen De Compra</h2>
-            <p>Producto:${sumaTotalCantidad}</p>
+            <p>Producto:</p>
             <button>Continuar Compra</button>
             <p id="total" class="precioTotal">Total:  $</p>`;
     calcularTotal();

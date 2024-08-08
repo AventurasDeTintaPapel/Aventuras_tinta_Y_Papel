@@ -2,6 +2,9 @@ const {Schema,model}= require('mongoose');
 const pedido = new Schema({
     carrito:{
         type:Schema.Types.ObjectId
+    },totalFinal:{
+        type:Number,
+        required:true
     },
     isComplete:{
         type:String,

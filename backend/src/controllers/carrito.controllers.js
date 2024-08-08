@@ -7,18 +7,16 @@ const ctrl = {};
 // Agregar un producto al carrito
 ctrl.agreCarrito = async (req, res) => {
     try {
-        const { cantidad, idProducto,precioTota } = req.body;
+        const { cantidad, idProducto } = req.body;
         const { idUsuario } = req.params;
         
         const obtenerUsuario = await usuarios.findById(idUsuario);
         const obtenerProducto = await producto.findById(idProducto);
-        // if(productoAgregado){
-        //   res.json({msg:'el producto ya se encuentra dentro de su carrito'})
-        // }else{
+
           const newCarrito = new carrito({
             usuario: obtenerUsuario._id,
             producto: obtenerProducto._id,
-            cantidad,precioTotal
+            cantidad
             });
           await newCarrito.save();
           res.json({ msg: 'El carrito fue cargado correctamente', newCarrito });
@@ -31,18 +29,18 @@ ctrl.agreCarrito = async (req, res) => {
 };
 ctrl.editarCarrito = async(req,res)=>{
     try{
-        const{
-            cantidad,
-            precioTotal
-        }= req.body;
+        const{cantidad}= req.body;
         const { id} = req.params;
           const carritoEncontrado = await carrito.findById(id);
+
         if(!carritoEncontrado){
           console.log('no encontrado')
         }
+       
+
         const carritoEdit = ({
             cantidad,
-            precioTotal
+
         })
         console.log(carritoEncontrado)
         const result = await carrito.findByIdAndUpdate(carritoEncontrado, carritoEdit, { new: true });
@@ -55,10 +53,17 @@ ctrl.editarCarrito = async(req,res)=>{
         console.log('ocurrio un error al editar el carrito',error)
     }
 }
+//eliminar elementos de la Base de datos
 ctrl.eliminarCarrito = async(req,res)=>{
     try{
-        const {id}= req.params;
-        const resultado = await carrito.findByIdAndDelete(id);
+        const ObjectId = mongoose.Types.ObjectId;
+        const {idUsuario}= req.params;
+        const obtenerUsuario = await carrito.aggregate([
+          {
+            $match: { usuario: new ObjectId(idUsuario) }
+          }])
+        console.log(obtenerUsuario)
+        const resultado = await carrito.deleteMany({usuario: new ObjectId(idUsuario)});
     
         if(resultado){
             res.status(200).json({msg:'producto eliminado correctamente del carrito'});
@@ -66,10 +71,23 @@ ctrl.eliminarCarrito = async(req,res)=>{
             res.status(400).json({msg:'no hay ningun producto añadido al carrito'});
         }
     }catch(error){
-        console.log(error);
-        
+        console.log(error);   
     }
-    
+}
+//eliminar elementos de la Base de datos
+ctrl.eliminarElemento = async(req,res)=>{
+  try{
+      const {id}= req.params;
+      const resultado = await carrito.findOneAndDelete(id);
+  
+      if(resultado){
+          res.status(200).json({msg:'producto eliminado correctamente del carrito'});
+      }else{
+          res.status(400).json({msg:'no hay ningun producto añadido al carrito'});
+      }
+  }catch(error){
+      console.log(error);   
+  }
 }
 
 

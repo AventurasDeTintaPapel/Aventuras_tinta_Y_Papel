@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {agreCarrito,obteCarrito,editarCarrito,eliminarCarrito} =require('../controllers/carrito.controllers');
+const {agreCarrito,obteCarrito,editarCarrito,eliminarCarrito,eliminarElemento} =require('../controllers/carrito.controllers');
 const {agreFav,obtFavotiros,elimiFav} =require('../controllers/favorit.controllers');
 
 //-----------------------------------------
@@ -10,8 +10,10 @@ const {agreFav,obtFavotiros,elimiFav} =require('../controllers/favorit.controlle
 router.post('/carrito/:idUsuario',agreCarrito);
 //ruta para editar el carrito
 router.put('/carrito/:id',editarCarrito);
-//ruta para eliminar productos del carrito
+//ruta para eliminar todos los productos del carrito
 router.delete('/carrito/:idUsuario',eliminarCarrito);
+//ruta para eliminar un producto del carrito
+router.delete('/carrito/elemento/:id',eliminarElemento)
 //ruta para obtener el carrito por id de usuario
 router.get('/carrito/:idUsuario',obteCarrito);
 

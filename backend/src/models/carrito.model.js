@@ -5,10 +5,8 @@ const carrito = new Schema({
         type:Number,
         defaul:1,
         required:true
-    },precioTotal:{
-        type:Number,
-        required:true
-    },producto:{
+    },
+    producto:{
         type: Schema.Types.ObjectId
     },usuario:{
         type: Schema.Types.ObjectId, ref: 'usuarios',
