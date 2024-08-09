@@ -7,15 +7,15 @@ const {agreFav,obtFavotiros,elimiFav} =require('../controllers/favorit.controlle
 //-----------------------------------------
 
 //rutas para los carritos
-router.post('/carrito/:idUsuario',agreCarrito);
+router.post('/carrito',agreCarrito);
 //ruta para editar el carrito
 router.put('/carrito/:id',editarCarrito);
 //ruta para eliminar todos los productos del carrito
-router.delete('/carrito/:idUsuario',eliminarCarrito);
+router.delete('/carrito',eliminarCarrito);
 //ruta para eliminar un producto del carrito
 router.delete('/carrito/elemento/:id',eliminarElemento)
 //ruta para obtener el carrito por id de usuario
-router.get('/carrito/:idUsuario',obteCarrito);
+router.get('/carrito',obteCarrito);
 
 //-----------------------------------------
 //---rutas para el apartado de favoritos---

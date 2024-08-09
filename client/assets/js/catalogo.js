@@ -62,15 +62,6 @@ const listarComics = (productos) => {
             }
         }   
     });
-        const comprarButtons = document.querySelectorAll('.comprar');
-        comprarButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const button = event.target;
-                const btnAgregado = button.nextElementSibling;
-                button.style.display = 'none';
-                btnAgregado.style.display = 'block';
-            });
-        });
     };
 }
 
@@ -78,20 +69,27 @@ const listarComics = (productos) => {
 const añadirCarrito = async (event) => {
     const idProducto = event.target.dataset.id;
     const cantidad = 1
+    const token = localStorage.getItem('token');
     try {
-        const cargarCarrito = await fetch(`http://localhost:3400/carrito/6692cffb2772b70d5757459a`, {
-            method: 'POST',
-            body: JSON.stringify({
-                idProducto,
-                cantidad
-            }),
-            headers: {
-                'Content-Type': 'application/json'
+        if(!token){
+            alert('Debe registrarse para poder realizar esta tarea');
+        }else{
+            const cargarCarrito = await fetch(`http://localhost:3400/carrito`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    idProducto,
+                    cantidad
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token':token
+                }
+            });
+            if(cargarCarrito.ok){
+                alert('Se añadio el producto al carrito')
             }
-        });
-        if(cargarCarrito.ok){
-            alert('Se añadio el producto al carrito')
         }
+        
     } catch (error) {
         console.log(error);
     }

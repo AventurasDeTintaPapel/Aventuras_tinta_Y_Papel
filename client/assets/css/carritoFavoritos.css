@@ -9,43 +9,63 @@ body{
     
 }
 
-/*ASIDE*/
+:root{
+    --color-uwu: rgb(210, 209, 209);
+    --color-tarjeta: rgb(245, 237, 227);
+}
+
 
 aside{
     grid-column: 1;
     grid-row: 2;
+
+
+    background-color: var(--color-uwu);
 }
 
+.titulosProducto{
+    margin-left: 5%;
+}
 .contenedorGeneralAside{
-    background-color: rgb(248, 230, 219);
-    
+    background-color:var(--color-tarjeta);
+    margin: 20px;
+    border-radius: 10px;
+    padding: 15px;
 }
 
-/*MAIN*/
+
 main{
     grid-row: 2;
     grid-column: 2;
+    background-color: var(--color-uwu);
     display: flex;
-    justify-content: center;
-    background-color: #5f499e;
+
+    padding-left: 10%;
+
 }
 
 .contenedorGeneral{
-    background-color: rgb(255, 202, 178);
     width: 100%;
 }
 
 .producto{
     align-items: center;
-    background-color: rgb(245, 237, 227);
+    background-color: var(--color-tarjeta);
     margin-top: 20px;
     display: flex;
     padding: 20px;
+    height: 150px;
+    width: 70%;
+
+    border-radius: 10px;
+    position: relative;
 }
 
 .producto img{
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+
+    border-radius: 5px;
 }
 
 .producto h5{
@@ -75,9 +95,13 @@ main{
 }
 
 .cantidadProducto{
-    gap: 3%;
+    gap: 10px;
     display: flex;
     align-items: center;
+    position: absolute;
+
+    left: 85%;
+    bottom: 1%;
 }
 
 .boton{
@@ -94,7 +118,6 @@ main{
 
 
 
-/*Header y footer*/
 
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Yatra+One&display=swap');
@@ -148,7 +171,7 @@ header{
 }
 
 
-/*botones del*/
+
 .ususario, .corazon, .carrito{
     background-color: aliceblue;
     border-radius: 100%;
@@ -394,7 +417,7 @@ b{
         grid-template-rows: auto auto 60px 1fr auto;
     }
 
-/*todo lo relacionado con el HEADER*/
+
     header{
         grid-column: 1;
         grid-row: 1;
@@ -419,7 +442,6 @@ b{
     }
 
 
-    /*Nav*/
 
     .iconosManual{
         display: block;
