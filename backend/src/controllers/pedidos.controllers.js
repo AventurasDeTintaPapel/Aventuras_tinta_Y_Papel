@@ -1,12 +1,11 @@
-const pedido = require('../models/pedido.model');
-const moongose = require('mongoose');
-const carrito = require('../models/carrito.model')
+import pedido from '../models/pedido.model.js';
+import moongose from 'mongoose';
 
-const crtl = {};
-crtl.agrePedido = async(req,res)=>{
+ 
+export const agrePedido = async(req,res)=>{
     try{
         const {idCarrito,isComplete,totalFinal}= req.body;
-        const obtenerCarrito = await carrito.findById(idCarrito)
+        const obtenerCarrito = await _findById(idCarrito)
         const newpedido = new pedido ({
             carrito:obtenerCarrito._id,
             isComplete,totalFinal
@@ -18,12 +17,12 @@ crtl.agrePedido = async(req,res)=>{
         console.log(error)
     }
 }
-crtl.ediPedido = async (req, res) => {
+export const ediPedido = async (req, res) => {
     try {
         const { idPedido } = req.params;
         const { isComplete } = req.body; 
 
-        const obtePedido = await pedido.findById(idPedido); 
+        const obtePedido = await findById(idPedido); 
         
         if (!obtePedido) {
             return res.status(404).json({ msg: 'El pedido no se encuentra registrado' }); 
@@ -35,7 +34,7 @@ crtl.ediPedido = async (req, res) => {
         };
 
         // Actualiza el pedido con el nuevo valor de isComplete
-        const resultado = await pedido.findByIdAndUpdate(idPedido, pedidoEdit, { new: true });
+        const resultado = await findByIdAndUpdate(idPedido, pedidoEdit, { new: true });
 
         if (resultado) {
             res.json({ msg: 'El pedido fue actualizado correctamente', pedido: resultado });
@@ -47,12 +46,12 @@ crtl.ediPedido = async (req, res) => {
         res.status(500).json({ msg: 'Ocurrió un error al procesar la solicitud' }); // Responde con un error genérico en caso de excepciones
     }
 };
-crtl.obtePedido = async (req, res) => {
+export const obtePedido = async (req, res) => {
     try {
         const { idPedido } = req.params;
-        const ObjectId = mongoose.Types.ObjectId;
+        const ObjectId = moongose.Types.ObjectId;
     
-        const result = await carrito.aggregate([
+        const result = await aggregate([
         {
             $lookup: {
                 from: "carritos",
@@ -74,4 +73,3 @@ crtl.obtePedido = async (req, res) => {
         }
       }
 }
-module.exports = crtl

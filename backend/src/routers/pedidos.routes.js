@@ -1,11 +1,12 @@
-const router = require('express').Router();
-const {agrePedido,ediPedido,obtePedido}= require('../controllers/pedidos.controllers');
+import Router from 'express'
+import { agrePedido, ediPedido, obtePedido } from '../controllers/pedidos.controllers.js';
+export const pediRouter = Router();
 
 //ruta para cargar pedido
-router.post('/pedidos',agrePedido)
+pediRouter.post(agrePedido)
 //ruta para editar pedido
-router.put('/pedido/:idPedido',ediPedido);
+pediRouter.put('/:idPedido',ediPedido);
 //ruta para obtener los pedidos (Admin)
-router.get('/pedidos',obtePedido)
+pediRouter.get(obtePedido)
 
-module.exports= router;
+

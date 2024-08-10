@@ -1,4 +1,4 @@
-const {Schema,model}= require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const carrito = new Schema({
     cantidad:{
@@ -13,5 +13,5 @@ const carrito = new Schema({
     }
 })
 
-module.exports= model ('carrito',carrito);
+export default model ('carrito',carrito);
 

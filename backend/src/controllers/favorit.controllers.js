@@ -1,15 +1,13 @@
-const usuarios = require('../models/usuarios.model');
-const producto = require('../models/productos.model');
-const favoritos = require('../models/favorito.model')
-const ctrl ={};
+import favoritos from '../models/favorito.model.js';
+export const ctrl ={};
 // Agregar un producto a favoritos
-ctrl.agreFav = async (req, res) => {
+export const agreFav = async (req, res) => {
     try {
         const { idUsuario } = req.params;
         const { idProducto } = req.body;
         
-        const obtenerUsuario = await usuarios.findById(idUsuario);
-        const obtenerProducto = await producto.findById(idProducto);
+        const obtenerUsuario = await findById(idUsuario);
+        const obtenerProducto = await _findById(idProducto);
 
         const favorito = new favoritos({
             usuario: obtenerUsuario._id,
@@ -25,11 +23,11 @@ ctrl.agreFav = async (req, res) => {
 };
 
 // Obtener todos los favoritos
-ctrl.obtFavotiros = async (req, res) => {
+export const obtFavotiros = async (req, res) => {
     try {
         const { id } = req.params;
         const ObjectId = require('mongoose').Types.ObjectId;
-        const resultado = await favoritos.aggregate([
+        const resultado = await aggregate([
             {
                 $match: { usuario: new ObjectId(id) }
             },
@@ -60,10 +58,10 @@ ctrl.obtFavotiros = async (req, res) => {
         res.status(500).json({ error: 'Ocurrió un error al obtener los favoritos' });
     }
 };
-ctrl.elimiFav= async (req,res)=>{
+export const elimiFav= async (req,res)=>{
     try{
         const {idfav}= req.params;
-        const result= await favoritos.findByIdAndDelete(idfav);
+        const result= await findByIdAndDelete(idfav);
         if(result){
             res.status(200).json({msg:'producto eliminado correctamente de favoritos'});
         }else{
@@ -76,5 +74,3 @@ ctrl.elimiFav= async (req,res)=>{
     
 
 }
-
-module.exports = ctrl

@@ -1,4 +1,4 @@
-const {Schema,model}= require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const usuarioSchema = new Schema({
     nombre:{
@@ -36,5 +36,5 @@ const usuarioSchema = new Schema({
 },{
     timestamps:true
 });
-usuarioSchema.plugin(require('mongoose-bcrypt'))
-module.exports = model('usuario',usuarioSchema);
+
+export default model('usuario',usuarioSchema);

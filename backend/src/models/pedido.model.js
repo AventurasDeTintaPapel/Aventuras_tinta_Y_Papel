@@ -1,4 +1,4 @@
-const {Schema,model}= require('mongoose'); 
+import { Schema, model } from 'mongoose'; 
 const pedido = new Schema({
     carrito:{
         type:Schema.Types.ObjectId
@@ -14,4 +14,4 @@ const pedido = new Schema({
 
 })
 
-module.exports = model('pedido',pedido)
+export default model('pedido',pedido)

@@ -1,12 +1,13 @@
-const carrito = require("../models/carrito.model");
-const mongoose = require("mongoose");
-const usuarios = require("../models/usuarios.model");
-const producto = require("../models/productos.model");
-const validarJWT = require("../helpers/validadJWT");
-const ctrl = {};
+import carrito from '../models/carrito.model.js';
+import mongoose from 'mongoose';
+import usuarios from '../models/usuarios.model.js';
+import producto from '../models/productos.model.js';
+import {validarJWT} from "../helpers/validadJWT.js";
+//exportacion de los controladores
+
 
 // Agregar un producto al carrito
-ctrl.agreCarrito = async (req, res) => {
+export const agreCarrito = async (req, res) => {
   try {
     const { cantidad, idProducto } = req.body;
     // const { idUsuario } = req.params;
@@ -45,7 +46,7 @@ ctrl.agreCarrito = async (req, res) => {
       .json({ error: "Ocurrió un error al agregar el producto al carrito" });
   }
 };
-ctrl.editarCarrito = async (req, res) => {
+export const editarCarrito = async (req, res) => {
   try {
     const { cantidad } = req.body;
     const { id } = req.params;
@@ -73,7 +74,7 @@ ctrl.editarCarrito = async (req, res) => {
   }
 };
 //eliminar elementos de la Base de datos
-ctrl.eliminarCarrito = async (req, res) => {
+export const eliminarCarrito = async (req, res) => {
   try {
     const token = req.headers.token;
     if (!token) {
@@ -115,7 +116,7 @@ ctrl.eliminarCarrito = async (req, res) => {
   }
 };
 //eliminar elementos de la Base de datos
-ctrl.eliminarElemento = async (req, res) => {
+export const eliminarElemento = async (req, res) => {
   try {
     const { id } = req.params;
     const resultado = await carrito.findOneAndDelete(id);
@@ -135,7 +136,7 @@ ctrl.eliminarElemento = async (req, res) => {
 };
 
 // Obtener todos los carritos
-ctrl.obteCarrito = async (req, res) => {
+export const obteCarrito = async (req, res) => {
   const token = req.headers.token;
   try {
     const ObjectId = mongoose.Types.ObjectId;
@@ -187,4 +188,3 @@ ctrl.obteCarrito = async (req, res) => {
   }
 };
 
-module.exports = ctrl;

@@ -1,6 +1,6 @@
-const multer = require('multer');
+import multer, { diskStorage } from 'multer';
 
-const guardar = multer.diskStorage({
+const guardar = diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'./public/uploads')
     },filename:(req,file,cb)=>{
@@ -20,6 +20,5 @@ const filtro = (req, file, cb) => {
 };
 
 // Configuración de Multer
-const subirImagen = multer({ storage: guardar, fileFilter: filtro });
+export const subirImagen = multer({ storage: guardar, fileFilter: filtro });
 
-module.exports = subirImagen;

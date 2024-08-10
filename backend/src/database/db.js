@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 (async ()=>{
     try{
-        const db = await mongoose.connect('mongodb://localhost/aventura')
+         const db = await connect('mongodb://localhost/aventura')
         console.log('la coneccion fue exitosa')
     }catch(error){
         console.log(error)
     }
 })();
 
-module.exports = mongoose;
+export default {mongoose}

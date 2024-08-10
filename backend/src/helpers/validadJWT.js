@@ -1,12 +1,12 @@
-const jwt = require('jsonwebtoken');
-const Usuario = require('../models/usuarios.model')
+import  verify from 'jsonwebtoken';
 
-const validarJWT = async (token) => {
+
+export const validarJWT = async (token) => {
     try {
-        const { id } = jwt.verify(token, 'mysecret');
+        const { id } = verify(token, 'mysecret');
 
         // Buscamos el usuario por id en MongoDB.
-        const usuario = await Usuario.findById(id);
+        const usuario = await findById(id);
 
         if (!usuario) {
             return false;
@@ -21,4 +21,3 @@ const validarJWT = async (token) => {
 }
 
     
-module.exports = validarJWT;

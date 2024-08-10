@@ -1,31 +1,31 @@
-const router = require('express').Router();
-const {agreCarrito,obteCarrito,editarCarrito,eliminarCarrito,eliminarElemento} =require('../controllers/carrito.controllers');
-const {agreFav,obtFavotiros,elimiFav} =require('../controllers/favorit.controllers');
+import { Router } from 'express';
+import { agreCarrito, obteCarrito, editarCarrito, eliminarCarrito, eliminarElemento } from '../controllers/carrito.controllers.js';
+import { agreFav, obtFavotiros, elimiFav } from '../controllers/favorit.controllers.js';
+
+export const routes = Router();
 
 //-----------------------------------------
 //---rutas para el apartado de carritos----
 //-----------------------------------------
 
 //rutas para los carritos
-router.post('/carrito',agreCarrito);
+routes.post('/carrito',agreCarrito);
 //ruta para editar el carrito
-router.put('/carrito/:id',editarCarrito);
+routes.put('/carrito/:id',editarCarrito);
 //ruta para eliminar todos los productos del carrito
-router.delete('/carrito',eliminarCarrito);
+routes.delete('/carrito',eliminarCarrito);
 //ruta para eliminar un producto del carrito
-router.delete('/carrito/elemento/:id',eliminarElemento)
+routes.delete('/carrito/elemento/:id',eliminarElemento)
 //ruta para obtener el carrito por id de usuario
-router.get('/carrito',obteCarrito);
+routes.get('/carrito',obteCarrito);
 
 //-----------------------------------------
 //---rutas para el apartado de favoritos---
 //-----------------------------------------
 
 //agregar a favoritos
-router.post('/favoritos/:id',agreFav);
+routes.post('/:id',agreFav);
 //ruta para obtener favoritos
-router.get('/favoritos/:id',obtFavotiros);
+routes.get('/:id',obtFavotiros);
 //ruta para eliminar favoritos
-router.delete('/favoritos/:idfav',elimiFav)
-
-module.exports = router;
+routes.delete('/favoritos/:idfav',elimiFav)
