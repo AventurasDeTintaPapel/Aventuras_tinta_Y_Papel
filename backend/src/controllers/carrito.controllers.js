@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import usuarios from '../models/usuarios.model.js';
 import producto from '../models/productos.model.js';
 import {validarJWT} from "../helpers/validadJWT.js";
-//exportacion de los controladores
 
 
 // Agregar un producto al carrito
