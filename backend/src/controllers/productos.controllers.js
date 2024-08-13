@@ -1,15 +1,17 @@
 import productos from '../models/productos.model.js';
 import mongoose from 'mongoose';
 export const obtenerProducto= async(req,res)=>{
-    try{
-       const {id}= req.params
-       const obtenerProducto = (id === undefined)? await find():await findOne({_id:id});
-            res.json(obtenerProducto)
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({msg:'error interno del servidor'})
-     
+    try {
+        const { id } = req.params;
+        const obtenerProducto = (id === undefined) 
+            ? await productos.find() 
+            : await productos.findOne({ _id: id });
+        res.json(obtenerProducto);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: 'error interno del servidor' });
     }
+
 }
 export const cargarProducto = async(req,res)=>{
     try {

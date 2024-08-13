@@ -7,10 +7,10 @@ export const producRouter = Router();
 producRouter.post('/cargar',subirImagen.single('imagen'),cargarProducto);
 
 //ruta para obtener los productos
-producRouter.get('/productos',obtenerProducto);
+producRouter.get('/',obtenerProducto);
 
 //ruta para obtener por id
-producRouter.get('/productos/:id',obtenerProducto);
+producRouter.get('/:id',obtenerProducto);
 
 //ruta para eliminar productos
 producRouter.delete('/eliminar/:id',eliminarProducto);

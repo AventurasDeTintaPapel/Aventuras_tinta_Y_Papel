@@ -4,7 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import mongoose from './database/db.js';
 import {authRouter} from './routers/auth.routes.js'
-import {routes} from './routers/carr_fav.routes.js'
+import {carrFavRoutes} from './routers/carr_fav.routes.js'
 import {pediRouter} from './routers/pedidos.routes.js'
 import {producRouter} from './routers/productos.routes.js'
 
@@ -18,11 +18,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 //rutas
-app.use('/api',authRouter);
-app.use('/api',routes)
-app.use('/api/pedidos',pediRouter);
-// app.use(require('./routers/productos.routes'))
-
+// Rutas
+app.use('/api/auth', authRouter); // Ruta para autenticación
+app.use('/api/carrito-favoritos', carrFavRoutes); // Ruta para carrito y favoritos
+app.use('/api/pedidos', pediRouter); // Ruta para pedidos
+app.use('/api/productos', producRouter); // Ruta para productos
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 app.listen(port, () => {

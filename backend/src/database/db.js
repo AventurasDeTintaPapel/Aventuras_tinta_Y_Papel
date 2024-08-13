@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
+const url = "mongodb+srv://jaqueline22:Jaqueline2445@aventura.qeyjg.mongodb.net/";
+
 (async ()=>{
     try{
-        const db = await mongoose.connect('mongodb+srv://jaquibatienza22:AventuraAtienzaJaqueline@cluster0.uhc28.mongodb.net/Aventura', {
+        const db = await mongoose.connect(url, {
         });
         console.log('La conexión fue exitosa');
     }catch(error){

@@ -51,7 +51,7 @@ export const obtePedido = async (req, res) => {
         const { idPedido } = req.params;
         const ObjectId = moongose.Types.ObjectId;
     
-        const result = await aggregate([
+        const result = await pedido.aggregate([
         {
             $lookup: {
                 from: "carritos",

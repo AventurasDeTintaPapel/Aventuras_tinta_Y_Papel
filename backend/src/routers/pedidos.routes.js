@@ -3,10 +3,10 @@ import { agrePedido, ediPedido, obtePedido } from '../controllers/pedidos.contro
 export const pediRouter = Router();
 
 //ruta para cargar pedido
-pediRouter.post(agrePedido)
+pediRouter.post("/",agrePedido)
 //ruta para editar pedido
-pediRouter.put('/:idPedido',ediPedido);
+pediRouter.put("/:idPedido",ediPedido);
 //ruta para obtener los pedidos (Admin)
-pediRouter.get(obtePedido)
+pediRouter.get("/",obtePedido)
 
 

@@ -26,8 +26,7 @@ export const agreFav = async (req, res) => {
 export const obtFavotiros = async (req, res) => {
     try {
         const { id } = req.params;
-        const ObjectId = require('mongoose').Types.ObjectId;
-        const resultado = await aggregate([
+        const resultado = await favoritos.aggregate([
             {
                 $match: { usuario: new ObjectId(id) }
             },
