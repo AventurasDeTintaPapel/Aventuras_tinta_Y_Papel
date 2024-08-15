@@ -7,7 +7,7 @@ form.addEventListener('submit', async (e) => {
     const formData = new FormData(form);
 
     try {
-        const response = await fetch('http://localhost:3400/cargar', {
+        const response = await fetch('http://localhost:3400/productos/cargar', {
             method: 'POST',
             body: formData,
         });

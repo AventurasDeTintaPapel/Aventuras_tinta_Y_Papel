@@ -1,12 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
+const url = "mongodb+srv://jaqueline22:Jaqueline2445@aventura.qeyjg.mongodb.net/";
 
 (async ()=>{
     try{
-        const db = await mongoose.connect('mongodb://localhost/aventura')
-        console.log('la coneccion fue exitosa')
+        const db = await mongoose.connect(url, {
+        });
+        console.log('La conexión fue exitosa');
     }catch(error){
         console.log(error)
     }
 })();
 
-module.exports = mongoose;
+export default {mongoose}

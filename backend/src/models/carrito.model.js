@@ -1,15 +1,17 @@
-const {Schema,model}= require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const carrito = new Schema({
     cantidad:{
         type:Number,
+        defaul:1,
         required:true
-    },producto:{
+    },
+    producto:{
         type: Schema.Types.ObjectId
     },usuario:{
         type: Schema.Types.ObjectId, ref: 'usuarios',
     }
 })
 
-module.exports= model ('carrito',carrito);
+export default model ('carrito',carrito);
 

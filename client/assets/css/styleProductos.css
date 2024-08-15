@@ -30,23 +30,6 @@ main{
     margin-top: 20px;
 }
 
-.cotainerInfoPro{
-    display: flex;
-    align-items: center;
-    margin-inline: 2%;
-}
-
-.botonesProducto p{
-    margin-top: 0;
-    margin-left: 10%;
-}
-
-.comprProd{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
 
 
 .contenedorProductos{
@@ -56,7 +39,6 @@ main{
     flex-wrap: wrap;
 }
 
-<<<<<<< HEAD:assets/css/styleProductosComics.css
 .fi-rs-heart{
     color: rgb(15, 139, 15);
     width: 80px;
@@ -70,17 +52,15 @@ main{
     color: rgb(21, 15, 139);
     width: 80px;
     font-size: 30px;
-=======
-.inconoFavoritos{
     color:rgb(107, 50, 212);
-    width: 20px;
+    font-size: 20px;
 }
 
 .producto h2{
     font-size: 20px;
 }
 .botonesProducto a ,button{
-    padding: 12px 32px 12px 32px ;
+    padding: 12px 25px 12px 25px ;
     text-decoration: none;
     color: black;
     background-color: #4121a1;
@@ -89,16 +69,17 @@ main{
     color: aliceblue;
 }
 .botonesProducto{
->>>>>>> a4e51fcfd983fbd9fe596b44720b2218bdbc946c:client/assets/css/styleProductos.css
     display: flex;
     flex-wrap: wrap;
-    width: 150%;
+    width: 110%;
     gap: 4px;
     
 }
-
+.cantidad{
+    display: none;
+}
 .producto img{
-    width: 150px;
+    width: 200px;
 }
 
 .tituloProManga{

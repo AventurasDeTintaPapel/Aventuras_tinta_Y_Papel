@@ -1,4 +1,4 @@
-const {Schema,model}= require('mongoose');
+import { Schema, model } from 'mongoose';
 const favoritos = new Schema({
     producto:{
         type: Schema.Types.ObjectId
@@ -6,4 +6,4 @@ const favoritos = new Schema({
         type: Schema.Types.ObjectId, ref: 'usuarios',
     }
 })
-module.exports= model ('favoritos',favoritos);
+export default model ('favoritos',favoritos);

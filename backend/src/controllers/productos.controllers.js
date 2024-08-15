@@ -1,18 +1,19 @@
-const productos = require('../models/productos.model');
-const mongoose = require('mongoose')
-const ctrl = {}
-ctrl.obtenerProducto= async(req,res)=>{
-    try{
-       const {id}= req.params
-       const obtenerProducto = (id === undefined)? await productos.find():await productos.findOne({_id:id});
-            res.json(obtenerProducto)
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({msg:'error interno del servidor'})
-     
+import productos from '../models/productos.model.js';
+import mongoose from 'mongoose';
+export const obtenerProducto= async(req,res)=>{
+    try {
+        const { id } = req.params;
+        const obtenerProducto = (id === undefined) 
+            ? await productos.find() 
+            : await productos.findOne({ _id: id });
+        res.json(obtenerProducto);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: 'error interno del servidor' });
     }
+
 }
-ctrl.cargarProducto = async(req,res)=>{
+export const cargarProducto = async(req,res)=>{
     try {
         const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, cantidad, categoria } = req.body;
 
@@ -53,12 +54,11 @@ ctrl.cargarProducto = async(req,res)=>{
 
 
 }
-ctrl.eliminarProducto = async (req, res) => {
+export const eliminarProducto = async (req, res) => {
     try {
         const { id } = req.params;
 
-        // findByIdAndDelete acepta el id directamente como argumento
-        const resultado = await productos.findByIdAndDelete(id);
+        const resultado = await findByIdAndDelete(id);
 
         if (resultado) {
             res.status(200).json({ msg: 'Producto eliminado correctamente' });
@@ -71,11 +71,10 @@ ctrl.eliminarProducto = async (req, res) => {
     }
 
 };
-ctrl.editarProducto=async(req,res)=>{
+export const editarProducto=async(req,res)=>{
     try{
         const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, cantidad, categoria } = req.body;
-
-        // Crear un nuevo producto
+        //productos editado
         const productoEditado = ({
             titulo,
             autor,
@@ -87,14 +86,11 @@ ctrl.editarProducto=async(req,res)=>{
             cantidad,
             categoria,
         });
-        if (req.file) {
-            productoEditado.imagen = `/uploads/${req.file.filename}`;
-        }
 
         const{id} = req.params;
-        const resultado= await productos.findByIdAndUpdate(id,productoEditado,{new:true});
+        const resultado= await findByIdAndUpdate(id,productoEditado,{new:true});
         if (resultado) {
-            res.status(200).json({ msg: 'Producto eliminado correctamente' });
+            res.status(200).json({ msg: 'Producto actualizado correctamente' });
         } else {
             res.status(404).json({ msg: 'Producto no encontrado' });
         }
@@ -103,15 +99,13 @@ ctrl.editarProducto=async(req,res)=>{
         res.status(500).json({ msg: 'Error al eliminar el producto' });
     }
 }
-ctrl.productos = async (req, res) => {
+export const obtCate = async (req, res) => {
     try {
         const {type} = req.params;
-        const resultado = await productos.find({ tipo: type });
+        const resultado = await find({ tipo: type });
         res.status(200).json(resultado);
     } catch (error) {
         console.error('Error al obtener libros:', error);
         res.status(500).json({ message: 'Error al obtener libros' });
     }
 };
-
-module.exports= ctrl;

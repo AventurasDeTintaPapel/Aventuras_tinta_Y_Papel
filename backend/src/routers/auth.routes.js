@@ -1,15 +1,14 @@
-const { register, login } = require('../controllers/auth.controllers');
+import { register, login } from '../controllers/auth.controllers.js';
+import { Router } from 'express';
+import {regisValidation,loginValidation} from '../validations/authValidations.js';
+import{applyValidations} from '../validations/applyValidations.js';
+export const authRouter = Router();
 
-//requerimos el metodo router de express y lo inicializamos.
-const router = require('express').Router();
 
 //ruta para registrarse
-router.post('/register', register);
-//ruta para logear administradores
-
+authRouter.post('/register',regisValidation,applyValidations, register);
 
 // ruta para el login.
-router.post('/login', login);
+authRouter.post('/login',loginValidation,applyValidations, login);
 
 
-module.exports = router;
