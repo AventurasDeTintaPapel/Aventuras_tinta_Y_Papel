@@ -13,12 +13,12 @@ const register = async (e) => {
     const nombreUsuario = document.getElementById('usuario').value;
     const email = document.getElementById('email').value;
     const fechaNacimiento=document.getElementById('fecha-nacimiento').value;
-    const contrasenia = document.getElementById('contraseña').value;
+    const ingreContra = document.getElementById('contraseña').value;
 
     // Realizamos la peticion a nuestro servidor.
-    const peticion = await fetch('http://localhost:3400/register', {
+    const peticion = await fetch('http://localhost:3400/api/auth/register', {
         method: 'POST',
-        body: JSON.stringify({nombre, apellido, nombreUsuario, email,fechaNacimiento, contrasenia}),
+        body: JSON.stringify({nombre, apellido, nombreUsuario, email,fechaNacimiento, ingreContra}),
         headers: {
             'Content-type': 'application/json'
         }

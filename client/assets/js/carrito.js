@@ -59,7 +59,6 @@ const agreg = async (event) => {
         const productos = document.querySelectorAll('.producto');
         let totalFinal = 0;
 
-        // Realizar la solicitud fetch para actualizar el carrito en la base de datos
         const actualizarCantidad = await fetch(`http://localhost:3400/carrito/${idProducto}`, {
             method: 'PUT',
             body: JSON.stringify({ cantidad, totalFinal }),
@@ -179,18 +178,18 @@ const añadirPed = async (event) => {
     const isComplete = "en proceso";
 
     try {
-        const cargarPedido = await fetch(`http://localhost:3400/pedidos`, {
-            method: 'POST',
-            body: JSON.stringify({ idCarrito, isComplete, totalFinal }),
-            headers: { 
-                'Content-Type': 'application/json'
-            }
-        });
+        // const cargarPedido = await fetch(`http://localhost:3400/pedidos`, {
+        //     method: 'POST',
+        //     body: JSON.stringify({ idCarrito, isComplete, totalFinal }),
+        //     headers: { 
+        //         'Content-Type': 'application/json'
+        //     }
+        // });
 
-        if (cargarPedido.ok) {
+        // if (cargarPedido.ok) {
             alert('Se ha completado su compra');
             const token = localStorage.getItem('token');
-            const elimCar = await fetch(`http://localhost:3400/carrito`, {
+            const elimCar = await fetch(`http://localhost:3400/api/carrito/`, {
                 method: 'DELETE',
                 headers: { 
                     'token': token 
@@ -204,10 +203,10 @@ const añadirPed = async (event) => {
                 console.error('Error al eliminar el carrito:', elimCar.statusText);
                 alert('Error al eliminar el carrito.');
             }
-        } else {
-            alert('Error al completar la compra');
-            console.error('Error al completar la compra:', cargarPedido.statusText);
-        }
+        // } else {
+        //     alert('Error al completar la compra');
+        //     console.error('Error al completar la compra:', cargarPedido.statusText);
+        // }
     } catch (error) {
         console.error('Error al procesar la compra:', error);
         alert('Ocurrió un error al intentar procesar la compra.');
@@ -225,7 +224,7 @@ const obtenerCarrito = async () => {
                 `;
         }else{
             const token = localStorage.getItem('token');
-            const peticion = await fetch('http://localhost:3400/carrito/',{
+            const peticion = await fetch('http://localhost:3400/api/carrito/',{
                 method:'GET',
                 headers: { 
                     'token': token 

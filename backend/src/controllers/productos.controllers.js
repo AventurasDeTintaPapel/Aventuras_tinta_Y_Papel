@@ -29,7 +29,6 @@ export const cargarProducto = async(req,res)=>{
         } else {
             return res.status(400).json({ msg: 'La imagen es obligatoria' });
         }
-
         // Crear un nuevo producto
         const newProduct = new productos({
             titulo,
@@ -58,7 +57,7 @@ export const eliminarProducto = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const resultado = await findByIdAndDelete(id);
+        const resultado = await productos.findByIdAndDelete(id);
 
         if (resultado) {
             res.status(200).json({ msg: 'Producto eliminado correctamente' });
@@ -88,7 +87,7 @@ export const editarProducto=async(req,res)=>{
         });
 
         const{id} = req.params;
-        const resultado= await findByIdAndUpdate(id,productoEditado,{new:true});
+        const resultado= await productos.findByIdAndUpdate(id,productoEditado,{new:true});
         if (resultado) {
             res.status(200).json({ msg: 'Producto actualizado correctamente' });
         } else {
@@ -102,7 +101,7 @@ export const editarProducto=async(req,res)=>{
 export const obtCate = async (req, res) => {
     try {
         const {type} = req.params;
-        const resultado = await find({ tipo: type });
+        const resultado = await productos.find({ tipo: type });
         res.status(200).json(resultado);
     } catch (error) {
         console.error('Error al obtener libros:', error);

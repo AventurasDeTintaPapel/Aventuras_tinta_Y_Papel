@@ -1,30 +1,31 @@
 import carrito from '../models/carrito.model.js';
 import mongoose from 'mongoose';
-import usuarios from '../models/usuarios.model.js';
+import Usuario from '../models/usuarios.model.js';
 import producto from '../models/productos.model.js';
 import {validarJWT} from "../helpers/validadJWT.js";
+
 
 
 // Agregar un producto al carrito
 export const agreCarrito = async (req, res) => {
   try {
     const { cantidad, idProducto } = req.body;
-    // const { idUsuario } = req.params;
-    const token = req.headers.token;
-    if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
-    }
+    const { idUsuario } = req.body;
+    // const token = req.headers.token;
+    // if (!token) {
+    //   return res.status(401).json({
+    //     msg: "Debe registrarse para realizar esa tarea",
+    //   });
+    // }
 
-    const idUsuario = await validarJWT(token);
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
+    // const idUsuario = await validarJWT(token);
+    // if (!idUsuario) {
+    //   return res.status(401).json({
+    //     msg: "Token inválido",
+    //   });
+    // }
     console.log(idUsuario);
-    const obtenerUsuario = await usuarios.findById(idUsuario._id);
+    const obtenerUsuario = await Usuario.findById(idUsuario);
 
     if (!obtenerUsuario) {
       return res.status(401).json({ msg: "usuario no encontrado" });
@@ -45,6 +46,7 @@ export const agreCarrito = async (req, res) => {
       .json({ error: "Ocurrió un error al agregar el producto al carrito" });
   }
 };
+//editar el carrito (elementos separados)
 export const editarCarrito = async (req, res) => {
   try {
     const { cantidad } = req.body;
@@ -150,6 +152,7 @@ export const obteCarrito = async (req, res) => {
         msg: "Token inválido",
       });
     }
+    console.log(idUsuario)
 
     const result = await carrito.aggregate([
       {

@@ -1,12 +1,13 @@
-import  sign from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'; 
+const {sign}= jwt
 
-export const generarJWT = (id)=>{
+export const generarJWT = (id) => {
     return new Promise((resolve, reject) => {
-        sign(id, 'mysecret',{
+        sign(id, 'mysecret', {
             // Se establece un tiempo de duración del token.
-            expiresIn: 600*600
-        }, (err, token)=>{
-            (err)?reject(err):resolve(token);
-        })
-    }) 
+            expiresIn: 600 * 600
+        }, (err, token) => {
+            (err) ? reject(err) : resolve(token);
+        });
+    });
 }

@@ -29,7 +29,6 @@ export const producValidation = [
     .isNumeric().withMessage('El titulo debe ser String')
     .notEmpty().withMessage('El titulo no debe estar vacio'),
     body('imagen')
-    .isString().withMessage('la imagen debe ser String')
     .notEmpty().withMessage('El titulo no debe estar vacio')
 ]
 export const producValidUpdate = [
@@ -67,6 +66,5 @@ export const producValidUpdate = [
     .notEmpty().withMessage('El titulo no debe estar vacio'),
     body('imagen')
     .optional()
-    .isString().withMessage('la imagen debe ser String')
     .notEmpty().withMessage('El titulo no debe estar vacio')
 ]

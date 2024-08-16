@@ -1,5 +1,5 @@
 const contenedorComics = document.getElementById("Comics");
-
+ 
 // Función para listar los comics
 const listarComics = (productos) => {
   contenedorComics.innerHTML = "";
@@ -63,7 +63,6 @@ const listarComics = (productos) => {
         });
     }
 };
-
 //funcion para añadit al carrito
     const añadirCarrito = async (event) => {
     const idProducto = event.target.dataset.id;
@@ -73,7 +72,7 @@ const listarComics = (productos) => {
         if (!token) {
             alert("Debe registrarse para poder realizar esta tarea");
         } else {
-            const cargarCarrito = await fetch(`http://localhost:3400/carrito`, {
+            const cargarCarrito = await fetch(`http://localhost:3400/api/carrito/`, {
                 method: "POST",
                 body: JSON.stringify({
                 idProducto,
@@ -95,7 +94,7 @@ const listarComics = (productos) => {
 // Función para añadir al carrito
 const obtenerProductos = async () => {
   try {
-    const peticion = await fetch("http://localhost:3400/catalogo/comics");
+    const peticion = await fetch("http://localhost:3400/api/productos/catalogo/comic");
 
     if (!peticion.ok) {
       console.log("Hubo un error al obtener los productos");
@@ -103,7 +102,7 @@ const obtenerProductos = async () => {
     }
 
     const response = await peticion.json();
-
+    console.log(response)
     listarComics(response);
   } catch (error) {
     console.error("Error al obtener los productos", error);
@@ -133,7 +132,6 @@ const añadirFavorito = async (event) => {
     console.log(error);
   }
 };
-
 document.addEventListener("DOMContentLoaded", () => {
   obtenerProductos();
 });

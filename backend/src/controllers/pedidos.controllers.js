@@ -1,46 +1,57 @@
 import pedido from '../models/pedido.model.js';
-import moongose from 'mongoose';
+import carrito from '../models/carrito.model.js'
+import mongoose from 'mongoose';
 
  
 export const agrePedido = async(req,res)=>{
     try{
-        const {idCarrito,isComplete,totalFinal}= req.body;
-        const obtenerCarrito = await _findById(idCarrito)
-        const newpedido = new pedido ({
-            carrito:obtenerCarrito._id,
-            isComplete,totalFinal
+        const {idUsuario,totalFinal} = req.body;
+        const ObjectId = mongoose.Types.ObjectId;
+
+        const obtCarrito = await carrito.aggregate([
+          {
+            $match: { usuario: new ObjectId(idUsuario) },
+          },
+        ]);
+        
+
+        console.log('Resultado de la consulta:', obtCarrito);
+         
+        const newPedido = new pedido({
+            carrito:obtCarrito,totalFinal
         })
-        console.log(isComplete)
-        await newpedido.save();
-          res.json({ msg: 'El pedido fue cargado correctamente', pedido });
+        await newPedido.save();
+        
+        res.json({msg:'el pedido se cargo correctamente',newPedido});
+
     }catch(error){
         console.log(error)
     }
 }
 export const ediPedido = async (req, res) => {
     try {
-        const { idPedido } = req.params;
-        const { isComplete } = req.body; 
+        // const { idPedido } = req.params;
+        // const { isComplete } = req.body; 
 
-        const obtePedido = await findById(idPedido); 
+        // const obtePedido = await findById(idPedido); 
         
-        if (!obtePedido) {
-            return res.status(404).json({ msg: 'El pedido no se encuentra registrado' }); 
-        }
+        // if (!obtePedido) {
+        //     return res.status(404).json({ msg: 'El pedido no se encuentra registrado' }); 
+        // }
 
-        // Crear un objeto con el campo que se va a actualizar
-        const pedidoEdit = {
-            isComplete: isComplete
-        };
+        // // Crear un objeto con el campo que se va a actualizar
+        // const pedidoEdit = {
+        //     isComplete: isComplete
+        // };
 
-        // Actualiza el pedido con el nuevo valor de isComplete
-        const resultado = await findByIdAndUpdate(idPedido, pedidoEdit, { new: true });
+        // // Actualiza el pedido con el nuevo valor de isComplete
+        // const resultado = await findByIdAndUpdate(idPedido, pedidoEdit, { new: true });
 
-        if (resultado) {
-            res.json({ msg: 'El pedido fue actualizado correctamente', pedido: resultado });
-        } else {
-            res.status(500).json({ msg: 'Error al actualizar el pedido' }); 
-        }
+        // if (resultado) {
+        //     res.json({ msg: 'El pedido fue actualizado correctamente', pedido: resultado });
+        // } else {
+        //     res.status(500).json({ msg: 'Error al actualizar el pedido' }); 
+        // }
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'Ocurrió un error al procesar la solicitud' }); // Responde con un error genérico en caso de excepciones
