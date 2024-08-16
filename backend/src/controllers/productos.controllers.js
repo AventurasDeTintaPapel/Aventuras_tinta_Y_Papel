@@ -102,7 +102,7 @@ export const editarProducto=async(req,res)=>{
 export const obtCate = async (req, res) => {
     try {
         const {type} = req.params;
-        const resultado = await find({ tipo: type });
+        const resultado = await productos.find({ tipo: type });
         res.status(200).json(resultado);
     } catch (error) {
         console.error('Error al obtener libros:', error);

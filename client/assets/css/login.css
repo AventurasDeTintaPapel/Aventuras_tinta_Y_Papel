@@ -1,60 +1,90 @@
+:root{
+    --tipografia:  'Franklin Gothic Medium';
+}
+
+.uwu{
+    background-color: rgb(37, 54, 124);
+    height: 40px;
+}
+
 .titulo {
     text-align: center;
     color: white;
-    font-family: serif;
+    font-family: var(--tipografia);
+    font-size: 3vw;
 }
 
 main {
-    background-image:url("img/registro2.jpg");
     background-size: cover;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.imagenGenral{
+    width: 100%;
+    z-index: -10000;
+    position: absolute;
+    height: 100vh;
+}
+
+.formulario{
+    width: 50%;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(240, 248, 255, 0.292);
+    z-index: 2;
+}
+
+.preguntas{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2%;
+    width: 80%;
+}
+
 
 .form-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 500px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+
+label, .link2{
     color: white;
-    font-weight: 900;
-}
-
-label{
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-}
-
-#usuario{
-    width: 400px;
-    height: 40px;
-    border: 1px solid;
-    border-radius: 5px;
-    border-color: rgb(228, 226, 222)
-    }
-
-#contraseña{
-    width: 400px;
-    height: 40px;
-    border: 1px solid;
-    border-radius: 5px;
-    border-color: rgb(228, 226, 222)
-}
-
-.link2{
-color: white;
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family: var(--tipografia);
+    font-size: 2vw;
 }
 
 .link {
-    color: black;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    color: rgb(8, 21, 255);
+    font-family: var(--tipografia);
+    font-size: 2vw;
 }
 
 .link:hover{
     color: white;
 }
+
+.btn{
+    margin-bottom: 2%;
+    font-size: 2vw;
+}
+
+
+
+#usuario{
+    border: 1px solid rgb(228, 226, 222);
+    border-radius: 5px;
+    height: 50px;
+    }
+
+#contraseña{
+    border: 1px solid rgb(228, 226, 222);
+    border-radius: 5px;
+    height: 50px
+}
+

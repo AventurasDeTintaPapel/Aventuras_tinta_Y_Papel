@@ -95,7 +95,7 @@ const listarComics = (productos) => {
 // Función para añadir al carrito
 const obtenerProductos = async () => {
   try {
-    const peticion = await fetch("http://localhost:3400/catalogo/comics");
+    const peticion = await fetch("http://localhost:3400/api/productos/catalogo/comic");
 
     if (!peticion.ok) {
       console.log("Hubo un error al obtener los productos");
