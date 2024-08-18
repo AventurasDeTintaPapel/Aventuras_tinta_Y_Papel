@@ -8,7 +8,7 @@ export const carrito = Router();
 //rutas para los carritos
 carrito.post("/",agreCarrito);
 //ruta para editar el carrito
-carrito.get('/:id',editarCarrito);
+carrito.put('/:id',editarCarrito);
 //ruta para eliminar todos los productos del carrito
 carrito.delete('/',eliminarCarrito);
 //ruta para eliminar un producto del carrito

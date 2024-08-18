@@ -16,13 +16,14 @@ export const agrePedido = async(req,res)=>{
         
 
         console.log('Resultado de la consulta:', obtCarrito);
-         
+         const Carrito = obtCarrito
+        //  res.json(Carrito)
         const newPedido = new pedido({
-            carrito:obtCarrito,totalFinal
+            carrito:Carrito,totalFinal
         })
         await newPedido.save();
-        
-        res.json({msg:'el pedido se cargo correctamente',newPedido});
+        res.json({newPedido})
+        // res.json({msg:'el pedido se cargo correctamente',newPedido});
 
     }catch(error){
         console.log(error)
@@ -30,53 +31,47 @@ export const agrePedido = async(req,res)=>{
 }
 export const ediPedido = async (req, res) => {
     try {
-        // const { idPedido } = req.params;
-        // const { isComplete } = req.body; 
+        const { idPedido } = req.params;
+        const { isComplete } = req.body; 
 
-        // const obtePedido = await findById(idPedido); 
+        const obtePedido = await pedido.findById(idPedido); 
+
+        console.log(obtePedido)
         
-        // if (!obtePedido) {
-        //     return res.status(404).json({ msg: 'El pedido no se encuentra registrado' }); 
-        // }
+        if (!obtePedido) {
+            return res.status(404).json({ msg: 'El pedido no se encuentra registrado' }); 
+        }
 
-        // // Crear un objeto con el campo que se va a actualizar
-        // const pedidoEdit = {
-        //     isComplete: isComplete
-        // };
+        // Crear un objeto con el campo que se va a actualizar
+        const pedidoEdit = {
+            isComplete: isComplete
+        };
 
         // // Actualiza el pedido con el nuevo valor de isComplete
-        // const resultado = await findByIdAndUpdate(idPedido, pedidoEdit, { new: true });
+        const resultado = await pedido.findByIdAndUpdate(idPedido, pedidoEdit, { new: true });
 
-        // if (resultado) {
-        //     res.json({ msg: 'El pedido fue actualizado correctamente', pedido: resultado });
-        // } else {
-        //     res.status(500).json({ msg: 'Error al actualizar el pedido' }); 
-        // }
+        if (resultado) {
+            res.json({ msg: 'El pedido fue actualizado correctamente', pedido: resultado });
+        } else {
+            res.status(500).json({ msg: 'Error al actualizar el pedido' }); 
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'Ocurrió un error al procesar la solicitud' }); // Responde con un error genérico en caso de excepciones
     }
 };
-export const obtePedido = async (req, res) => {
+export const obtePedidos = async (req, res) => {
     try {
-        const { idPedido } = req.params;
-        const ObjectId = moongose.Types.ObjectId;
+        // const { idPedido } = req.params;
+        const pedidos = await pedido.find().select('carrito.producto');
+        // const productos = pedidos.carrito.map(item => item.producto);
+        // res.json(productos);
     
-        const result = await pedido.aggregate([
-        {
-            $lookup: {
-                from: "carritos",
-                localField: "carrito",
-                foreignField: "_id",
-                as: "carritoInfo"
-            }
-        },
-            { $unwind: "$carritoInfo" }
-        ]);
 
-    
-        res.status(200).json(result);
-        console.log(result);
+        const productos = Array.isArray(pedidos.carrito) ? pedidos.carrito.map(item => item.producto) : [];
+
+
+        console.log(productos);
       } catch (error) {
         console.error(error);
         if (!res.headersSent) { 
