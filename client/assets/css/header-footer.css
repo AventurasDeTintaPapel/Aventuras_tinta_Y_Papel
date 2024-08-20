@@ -1,12 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Yatra+One&display=swap');
+
+
 *{
     padding: 0;
     margin: 0;
+
+    box-sizing: border-box;
 }
+
 
 :root{
     --color-linea: rgba(21, 15, 139, 0.596);
     --color-header-footer: #573bb6;
     --letra-font: "Permanent Marker", cursive;
+    --color-boton: rgb(102, 70, 182);
+    --color-boton_hover: #5821a1;
 }
 
 
@@ -155,6 +163,8 @@
     position: absolute;
     background-color: #583bb6 ;
     gap: 10px;
+
+    z-index: 10;
 }
 
 .botonNav:hover + .listaDesplegable_1,.listaDesplegable_1:hover{
@@ -171,6 +181,8 @@
     width: 10%;
     background-color: #583bb6 ;
     gap: 10px;
+
+    z-index: 10;
 }
 
 .botonNav:hover + .listaDesplegable_2,.listaDesplegable_2:hover{
@@ -188,6 +200,8 @@
     position: absolute;
     background-color: #583bb6 ;
     gap: 10px;
+
+    z-index: 10;
 }
 
 .botonNav:hover + .listaDesplegable_3,.listaDesplegable_3:hover{
@@ -204,6 +218,8 @@
     width: 10%;
     background-color: #583bb6 ;
     gap: 10px;
+
+    z-index: 10;
 }
 
 .botonNav:hover + .listaDesplegable_4,.listaDesplegable_4:hover{
@@ -211,3 +227,174 @@
     flex-direction: column;
 }
 
+footer{
+    background-color: var(--color-header-footer);
+}
+
+
+
+
+
+
+
+
+
+
+/*Productos*/
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background-color: rgb(242, 242, 242); */
+}
+
+.contenidoImg,.contenido-infoTarjeta{
+    padding: 10px 10px 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.contenidoImg{
+    row-gap: 5px;
+    position: relative;
+}
+
+.inconoFavoritos{
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    font-size: 28px;
+    color: rgb(80, 29, 175);
+    background-color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+
+}
+
+.Titulo{
+    max-width: 250px;
+    text-align: center;
+}
+
+.butonTarjeta{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.botontarjeta{
+    width: 45%;
+}
+
+.tarjetaImgen{
+    position: relative;
+    height: 350px;
+    width: 250px;
+    padding: 3px;
+
+    transition: height width font-size 0.1s ease ;
+
+}
+
+.tarjetas:hover .tarjetaImgen{
+    position: relative;
+    height: 363px;
+    width: 263px;
+    padding: 3px;
+}
+
+.tarjetas:hover .Titulo{
+    font-size: 25px;
+}
+
+.tarjetas:hover .precio {
+    font-size: 22px;
+}
+
+.tarjetaImgen .imagenTarjeta{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 3px solid rgb(231, 218, 255);
+}
+
+.tarjetas{
+    background-color: white;
+    border-radius: 15px;
+    width: 275px;
+}
+
+.contenedorProductos{
+    max-width: 1120px;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+
+    background-color: #eeeeee;
+    padding: 30px;
+}
+
+
+.contenidoProductos{
+    margin: 0 40px;
+}
+
+.precio{
+    font-size: 20px;
+}
+
+.superponer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #b0a6d5;
+    top: 0;
+    left: 0;
+}
+
+
+/*botones del producto*/
+
+.botontarjeta1{
+    text-decoration: none;
+    background-color: var(--color-boton);
+    color: aliceblue;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+    height: 50px;
+    border: none;
+
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+}
+
+.botontarjeta1:hover{
+    background-color: var(--color-boton_hover);
+}
+
+.botontarjeta2{
+    text-decoration: none;
+    background-color: var(--color-boton);
+    color: aliceblue;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+    height: 50px;
+    border: none;
+
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+}
+
+.botontarjeta2:hover{
+    background-color: var(--color-boton_hover);
+}

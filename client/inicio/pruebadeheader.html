@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-straight/css/uicons-regular-straight.css'>
     <link rel="stylesheet" href="../assets/css/header-footer.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+
+<!--swiper-->
+<link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+    
 </head>
 <body>
     <header>
@@ -33,25 +38,6 @@
     </div>
             <nav>
                 <div class="contenedorNav">
-
-                    <!-- <div class="navResposive">
-
-                        <div class="botonesCElularNAV">
-
-                            <div class="iconosManual">
-
-                                <span class="barraIcono"></span>
-                                <span class="barraIcono"></span>
-                                <span class="barraIcono"></span>
-                            </div>
-
-                            <svg id="lupitaPepino" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" lupitaPepino"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        </div>
-
-                        <div class="containerBuscador">
-                            <input id="barraBuscadorNAV" class="barraBuscadorNAV" type="text" placeholder="¿Que desea buscar?">
-                        </div>
-                    </div> -->
 
                     <ul class="Nav">
                         <li><a href="../inicio/inicio.html" class="botonNav"><p class="palabraClave">Incicio</p></a></li>
@@ -105,6 +91,37 @@
                 </div>
             </nav>
     </header>
+    <main>
+        <div class="contenedorProductos ">
+            <div class="contenidoProductos">
+                <div class="contenidoTarjetas swiper-wrapper">
+                    <div class="tarjetas">
+                        <div class="contenidoImg">
+                            <span class="superponer"></span>
+
+                            <div class="tarjetaImgen">
+                                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj2OQiOEzKsnGndAUkKIIImjJP-XpHTOH9bZU6xo_RbTMHyUeIaFI1kULeTEk5Kba9gUT5zegxwmmVRyWGq2UJQW3ppdRrlv8NwCvBpPbJtKYwyOo5MHhblfYSHeNiP9H4hcTShkXMuovMSNXHG9exKHEYTp_sWLp1b1zcFr-Y__huxY92bFElocf-dzw/s2047/tokyo-revengers-ultimo.webp" alt="" class="imagenTarjeta">
+                                <i class="inconoFavoritos fi-rs-heart favoritos"></i>
+                            </div>
+                        </div>
+
+                        <div class="contenido-infoTarjeta">
+                            <h2 class="Titulo">Absolute Carnage</h2>
+                            <p class="precio">Precio: $6000</p>
+
+
+                            <div class="butonTarjeta">
+                                <button class="botontarjeta1">Detalles</button>
+                                <button class="botontarjeta2">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </main>
 
 
 
@@ -113,6 +130,9 @@
     <script src="../assets/js/producto.js"></script>
     <script src="../assets/js/nav.js"></script>
     <script src="../assets/js/auten.js"></script>
+
+    <!--swiper-->
+    <script src="../assets/js/swiper-bundle.min.js"></script>
     
 </body>
 </html>
