@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { agreCarrito, obteCarrito, editarCarrito, eliminarCarrito, eliminarElemento } from '../controllers/carrito.controllers.js';
+import { agreCarrito, obteCarrito, eliminarCarrito, eliminarElemento } from '../controllers/carrito.controllers.js';
 
 
 export const carrito = Router();
