@@ -17,4 +17,3 @@ export const validarJWT = async (token) => {
         return false;
     }
 }
-
