@@ -1,0 +1,487 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Paytone+One&family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Yatra+One&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-linea: rgba(21, 15, 139, 0.596);
+  --color-header-footer: #573bb6;
+  --letra-font: "Permanent Marker", cursive;
+  --color-boton: rgb(102, 70, 182);
+  --color-boton_hover: #5821a1;
+}
+
+/* Estilos generales para el body */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Estilos del header */
+.contenedorHeader {
+  display: flex;
+  background-color: var(--color-header-footer);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contenedorHeader img {
+  width: 180px;
+  height: auto;
+  margin: 0;
+}
+
+.carritoIcon, .corazonIcon, .usuarioIcon {
+  background-color: #fff;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  text-decoration: none;
+  transition: font-size 0.2s ease;
+}
+
+.usuarioIcon:hover, .corazonIcon:hover, .carritoIcon:hover {
+  font-size: 24px;
+}
+
+.BotonesDelHeader {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.BotonesDelHeader a {
+  text-decoration: none;
+}
+
+.buscador {
+  background-color: #fff;
+  height: 40px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  gap: 10px;
+  padding: 0 10px;
+  position: relative;
+}
+
+.barradelBuscador {
+  width: 100%;
+  height: 80%;
+  border-radius: 30px;
+  border:none;
+}
+
+.usuariosOn, .usuariosOff {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  transition: font-size 0.3s ease;
+}
+
+.usuariosOn:hover {
+  font-size: 1rem;
+}
+
+.lupaIcon {
+  padding-right: 10px;
+  position: absolute;
+  right: 10px;
+}
+
+/*NAVEGADOR*/
+.Nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #4121a1;
+  font-size: 1rem;
+  padding: 1% 0;
+}
+
+.botonNav {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  transition: background-color 0.25s ease, font-size 0.25s ease;
+}
+
+.botonNav:hover {
+  font-size: 1.2rem;
+}
+
+.palabraClave {
+  padding-bottom: 15px;
+  display: flex;
+}
+
+.Nav li {
+  list-style: none;
+}
+
+.botonNav1 {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: font-size 0.25s ease;
+}
+
+.botonNav1:hover {
+  font-size: 1.2rem;
+}
+
+/*PARTES DEL NAV*/
+.listaDesplegable_1, .listaDesplegable_2, .listaDesplegable_3, .listaDesplegable_4 {
+  display: none;
+  padding: 0 10px;
+  position: absolute;
+  background-color: #583bb6;
+  gap: 10px;
+  z-index: 10;
+}
+
+.botonNav:hover + .listaDesplegable_1, .listaDesplegable_1:hover,
+.botonNav:hover + .listaDesplegable_2, .listaDesplegable_2:hover,
+.botonNav:hover + .listaDesplegable_3, .listaDesplegable_3:hover,
+.botonNav:hover + .listaDesplegable_4, .listaDesplegable_4:hover {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Productos */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.contenidoImg, .contenido-infoTarjeta {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.contenidoImg {
+  row-gap: 5px;
+  position: relative;
+}
+
+.inconoFavoritos {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  font-size: 28px;
+  color: rgb(80, 29, 175);
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+}
+
+.Titulo {
+  max-width: 250px;
+  text-align: center;
+}
+
+.butonTarjeta {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.botontarjeta {
+  width: 45%;
+}
+
+.tarjetaImgen {
+  position: relative;
+  height: 350px;
+  width: 250px;
+  padding: 3px;
+  transition: height 0.1s ease, width 0.1s ease;
+}
+
+.tarjetas:hover .tarjetaImgen {
+  height: 363px;
+  width: 263px;
+}
+
+.tarjetas:hover .Titulo {
+  font-size: 1.5rem;
+}
+
+.tarjetas:hover .precio {
+  font-size: 1.2rem;
+}
+
+.tarjetaImgen .imagenTarjeta {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 3px solid rgb(231, 218, 255);
+}
+
+.tarjetas {
+  background-color: #fff;
+  border-radius: 15px;
+  width: 275px;
+}
+
+.contenedorProductos {
+  max-width: 1120px;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  background-color: #eeeeee;
+  padding: 30px;
+}
+
+.contenidoProductos {
+  margin: 0 40px;
+}
+
+.precio {
+  font-size: 1.2rem;
+}
+
+.superponer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #b0a6d5;
+  top: 0;
+  left: 0;
+}
+
+/* Botones del producto */
+.botontarjeta1, .botontarjeta2 {
+  text-decoration: none;
+  background-color: var(--color-boton);
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 45%;
+  height: 50px;
+  border: none;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.botontarjeta1:hover, .botontarjeta2:hover {
+  background-color: var(--color-boton_hover);
+}
+
+/* Responsividad */
+@media (max-width: 1200px) {
+  .contenedorHeader img {
+    width: 150px;
+  }
+
+  .carritoIcon, .corazonIcon, .usuarioIcon {
+    font-size: 18px;
+  }
+
+  .botonNav, .botonNav1 {
+    font-size: 1.2rem;
+  }
+
+  .tarjetaImgen {
+    width: 220px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contenedorHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contenedorHeader img {
+    width: 120px;
+    height: auto;
+  }
+
+  .botonNav, .botonNav1 {
+    font-size: 1rem;
+  }
+
+  .tarjetaImgen {
+    width: 200px;
+    height: 250px;
+  }
+
+  .buscador {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .BotonesDelHeader {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .botonNav, .botonNav1 {
+    font-size: 0.9rem;
+  }
+
+  .tarjetaImgen {
+    width: 180px;
+    height: 220px;
+  }
+
+  .buscador {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* CHAT */
+section {
+  padding: 20px; 
+}
+
+*::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Contenedor del chat */
+#chat {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 350px; /* Ancho máximo */
+  height: 70vh; /* Ajusta la altura según tus necesidades */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Contenedor del chat y centrado */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  flex: 1;
+}
+
+/* Contenedor de mensajes */
+#messages {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Mensaje individual */
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.message span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.message p {
+  margin: 0;
+}
+
+/* Nombre del usuario */
+.username {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Mensaje del usuario */
+.text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Hora del mensaje */
+.time {
+  display: block;
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* Contenedor del formulario de entrada */
+#message-form {
+  display: flex;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ccc;
+}
+
+#message-input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#send-button {
+  background-color: var(--color-boton);
+  border: none;
+  color: white;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+#send-button:hover {
+  background-color: var(--color-boton_hover);
+}
+
+/* Responsividad para dispositivos más pequeños */
+@media (max-width: 768px) {
+  .contenedorHeader {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #chat {
+    width: 90%;
+    max-width: none; /* Ancho completo en dispositivos pequeños */
+  }
+}
+
+
+
