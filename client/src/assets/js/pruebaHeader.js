@@ -2,7 +2,7 @@ const flechaDerecha = document.getElementById("flechaDerecha")
 const flechaIzquida = document.getElementById("flechaIzquierda")
 const contenedor  = document.getElementById("constendorTarjetas")
 
-const desplazamieno = 228
+const desplazamieno = 452
 
 
 //mover a la derecha
