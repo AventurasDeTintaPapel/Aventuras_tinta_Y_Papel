@@ -8,8 +8,8 @@ const sliderSection=document.querySelectorAll(".sliderSection");
 console.log(btnLeft,btnRight,carrusel)
 
 // evento del carrusel de imagenes
-btnLeft.addEventListener('click', (e) => moveToLeft());
-btnRight.addEventListener('click', (e) => moveToRight());
+btnRight.addEventListener('click', (e) => moveToLeft());
+btnLeft.addEventListener('click', (e) => moveToRight());
 
 setInterval(() => {
     moveToRight()

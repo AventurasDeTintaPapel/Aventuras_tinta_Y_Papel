@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- link iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+  </head>
+  <body class="grid xlsecundario:grid-cols-[3.9%_1fr_4.5%] xlprimario:grid-cols-[4.52%_1fr_4.5%] grid-rows-[auto_1fr_auto] h-[100vh]">
+    <header class="bg-purple-600 col-span-3 row-start-1">
+      <div
+        class="contenedorHeader flex justify-between items-center xlprimario:py-3 xlsecundario:py-6  mx-[1.5%]"
+      >
+        <!-- imagen -->
+        <div class="contenedorImg w-[14%]">
+          <img
+            class="w-full h-full object-cover"
+            src="../../src/assets/img/Aventuras__4_-removebg-preview2.png"
+            alt="Logo"
+          />
+        </div>
+
+        <!-- buscador -->
+        <div
+          class="buscador bg-white rounded-full flex items-center 
+
+          /*paddings*/ 
+          xlprimario:pl-[0.4%]
+          xlsecundario:pl-[0.4%]
+
+          /*tamaños width y heigt*/ 
+          xlprimario:w-[45%] xlprimario:h-[3.2vw]
+          xlsecundario:w-[50%]
+
+          relative"
+        >
+          <input
+            class="barradelBuscador rounded-full bg-purple-100 
+
+            /*tamaños de letras*/
+            xlprimario:text-[1.5vw]
+            xlsecundario:text-[1.8vw]
+
+            /*paddings y margin*/ 
+            xlprimario:pl-[2%]
+            xlsecundario:pl-[3%]
+
+            /*tamaños width y heigt*/
+            w-[90%] h-[80%]
+"
+            type="text"
+            placeholder="¿Qué desea buscar?"
+          />
+          <i
+            class="fi-br-search absolute
+
+            /*direcciones*/ 
+            right-[2.5%] top-[17%]
+
+            /*tamaños*/ 
+            text-[1.5vw]
+            "
+            ></i>
+        </div>
+
+        <!-- botones -->
+        <div
+          class="contendorBotone flex w-auto items-center justify-center xlprimario:gap-[2.5vw] xlsecundario:gap-[3vw]"
+        >
+          <a href=""
+            ><i
+              id="btnUsuario"
+              class="fi-ss-user bg-slate-100 rounded-full flex items-center justify-center 
+              /*paddings*/
+              xlprimario:py-[40%] xlprimario:px-[90%]
+              xlsecundario:py-[45%] xlsecundario:px-[95%]
+
+              /*tamaños de los botones*/
+              xlprimario:text-[1.7vw] 
+              xlsecundario:text-[2vw]
+
+              /*transicion hover*/ 
+              transition-all duration-75 ease-in 
+              xlprimario:hover:text-[2.1vw] 
+              xlsecundario:hover:text-[2.3vw] hover:text-purple-900"
+            ></i
+          ></a>
+
+          <a href="../pedidos/favoritos.html"
+            ><i
+              class="fi-ss-heart bg-slate-100 rounded-full flex items-center justify-center 
+              /*paddings*/
+              xlprimario:py-[40%] xlprimario:px-[90%]
+              xlsecundario:py-[45%] xlsecundario:px-[95%]
+
+              /*tamaños de los botones*/
+              xlprimario:text-[1.7vw] 
+              xlsecundario:text-[2vw] 
+
+              /*transicion hover*/
+              transition-all duration-75 ease-in 
+              xlprimario:hover:text-[2.1vw] 
+              xlsecundario:hover:text-[2.3vw] hover:text-purple-900"
+            ></i
+          ></a>
+
+          <a href="../pedidos/carrito.html"
+            ><i
+              class="fi-ss-shopping-cart bg-slate-100 rounded-full flex items-center justify-center 
+              /*paddings*/
+              xlprimario:py-[40%] xlprimario:px-[90%]
+              xlsecundario:py-[45%] xlsecundario:px-[95%]
+
+              /*tamaños de los botones*/ 
+              xlprimario:text-[1.7vw] 
+              xlsecundario:text-[2vw] 
+
+              /*transicion hover*/ 
+              transition-all duration-75 ease-in 
+              xlprimario:hover:text-[2.1vw] 
+              xlsecundario:hover:text-[2.3vw] hover:text-purple-900"
+            ></i
+          ></a>
+
+          <div
+            id="seccion"
+            class="bg-slate-100 text-center rounded-lg font-medium 
+            
+            /*tamaño de letra*/
+            text-[1.4vw]
+
+            
+            /*paddins*/
+            xlprimario:py-[2.5%] xlprimario:px-2
+
+            /*tansision con hovers*/
+            transition-all duration-100 ease-in
+            hover:text-[1.6vw] hover:bg-purple-100"
+          > </div>
+        </div>
+      </div>
+
+      <nav>
+        <ul
+          class="flex bg-purple-900 text-white justify-evenly items-end font-medium
+
+          /*tamaño de letra*/
+          xlprimario:text-[1.8vw] xlprimario:pt-[0.5vw]
+          xlsecundario:text-[2vw] xlsecundario:pt-[1vw]"
+        >
+          <!-- Incio no tiene para direccionar porque supuestamente estamos en inicio -->
+          <div
+            class="justify-center flex items-center bg-white text-purple-950 
+
+            /*tamaño de la letra y padding*/
+            xlprimario:text-[2vw] xlprimario:px-[0.5vw]
+            xlsecundario:text-[2.2vw] xlsecundario:px-[0.8vw]
+            
+            /*tamaño*/
+            h-[4vw]
+            "
+          >
+            Inicio
+          </div>
+
+          <!-- contacto -->
+          <li>
+            <a href="../contacto.html" class="botonNav">
+              <p class="text-center
+
+              /*padiings*/
+              xlprimario:py-[0.5vw] xlprimario:px-[0.5vw] 
+
+              /*transiciones*/
+              transition-colors ease-in duration-75
+
+              /*hovers*/
+              hover:bg-purple-700 xlprimario:hover:text-[2vw]
+              xlsecundario:hover:text-[2.2vw]">
+
+              Contactos
+              </p>
+            </a>
+          </li>
+
+          <!-- libro -->
+          <li class="group ">
+
+            <a href="../productos/ProductosLibros.html">
+              <p class="relative  text-center 
+              
+              /*paddings*/
+              xlprimario:py-[0.5vw] xlprimario:px-[0.5vw] 
+
+              /*transiciones*/
+              transition-colors ease-in duration-75
+              
+              /*hovers*/
+              group-hover:bg-purple-700 xlprimario:group-hover:text-[2vw]
+              xlsecundario:group-hover:text-[2.2vw]">
+                Libros
+              </p>
+            </a>
+
+            <div class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center w-auto absolute hidden group-hover:block">
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all ease-in duration-100 px-[1vw]
+
+                  /*tamaño letra*/
+                  xlprimario:text-[1.5vw]
+                  xlsecundario:text-[2vw]
+                  
+                  /*transiciones con hover*/
+                  hover:bg-purple-800   
+                  hover:font-medium
+                  xlprimario:hover:text-[1.8vw]
+                  xlsecundario:hover:text-[2.3vw]"
+                >
+                  Terror
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all ease-in duration-100 px-[1vw]
+
+                  /*tamaño letra*/
+                  xlprimario:text-[1.5vw]
+                  xlsecundario:text-[2vw]
+                  
+                  /*transiciones con hover*/
+                  hover:bg-purple-800 
+                  xlprimario:hover:text-[1.7vw]
+                  xlsecundario:hover:text-[2.3vw]
+                  hover:font-medium"
+                >
+                  Triller
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all ease-in duration-100 px-[1vw]
+
+                  /*tamaño letra*/
+                  xlprimario:text-[1.5vw]
+                  xlsecundario:text-[2vw]
+                  
+                  /*transiciones con hover*/
+                  hover:bg-purple-800 
+                  xlprimario:hover:text-[1.7vw]
+                  xlsecundario:hover:text-[2.3vw]
+                  hover:font-medium"
+                >
+                  Infantiles
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all ease-in duration-100 px-[1vw]
+
+                  /*tamaño letra*/
+                  xlprimario:text-[1.5vw]
+                  xlsecundario:text-[2vw]
+                  
+                  /*transiciones con hover*/
+                  hover:bg-purple-800 
+                  xlprimario:hover:text-[1.7vw]
+                  xlsecundario:hover:text-[2.3vw]
+                  hover:font-medium"
+                >
+                  Juveniles
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all ease-in duration-100 px-[1vw]
+
+                  /*tamaño letra*/
+                  xlprimario:text-[1.5vw]
+                  xlsecundario:text-[2vw]
+                  
+                  /*transiciones con hover*/
+                  hover:bg-purple-800 
+                  xlprimario:hover:text-[1.7vw]
+                  xlsecundario:hover:text-[2.3vw]
+                  hover:font-medium"
+                >
+                  Romance
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+              ><div
+              class="transition-all ease-in duration-100 px-[1vw]
+
+              /*tamaño letra*/
+              xlprimario:text-[1.5vw]
+              xlsecundario:text-[2vw]
+              
+              /*transiciones con hover*/
+              hover:bg-purple-800 
+              xlprimario:hover:text-[1.7vw]
+              xlsecundario:hover:text-[2.3vw]
+              hover:font-medium"
+    >
+                Ciencia Ficcion
+              </div></a
+            >
+
+              
+            <a href="../productos/ProductosLibros.html"
+            ><div
+            class="transition-all ease-in duration-100 px-[1vw]
+
+            /*tamaño letra*/
+            xlprimario:text-[1.5vw]
+            xlsecundario:text-[2vw]
+            
+            /*transiciones con hover*/
+            hover:bg-purple-800 
+            xlprimario:hover:text-[1.7vw]
+            xlsecundario:hover:text-[2.3vw]
+            hover:font-medium"
+    >
+              Literatura
+            </div></a
+          >
+
+            </div>
+          </li>
+
+          <!-- Manga -->
+          <li class="group">
+            <a href="../../productos/ProductosMangas.html"
+              ><p
+              class="relative  text-center 
+              
+              /*paddings*/
+              xlprimario:py-[0.5vw] xlprimario:px-[0.5vw] 
+
+              /*transiciones*/
+              transition-colors ease-in duration-75
+              
+              /*hovers*/
+              group-hover:bg-purple-700 xlprimario:group-hover:text-[2vw]
+              xlsecundario:group-hover:text-[2.2vw]"
+              >
+                Mangas
+              </p></a
+            >
+            <div
+              class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center w-auto absolute hidden group-hover:block"
+            >
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                BoysLove
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Seinen
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Yuri
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Shonen
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Josei
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Shojo
+                </div></a
+              >
+            </div>
+          </li>
+
+          <!-- comics -->
+          <li class="group">
+            <a href="../productos/ProductosLibros.html"
+              ><p
+              class="relative  text-center 
+              
+              /*paddings*/
+              xlprimario:py-[0.5vw] xlprimario:px-[0.5vw] 
+
+              /*transiciones*/
+              transition-colors ease-in duration-75
+              
+              /*hovers*/
+              group-hover:bg-purple-700 xlprimario:group-hover:text-[2vw]
+              xlsecundario:group-hover:text-[2.2vw]"
+              >
+                Comics
+              </p></a
+            >
+            <div
+              class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center w-auto absolute hidden group-hover:block"
+            >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Superhéroes
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Ciencia Ficción
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Fantasía
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Romance
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Comedia
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Slice of Life
+                </div></a
+              >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Histórico
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"                >
+                  Terror
+                </div></a
+              >
+            </div>
+          </li>
+
+          <!-- merch -->
+          <li class="group">
+            <a href="../productos/ProductosLibros.html"
+              ><p
+              class="relative  text-center 
+              
+              /*paddings*/
+              xlprimario:py-[0.5vw] xlprimario:px-[0.5vw] 
+
+              /*transiciones*/
+              transition-colors ease-in duration-75
+              
+              /*hovers*/
+              group-hover:bg-purple-700 xlprimario:group-hover:text-[2vw]
+              xlsecundario:group-hover:text-[2.2vw]"
+              >
+                Merch
+              </p></a
+            >
+            <div
+              class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center w-auto absolute hidden group-hover:block"
+            >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Gorras
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Posters
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Mochilas
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Pines
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                class="transition-all ease-in duration-100 px-[3vw]
+
+                /*tamaño letra*/
+                xlprimario:text-[1.5vw]
+                xlsecundario:text-[2vw]
+                
+                /*transiciones con hover*/
+                hover:bg-purple-800 
+                xlprimario:hover:text-[1.7vw]
+                xlsecundario:hover:text-[2.3vw]
+                hover:font-medium"
+                >
+                  Fundas
+                </div></a
+              >
+            </div>
+          </li>
+
+          <!-- vender -->
+          <li>
+            <a href="#" class="botonNav">
+              <p class="text-center transition-colors ease-in duration-75
+
+              /*padiings*/
+              xlprimario:py-[0.5vw] xlprimario:px-[0.5vw] 
+
+              /*hovers*/
+              hover:bg-purple-700 xlprimario:hover:text-[2vw]
+              xlsecundario:hover:text-[2.2vw]">
+
+              Vender
+              </p>
+            </a>
+          </li>
+
+          <!-- intercambio -->
+          <li>
+            <a href="#" class="botonNav">
+              <p class="text-center transition-colors ease-in duration-75
+
+              /*padiings*/
+              xlprimario:py-[0.5vw] xlprimario:px-[0.5vw] 
+
+              /*hovers*/
+              hover:bg-purple-700 xlprimario:hover:text-[2vw]
+              xlsecundario:hover:text-[2.2vw]">
+
+              Intercambio
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="row-start-2 col-start-1  bg-purple-200"></div>
+    <div class="row-start-2 col-start-3  bg-purple-200 "></div>
+
+    <main class=" col-start-2 row-start-2 my-[1vw]">
+      
+      <!-- carrusel -->
+      <div class="contenedorCarrusel relative overflow-hidden ">
+        <div class="carruseles w-[500%] h-[25vw] flex" id="carruseles">
+          <div class="sliderSection w-[calc(100%/3)]">
+            <img class="w-[100%] h-full" src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection w-[calc(100%/3)]">
+            <img class="w-[100%] h-full" src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection w-[calc(100%/3)]">
+            <img class="w-[100%] h-full" src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection w-[calc(100%/3)]">
+            <img class="w-[100%] h-full" src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection w-[calc(100%/3)]">
+            <img class="w-[100%] h-full" src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+        </div>
+        <div class="btnleft">
+          <i class="fi-rs-angle-right absolute text-white top-[10vw] right-[2vw] text-[4vw]"></i>
+        </div>
+        <div class="btnRight">
+          <i class="fi-rs-angle-left absolute text-white top-[10vw] left-[2vw] text-[4vw]"></i>
+        </div>
+      </div>
+    
+    
+    
+    </main>
+
+    <footer class="bg-purple-900 col-span-3 row-start-3">FOOTER</footer>
+
+    <script src="../../src/assets/js/inicio.js"></script>
+    <script src="../../src/assets/js/pruebaHeader.js"></script>
+    <script src="../../src/assets/js/producto.js"></script>
+    <script src="../../src/assets/js/nav.js"></script>
+    <script src="../../src/assets/js/auten.js"></script>
+
+    <script type="module" src="../../src/assets/js/mainTailwind.js"></script>
+  </body>
+</html>
