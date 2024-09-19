@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../src/assets/css/inicio.css">
+    <!-- link iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div
+        class="contenedorHeader flex bg-purple-600 justify-between gap-4 items-center px-4"
+      >
+        <img
+          class="w-[13%] h-auto my-4"
+          src="../../src/assets/img/Aventuras__4_-removebg-preview2.png"
+          alt=""
+        />
+
+        <div
+          class="buscador bg-white rounded-full flex items-center py-1 mb-0.5 h-11 relative w-7/12"
+        >
+          <input
+            class="barradelBuscador rounded-full ml-1 pl-5 py-1 text-lg bg-purple-100 w-11/12"
+            type="text"
+            placeholder="¿Que desea buscar?"
+          />
+          <i class="fi-br-search absolute right-4 text-xl"></i>
+        </div>
+
+        <div
+          class="contendorBotones flex w-auto items-center justify-center gap-4 font-medium"
+        >
+          <a href=""
+            ><i
+              id="btnUsuario"
+              class="fi-ss-user bg-slate-100 flex items-center justify-center p-3 text-xl rounded-full transition-all duration-100 ease-in hover:text-2xl hover:p-3.5 hover:text-purple-900"
+            ></i
+          ></a>
+
+          <a href="../pedidos/favoritos.html"
+            ><i
+              class="fi-ss-heart bg-slate-100 flex items-center justify-center p-3 text-xl rounded-full transition-all duration-100 ease-in hover:text-2xl hover:p-3.5 hover:text-purple-900"
+            ></i
+          ></a>
+
+          <a href="../pedidos/carrito.html"
+            ><i
+              class="fi-ss-shopping-cart bg-slate-100 flex items-center justify-center p-3 text-xl rounded-full transition-all duration-100 ease-in hover:text-2xl hover:p-3.5 hover:text-purple-900"
+            ></i
+          ></a>
+
+          <div
+            id="seccion"
+            class="bg-slate-100 p-1.5 text-lg text-center rounded-lg transition-all duration-100 ease-in hover:text-xl hover:p-2 hover:bg-purple-100"
+          ></div>
+        </div>
+      </div>
+      <nav>
+        <ul
+          class="flex bg-purple-900 text-white justify-evenly pt-2 font-medium text-2xl"
+        >
+          <!-- Incio no tiene para direccionar porque supuesatamente estamos en inicio -->
+          <div
+            class="px-1 text-center bg-white text-purple-950 text-3xl flex items-center"
+          >
+            Inicio
+          </div>
+
+          <!-- contacto -->
+          <li>
+            <a href="../contacto.html" class="botonNav"
+              ><p
+                class="py-2.5 px-1 text-center hover:bg-purple-700 hover:text-3xl"
+              >
+                Contactos
+              </p></a
+            >
+          </li>
+
+          <!-- libro -->
+          <li class="group">
+            <a href="../productos/ProductosLibros.html"
+              ><p
+                class="relative pb-5 pt-2 px-1 text-center group-hover:bg-purple-700 group-hover:text-3xl"
+              >
+                Libros
+              </p></a
+            >
+            <div
+              class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center pb-2 w-52 absolute hidden group-hover:block"
+            >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Terror
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Triller
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Infantiles
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Juveniles
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Romance
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Ciencia Ficcion
+                </div></a
+              >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Literatura Clasica
+                </div></a
+              >
+            </div>
+          </li>
+
+          <!-- Manga -->
+          <li class="group">
+            <a href="../../productos/ProductosMangas.html"
+              ><p
+                class="relative pb-5 pt-2 px-1 text-center group-hover:bg-purple-700 group-hover:text-3xl"
+              >
+                Mangas
+              </p></a
+            >
+            <div
+              class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center pb-2 w-52 absolute hidden group-hover:block"
+            >
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Shonen
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Seinen
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Yuri
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  BoysLove
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Josei
+                </div></a
+              >
+
+              <a href="../../productos/ProductosMangas.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Shojo
+                </div></a
+              >
+            </div>
+          </li>
+
+          <!-- comics -->
+          <li class="group">
+            <a href="../productos/ProductosLibros.html"
+              ><p
+                class="relative pb-5 pt-2 px-1 text-center group-hover:bg-purple-700 group-hover:text-3xl"
+              >
+                Comics
+              </p></a
+            >
+            <div
+              class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center pb-2 w-52 absolute hidden group-hover:block"
+            >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Superhéroes
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Ciencia Ficción
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Fantasía
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                Romance
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                Comedia
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                Slice of Life
+                </div></a
+              >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                Histórico
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                Terror
+                </div></a
+              >
+            </div>
+          </li>
+
+          <!-- merch -->
+          <li class="group">
+            <a href="../productos/ProductosLibros.html"
+              ><p
+                class="relative pb-5 pt-2 px-1 text-center group-hover:bg-purple-700 group-hover:text-3xl"
+              >
+                Merch
+              </p></a
+            >
+            <div
+              class="contenedorLibros z-10 bg-purple-600 bg-opacity-90 text-center pb-2 w-52 absolute hidden group-hover:block"
+            >
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Gorras
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Posters
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Mochilas
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Pines
+                </div></a
+              >
+
+              <a href="../productos/ProductosLibros.html"
+                ><div
+                  class="transition-all text-xl ease-in duration-100 hover:bg-purple-800 hover:text-2xl hover:font-medium"
+                >
+                  Fundas
+                </div></a
+              >
+
+            </div>
+          </li>
+
+          <!-- vender -->
+          <li>
+            <a href="#" class="botonNav"
+              ><p
+                class="py-2.5 px-1 text-center hover:bg-purple-700 hover:text-3xl"
+              >
+                Vender
+              </p></a
+            >
+          </li>
+
+          <!-- intercambio -->
+          <li>
+            <a href="#" class="botonNav"
+              ><p
+                class="py-2.5 px-1 text-center hover:bg-purple-700 hover:text-3xl"
+              >
+                Intercambio
+              </p></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="pt-[1%] grid grid-rows-[20%_3%_27%_14%_3%_27%] gap-[1%] max-w-full">
+
+      <!-- carrusel -->
+      <div class="contenedorCarrusel row-start-1">
+        <div class="carruseles" id="carruseles">
+          <div class="sliderSection">
+            <img src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection">
+            <img src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection">
+            <img src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection">
+            <img src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+          <div class="sliderSection">
+            <img src="https://th.bing.com/th/id/R.8e51359dfe61c31967b178d5e31be825?rik=Jj6N6vaJ2h%2fY5Q&pid=ImgRaw&r=0" alt="img5">
+          </div>
+        </div>
+        <div class="btnleft">
+          <i class="fi-rs-angle-right"></i>
+        </div>
+        <div class="btnRight">
+          <i class="fi-rs-angle-left"></i>
+        </div>
+      </div>
+    
+      <!-- Separador Novedades -->
+      <div class="Separador bg-purple-800 row-start-2 justify-center text-2xl text-white flex items-center">
+        Novedades
+      </div>
+    
+      <!-- contenedor tarjetas y flechas -->
+      <div class=" bg-purple-500 row-start-3 flex justify-evenly items-center">
+    
+         <!-- flecha izquierda -->
+         <i id="flechaIzquierda1" class="fi-rs-angle-left top-[46%] left-7 text-purple-950 text-5xl"></i>
+
+        <!-- contenedor tarjeta -->
+        <div id="contenedorTarjetas1" class="flex gap-5 border-x-[20px] bg-purple-200 w-[20%] py-5 justify-center overflow-x-auto scroll-smooth whitespace-nowrap">
+          
+        
+          <div id="tarjeta" class="bg-purple-100 w-60 flex flex-col gap-3">
+            <div class="contenedorimg rounded bg-purple-800 p-4 w-full h-auto relative">
+              <div class="corazon flex pt-1 justify-end bg-purple-800 w-11 h-12 bottom-0 rounded-t-md right-0 absolute">
+                <i class="fi-rs-heart px-2 py-0.5 flex justify-center items-center rounded-tl-md bg-purple-100 text-2xl text-purple-800"></i>
+              </div>
+              <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Nc6tvCHkn-fQv-xXtobN2PWTQ6LG9PRIig&s" alt="">
+            </div>
+            <div class="contenedorInfo pl-3 flex flex-col gap-3">
+              <p class="titulo text-2xl font-medium">My Hero Academia</p>
+              <p class="precio text-xl font-medium">Precio: $6000</p>
+            </div>
+            <div class="contenedorBotones flex justify-around">
+              <button class="detalles rounded-sm h-8 bg-purple-800 text-white w-[48%]">Detalles</button>
+              <button class="comprar rounded-sm h-8 bg-purple-800 text-white w-[48%]">Comprar</button>
+            </div>
+          </div>
+
+          <div id="tarjeta" class="bg-purple-100 w-60 flex flex-col gap-3">
+            <div class="contenedorimg rounded bg-purple-800 p-4 w-full h-auto relative">
+              <div class="corazon flex pt-1 justify-end bg-purple-800 w-11 h-12 bottom-0 rounded-t-md right-0 absolute">
+                <i class="fi-rs-heart px-2 py-0.5 flex justify-center items-center rounded-tl-md bg-purple-100 text-2xl text-purple-800"></i>
+              </div>
+              <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Nc6tvCHkn-fQv-xXtobN2PWTQ6LG9PRIig&s" alt="">
+            </div>
+            <div class="contenedorInfo pl-3 flex flex-col gap-3">
+              <p class="titulo text-2xl font-medium">My Hero Academia</p>
+              <p class="precio text-xl font-medium">Precio: $6000</p>
+            </div>
+            <div class="contenedorBotones flex justify-around">
+              <button class="detalles rounded-sm h-8 bg-purple-800 text-white w-[48%]">Detalles</button>
+              <button class="comprar rounded-sm h-8 bg-purple-800 text-white w-[48%]">Comprar</button>
+            </div>
+          </div>
+
+          <div id="tarjeta" class="bg-purple-100 w-60 flex flex-col gap-3">
+            <div class="contenedorimg rounded bg-purple-800 p-4 w-full h-auto relative">
+              <div class="corazon flex pt-1 justify-end bg-purple-800 w-11 h-12 bottom-0 rounded-t-md right-0 absolute">
+                <i class="fi-rs-heart px-2 py-0.5 flex justify-center items-center rounded-tl-md bg-purple-100 text-2xl text-purple-800"></i>
+              </div>
+              <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Nc6tvCHkn-fQv-xXtobN2PWTQ6LG9PRIig&s" alt="">
+            </div>
+            <div class="contenedorInfo pl-3 flex flex-col gap-3">
+              <p class="titulo text-2xl font-medium">My Hero Academia</p>
+              <p class="precio text-xl font-medium">Precio: $6000</p>
+            </div>
+            <div class="contenedorBotones flex justify-around">
+              <button class="detalles rounded-sm h-8 bg-purple-800 text-white w-[48%]">Detalles</button>
+              <button class="comprar rounded-sm h-8 bg-purple-800 text-white w-[48%]">Comprar</button>
+            </div>
+          </div>
+
+          <div id="tarjeta" class="bg-purple-100 w-60 flex flex-col gap-3">
+            <div class="contenedorimg rounded bg-purple-800 p-4 w-full h-auto relative">
+              <div class="corazon flex pt-1 justify-end bg-purple-800 w-11 h-12 bottom-0 rounded-t-md right-0 absolute">
+                <i class="fi-rs-heart px-2 py-0.5 flex justify-center items-center rounded-tl-md bg-purple-100 text-2xl text-purple-800"></i>
+              </div>
+              <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Nc6tvCHkn-fQv-xXtobN2PWTQ6LG9PRIig&s" alt="">
+            </div>
+            <div class="contenedorInfo pl-3 flex flex-col gap-3">
+              <p class="titulo text-2xl font-medium">My Hero Academia</p>
+              <p class="precio text-xl font-medium">Precio: $6000</p>
+            </div>
+            <div class="contenedorBotones flex justify-around">
+              <button class="detalles rounded-sm h-8 bg-purple-800 text-white w-[48%]">Detalles</button>
+              <button class="comprar rounded-sm h-8 bg-purple-800 text-white w-[48%]">Comprar</button>
+            </div>
+          </div>
+
+          <div id="tarjeta" class="bg-purple-100 w-60 flex flex-col gap-3">
+            <div class="contenedorimg rounded bg-purple-800 p-4 w-full h-auto relative">
+              <div class="corazon flex pt-1 justify-end bg-purple-800 w-11 h-12 bottom-0 rounded-t-md right-0 absolute">
+                <i class="fi-rs-heart px-2 py-0.5 flex justify-center items-center rounded-tl-md bg-purple-100 text-2xl text-purple-800"></i>
+              </div>
+              <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Nc6tvCHkn-fQv-xXtobN2PWTQ6LG9PRIig&s" alt="">
+            </div>
+            <div class="contenedorInfo pl-3 flex flex-col gap-3">
+              <p class="titulo text-2xl font-medium">My Hero Academia</p>
+              <p class="precio text-xl font-medium">Precio: $6000</p>
+            </div>
+            <div class="contenedorBotones flex justify-around">
+              <button class="detalles rounded-sm h-8 bg-purple-800 text-white w-[48%]">Detalles</button>
+              <button class="comprar rounded-sm h-8 bg-purple-800 text-white w-[48%]">Comprar</button>
+            </div>
+          </div>
+        </div>
+    
+    
+        <!-- flecha derecha -->
+        <i id="flechaDerecha1" class="fi-rs-angle-right top-[46%] right-7 text-purple-950 text-5xl"></i>
+      </div>
+    
+      <!-- contendor de algo -->
+      <div class="contenedoralgo bg-purple-100 flex row-start-4">
+        <div>
+          <p>Comics</p>
+          <img src="https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2021/08/Marvel-Comics-celebras-al-MCU-con-una-serie-de-portadas-variantes-dedicadas-a-la-Saga-del-Infinito-compressed.jpg" alt="">
+        </div>
+        <div>
+          <p>Mangas</p>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStVq7jFvxIqDff6xDdMQbYaT5hsvp67FTysg&s" alt="">
+        </div>
+        <div>
+          <p>Libros</p>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqo7ITwJ3JW8cVR3KYlLyl6wlJedAi6bjKpA&s" alt="">
+        </div>
+        <div>
+          <p>Merch</p>
+          <img src="https://m.media-amazon.com/images/I/61WWpQv+snL._AC_SL1000_.jpg" alt="">
+        </div>
+      </div>
+    
+      <!-- Separador Mas vendido -->
+      <div class="Separador bg-purple-800 row-start-5 justify-center text-2xl text-white flex items-center">
+        Mas Vendido
+      </div>
+    
+      <!-- mas vendido -->
+       <!-- contenedor de tarjetas y flechas -->
+      <div class="bg-blue-600 row-start-6">
+        <!-- flecha izquierda -->
+        <i id="flechaIzquierda2" class="fi-rs-angle-lef flex justify-center items-centert"></i>
+    
+        <!-- contenedor tarjeta -->
+        <div id="contenedorTarjetas2" class="bg-slate-200">
+          <div id="tarjeta" class="bg-red-500 w-60">
+              <div class="contenedorimg w-full h-auto ">
+              <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Nc6tvCHkn-fQv-xXtobN2PWTQ6LG9PRIig&s" alt="">
+            </div>
+            <div class="contenedorInfo">
+              <p class="titulo">My Hero Academia</p >
+              <p class="precio">Precio: $6000</p>
+            </div>
+            <div class="contenedorBotones">
+              <button class="detalles">Detalles</button>
+              <button class="comprar">Comprar</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- flecha derecha -->
+        <i id="flechaDerecha2" class="fi-rs-angle-right"></i>
+      </div>
+    
+    </main>
+    
+
+    <footer class="bg-purple-700 h-52">
+
+    </footer>
+
+    <script src="../../src/assets/js/inicio.js"></script>
+    <script src="../../src/assets/js/pruebaHeader.js"></script>
+    <script src="../../src/assets/js/producto.js"></script>
+    <script src="../../src/assets/js/nav.js"></script>
+    <script src="../../src/assets/js/auten.js"></script>
+    <script type="module" src="../../src/assets/js/mainTailwind.js"></script>
+  </body>
+</html>

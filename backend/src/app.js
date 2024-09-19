@@ -2,9 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import mongoose from './database/db.js';
 import {authRouter} from './routers/auth.routes.js'
-import {carrito} from './routers/carrito.routes.js'
 import {pediRouter} from './routers/pedidos.routes.js'
 import {producRouter} from './routers/productos.routes.js'
 import { favoritos } from './routers/fav.routes.js';
@@ -20,7 +18,6 @@ app.use(express.json());
 
 //rutas
 app.use('/api/auth', authRouter); 
-app.use('/api/carrito',carrito); 
 app.use('/api/pedidos', pediRouter); 
 app.use('/api/productos', producRouter); 
 app.use('/api/favoritos',favoritos);
