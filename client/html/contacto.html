@@ -4,65 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/contacto.css">
 </head>
 <body>
-    <main>
+    <main class="bg-purple-100">
+<!--  -->
+    <div class="flex items-center justify-evenly h-[100vh]">
+      
+      <div class=" bg-purple-400 w-[30vw] flex flex-col gap-[1.5vw] p-[1.5vw] h-auto text-[1.3vw] text-justify rounded-xl">
+          <p>Si quieres información sobre cualquiera de nuestros productos, estás teniendo algun incoveniente con la compra o con la pagina, rellena nuestro formulario y nos pondremos en contacto lo antes posible.</p>
+          <p>Muchas Gracias.</p>
+          <p>Sede central: Av. 25 de mayo 385 - Argentina-Formosa <br>
+          Teléfono: +54 370 4568974 <br>
+          Email: info@aventuras.com.ar</p>
+      </div>
 
-    <h1>CONTACTATE CON NOSOTROS</h1>
+      <form class="flex flex-col gap-[0.6vw] text-[1.1vw] font-medium bg-purple-400 w-[23vw] p-[1.5vw] rounded-xl">
 
-    
-    <div class="container text-center">
+              <p>INGRESE SU DUDA O QUEJA:</p>
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input class="w-full px-[0.5vw]" type="text" id="nombre" placeholder="Ingresa tu nombre">
+                </div>
+                
+                <div>
+                    <label for="email">Email:</label>
+                    <input class="w-full px-[0.5vw]" type="email" id="email" placeholder="Ingresa tu email">
+                </div>
 
-        <div class="row justify-content-around">
-            <div class="col-4">
-                <form>
-                  
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="ingresa tu nombre">
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="ingresa tu email">
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Telefono</label>
-                        <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="ingresa tu telefono">
-                      </div>
-                      <br>
-                      <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                      </div>
-                      <button type="submit" class="btn btn-dark">Enviar</button>
-                    
-        </form>
+                <div>
+                    <label for="telefono">Teléfono:</label>
+                    <input class="w-full px-[0.5vw]" type="tel" id="telefono" placeholder="Ingresa tu teléfono">
+                </div>
+
+                
+                <div >
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea class="w-full px-[0.5vw]" id="mensaje" placeholder="Ingresa lo que nos quiera transmitir" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-purple-800 text-fuchsia-200 text-[1.5vw] h-[3vw] rounded-bl-lg rounded-br-lg">Enviar</button>
+            </form>
+
+
     </div>
-            <div class="col-4">
-                <p>Si queres informacion sobre cualquiera de nuestros productos o estas interesado en su distribucion, rellena nuestro formulario y nos pondremos en contacto lo antes posible.</p>
-                <p>Muchas Gracias.</p>
-                <p>Sede central: Av. 25 de mayo 385 - Formosa - Argentina</p>
-    <p>Telefono: +54 370 4568974</p>
-    <p>Email: info@aventuras.com.ar</p>
-            </div>
-          </div>
-        </div>
     </main>
 
-    <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
+    <script type="module" src="../src/assets/js/mainTailwind.js"></script>
     <script src="assets/js/contacto.js"></script>
-</body>
 </body>
 </html>
