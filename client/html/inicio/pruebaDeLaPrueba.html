@@ -87,7 +87,7 @@
         >
           <!-- Incio no tiene para direccionar porque supuestamente estamos en inicio -->
           <div
-            class="justify-center flex items-center bg-white text-purple-950 
+            class="justify-center flex items-center bg-purple-100 text-purple-950 
 
             /tamaño de la letra y padding/
             xlprimario:text-[1.8vw] xlprimario:px-[0.5vw]
@@ -499,19 +499,20 @@
       </nav>
     </header>
 
-    <div class="row-start-2 col-start-1 bg-purple-200"></div>
-    <div class="row-start-2 col-start-3 bg-purple-200"></div>
+    <div class="row-start-2 col-start-1 bg-purple-100"></div>
+    <div class="row-start-2 col-start-3 bg-purple-100"></div>
 
     <main
       class="col-start-2 row-start-2 flex flex-col items-center
       /*marrgin y paddings*/
-      my-[1vw] 
+      mb-[1vw] 
       
       /*espaciado*/
       xlprimario:gap-[1vw]
       xlsecundario:gap-[1.5vw]
       "
     >
+    <div class="decoracion w-full h-[1vw] bg-purple-100"></div>
 
       <!-- carrusel -->
       <div class="contenedorCarrusel relative overflow-hidden mx-[1vw]">
@@ -565,13 +566,13 @@
       </div>
 
       <!-- separador -->
-      <p class="text-purple-950 text-[2.5vw] font-semibold text-center transform -skew-y-[3.4deg] mt-[-3.8vw] mb-[2vw] bg-purple-200 w-[101%]">LO MAS VENDIDO:</p>
+      <p class="text-purple-950 text-[2.5vw] font-semibold text-center transform -skew-y-[3.4deg] mt-[-3.8vw] mb-[2vw] bg-purple-100 w-[101%]">LO MAS VENDIDO:</p>
 
       <!-- contendor de tarjetas y flechas -->
       <div class="contentTrajetasFlehas relative w-full flex justify-center mt-[1vw]">
-        <div class="absolute top-[-4vw] border-l-[72.8vw] border-r-0 border-b-[4vw] border-l-transparent border-r-transparent border-b-custom-color"></div>
+        <div class="absolute top-[-3.9vw] border-l-[72.8vw] border-r-0 border-b-[4vw] border-l-transparent border-r-transparent border-b-custom-color"></div>
 
-        <div class="absolute top-[-2vw] border-l-[64.8vw] border-r-0 border-b-[3vw] border-l-transparent border-r-transparent border-b-purple-900"></div>
+        <div class="absolute top-[-1.9vw] border-l-[64.8vw] border-r-0 border-b-[3vw] border-l-transparent border-r-transparent border-b-purple-900"></div>
 
         <i id="flechaIzquierda1" class="fi-rs-angle-left top-[16vw] left-[3vw] absolute text-[3vw] text-purple-950"></i>
         <i id="flechaDerecha1" class="fi-rs-angle-right top-[16vw] right-[3vw] absolute text-[3vw] text-purple-950"></i>
@@ -839,9 +840,357 @@
         </div>
       </div>
 
-    </main>
+      <!-- contenedor de algo -->
+<div class=" flex p-[1vw] justify-evenly w-[95%]">
 
-    <footer class="bg-purple-900 col-span-3 row-start-3">FOOTER</footer>
+  <div class="bg-purple-500  rounded-xl">
+    <p class="text-center text-[2.5vw]  bg-purple-800 rounded-t-xl text-purple-100 font-medium">Comics</p>
+    <div class="contenedorImg w-[20vw] h-[10vw] px-[1vw] py-[0.5vw]">
+      <img class="w-full h-full rounded-b-xl" src="https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2021/08/Marvel-Comics-celebras-al-MCU-con-una-serie-de-portadas-variantes-dedicadas-a-la-Saga-del-Infinito-compressed.jpg" alt="">
+    </div>
+  </div>
+  <div class="bg-purple-500 rounded-xl">
+    <p class="text-center text-[2.5vw] rounded-t-xl bg-purple-800  text-purple-100 font-medium">Mangas</p>
+    <div class="contenedorImg w-[20vw] h-[10vw] px-[1vw] py-[0.5vw]">
+      <img class="w-full h-full rounded-b-xl" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStVq7jFvxIqDff6xDdMQbYaT5hsvp67FTysg&s" alt="">
+    </div>
+  </div>
+  <div class="bg-purple-500 rounded-xl">
+    <p class="text-center text-[2.5vw] rounded-t-xl bg-purple-800  text-purple-100 font-medium">Libros</p>
+    <div class="contenedorImg w-[20vw] h-[10vw] px-[1vw] py-[0.5vw]">
+      <img class="w-full h-full rounded-b-xl" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqo7ITwJ3JW8cVR3KYlLyl6wlJedAi6bjKpA&s" alt="">
+    </div>
+  </div>
+  <div class="bg-purple-500 rounded-xl">
+    <p class="text-center text-[2.5vw] rounded-t-xl bg-purple-800  text-purple-100 font-medium">Merch</p>
+    <div class="contenedorImg w-[20vw] h-[10vw] px-[1vw] py-[0.5vw]">
+      <img class="w-full h-full rounded-b-xl" src="https://m.media-amazon.com/images/I/61WWpQv+snL._AC_SL1000_.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+
+<!-- SEPARADOR NOVEDADES -->
+<p class="text-purple-950 text-[2.5vw] font-semibold text-center bg-purple-100 w-[101%]">NOVEDADES:</p>
+
+
+
+
+<div class="contentTrajetasFlehas relative w-full flex justify-center">
+  <i id="flechaIzquierda2" class="fi-rs-angle-left top-[16vw] left-[3vw] absolute text-[3vw] text-purple-950"></i>
+  <i id="flechaDerecha2" class="fi-rs-angle-right top-[16vw] right-[3vw] absolute text-[3vw] text-purple-950"></i>
+  
+  <div id="contenedorTarjetas2"
+    class="contenedorTarjetas gap-[1vw] p-[1vw] border-x-[4vw] border-y-[1vw] border-purple-100 bg-purple-900 flex overflow-x-hidden scroll-smooth w-[72.8vw]"
+  >
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="tarjetas bg-slate-300 flex flex-col justify-center items-center pb-[1vw] w-[16vw] h-[31vw]"
+    >
+      <div class="contentImg w-[15vw] h-[20vw] bg-slate-400 p-[1vw]">
+        <img
+          class="w-full h-full"
+          src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg"
+          alt=""
+        />
+      </div>
+      <div
+        class="dontenedorInfo flex flex-col my-[0.5vw] gap-[0.5vw] w-[85%]"
+      >
+        <p class="titulo text-[1.6vw] font-medium">
+          <span class="text-[1.8vw]">T</span>itulo Del Manga de Romance
+        </p>
+        <p class="precio text-[1.4vw]">Precio: $6000</p>
+      </div>
+      <div class="contentBotones w-full flex justify-evenly">
+        <button
+          class="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Detalles
+        </button>
+        <button 
+          class="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+    </main>
+    <footer class="bg-purple-900 col-span-3 row-start-3 text-purple-100">
+      <div class="flex">
+
+        <div class=" flex flex-col justify-evenly px-[1vw] w-[25%] border-r-2 border-purple-500">
+          <p class="text-[1.5vw]">Sobre Nosotros</p>
+          <p class="text-[1vw]">Somos tu tienda de confianza para encontrar cómics, mangas y más. Disfruta de los mejores productos del mundo del entretenimiento.</p>
+        </div>
+      
+        <div class="w-[25%] flex flex-col items-center">
+          <h4>Enlaces Rápidos</h4>
+          <div class=" flex">
+            <div class="">
+            <a href="#">Inicio</a>
+            <a href="#">Comics</a>
+            <a href="#">Mangas</a>
+          </div>
+            <div class="">
+              <a href="#">Libros</a>
+              <a href="#">Contacto</a></li>
+            </div>
+        </div>
+      
+        <div class="w-[25%] bg-green-400">
+          <h4>Redes Sociales</h4>
+          <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Twitter</a></li>
+          </ul>
+        </div>
+      
+        <div class="bg-amber-300 w-[25%]">
+          <h4>Contáctanos</h4>
+          <p>Dirección: Calle Ficticia 123, Ciudad</p>
+          <p>Teléfono: +54 370 1234567</p>
+          <p>Email: info@comicstienda.com</p>
+        </div>
+      </div>
+    
+      <div class="bg-purple-950">
+        <p>&copy; 2024 Comics Tienda. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+    
 
     <script src="../../src/assets/js/inicio.js"></script>
     <script src="../../src/assets/js/pruebaHeader.js"></script>

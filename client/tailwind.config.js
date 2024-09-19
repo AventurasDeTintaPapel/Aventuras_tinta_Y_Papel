@@ -10,6 +10,9 @@ export default {
       colors: {
         'custom-color': 'rgb(227, 220, 227)', // Color personalizado
       },
+      fontFamily: {
+        uwu: ['Merriweather', 'serif'], // Agrega la fuente Merriweather
+      },
       screens: {
         xlprimario: "769px",
         xlsecundario: "2000px",
