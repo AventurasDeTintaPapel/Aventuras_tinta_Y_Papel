@@ -1,0 +1,90 @@
+:root{
+    --tipografia:  'Franklin Gothic Medium';
+}
+
+.uwu{
+    background-color: rgb(37, 54, 124);
+    height: 40px;
+}
+
+.titulo {
+    text-align: center;
+    color: white;
+    font-family: var(--tipografia);
+    font-size: 3vw;
+}
+
+main {
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagenGenral{
+    width: 100%;
+    z-index: -10000;
+    position: absolute;
+    height: 100vh;
+}
+
+.formulario{
+    width: 50%;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(240, 248, 255, 0.292);
+    z-index: 2;
+}
+
+.preguntas{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2%;
+    width: 80%;
+}
+
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+
+label, .link2{
+    color: white;
+    font-family: var(--tipografia);
+    font-size: 2vw;
+}
+
+.link {
+    color: rgb(8, 21, 255);
+    font-family: var(--tipografia);
+    font-size: 2vw;
+}
+
+.link:hover{
+    color: white;
+}
+
+.btn{
+    margin-bottom: 2%;
+    font-size: 2vw;
+}
+
+
+
+#usuario{
+    border: 1px solid rgb(228, 226, 222);
+    border-radius: 5px;
+    height: 50px;
+    }
+
+#contraseña{
+    border: 1px solid rgb(228, 226, 222);
+    border-radius: 5px;
+    height: 50px
+}
+

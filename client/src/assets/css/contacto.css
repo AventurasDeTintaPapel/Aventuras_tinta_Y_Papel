@@ -1,0 +1,26 @@
+h1 {
+  text-align: center;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 900;
+}
+
+main {
+  background-image: url("img/contacto.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+p {
+  color: white;
+
+  margin: 40px;
+  font-weight: 900;
+  font-size: 17px;
+}
+
+label {
+  margin: 10px;
+  color: black;
+  font-weight: 900;
+}

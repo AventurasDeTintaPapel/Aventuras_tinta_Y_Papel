@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!token) {
         document.getElementById('seccion').innerHTML = `
-            <a class="usuarios" href="/client/registro/login.html">Iniciar Sesión</a>
+            <a href="/client/registro/login.html"><p class="usuariosOn">Iniciar Sesión</p></a>
         `;
     } else {
         document.getElementById('seccion').innerHTML = `
-            <a class="usuarios"  href="../inicio/inicio.html" id="cerrarSesion">Cerrar Sesión</a>
+            <a href="../inicio/inicio.html" id="cerrarSesion"><p class="usuariosOff">Cerrar Sesión</p></a>
         `;
         document.getElementById('cerrarSesion').addEventListener('click', () => {
             localStorage.removeItem('token');

@@ -20,6 +20,7 @@ botonActivacion.addEventListener("click", ()=>{
 iconosManual.addEventListener("click",()=>{
     iconosManual.classList.toggle("active");
     NAV.classList.toggle("active");
+
     botonNav.classList.toggle("active")
 })
 
@@ -32,3 +33,14 @@ lupitaPepino.addEventListener("click", ()=>{
     buscador.classList.toggle("ON");
 
 } )
+
+const favoritos = document.getElementById("inconoFavoritos");
+
+favoritos.addEventListener("click" ,()=>{
+    if (favoritos.className == "fi-ss-heart"){
+        favoritos.className = "fi-rs-heart"
+    }else{
+        favoritos.className = "fi-ss-heart"
+    }
+}
+)

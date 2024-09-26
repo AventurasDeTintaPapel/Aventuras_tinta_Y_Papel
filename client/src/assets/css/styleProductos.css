@@ -39,7 +39,19 @@ main{
     flex-wrap: wrap;
 }
 
-.favoritos{
+.fi-rs-heart{
+    color: rgb(139, 15, 98);
+    width: 80px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fi-ss-heart{
+    color: rgb(21, 15, 139);
+    width: 80px;
+    font-size: 30px;
     color:rgb(107, 50, 212);
     font-size: 20px;
 }
@@ -357,3 +369,4 @@ aside{
 
 
 }
+
