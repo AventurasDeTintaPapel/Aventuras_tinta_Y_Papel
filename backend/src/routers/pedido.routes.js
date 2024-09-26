@@ -18,4 +18,4 @@ pedido.delete("/", elimPedido);
 //ruta para eliminar un producto del carrito
 pedido.delete("elemento/:id", elimElem);
 //ruta para obtener el carrito por id de usuario
-pedido.get("/", obtPedido);
+pedido.get("/:idUsuario", obtPedido);

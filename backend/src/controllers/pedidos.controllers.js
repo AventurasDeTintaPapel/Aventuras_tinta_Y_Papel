@@ -175,15 +175,17 @@ export const elimPedido = async (req, res) => {
 //obtener el pedido
 export const obtPedido = async (req, res) => {
   //funcion para obtener el usuario con el token
-  const token = req.headers.token;
-  if (!token) {
-    return res.status(401).json({
-      msg: "Debe registrarse para realizar esa tarea",
-    });
-  }
+  // const token = req.headers.token;
+  // if (!token) {
+  //   return res.status(401).json({
+  //     msg: "Debe registrarse para realizar esa tarea",
+  //   });
+  // }
 
-  const usuario = await validarJWT(token);
-  const idUsuario = await usuario._id;
+  // const usuario = await validarJWT(token);
+  // const idUsuario = await usuario._id;
+
+  const { idUsuario } = req.params;
 
   if (!idUsuario) {
     return res.status(401).json({

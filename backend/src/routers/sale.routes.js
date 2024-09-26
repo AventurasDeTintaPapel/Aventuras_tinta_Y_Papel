@@ -1,5 +1,5 @@
 import Router from "express";
 export const sale = Router();
-import { sales } from "../controllers/sales.controllers.js";
+import { generarPago } from "../controllers/sales.controllers.js";
 
-sale.get("/:idUsuario", sales);
+sale.post("/:idUsuario", generarPago);
