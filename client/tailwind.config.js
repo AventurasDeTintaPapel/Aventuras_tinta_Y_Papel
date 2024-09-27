@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./html/**/*.html", "./src/**/*.js"],
+  content: ["./html/**/*.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       spacing: {
@@ -9,9 +9,6 @@ export default {
       },
       colors: {
         'custom-color': 'rgb(227, 220, 227)', // Color personalizado
-      },
-      fontFamily: {
-        uwu: ['Merriweather', 'serif'], // Agrega la fuente Merriweather
       },
       screens: {
         xlprimario: "769px",

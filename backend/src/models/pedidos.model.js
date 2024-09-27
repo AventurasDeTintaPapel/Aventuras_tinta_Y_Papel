@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const pedido = new Schema({
+const pedidos = new Schema({
   numPedido: {
     type: Number,
     required: true,
@@ -35,4 +35,4 @@ const pedido = new Schema({
   fecha: { type: Date, default: Date.now },
 });
 
-export default model("pedido", pedido);
+export default model("pedidoModel", pedidos);

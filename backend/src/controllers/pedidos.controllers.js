@@ -1,4 +1,4 @@
-import pedido from "../models/pedidos.model.js";
+import pedidos from "../models/pedidos.model.js";
 import mongoose from "mongoose";
 import usuario from "../models/usuarios.model.js";
 import producto from "../models/productos.model.js";
@@ -12,19 +12,17 @@ export const agrePedido = async (req, res) => {
     // Extraer el primer producto del array
     const { idProducto, cantidad = 1 } = productos[0];
 
-    // Verificar si el producto existe en la base de datos
     const obtProducto = await producto.findById(idProducto);
     if (!obtProducto) {
       return res.status(404).json({ msg: "Producto no encontrado" });
     }
 
-    // Buscar si el usuario ya tiene un pedido en la base de datos
-    const cardFind = await pedido.findOne({ usuario: idUsuario });
+    const cardFind = await pedidos.findOne({ usuario: idUsuario });
     let numPedido = 0;
 
     if (!cardFind) {
       numPedido++;
-      const newPedido = new pedido({
+      const newPedido = new pedidos({
         productos: [
           {
             producto: idProducto,
@@ -83,7 +81,7 @@ export const ediPedido = async (req, res) => {
       });
     }
     //verificar si el pedido existe
-    let pedidoExistente = await pedido.findOne({ usuario: idUsuario });
+    let pedidoExistente = await pedidoModel.findOne({ usuario: idUsuario });
     //verifica si el producto esta incluido en el pedido
     const prodFind = await pedidoExistente.productos.find(
       (p) => p.producto.toString() === id
@@ -104,7 +102,7 @@ export const ediPedido = async (req, res) => {
 export const elimElem = async (req, res) => {
   try {
     const { idProducto } = req.params;
-    //funcion para obtener el usuario con el token
+
     const token = req.headers.token;
     if (!token) {
       return res.status(401).json({
@@ -120,19 +118,18 @@ export const elimElem = async (req, res) => {
         msg: "Token inválido",
       });
     }
-    //funcion para eliminar el producto
     const ObjectId = mongoose.Types.ObjectId;
-    const result = await pedido.updateOne(
+    const result = await pedidoModel.updateOne(
       { usuario: idUsuario },
       { $pull: { productos: { producto: new ObjectId(idProducto) } } }
     );
     if (result) {
       res.status(200).json({ msg: "el producto fue eliminado correctamente" });
     }
-    const cardFind = await pedido.findOne({ usuario: idUsuario });
-    //si el array esta vacio se elimina al usuario de colección
+    const cardFind = await pedidoModel.findOne({ usuario: idUsuario });
+
     if (cardFind.productos.length === 0) {
-      const result = await pedido.findOneAndDelete({ usuario: idUsuario });
+      const result = await pedidoModel.findOneAndDelete({ usuario: idUsuario });
       if (result) {
         res.status(200).json({ msg: "el pedido fue eliminado de la bd" });
       }
@@ -146,7 +143,6 @@ export const elimElem = async (req, res) => {
 //Eliminar el pedido
 export const elimPedido = async (req, res) => {
   try {
-    //funcion para obtener el usuario con el token
     const token = req.headers.token;
     if (!token) {
       return res.status(401).json({
@@ -163,7 +159,7 @@ export const elimPedido = async (req, res) => {
       });
     }
 
-    const result = await pedido.findOneAndDelete({ usuario: idUsuario });
+    const result = await pedidoModel.findOneAndDelete({ usuario: idUsuario });
     if (result) {
       res.status(200).json({ msg: "el pedido fue eliminado correctamente" });
     }
@@ -187,13 +183,21 @@ export const obtPedido = async (req, res) => {
 
   const { idUsuario } = req.params;
 
-  if (!idUsuario) {
-    return res.status(401).json({
-      msg: "Token inválido",
-    });
+  try {
+    // Buscar el pedido y poblar los productos
+    const result = await pedidos
+      .findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) })
+      .populate("productos.producto");
+
+    // Verificar si se encontró el pedido
+    if (!result) {
+      return res.status(404).json({ msg: "No se encontró el pedido" });
+    }
+
+    // Responder con el pedido
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Error en el servidor" });
   }
-  const result = await pedido
-    .findOne({ usuario: idUsuario })
-    .populate("productos.producto");
-  res.json(result);
 };

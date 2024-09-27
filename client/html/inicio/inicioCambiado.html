@@ -22,481 +22,9 @@
     class="grid xlsecundario:grid-cols-[3.9%_1fr_4.5%] xlprimario:grid-cols-[4.50%_1fr_4.5%] grid-rows-[auto_1fr_auto] h-[100vh]"
   >
     <header class="bg-purple-600 col-span-3 row-start-1">
-      <div
-        class="contenedorHeader flex justify-between items-center xlprimario:py-3 xlsecundario:py-6 mx-[1.5%]"
-      >
-        <!-- imagen -->
-        <div class="contenedorImg w-[14%]">
-          <img
-            class="w-full h-full object-cover"
-            src="../../src/assets/img/Aventuras__4_-removebg-preview2.png"
-            alt="Logo"
-          />
-        </div>
+      <div id="root-ContentHeader"></div>
 
-        <!-- buscador -->
-        <div
-          class="buscador bg-white rounded-full flex items-center /paddings/ xlprimario:pl-[0.4%] xlsecundario:pl-[0.4%] /tamaños width y heigt/ xlprimario:w-[45%] xlprimario:h-[3.2vw] xlsecundario:w-[50%] relative"
-        >
-          <input
-            class="barradelBuscador rounded-full bg-purple-100 /tamaños de letras/ xlprimario:text-[1.5vw] xlsecundario:text-[1.8vw] /paddings y margin/ xlprimario:pl-[2%] xlsecundario:pl-[3%] /tamaños width y heigt/ w-[90%] h-[80%]"
-            type="text"
-            placeholder="¿Qué desea buscar?"
-          />
-          <i
-            class="fi-br-search absolute /direcciones/ right-[2.5%] top-[17%] /tamaños/ text-[1.5vw]"
-          ></i>
-        </div>
-
-        <!-- botones -->
-        <div
-          class="contendorBotone flex w-auto items-center justify-center xlprimario:gap-[2.5vw] xlsecundario:gap-[3vw]"
-        >
-          <a href=""
-            ><i
-              id="btnUsuario"
-              class="fi-ss-user bg-slate-100 rounded-full flex items-center justify-center /paddings/ xlprimario:py-[40%] xlprimario:px-[90%] xlsecundario:py-[45%] xlsecundario:px-[95%] /tamaños de los botones/ xlprimario:text-[1.7vw] xlsecundario:text-[2vw] /transicion hover/ transition-all duration-75 ease-in xlprimario:hover:text-[2.1vw] xlsecundario:hover:text-[2.3vw] hover:text-purple-900"
-            ></i
-          ></a>
-
-          <a href="../pedidos/favoritos.html"
-            ><i
-              class="fi-ss-heart bg-slate-100 rounded-full flex items-center justify-center /paddings/ xlprimario:py-[40%] xlprimario:px-[90%] xlsecundario:py-[45%] xlsecundario:px-[95%] /tamaños de los botones/ xlprimario:text-[1.7vw] xlsecundario:text-[2vw] /transicion hover/ transition-all duration-75 ease-in xlprimario:hover:text-[2.1vw] xlsecundario:hover:text-[2.3vw] hover:text-purple-900"
-            ></i
-          ></a>
-
-          <a href="../pedidos/carrito.html"
-            ><i
-              class="fi-ss-shopping-cart bg-slate-100 rounded-full flex items-center justify-center /paddings/ xlprimario:py-[40%] xlprimario:px-[90%] xlsecundario:py-[45%] xlsecundario:px-[95%] /tamaños de los botones/ xlprimario:text-[1.7vw] xlsecundario:text-[2vw] /transicion hover/ transition-all duration-75 ease-in xlprimario:hover:text-[2.1vw] xlsecundario:hover:text-[2.3vw] hover:text-purple-900"
-            ></i
-          ></a>
-
-          <div
-            id="seccion"
-            class="bg-slate-100 text-center rounded-lg font-medium /tamaño de letra/ text-[1.4vw] /paddins/ xlprimario:py-[2.5%] xlprimario:px-2 /tansision con hovers/ transition-all duration-100 ease-in hover:text-[1.6vw] hover:bg-purple-100"
-          ></div>
-        </div>
-      </div>
-
-      <nav>
-        <ul
-          class="flex bg-purple-900 text-white justify-evenly items-end font-medium
-          /tamaño de letra y padding/
-          xlprimario:text-[1.6vw] xlprimario:pt-[0.7vw]
-          xlsecundario:text-[2vw] xlsecundario:pt-[1vw]"
-        >
-          <!-- Incio no tiene para direccionar porque supuestamente estamos en inicio -->
-          <div
-            class="justify-center flex items-center bg-purple-100 text-purple-950 
-
-            /tamaño de la letra y padding/
-            xlprimario:text-[1.8vw] xlprimario:px-[0.5vw]
-            xlsecundario:text-[2.2vw] xlsecundario:px-[0.8vw] 
-
-            /*redondeado*/
-            xlprimario:rounded-t-[0.5vw]
-            xlsecundario:rounded-t-xl
-
-            /tamaño/
-            h-[4vw]"
-          >
-            Inicio
-          </div>
-
-          <!-- contacto -->
-          <li>
-            <a href="../contacto.html" class="botonNav">
-              <p
-                class="flex justify-center items-center 
-
-                /*redondeado*/
-                xlprimario:rounded-t-lg
-                xlsecundario:rounded-t-xl
-
-                /padiings/
-                pt-[0.5vw] pb-[1vw] px-[0.5vw]
-
-                /transiciones/
-                transition-colors ease-in duration-75 
-
-                /hovers/ 
-              hover:bg-purple-700 xlprimario:hover:text-[2vw]
-                xlsecundario:hover:text-[2.2vw]"
-              >
-                Contactos
-              </p>
-            </a>
-          </li>
-
-          <!-- libro -->
-          <li class="group">
-            <a href="../productos/ProductosLibros.html">
-              <p
-                class="relative flex justify-center items-center 
-                /paddings/ 
-                pt-[0.5vw] pb-[1vw] px-[0.5vw]
-
-                /*redondeado*/
-                xlprimario:rounded-t-[0.5vw]
-                xlsecundario:rounded-t-xl
-    
-                
-                /transiciones/
-                transition-colors ease-in duration-75 
-                
-                /hovers/
-              group-hover:bg-purple-700 
-                xlprimario:group-hover:text-[2vw]
-                xlsecundario:group-hover:text-[2.2vw]"
-              >
-                Libros
-              </p>
-            </a>
-
-            <div
-              class="contenedorLibros z-10 bg-purple-600 rounded-b-lg bg-opacity-90 text-center w-auto absolute hidden group-hover:block"
-            >
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[1vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 hover:font-medium xlprimario:hover:text-[1.8vw] xlsecundario:hover:text-[2.3vw]"
-                >
-                  Terror
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[1vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Triller
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[1vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Infantiles
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[1vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Juveniles
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[1vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Romance
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[1vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Ciencia Ficcion
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 rounded-b-lg px-[1vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Literatura
-                </div></a
-              >
-            </div>
-          </li>
-
-          <!-- Manga -->
-          <li class="group">
-            <a href="../../productos/ProductosMangas.html"
-              ><p
-                class="relative flex justify-center items-center
-                
-                /*redondeado*/
-                xlprimario:rounded-t-[0.5vw]
-                xlsecundario:rounded-t-xl
-                
-                /paddings/
-                pt-[0.5vw] pb-[1vw] px-[0.5vw]
-                
-                /transiciones/
-                transition-colors ease-in duration-75 
-                
-                /hovers/
-                group-hover:bg-purple-700
-                xlprimario:group-hover:text-[2vw] 
-                xlsecundario:group-hover:text-[2.2vw]"
-              >
-                Mangas
-              </p></a
-            >
-            <div
-              class="contenedorLibros z-10 bg-purple-600 rounded-b-lg bg-opacity-90 text-center w-auto absolute hidden group-hover:block"
-            >
-              <a href="../../productos/ProductosMangas.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  BoysLove
-                </div></a
-              >
-
-              <a href="../../productos/ProductosMangas.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Seinen
-                </div></a
-              >
-
-              <a href="../../productos/ProductosMangas.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Yuri
-                </div></a
-              >
-
-              <a href="../../productos/ProductosMangas.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Shonen
-                </div></a
-              >
-
-              <a href="../../productos/ProductosMangas.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Josei
-                </div></a
-              >
-
-              <a href="../../productos/ProductosMangas.html"
-                ><div
-                  class="transition-all ease-in duration-100 rounded-b-lg px-[3vw] /tamaño letra/  xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Shojo
-                </div></a
-              >
-            </div>
-          </li>
-
-          <!-- comics -->
-          <li class="group">
-            <a href="../productos/ProductosLibros.html"
-              ><p
-                class="relative flex justify-center items-center 
-                /paddings/ 
-                pt-[0.5vw] pb-[1vw] px-[0.5vw] 
-                
-                /*redondeado*/
-                xlprimario:rounded-t-[0.5vw]
-                xlsecundario:rounded-t-xl
-
-                /transiciones/ 
-                transition-colors ease-in duration-75 
-                
-                /hovers/ 
-                group-hover:bg-purple-700 
-                xlprimario:group-hover:text-[2vw] 
-                xlsecundario:group-hover:text-[2.2vw]"
-              >
-                Comics
-              </p></a
-            >
-            <div
-              class="contenedorLibros z-10 bg-purple-600 rounded-b-lg bg-opacity-90 text-center w-auto absolute hidden group-hover:block"
-            >
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Superhéroes
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Ciencia Ficción
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Fantasía
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Romance
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Comedia
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Slice of Life
-                </div></a
-              >
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Histórico
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 rounded-b-lg px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Terror
-                </div></a
-              >
-            </div>
-          </li>
-
-          <!-- merch -->
-          <li class="group">
-            <a href="../productos/ProductosLibros.html"
-              ><p
-                class="relative flex justify-center items-center 
-                
-                /paddings/ 
-                pt-[0.5vw] pb-[1vw] px-[0.5vw]
-                
-                /transiciones/ 
-                transition-colors ease-in duration-75 
-                
-                /*redondeado*/
-                xlprimario:rounded-t-[0.5vw]
-                xlsecundario:rounded-t-xl
-
-                /hovers/ 
-                group-hover:bg-purple-700 
-                xlprimario:group-hover:text-[2vw] 
-                xlsecundario:group-hover:text-[2.2vw]"
-              >
-                Merch
-              </p></a
-            >
-            <div
-              class="contenedorLibros z-10 rounded-b-lg bg-purple-600 bg-opacity-90 text-center w-auto absolute hidden group-hover:block"
-            >
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Gorras
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Posters
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Mochilas
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Pines
-                </div></a
-              >
-
-              <a href="../productos/ProductosLibros.html"
-                ><div
-                  class="transition-all ease-in rounded-b-lg duration-100 px-[3vw] /tamaño letra/ xlprimario:text-[1.5vw] xlsecundario:text-[2vw] /transiciones con hover/ hover:bg-purple-800 xlprimario:hover:text-[1.7vw] xlsecundario:hover:text-[2.3vw] hover:font-medium"
-                >
-                  Fundas
-                </div></a
-              >
-            </div>
-          </li>
-
-          <!-- vender -->
-          <li>
-            <a href="#" class="botonNav">
-              <p
-                class="flex justify-center items-center transition-colors ease-in duration-75 
-                
-                /padiings/ 
-                pt-[0.5vw] pb-[1vw] px-[0.5vw]
-                
-                /hovers/ 
-                hover:bg-purple-700 
-                xlprimario:hover:text-[2vw] 
-                xlsecundario:hover:text-[2.2vw]
-                
-                /*redondeado*/
-                xlprimario:rounded-t-[0.5vw]
-                xlsecundario:rounded-t-xl"    
-                >
-                Vender
-              </p>
-            </a>
-          </li>
-
-          <!-- intercambio -->
-          <li>
-            <a href="#" class="botonNav">
-              <p
-                class="flex justify-center items-center  transition-colors ease-in duration-75 
-                /padiings/ 
-                pt-[0.5vw] pb-[1vw] px-[0.5vw]
-                
-                /*redondeado*/
-                xlprimario:rounded-t-[0.5vw]
-                xlsecundario:rounded-t-xl    
-
-                /hovers/ 
-                hover:bg-purple-700 
-                xlprimario:hover:text-[2vw] 
-                xlsecundario:hover:text-[2.2vw]"
-              >
-                Intercambio
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <div id="root-Nav"></div>
     </header>
 
     <div class="row-start-2 col-start-1 bg-purple-100"></div>
@@ -505,7 +33,7 @@
     <main
       class="col-start-2 row-start-2 flex flex-col items-center
       /*marrgin y paddings*/
-      mb-[1vw] 
+      pb-[2vw]
       
       /*espaciado*/
       xlprimario:gap-[1vw]
@@ -1150,54 +678,67 @@
     <footer class="bg-purple-900 col-span-3 row-start-3 text-purple-100">
       <div class="flex">
 
-        <div class=" flex flex-col justify-evenly px-[1vw] w-[25%] border-r-2 border-purple-500">
-          <p class="text-[1.5vw]">Sobre Nosotros</p>
-          <p class="text-[1vw]">Somos tu tienda de confianza para encontrar cómics, mangas y más. Disfruta de los mejores productos del mundo del entretenimiento.</p>
+        <div class="w-[25%]  p-[1vw] items-center flex flex-col border-r-[0.2vw] border-r-purple-400">
+          <p class="text-[1.5vw] mb-[0.2vw]">Sobre Nosotros</p>
+          <p class="text-[1.1vw] text-justify w-[80%]">Somos tu tienda de confianza para encontrar cómics, mangas y más. Disfruta de los mejores productos del mundo del entretenimiento.</p>
         </div>
       
-        <div class="w-[25%] flex flex-col items-center">
-          <h4>Enlaces Rápidos</h4>
-          <div class=" flex">
-            <div class="">
-            <a href="#">Inicio</a>
-            <a href="#">Comics</a>
-            <a href="#">Mangas</a>
+        <div class="w-[25%] p-[1vw] items-center flex flex-col border-r-[0.2vw] border-r-purple-400">
+          <p class="text-[1.5vw] mb-[0.2vw]">Enlaces Rápidos</p>
+          <div class="flex gap-[2vw] ml-[3vw]">
+            <div class=" flex flex-col text-[1vw]">
+            <a  class="list-item" href="#">Inicio</a>
+            <a  class="list-item" href="#">Contactos</a>
+            <a  class="list-item" href="#">Libros</a>
+            <a  class="list-item" href="#">Mangas</a>
           </div>
-            <div class="">
-              <a href="#">Libros</a>
-              <a href="#">Contacto</a></li>
+            <div class="flex flex-col text-[1vw]">
+              <a class="list-item"  href="#">Comics</a>
+              <a class="list-item"  href="#">Merch</a>
+              <a class="list-item"  href="#">Vender</a>
+              <a class="list-item"  href="#">Intercambio</a>
             </div>
         </div>
+        </div> 
       
-        <div class="w-[25%] bg-green-400">
-          <h4>Redes Sociales</h4>
-          <ul>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Twitter</a></li>
-          </ul>
+        <div class="w-[25%] p-[1vw] items-center flex flex-col border-r-[0.2vw] border-r-purple-400">
+          <p class="text-[1.5vw] mb-[0.2vw]">Redes Sociales</p>
+          <div class=" flex flex-col">
+            <a class="text-[1.2vw] list-item" href="#" >Facebook</a>
+            <a class="text-[1.2vw] list-item" href="#">Instagram</a>
+            <a class="text-[1.2vw] list-item" href="#">Twitter</a>
+          </div>
         </div>
       
-        <div class="bg-amber-300 w-[25%]">
-          <h4>Contáctanos</h4>
-          <p>Dirección: Calle Ficticia 123, Ciudad</p>
-          <p>Teléfono: +54 370 1234567</p>
-          <p>Email: info@comicstienda.com</p>
+        <div class="w-[25%] p-[1vw] items-center flex flex-col">
+          <p class="text-[1.5vw] mb-[0.5vw]">Contáctanos</p>
+          <p class="text-[1.2vw] ml-[1vw]">Dirección: Calle Ficticia 123, Ciudad <br>
+          Teléfono: +54 370 1234567 <br>
+          Email: info@comicstienda.com</p>
         </div>
       </div>
     
-      <div class="bg-purple-950">
-        <p>&copy; 2024 Comics Tienda. Todos los derechos reservados.</p>
+      <div class=" bg-purple-950 pl-[1vw] py-[0.5vw]">
+        <p class="text-[1.2vw]">&copy; 2024 Comi cs Tienda. Todos los derechos reservados.</p>
       </div>
     </footer>
     
 
-    <script src="../../src/assets/js/inicio.js"></script>
-    <script src="../../src/assets/js/pruebaHeader.js"></script>
-    <script src="../../src/assets/js/producto.js"></script>
-    <script src="../../src/assets/js/nav.js"></script>
+    <!-- SRCIPTS -->
+    <!-- <script src="../../src/assets/js/producto.js"></script> -->
+
+    <!-- carruseles -->
+    <script src="../../src/assets/js/CarruselPrincipal.js"></script>
+    <script src="../../src/assets/js/carruselTarjetas.js"></script>
+
+    <!-- funcionalidad de icono favorito -->
+    <script src="../../src/assets/js/iconofav.js"></script>
+
+    <!-- botone iniciar seccion -->
     <script src="../../src/assets/js/auten.js"></script>
 
+    <!-- tailwind y react -->
     <script type="module" src="../../src/assets/js/mainTailwind.js"></script>
+    <script type="module" src="../../src/assets/components/inicio.jsx"></script>
   </body>
 </html>

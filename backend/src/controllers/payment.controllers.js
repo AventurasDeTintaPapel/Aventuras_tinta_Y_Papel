@@ -1,19 +1,51 @@
 import { PAYPAL_API, PAYPAL_API_KEY, PAYPAL_API_CLIENT } from "../config.js";
 import axios from "axios";
 import dotenv from "dotenv";
+import pedidos from "../models/pedidos.model.js";
+import mongoose from "mongoose";
+
 dotenv.config();
 
 const port = process.env.PORT;
 
 export const createOrder = async (req, res) => {
   try {
+    const token = req.headers.token;
+    if (!token) {
+      return res.status(401).json({
+        msg: "Debe registrarse para realizar esa tarea",
+      });
+    }
+    const usuario = await validarJWT(token);
+    const idUsuario = await usuario._id;
+
+    if (!idUsuario) {
+      return res.status(401).json({
+        msg: "Token inválido",
+      });
+    }
+
+    const { idUsuario } = req.body;
+
+    // Convertir idUsuario en ObjectId
+
+    const result = await pedidos.findOne({
+      usuario: new mongoose.Types.ObjectId(idUsuario),
+    });
+
+    if (result) {
+      console.log(`Total final del pedido: ${result.totalFinal}`);
+    } else {
+      console.log("No se encontró un pedido para este usuario.");
+    }
+    const aumount = result.totalFinal;
     const order = {
       intent: "CAPTURE",
       purchase_units: [
         {
           amount: {
             currency_code: "USD",
-            value: "10.00",
+            value: aumount,
           },
         },
       ],
