@@ -8,7 +8,7 @@ import { authRouter } from "./routers/auth.routes.js";
 import { pedido } from "./routers/pedido.routes.js";
 import { producRouter } from "./routers/productos.routes.js";
 import { favoritos } from "./routers/fav.routes.js";
-// import { sale } from "./routers/sale.routes.js";
+import { filRoutes } from "./routers/filter.routes.js";
 import { payrouter } from "./routers/payment.routes.js";
 //inicializacion de el servidor
 const app = express();
@@ -25,6 +25,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/pedidos", pedido);
 app.use("/api/productos", producRouter);
 app.use("/api/favoritos", favoritos);
+app.use("/api/filters", filRoutes);
 app.use(payrouter);
 
 //configuracion del puerto

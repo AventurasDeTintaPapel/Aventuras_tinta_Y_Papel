@@ -80,9 +80,7 @@ export const ediPedido = async (req, res) => {
         msg: "Token inválido",
       });
     }
-    //verificar si el pedido existe
     let pedidoExistente = await pedidoModel.findOne({ usuario: idUsuario });
-    //verifica si el producto esta incluido en el pedido
     const prodFind = await pedidoExistente.productos.find(
       (p) => p.producto.toString() === id
     );

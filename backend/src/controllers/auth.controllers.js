@@ -15,6 +15,7 @@ export const register = async (req, res) => {
   } = req.body;
 
   try {
+    //validations
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
       return res.status(400).json(errores);
