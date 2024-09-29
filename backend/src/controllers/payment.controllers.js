@@ -25,8 +25,6 @@ export const createOrder = async (req, res) => {
       });
     }
 
-    const { idUsuario } = req.body;
-
     // Convertir idUsuario en ObjectId
 
     const result = await pedidos.findOne({
