@@ -1,3 +1,6 @@
+const direccionRegistro = "../../html/registro/login.html"
+const direccionCerrarSesion = "../../html/inicio/inicioCambiado.html"
+
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         const token = localStorage.getItem('token');
@@ -6,13 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (seccion) {
             if (!token) {
                 seccion.innerHTML = `
-                    <a href="/client/registro/login.html">
+                    <a href=${direccionRegistro}>
                         <p class="usuariosOn">Iniciar Sesión</p>
                     </a>
                 `;
             } else {
                 seccion.innerHTML = `
-                    <a href="../inicio/inicio.html" id="cerrarSesion">
+                    <a href=${direccionCerrarSesion}>
                         <p class="usuariosOff">Cerrar Sesión</p>
                     </a>
                 `;

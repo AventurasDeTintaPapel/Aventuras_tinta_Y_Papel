@@ -27,70 +27,66 @@ const listarComics = (productos) => {
                 </div>
             </div>
         `;
-    });
-    const token = localStorage.getItem("token");
-    const favorito = document.querySelectorAll(".inconoFavoritos");
+  });
+  const token = localStorage.getItem("token");
+  const favorito = document.querySelectorAll(".inconoFavoritos");
 
-    if (!token) {
-        document
-            .querySelector(".contenedorProductos")
-            .addEventListener("click", (event) => {
-            alert("Debe registrarse para poder realizar esa tarea");
+  if (!token) {
+    document.querySelector(".contenedorProductos").addEventListener("click", (event) => {
+      alert("Debe registrarse para poder realizar esa tarea");
     });
 
     const comprarIcons = document.querySelectorAll("#comprar");
 
     comprarIcons.forEach(function (icon) {
-        icon.addEventListener("click", function () {
+      icon.addEventListener("click", function () {
         alert("Debe registrarse para poder realizar esa tarea");
+      });
     });
+  } else {
+    document.querySelector(".contenedorProductos").addEventListener("click", (event) => {
+      if (event.target.classList.contains("favoritos")) {
+        let favorito = event.target;
+        // Alternamos las clases para cambiar el ícono
+        if (favorito.classList.contains("fi-rs-heart")) {
+          favorito.classList.remove("fi-rs-heart");
+          favorito.classList.add("fi-ss-heart");
+        } else {
+          favorito.classList.remove("fi-ss-heart");
+          favorito.classList.add("fi-rs-heart");
+        }
+      }
     });
-    } else {
-        document
-        .querySelector(".contenedorProductos")
-        .addEventListener("click", (event) => {
-            if (event.target.classList.contains("favoritos")) {
-                let favorito = event.target;
-                    // Alternamos las clases para cambiar el ícono
-                if (favorito.classList.contains("fi-rs-heart")) {
-                    favorito.classList.remove("fi-rs-heart");
-                    favorito.classList.add("fi-ss-heart");
-                } else {
-                    favorito.classList.remove("fi-ss-heart");
-                    favorito.classList.add("fi-rs-heart");
-                }
-            }
-        });
-    }
+  }
 };
 
 //funcion para añadit al carrito
-    const añadirCarrito = async (event) => {
-    const idProducto = event.target.dataset.id;
-    const cantidad = 1;
-    const token = localStorage.getItem("token");
-    try {
-        if (!token) {
-            alert("Debe registrarse para poder realizar esta tarea");
-        } else {
-            const cargarCarrito = await fetch(`http://localhost:3400/carrito`, {
-                method: "POST",
-                body: JSON.stringify({
-                idProducto,
-                cantidad,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-                token: token,
-            },
-        });
-        if (cargarCarrito.ok) {
-            alert("Se añadio el producto al carrito");
-        }
+const añadirCarrito = async (event) => {
+  const idProducto = event.target.dataset.id;
+  const cantidad = 1;
+  const token = localStorage.getItem("token");
+  try {
+    if (!token) {
+      alert("Debe registrarse para poder realizar esta tarea");
+    } else {
+      const cargarCarrito = await fetch(`http://localhost:3400/carrito`, {
+        method: "POST",
+        body: JSON.stringify({
+          idProducto,
+          cantidad,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+      });
+      if (cargarCarrito.ok) {
+        alert("Se añadio el producto al carrito");
+      }
     }
-    } catch (error) {
-        console.log(error);
-    } 
+  } catch (error) {
+    console.log(error);
+  }
 };
 // Función para añadir al carrito
 const obtenerProductos = async () => {
@@ -114,18 +110,15 @@ const añadirFavorito = async (event) => {
   const idProducto = event.target.dataset.id;
   console.log(idProducto);
   try {
-    const cargarFavoritos = await fetch(
-      `http://localhost:3400/favoritos/6692cf802772b70d57574598`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          idProducto,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const cargarFavoritos = await fetch(`http://localhost:3400/favoritos/6692cf802772b70d57574598`, {
+      method: "POST",
+      body: JSON.stringify({
+        idProducto,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (cargarFavoritos.ok) {
       alert("Se ha añadido el producto a favoritos");
     }
