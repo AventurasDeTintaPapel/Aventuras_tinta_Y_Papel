@@ -2,6 +2,7 @@ import { PAYPAL_API, PAYPAL_API_KEY, PAYPAL_API_CLIENT } from "../config.js";
 import axios from "axios";
 import dotenv from "dotenv";
 import pedidos from "../models/pedidos.model.js";
+import productos from "../models/productos.model.js";
 import mongoose from "mongoose";
 
 dotenv.config();
@@ -16,8 +17,9 @@ export const createOrder = async (req, res) => {
         msg: "Debe registrarse para realizar esa tarea",
       });
     }
+
     const usuario = await validarJWT(token);
-    const idUsuario = await usuario._id;
+    const idUsuario = usuario._id;
 
     if (!idUsuario) {
       return res.status(401).json({
@@ -25,25 +27,45 @@ export const createOrder = async (req, res) => {
       });
     }
 
-    // Convertir idUsuario en ObjectId
-
-    const result = await pedidos.findOne({
+    // Buscar el pedido del usuario
+    const pedido = await pedidos.findOne({
       usuario: new mongoose.Types.ObjectId(idUsuario),
     });
 
-    if (result) {
-      console.log(`Total final del pedido: ${result.totalFinal}`);
-    } else {
-      console.log("No se encontró un pedido para este usuario.");
+    if (!pedido) {
+      return res
+        .status(404)
+        .json({ msg: "No se encontró un pedido para este usuario." });
     }
-    const aumount = result.totalFinal;
+
+    // Iterar sobre los productos del pedido
+    for (const items of pedido.productos) {
+      const productoId = items.producto;
+      const cantidad = items.cantidad;
+
+      // Buscar el producto por su ID
+      const producto = await productos.findById(productoId);
+      if (!producto) {
+        throw new Error(`Producto con ID ${productoId} no encontrado`);
+      }
+
+      // Verificar stock
+      if (producto.stock < cantidad) {
+        throw new Error(
+          `Stock insuficiente para el producto: ${producto.nombre}`
+        );
+      }
+    }
+
+    // Crear la orden de PayPal
+    const aMount = pedido.totalFinal;
     const order = {
       intent: "CAPTURE",
       purchase_units: [
         {
           amount: {
             currency_code: "USD",
-            value: aumount,
+            value: aMount,
           },
         },
       ],
@@ -56,6 +78,7 @@ export const createOrder = async (req, res) => {
       },
     };
 
+    // Obtener el access token de PayPal
     const params = new URLSearchParams();
     params.append("grant_type", "client_credentials");
 
@@ -70,6 +93,7 @@ export const createOrder = async (req, res) => {
     });
     const accessToken = data.access_token;
 
+    // Crear la orden de PayPal
     const response = await axios.post(
       `${PAYPAL_API}/v2/checkout/orders`,
       order,
@@ -81,10 +105,9 @@ export const createOrder = async (req, res) => {
       }
     );
 
-    console.log(response.data);
-    // Devuelve el order ID y el enlace de aprobación
+    // Devolver la respuesta al cliente
     res.json({
-      msg: "orden creada correctamente",
+      msg: "Orden creada correctamente",
       orderId: response.data.id,
       approvalUrl: response.data.links.find((link) => link.rel === "approve")
         .href,
@@ -94,11 +117,77 @@ export const createOrder = async (req, res) => {
     res.status(500).send("Error al crear la orden");
   }
 };
+//funcion para capturar las ordenes
 export const captOrder = async (req, res) => {
-  const { token } = req.query;
+  //!token obtenido de paypal
+  const { token: paypalToken } = req.query; // Renombrar para evitar conflicto de nombres
+  //!sesion de mongodb
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
+    const userToken = req.headers.token; // Renombrar para evitar conflicto de nombres
+    if (!userToken) {
+      return res.status(401).json({
+        msg: "Debe registrarse para realizar esa tarea",
+      });
+    }
+
+    const usuario = await validarJWT(userToken);
+    const idUsuario = usuario._id;
+
+    if (!idUsuario) {
+      return res.status(401).json({
+        msg: "Token inválido",
+      });
+    }
+
+    // Buscar el pedido del usuario
+    const pedido = await pedidos
+      .findOne({
+        usuario: new mongoose.Types.ObjectId(idUsuario),
+      })
+      .session(session);
+
+    if (!pedido) {
+      throw new Error("Pedido no encontrado");
+    }
+
+    // Recorrer los productos del pedido
+    for (const item of pedido.productos) {
+      const productoId = item.producto;
+      const cantidad = item.cantidad;
+
+      // Buscar el producto correspondiente
+      const producto = await Producto.findById(productoId).session(session);
+
+      if (!producto) {
+        throw new Error(`Producto con ID ${productoId} no encontrado`);
+      }
+
+      // Verificar si hay suficiente stock antes de descontar
+      if (producto.stock < cantidad) {
+        throw new Error(`Stock insuficiente para el producto: ${producto.nombre}`);
+      }
+
+      // Descontar del stock
+      producto.stock -= cantidad;
+
+      // Guardar el producto actualizado
+      await producto.save({ session });
+    }
+
+    // Actualizar el estado del pedido a "completado"
+    pedido.estado = "completado";
+    await pedido.save({ session });
+
+    // Finalizar la transacción
+    await session.commitTransaction();
+    session.endSession();
+
+    // Capturar el pago con PayPal
     const response = await axios.post(
-      `${PAYPAL_API}/v2/checkout/orders/${token}/capture`,
+      `${PAYPAL_API}/v2/checkout/orders/${paypalToken}/capture`,
       {},
       {
         auth: {
@@ -108,10 +197,23 @@ export const captOrder = async (req, res) => {
       }
     );
     console.log(response.data);
-    return res.send("pagado");
+    return res.send("Pedido pagado correctamente");
+
   } catch (error) {
-    console.log("error", error);
-    console.log("error", error.response ? error.response.data : error.message);
+    // En caso de error, deshacer la transacción
+    await session.abortTransaction();
+    session.endSession();
+
+    console.error("Error al procesar el pedido:", error.message);
+
+    // Manejar error de PayPal si existe
+    if (error.response) {
+      console.log("Error de PayPal:", error.response.data);
+    } else {
+      console.log("Error general:", error.message);
+    }
+
     res.status(500).send("Error al capturar la orden");
   }
 };
+
