@@ -1,75 +1,197 @@
-import pedido from '../models/pedido.model.js';
-import moongose from 'mongoose';
+import pedido from "../models/pedidos.model.js";
+import mongoose from "mongoose";
+import usuario from "../models/usuarios.model.js";
+import producto from "../models/productos.model.js";
+import { validarJWT } from "../helpers/validadJWT.js";
 
- 
-export const agrePedido = async(req,res)=>{
-    try{
-        const {idCarrito,isComplete,totalFinal}= req.body;
-        const obtenerCarrito = await _findById(idCarrito)
-        const newpedido = new pedido ({
-            carrito:obtenerCarrito._id,
-            isComplete,totalFinal
-        })
-        console.log(isComplete)
-        await newpedido.save();
-          res.json({ msg: 'El pedido fue cargado correctamente', pedido });
-    }catch(error){
-        console.log(error)
+//agregar al pedido
+export const agrePedido = async (req, res) => {
+  try {
+    const { idUsuario, totalFinal, productos } = req.body;
+
+    // Extraer el primer producto del array
+    const { idProducto, cantidad = 1 } = productos[0];
+
+    // Verificar si el producto existe en la base de datos
+    const obtProducto = await producto.findById(idProducto);
+    if (!obtProducto) {
+      return res.status(404).json({ msg: "Producto no encontrado" });
     }
-}
-export const ediPedido = async (req, res) => {
-    try {
-        const { idPedido } = req.params;
-        const { isComplete } = req.body; 
 
-        const obtePedido = await findById(idPedido); 
-        
-        if (!obtePedido) {
-            return res.status(404).json({ msg: 'El pedido no se encuentra registrado' }); 
-        }
+    // Buscar si el usuario ya tiene un pedido en la base de datos
+    const cardFind = await pedido.findOne({ usuario: idUsuario });
+    let numPedido = 0;
 
-        // Crear un objeto con el campo que se va a actualizar
-        const pedidoEdit = {
-            isComplete: isComplete
-        };
+    if (!cardFind) {
+      numPedido++;
+      const newPedido = new pedido({
+        productos: [
+          {
+            producto: idProducto,
+            cantidad: cantidad,
+          },
+        ],
+        totalFinal,
+        usuario: idUsuario,
+        numPedido,
+      });
 
-        // Actualiza el pedido con el nuevo valor de isComplete
-        const resultado = await findByIdAndUpdate(idPedido, pedidoEdit, { new: true });
+      await newPedido.save();
+      return res.json(newPedido);
+    } else {
+      const prodFind = cardFind.productos.find(
+        (p) => p.producto && p.producto.toString() === idProducto
+      );
 
-        if (resultado) {
-            res.json({ msg: 'El pedido fue actualizado correctamente', pedido: resultado });
-        } else {
-            res.status(500).json({ msg: 'Error al actualizar el pedido' }); 
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'Ocurrió un error al procesar la solicitud' }); // Responde con un error genérico en caso de excepciones
-    }
-};
-export const obtePedido = async (req, res) => {
-    try {
-        const { idPedido } = req.params;
-        const ObjectId = moongose.Types.ObjectId;
-    
-        const result = await pedido.aggregate([
-        {
-            $lookup: {
-                from: "carritos",
-                localField: "carrito",
-                foreignField: "_id",
-                as: "carritoInfo"
-            }
-        },
-            { $unwind: "$carritoInfo" }
-        ]);
-
-    
-        res.status(200).json(result);
-        console.log(result);
-      } catch (error) {
-        console.error(error);
-        if (!res.headersSent) { 
-          res.status(500).json({ error: 'Ocurrió un error al obtener los carritos' });
-        }
+      if (prodFind) {
+        console.log("Producto ya está en el pedido");
+        prodFind.cantidad += cantidad;
+      } else {
+        cardFind.productos.push({
+          producto: idProducto,
+          cantidad: cantidad,
+        });
       }
-}
+
+      await cardFind.save();
+      return res.json(cardFind);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Error en el servidor" });
+  }
+};
+
+//editar el producto del pedido
+export const ediPedido = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { cantidad } = req.body;
+    //funcion para obtener el usuario con el token
+    const token = req.headers.token;
+    if (!token) {
+      return res.status(401).json({
+        msg: "Debe registrarse para realizar esa tarea",
+      });
+    }
+
+    const usuario = await validarJWT(token);
+    const idUsuario = await usuario._id;
+    if (!idUsuario) {
+      return res.status(401).json({
+        msg: "Token inválido",
+      });
+    }
+    //verificar si el pedido existe
+    let pedidoExistente = await pedido.findOne({ usuario: idUsuario });
+    //verifica si el producto esta incluido en el pedido
+    const prodFind = await pedidoExistente.productos.find(
+      (p) => p.producto.toString() === id
+    );
+    if (!prodFind) {
+      res.status(401).json({ msg: "el producto no existe en el pedido" });
+    } else {
+      prodFind.cantidad = cantidad;
+      pedidoExistente.save();
+      res.status(200).json({ message: "Producto actualizado correctamente" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Eliminar un producto del array de productos
+export const elimElem = async (req, res) => {
+  try {
+    const { idProducto } = req.params;
+    //funcion para obtener el usuario con el token
+    const token = req.headers.token;
+    if (!token) {
+      return res.status(401).json({
+        msg: "Debe registrarse para realizar esa tarea",
+      });
+    }
+
+    const usuario = await validarJWT(token);
+    const idUsuario = await usuario._id;
+
+    if (!idUsuario) {
+      return res.status(401).json({
+        msg: "Token inválido",
+      });
+    }
+    //funcion para eliminar el producto
+    const ObjectId = mongoose.Types.ObjectId;
+    const result = await pedido.updateOne(
+      { usuario: idUsuario },
+      { $pull: { productos: { producto: new ObjectId(idProducto) } } }
+    );
+    if (result) {
+      res.status(200).json({ msg: "el producto fue eliminado correctamente" });
+    }
+    const cardFind = await pedido.findOne({ usuario: idUsuario });
+    //si el array esta vacio se elimina al usuario de colección
+    if (cardFind.productos.length === 0) {
+      const result = await pedido.findOneAndDelete({ usuario: idUsuario });
+      if (result) {
+        res.status(200).json({ msg: "el pedido fue eliminado de la bd" });
+      }
+      console.log(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Eliminar el pedido
+export const elimPedido = async (req, res) => {
+  try {
+    //funcion para obtener el usuario con el token
+    const token = req.headers.token;
+    if (!token) {
+      return res.status(401).json({
+        msg: "Debe registrarse para realizar esa tarea",
+      });
+    }
+
+    const usuario = await validarJWT(token);
+    const idUsuario = await usuario._id;
+
+    if (!idUsuario) {
+      return res.status(401).json({
+        msg: "Token inválido",
+      });
+    }
+
+    const result = await pedido.findOneAndDelete({ usuario: idUsuario });
+    if (result) {
+      res.status(200).json({ msg: "el pedido fue eliminado correctamente" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//obtener el pedido
+export const obtPedido = async (req, res) => {
+  //funcion para obtener el usuario con el token
+  const token = req.headers.token;
+  if (!token) {
+    return res.status(401).json({
+      msg: "Debe registrarse para realizar esa tarea",
+    });
+  }
+
+  const usuario = await validarJWT(token);
+  const idUsuario = await usuario._id;
+
+  if (!idUsuario) {
+    return res.status(401).json({
+      msg: "Token inválido",
+    });
+  }
+  const result = await pedido
+    .findOne({ usuario: idUsuario })
+    .populate("productos.producto");
+  res.json(result);
+};

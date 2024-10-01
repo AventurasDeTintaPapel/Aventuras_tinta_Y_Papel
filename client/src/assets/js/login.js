@@ -12,7 +12,7 @@ const login = async (e) => {
     const contrasenia = document.getElementById('contraseña').value;
     
     // Realizamos la peticion a nuestro servidor.
-    const peticion = await fetch('http://localhost:3400/login', {
+    const peticion = await fetch('http://localhost:3400/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({nombreUsuario, contrasenia}),
         headers: {

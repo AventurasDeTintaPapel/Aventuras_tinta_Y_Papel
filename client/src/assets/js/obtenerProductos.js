@@ -35,7 +35,7 @@ const listarProductos = (data) => {
 
 const obtenerProductos = async () => {
     try {
-        const peticion = await fetch('http://localhost:3400/productos');
+        const peticion = await fetch('http://localhost:3400/api/productos');
 
         if (!peticion.ok) {
             console.log('hubo un error al obtener los productos')
@@ -53,7 +53,7 @@ function eliminarProducto(event) {
    
     event.preventDefault();
     const id = event.target.dataset.id
-    const peticion = fetch(`http://localhost:3400/eliminar/${id}`, {
+    const peticion = fetch(`http://localhost:3400/api/productos/eliminar/${id}`, {
         method: 'DELETE',
     })
         alert('producto eliminado correctamente');

@@ -9,6 +9,6 @@ export const authRouter = Router();
 authRouter.post('/register',regisValidation,applyValidations, register);
 
 // ruta para el login.
-authRouter.post('/login',loginValidation,applyValidations, login);
+authRouter.post('/login',login);
 
 

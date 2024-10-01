@@ -1,5 +1,5 @@
 const contenedorComics = document.getElementById("Comics");
-
+ 
 // Función para listar los comics
 const listarComics = (productos) => {
   contenedorComics.innerHTML = "";
@@ -59,8 +59,8 @@ const listarComics = (productos) => {
     });
   }
 };
-
 //funcion para añadit al carrito
+<<<<<<<< HEAD:client/src/assets/js/catalogo.js
 const añadirCarrito = async (event) => {
   const idProducto = event.target.dataset.id;
   const cantidad = 1;
@@ -69,7 +69,7 @@ const añadirCarrito = async (event) => {
     if (!token) {
       alert("Debe registrarse para poder realizar esta tarea");
     } else {
-      const cargarCarrito = await fetch(`http://localhost:3400/api/carrito/`, {
+      const cargarCarrito = await fetch(`http://localhost:3400/carrito`, {
         method: "POST",
         body: JSON.stringify({
           idProducto,
@@ -83,6 +83,30 @@ const añadirCarrito = async (event) => {
       if (cargarCarrito.ok) {
         alert("Se añadio el producto al carrito");
       }
+========
+    const añadirCarrito = async (event) => {
+    const idProducto = event.target.dataset.id;
+    const cantidad = 1;
+    const token = localStorage.getItem("token");
+    try {
+        if (!token) {
+            alert("Debe registrarse para poder realizar esta tarea");
+        } else {
+            const cargarCarrito = await fetch(`http://localhost:3400/api/carrito/`, {
+                method: "POST",
+                body: JSON.stringify({
+                idProducto,
+                cantidad,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        });
+        if (cargarCarrito.ok) {
+            alert("Se añadio el producto al carrito");
+        }
+>>>>>>>> origin/JaquelineAtienza:client/src/assets/js/catalogoComics.js
     }
   } catch (error) {
     console.log(error);
@@ -99,7 +123,7 @@ const obtenerProductos = async () => {
     }
 
     const response = await peticion.json();
-    console.log(response);
+    console.log(response)
     listarComics(response);
   } catch (error) {
     console.error("Error al obtener los productos", error);
