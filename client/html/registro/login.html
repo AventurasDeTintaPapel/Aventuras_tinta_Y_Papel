@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,278 @@
 <body>
 
     <main>    
+=======
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-straight/css/uicons-regular-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.4.0/uicons-solid-straight/css/uicons-solid-straight.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="../../src/assets/img/Aventuras__4_-removebg-preview2.png"
+    />
+    <link rel="stylesheet" href="../../src/assets/css/header-footer.css" />
+    <link rel="stylesheet" href="../../src/assets/css/login.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="contenedorHeader">
+        <img
+          class="imgLogo"
+          src="../../src/assets/img/Aventuras (3) (1).png"
+          alt=""
+        />
 
-    <form id="form" class="formulario">
+        <div class="buscador">
+          <input
+            class="barradelBuscador"
+            type="text"
+            placeholder="¿Que desea buscar?"
+          />
+          <i class="lipaIcon fi-br-search"></i>
+        </div>
+        <div class="BotonesDelHeader">
+          <a href=""><i id="btnUsuario" class="usuarioIcon fi-ss-user"></i></a>
+
+          <a href="../pedidos/favoritos.html"
+            ><i class="corazonIcon fi-ss-heart"></i
+          ></a>
+
+          <a href="../pedidos/carrito.html"
+            ><i class="carritoIcon fi-ss-shopping-cart"></i
+          ></a>
+
+          <div id="seccion"></div>
+        </div>
+      </div>
+      <nav>
+        <div class="contenedorNav">
+          <!-- <div class="navResposive">
+
+                        <div class="botonesCElularNAV">
+
+                            <div class="iconosManual">
+
+                                <span class="barraIcono"></span>
+                                <span class="barraIcono"></span>
+                                <span class="barraIcono"></span>
+                            </div>
+
+                            <svg id="lupitaPepino" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" lupitaPepino"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+
+                        <div class="containerBuscador">
+                            <input id="barraBuscadorNAV" class="barraBuscadorNAV" type="text" placeholder="¿Que desea buscar?">
+                        </div>
+                    </div> -->
+
+          <ul class="Nav">
+            <li>
+              <a href="../inicio/inicio.html" class="botonNav"
+                ><p class="palabraClave">Incicio</p></a
+              >
+            </li>
+            <li>
+              <a href="../contacto.html" class="botonNav"
+                ><p class="palabraClave">Contactos</p></a
+              >
+            </li>
+            <li>
+              <a href="../productos/ProductosLibros.html" class="botonNav"
+                ><p class="palabraClave">Libros</p></a
+              >
+              <ul class="listaDesplegable_1">
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosLibros.html"
+                    >Romanticismo</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosLibros.html"
+                    >Ciencia Ficcion</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosLibros.html"
+                    >Infatiles</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosLibros.html"
+                    >Juveniles</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosLibros.html"
+                    >Terror</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosLibros.html"
+                    >Triller</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosLibros.html"
+                    >Literatura Clasica</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="../productos/ProductosMangas.html" class="botonNav"
+                ><p class="palabraClave">Mangas</p></a
+              >
+              <ul class="listaDesplegable_2">
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMangas.html"
+                    >Shonen</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMangas.html"
+                    >Seinen</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMangas.html"
+                    >Yuri</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMangas.html"
+                    >Josei</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMangas.html"
+                    >Shojo</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMangas.html"
+                    >Boyslove</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="../productos/ProductosComics.html" class="botonNav"
+                ><p class="palabraClave">Comics</p></a
+              >
+              <ul class="listaDesplegable_3">
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Superhéroes</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Ciencia Ficción</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Fantasía</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Terror</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Romance</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Comedia</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Slice of Life</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosComics.html"
+                    >Histórico</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="../productos/ProductosMerch.html" class="botonNav"
+                ><p class="palabraClave">Merch</p></a
+              >
+              <ul class="listaDesplegable_4">
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMerch.html"
+                    >Mangas</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMerch.html"
+                    >Libros</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMerch.html"
+                    >Comics</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMerch.html"
+                    >Artes</a
+                  >
+                </li>
+                <li>
+                  <a class="botonNav1" href="../productos/ProductosMerch.html"
+                    >Mech</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="botonNav"
+                ><p class="palabraClave">Vender</p></a
+              >
+            </li>
+            <li>
+              <a href="#" class="botonNav"
+                ><p class="palabraClave">Intercambio</p></a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <img
+        class="imagenGenral"
+        src="/client/src/assets/img/registro2.jpg"
+        alt=""
+      />
+>>>>>>> b98108c9f2070f22a360cb6b4081b8df7e44f563
+
+      <form id="form" class="formulario">
         <p class="titulo">INGRESAR</p>
         <div class="form-container">
+<<<<<<< HEAD
             <div class="preguntas">
                 <label for="exampleFormControlInput1" class="form-label">Nombre de usuario</label>
                 <input type="text" name="" id="usuario" placeholder="Roberto_E">
@@ -22,23 +291,71 @@
             <p class="">¿Olvidaste tu contraseña? <a class="link" href="">Click aqui</a></p>
             <button type="submit" class="btn btn-dark">Entrar</button> 
             <a class="link2" href="../registro/registro.html">¿No tienes cuenta? registrate</a>
+=======
+          <div class="preguntas">
+            <label for="exampleFormControlInput1" class="form-label"
+              >Nombre de usuario</label
+            >
+            <input type="text" name="" id="usuario" placeholder="Roberto_E" />
+            <label for="exampleFormControlInput1" class="form-label"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              name="password"
+              placeholder="#####"
+              id="contraseña"
+            />
+          </div>
+          <p class="link2">
+            ¿Olvidaste tu contraseña? <a class="link" href="">Click aqui</a>
+          </p>
+          <button type="submit" class="btn btn-dark">Entrar</button>
+          <a class="link2" href="../../html/registro/registro.html"
+            >¿No tienes cuenta? registrate</a
+          >
+>>>>>>> b98108c9f2070f22a360cb6b4081b8df7e44f563
         </div>
-    </form>
-
+      </form>
     </main>
+<<<<<<< HEAD
 <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"
         ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-    <script src="../assets/js/auten.js"></script>
+=======
+    <!-- <footer>
+        <div class="footer1">
+                    <p><b>A</b>VENTURAD EN TINTA Y PAPEL</p>
+                    <hr>
+                    <p><b>T</b>odos los Libros,Mangas,Comics<br> en un solo lugar. Envios a todo el pais</p>
+        </div>
+        <div class="footer2">
+            <h2>NAVEGACION DE LA PAGINA</h2>
+            <a class="listaFooter" href="../inicio/inicio.html">Inicio</a>
+            <a class="listaFooter" href="">Contactos</a>
+            <a class="listaFooter" href="">Preguntas Frecuentes</a>
+            <a class="listaFooter" href="">¿Como Comprar?</a>
+            <a class="listaFooter" href="">¿Quienes Somos?</a>
+            
+        </div>
     
-    <script src="../assets/js/login.js"></script>
-</body>
+    </footer> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+>>>>>>> b98108c9f2070f22a360cb6b4081b8df7e44f563
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../../src/assets/js/auten.js"></script>
+
+    <script src="../../src/assets/js/login.js"></script>
+  </body>
 </html>

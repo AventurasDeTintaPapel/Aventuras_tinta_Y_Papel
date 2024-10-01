@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const url = "mongodb+srv://jaqueline22:Jaqueline2445@aventura.qeyjg.mongodb.net/";
+const url =
+  "mongodb+srv://jaqueline22:Jaqueline2445@aventura.qeyjg.mongodb.net/";
 
 (async () => {
   try {
