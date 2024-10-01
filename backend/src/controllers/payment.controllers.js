@@ -11,22 +11,22 @@ const port = process.env.PORT;
 
 export const createOrder = async (req, res) => {
   try {
-    const token = req.headers.token;
-    if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
-    }
+    // const token = req.headers.token;
+    // if (!token) {
+    //   return res.status(401).json({
+    //     msg: "Debe registrarse para realizar esa tarea",
+    //   });
+    // }
 
-    const usuario = await validarJWT(token);
-    const idUsuario = usuario._id;
+    // const usuario = await validarJWT(token);
+    // const idUsuario = usuario._id;
 
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
-
+    // if (!idUsuario) {
+    //   return res.status(401).json({
+    //     msg: "Token inválido",
+    //   });
+    // }
+    const idUsuario = "66bb6e8f1a0e088b84ae0cc0";
     // Buscar el pedido del usuario
     const pedido = await pedidos.findOne({
       usuario: new mongoose.Types.ObjectId(idUsuario),
@@ -127,21 +127,21 @@ export const captOrder = async (req, res) => {
 
   try {
     const userToken = req.headers.token; // Renombrar para evitar conflicto de nombres
-    if (!userToken) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
-    }
+    // if (!userToken) {
+    //   return res.status(401).json({
+    //     msg: "Debe registrarse para realizar esa tarea",
+    //   });
+    // }
 
-    const usuario = await validarJWT(userToken);
-    const idUsuario = usuario._id;
+    // const usuario = await validarJWT(userToken);
+    // const idUsuario = usuario._id;
 
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
-
+    // if (!idUsuario) {
+    //   return res.status(401).json({
+    //     msg: "Token inválido",
+    //   });
+    // }
+    let idUsuario = "66bb6e8f1a0e088b84ae0cc0";
     // Buscar el pedido del usuario
     const pedido = await pedidos
       .findOne({
@@ -154,31 +154,33 @@ export const captOrder = async (req, res) => {
     }
 
     // Recorrer los productos del pedido
-    for (const item of pedido.productos) {
-      const productoId = item.producto;
-      const cantidad = item.cantidad;
+    for (const items of pedido.productos) {
+      const productoId = items.producto;
+      const cantidad = items.cantidad;
 
-      // Buscar el producto correspondiente
-      const producto = await Producto.findById(productoId).session(session);
+      if (!cantidad || cantidad <= 0) {
+        throw new Error(`Cantidad no válida para el producto: ${productoId}`);
+      }
 
+      const producto = await productos.findById(productoId);
       if (!producto) {
         throw new Error(`Producto con ID ${productoId} no encontrado`);
       }
-
-      // Verificar si hay suficiente stock antes de descontar
-      if (producto.stock < cantidad) {
-        throw new Error(`Stock insuficiente para el producto: ${producto.nombre}`);
+      // Verificar si el producto tiene stock
+      if (typeof producto.stock === "undefined") {
+        throw new Error(
+          `El producto con ID ${productoId} no tiene campo de stock`
+        );
       }
-
-      // Descontar del stock
-      producto.stock -= cantidad;
-
-      // Guardar el producto actualizado
-      await producto.save({ session });
+      console.log("prod stock", producto.stock);
+      const newStock = producto.stock - cantidad;
+      console.log("new stock", newStock);
+      console.log(cantidad);
+      await producto.updateOne({ $set: { stock: newStock } });
     }
 
     // Actualizar el estado del pedido a "completado"
-    pedido.estado = "completado";
+    pedido.estado = "pendiente";
     await pedido.save({ session });
 
     // Finalizar la transacción
@@ -198,7 +200,6 @@ export const captOrder = async (req, res) => {
     );
     console.log(response.data);
     return res.send("Pedido pagado correctamente");
-
   } catch (error) {
     // En caso de error, deshacer la transacción
     await session.abortTransaction();
@@ -216,4 +217,3 @@ export const captOrder = async (req, res) => {
     res.status(500).send("Error al capturar la orden");
   }
 };
-
