@@ -12,6 +12,7 @@ export default defineConfig({
         Comics: "./html/productos/ProductosComics.html",
         Mangas: "./html/productos/ProductosMangas.html",
         Merch: "./html/productos/ProductosMerch.html",
+        catalogo: "./html/productos/catalogo.html",
         // se puede poner mas aqui,
       },
     },

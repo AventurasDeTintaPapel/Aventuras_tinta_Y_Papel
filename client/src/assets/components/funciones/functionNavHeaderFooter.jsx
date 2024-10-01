@@ -140,6 +140,11 @@ function HoverNav({ texto, linkHover }) {
 
 // contenedor navegador
 export function Nav() {
+  const handleNavigation = (tipo) => {
+    // Cambia la URL sin recargar la página
+    window.history.pushState(null, "", `/productos/${tipo}`);
+  };
+
   return (
     <nav>
       <ul className="flex bg-purple-900 h-[5vw] text-white justify-evenly items-end font-medium pt-[0.7vw]">
@@ -151,7 +156,12 @@ export function Nav() {
 
         {/* libro */}
         <li className="group">
-          <AlistaNav textoLista={"Libros"} id={"librosNav"} link={"http://localhost:5173/html/productos/ProductosLibros.html"} />
+          <AlistaNav
+            textoLista={"Libros"}
+            id={"librosNav"}
+            onClick={() => handleNavigation("libros")}
+            link={"http://localhost:5173/html/productos/ProductosLibros.html"}
+          />
           <div id="desplegableLibro" className="z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block">
             <HoverNav texto={"Terror"} linkHover={"../../../html/productos/ProductosLibros.html"} />
             <HoverNav texto={"Triller"} linkHover={"../../../html/productos/ProductosLibros.html"} />

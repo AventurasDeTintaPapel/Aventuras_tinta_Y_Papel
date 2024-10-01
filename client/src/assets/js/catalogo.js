@@ -5,6 +5,7 @@ const listarComics = (productos) => {
   contenedorComics.innerHTML = "";
   productos.forEach((producto) => {
     const titulo = producto.titulo;
+    const imagen = producto.imagen;
     const maxLength = 20; // Máxima longitud deseada para el título
     let tituloResumido;
     if (titulo.length > maxLength) {
@@ -13,10 +14,9 @@ const listarComics = (productos) => {
       tituloResumido = titulo;
     }
 
-    const imagenSrc = `http://localhost:3400${producto.imagen}`;
     contenedorComics.innerHTML += `
             <div class="producto" id="productoss">
-                <img src="${imagenSrc}" alt="">
+                <img src="${imagen}" alt="">
                 <h5>${tituloResumido} <i class="fi-rs-heart favoritos" id="favs" onclick="añadirFavorito(event)"  data-id=${producto._id}></i></h5>
                 <p id="precio">Precio: ${producto.precio}</p>
                 <div class="botonesProducto">
@@ -59,7 +59,6 @@ const listarComics = (productos) => {
     });
   }
 };
-
 //funcion para añadit al carrito
 const añadirCarrito = async (event) => {
   const idProducto = event.target.dataset.id;
