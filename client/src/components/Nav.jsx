@@ -59,7 +59,7 @@ function realizarAccionSegunPagina() {
         inicio.className = estilos;
       }
       // contacto
-      else if (urlActual === "/html/contacto.html") {
+      else if (urlActual === "http://localhost:5173/contacto") {
         contacto.classList.remove(...contacto.classList);
         contacto.className = estilos;
       }
@@ -152,7 +152,7 @@ export function Nav() {
         <LiSinDesplegable textoNav={"Inicio"} id={"inicioNav"} link={"http://localhost:5173/html/inicio/inicioCambiado.html"} />
 
         {/* contacto Principal */}
-        <LiSinDesplegable textoNav={"Contactos"} id={"contactoNav"} link={"http://localhost:5173/html/contacto.html"} />
+        <LiSinDesplegable textoNav={"Contactos"} id={"contactoNav"} link={"http://localhost:5173/contacto"} />
 
         {/* libro */}
         <li className="group">
@@ -224,104 +224,5 @@ export function Nav() {
         <LiSinDesplegable textoNav={"Intercambio"} id={"IntercamioNav"} link={"http://localhost:5173/html/productos/#"} />
       </ul>
     </nav>
-  );
-}
-
-//HEADER
-// botones de lso iconos
-function BotonHeader({ nombreStiker, linkStiker }) {
-  return (
-    <a href={linkStiker}>
-      <i
-        id="btnUsuario"
-        className={`${nombreStiker} bg-slate-100 rounded-full flex items-center justify-center 
-      
-      /paddings/ 
-      xlprimario:p-[0.8vw]
-      xlsecundario:py-[45%] xlsecundario:px-[95%] 
-      
-      /tamaños de los botones/ 
-      xlprimario:text-[1.7vw] 
-      xlsecundario:text-[2vw] 
-      
-      /transicion hover/ 
-      transition-all duration-200 ease-in-out 
-      xlprimario:hover:text-[2.1vw] 
-      xlsecundario:hover:text-[2.3vw]
-    hover:text-purple-400`}
-      ></i>
-    </a>
-  );
-}
-
-// contenedor header
-export function Header() {
-  return (
-    <div
-      className="flex justify-between items-center bg-purple-500
-      py-[0.8vw] px-[1.5vw]"
-    >
-      {/* Imagen */}
-      <div className="contenedorImg w-[12.5vw]">
-        <img className="w-full h-full object-cover" src="../../src/assets/img/Aventuras__4_-removebg-preview2.png" alt="Logo" />
-      </div>
-
-      {/* buscador */}
-      <div
-        className="buscador bg-white rounded-full flex items-center relative
-      
-      /paddings/ 
-      pl-[0.3vw] py-[0.3vw]
-      
-      /tamaños width y heigt/ 
-      w-[50vw] h-[3.3vw] mb-[0.2vw]"
-      >
-        <input
-          className="barradelBuscador rounded-full bg-purple-100 
-          
-          /tamaños de letras/ 
-          text-[1.3vw] 
-          font-bold 
-          
-          /paddings y margin/ 
-          pl-[1vw]  
-          
-          /tamaños width y heigt/ 
-          w-[90%] h-[100%]"
-          type="text"
-          placeholder="¿Qué desea buscar?"
-        />
-
-        <i
-          className="fi-br-search absolute 
-        /direcciones/
-        right-[1.3vw] top-[0.7vw] 
-        
-        /tamaños/ 
-        text-[1.5vw]"
-        ></i>
-      </div>
-
-      {/* botones */}
-      <div className="contendorBotone flex w-auto items-center justify-center xlprimario:gap-[1.5vw] xlsecundario:gap-[3vw]">
-        <BotonHeader nombreStiker={"fi-ss-user"} linkStiker={"#"} />
-        <BotonHeader nombreStiker={"fi-ss-heart"} linkStiker={"#"} />
-        <BotonHeader nombreStiker={"fi-ss-shopping-cart"} linkStiker={"#"} />
-
-        <div
-          id="seccion"
-          className="bg-slate-100 text-center rounded-lg font-medium
-          
-          /tamaño de letra/
-          text-[1.25vw] 
-          
-          /paddins/
-          py-[2.5%] px-[0.6vw] 
-          
-          /tansision con hovers/
-          transition-all duration-300 ease-in-out hover:font-bold hover:text-[1.4vw]  hover:bg-white"
-        ></div>
-      </div>
-    </div>
   );
 }
