@@ -4,10 +4,14 @@ import usuario from "../models/usuarios.model.js";
 import producto from "../models/productos.model.js";
 import { validarJWT } from "../helpers/validadJWT.js";
 
-//agregar al pedido
+// Agregar al pedido
 export const agrePedido = async (req, res) => {
   try {
     const { idUsuario, totalFinal, productos } = req.body;
+
+    if (!idUsuario || !totalFinal || !productos || productos.length === 0) {
+      return res.status(400).json({ msg: "Datos incompletos" });
+    }
 
     // Extraer el primer producto del array
     const { idProducto, cantidad = 1 } = productos[0];
@@ -18,10 +22,9 @@ export const agrePedido = async (req, res) => {
     }
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
-    let numPedido = 0;
+    let numPedido = cardFind ? cardFind.numPedido : 1;
 
-    if (!cardFind) {
-      numPedido++;
+    if (!cardFind || cardFind.estado == "incompleto") {
       const newPedido = new pedidos({
         productos: [
           {
@@ -42,7 +45,6 @@ export const agrePedido = async (req, res) => {
       );
 
       if (prodFind) {
-        console.log("Producto ya está en el pedido");
         prodFind.cantidad += cantidad;
       } else {
         cardFind.productos.push({
@@ -60,140 +62,125 @@ export const agrePedido = async (req, res) => {
   }
 };
 
-//editar el producto del pedido
+// Editar el producto del pedido
 export const ediPedido = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { cantidad } = req.body;
-    //funcion para obtener el usuario con el token
-    const token = req.headers.token;
-    if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
-    }
-
-    const usuario = await validarJWT(token);
-    const idUsuario = await usuario._id;
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
-    let pedidoExistente = await pedidoModel.findOne({ usuario: idUsuario });
-    const prodFind = await pedidoExistente.productos.find(
-      (p) => p.producto.toString() === id
+    const { id, state } = req.body;
+    const estado = state;
+    const resultado = await pedidos.findByIdAndUpdate(
+      id,
+      { estado: state },
+      {
+        new: true,
+      }
     );
-    if (!prodFind) {
-      res.status(401).json({ msg: "el producto no existe en el pedido" });
+    if (!resultado) {
+      return res.status(404).json({ msg: "pedido no encontrado" });
     } else {
-      prodFind.cantidad = cantidad;
-      pedidoExistente.save();
-      res.status(200).json({ message: "Producto actualizado correctamente" });
+      return res
+        .status(200)
+        .json({ msg: "pedido actualizado correctamente", resultado });
     }
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ msg: "Error en el servidor" });
   }
 };
 
-//Eliminar un producto del array de productos
+// Eliminar un producto del array de productos
 export const elimElem = async (req, res) => {
   try {
     const { idProducto } = req.params;
-
     const token = req.headers.token;
+
     if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
-    const idUsuario = await usuario._id;
-
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
+    if (!usuario) {
+      return res.status(401).json({ msg: "Token inválido" });
     }
+
+    const idUsuario = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
-    const result = await pedidoModel.updateOne(
+
+    const result = await pedidos.updateOne(
       { usuario: idUsuario },
       { $pull: { productos: { producto: new ObjectId(idProducto) } } }
     );
-    if (result) {
-      res.status(200).json({ msg: "el producto fue eliminado correctamente" });
+
+    if (!result.modifiedCount) {
+      return res.status(404).json({ msg: "Producto no encontrado" });
     }
-    const cardFind = await pedidoModel.findOne({ usuario: idUsuario });
+
+    const cardFind = await pedidos.findOne({ usuario: idUsuario });
 
     if (cardFind.productos.length === 0) {
-      const result = await pedidoModel.findOneAndDelete({ usuario: idUsuario });
-      if (result) {
-        res.status(200).json({ msg: "el pedido fue eliminado de la bd" });
-      }
-      console.log(result);
+      await pedidos.findOneAndDelete({ usuario: idUsuario });
+      return res
+        .status(200)
+        .json({ msg: "El pedido fue eliminado de la base de datos" });
     }
+
+    return res
+      .status(200)
+      .json({ msg: "El producto fue eliminado correctamente" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ msg: "Error en el servidor" });
   }
 };
 
-//Eliminar el pedido
+// Eliminar el pedido completo
 export const elimPedido = async (req, res) => {
   try {
     const token = req.headers.token;
+
     if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
-    const idUsuario = await usuario._id;
-
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
+    if (!usuario) {
+      return res.status(401).json({ msg: "Token inválido" });
     }
 
-    const result = await pedidoModel.findOneAndDelete({ usuario: idUsuario });
-    if (result) {
-      res.status(200).json({ msg: "el pedido fue eliminado correctamente" });
+    const idUsuario = usuario._id;
+    const result = await pedidos.findOneAndDelete({ usuario: idUsuario });
+
+    if (!result) {
+      return res.status(404).json({ msg: "Pedido no encontrado" });
     }
+
+    return res
+      .status(200)
+      .json({ msg: "El pedido fue eliminado correctamente" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ msg: "Error en el servidor" });
   }
 };
 
-//obtener el pedido
+// Obtener el pedido
 export const obtPedido = async (req, res) => {
-  //funcion para obtener el usuario con el token
-  // const token = req.headers.token;
-  // if (!token) {
-  //   return res.status(401).json({
-  //     msg: "Debe registrarse para realizar esa tarea",
-  //   });
-  // }
-
-  // const usuario = await validarJWT(token);
-  // const idUsuario = await usuario._id;
-
-  const { idUsuario } = req.params;
-
   try {
+    const { idUsuario } = req.params;
+
     // Buscar el pedido y poblar los productos
     const result = await pedidos
       .findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) })
       .populate("productos.producto");
 
-    // Verificar si se encontró el pedido
     if (!result) {
       return res.status(404).json({ msg: "No se encontró el pedido" });
     }
 
-    // Responder con el pedido
-    res.json(result);
+    return res.json(result);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Error en el servidor" });

@@ -1,5 +1,8 @@
+import mongoose from "mongoose";
 import { Schema, model } from "mongoose";
+import AutoIncrementFactory from "mongoose-sequence";
 
+const AutoIncrement = AutoIncrementFactory(mongoose);
 const pedidos = new Schema({
   numPedido: {
     type: Number,
@@ -34,5 +37,5 @@ const pedidos = new Schema({
   },
   fecha: { type: Date, default: Date.now },
 });
-
+pedidos.plugin(AutoIncrement, { inc_field: "numPedido" });
 export default model("pedidoModel", pedidos);
