@@ -7,9 +7,11 @@ import mongoose from "./database/db.js";
 import { authRouter } from "./routers/auth.routes.js";
 import { pedido } from "./routers/pedido.routes.js";
 import { producRouter } from "./routers/productos.routes.js";
+import { publiRouter } from "./routers/public.routes.js";
 import { favoritos } from "./routers/fav.routes.js";
 import { filRoutes } from "./routers/filter.routes.js";
 import { payrouter } from "./routers/payment.routes.js";
+import { comentRouter } from "./routers/coment.routes.js";
 //inicializacion de el servidor
 const app = express();
 
@@ -27,6 +29,8 @@ app.use("/api/productos", producRouter);
 app.use("/api/favoritos", favoritos);
 app.use("/api/filters", filRoutes);
 app.use(payrouter);
+app.use("/api/coments", comentRouter);
+app.use("/api/publics", publiRouter);
 
 //configuracion del puerto
 const port = process.env.PORT || 3400;

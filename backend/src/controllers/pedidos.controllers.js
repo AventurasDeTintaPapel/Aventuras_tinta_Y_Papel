@@ -7,7 +7,22 @@ import { validarJWT } from "../helpers/validadJWT.js";
 // Agregar al pedido
 export const agrePedido = async (req, res) => {
   try {
-    const { idUsuario, totalFinal, productos } = req.body;
+    const { totalFinal, productos } = req.body;
+    const token = req.headers.token;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
+    }
+
+    const usuario = await validarJWT(token);
+    if (!usuario) {
+      return res.status(401).json({ msg: "Token inválido" });
+    }
+
+    const idUsuario = usuario._id;
+    const ObjectId = mongoose.Types.ObjectId;
 
     if (!idUsuario || !totalFinal || !productos || productos.length === 0) {
       return res.status(400).json({ msg: "Datos incompletos" });
