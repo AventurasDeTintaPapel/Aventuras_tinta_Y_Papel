@@ -24,7 +24,7 @@ export const agrePedido = async (req, res) => {
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
     let numPedido = cardFind ? cardFind.numPedido : 1;
 
-    if (!cardFind) {
+    if (!cardFind || cardFind.estado == "incompleto") {
       const newPedido = new pedidos({
         productos: [
           {
@@ -65,40 +65,22 @@ export const agrePedido = async (req, res) => {
 // Editar el producto del pedido
 export const ediPedido = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { cantidad } = req.body;
-    const token = req.headers.token;
-
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
-    }
-
-    const usuario = await validarJWT(token);
-    if (!usuario) {
-      return res.status(401).json({ msg: "Token inválido" });
-    }
-
-    const idUsuario = usuario._id;
-    let pedidoExistente = await pedidos.findOne({ usuario: idUsuario });
-    if (!pedidoExistente) {
-      return res.status(404).json({ msg: "Pedido no encontrado" });
-    }
-
-    const prodFind = pedidoExistente.productos.find(
-      (p) => p.producto.toString() === id
+    const { id, state } = req.body;
+    const estado = state;
+    const resultado = await pedidos.findByIdAndUpdate(
+      id,
+      { estado: state },
+      {
+        new: true,
+      }
     );
-
-    if (!prodFind) {
+    if (!resultado) {
+      return res.status(404).json({ msg: "pedido no encontrado" });
+    } else {
       return res
-        .status(404)
-        .json({ msg: "El producto no existe en el pedido" });
+        .status(200)
+        .json({ msg: "pedido actualizado correctamente", resultado });
     }
-
-    prodFind.cantidad = cantidad;
-    await pedidoExistente.save();
-    return res.status(200).json({ msg: "Producto actualizado correctamente" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Error en el servidor" });

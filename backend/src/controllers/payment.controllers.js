@@ -179,7 +179,7 @@ export const captOrder = async (req, res) => {
       await producto.updateOne({ $set: { stock: newStock } });
     }
 
-    // Actualizar el estado del pedido a "completado"
+    // Actualizar el estado del pedido a "pendiente"
     pedido.estado = "pendiente";
     await pedido.save({ session });
 
