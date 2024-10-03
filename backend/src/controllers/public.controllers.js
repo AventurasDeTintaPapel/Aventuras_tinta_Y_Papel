@@ -55,24 +55,32 @@ export const getAllpublics = async (req, res) => {
 //edit publics for id
 export const editPublics = async (req, res) => {
   try {
-    const { idUser } = req.body;
+    const token = req.headers.token;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
+    }
+
+    const usuario = await validarJWT(token);
+    if (!usuario) {
+      return res.status(401).json({ msg: "Token inválido" });
+    }
+    const idUser = usuario._id;
+    const ObjectId = mongoose.Types.ObjectId;
+
     const { author, title, price, description } = req.body;
     console.log(author, title, price, description);
 
-    // Convertimos idUser a ObjectId
-    const objectIdUser = new mongoose.Types.ObjectId(idUser);
-
-    const publicFind = await publics.findOne({ autor: objectIdUser });
+    const publicFind = await publics.findOne({ autor: idUser });
 
     if (!publicFind) {
       return res.status(402).json({ msg: "Post not found" });
     }
 
-    // Verificamos si el autor es el mismo
-    if (!publicFind.autor.equals(objectIdUser)) {
-      return res
-        .status(401)
-        .json({ msg: "You are not the author of this post" });
+    if ((usuario.rol === "user") & (idUser != publicFind.autor)) {
+      res.status(401).json({ msg: "You are not the author of this post" });
     }
 
     const id = publicFind._id;
@@ -103,14 +111,28 @@ export const editPublics = async (req, res) => {
 //delet public
 export const deletPublic = async (req, res) => {
   try {
-    const { idUser } = req.params;
+    // const { idUser } = req.params;
+    const token = req.headers.token;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
+    }
+
+    const usuario = await validarJWT(token);
+    if (!usuario) {
+      return res.status(401).json({ msg: "Token inválido" });
+    }
+    const idUser = usuario._id;
+    const ObjectId = mongoose.Types.ObjectId;
     const publicFind = await publics.findOne({ autor: idUser });
 
     if (!publicFind) {
       res.status(402).json({ msg: "not post" });
     }
 
-    if (idUser != publicFind.autor) {
+    if ((usuario.rol === "user") & (idUser != publicFind.autor)) {
       res.status(401).json({ msg: "You are not the author of this post" });
     }
 
