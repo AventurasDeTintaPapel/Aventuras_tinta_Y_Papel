@@ -7,13 +7,12 @@ import { validarJWT } from "../helpers/validadJWT.js";
 // Agregar al pedido
 export const agrePedido = async (req, res) => {
   try {
-    const { idUsuario, totalFinal, productos } = req.body;
+    const { totalFinal, productos } = req.body;
 
-    if (!idUsuario || !totalFinal || !productos || productos.length === 0) {
+    if (!totalFinal || !productos || productos.length === 0) {
       return res.status(400).json({ msg: "Datos incompletos" });
     }
 
-    // Extraer el primer producto del array
     const { idProducto, cantidad = 1 } = productos[0];
 
     const obtProducto = await producto.findById(idProducto);
@@ -40,9 +39,7 @@ export const agrePedido = async (req, res) => {
       await newPedido.save();
       return res.json(newPedido);
     } else {
-      const prodFind = cardFind.productos.find(
-        (p) => p.producto && p.producto.toString() === idProducto
-      );
+      const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === idProducto);
 
       if (prodFind) {
         prodFind.cantidad += cantidad;
@@ -54,7 +51,7 @@ export const agrePedido = async (req, res) => {
       }
 
       await cardFind.save();
-      return res.json(cardFind);
+      return res.json({ msg: "pedido agregado", cardFind });
     }
   } catch (error) {
     console.log(error);
@@ -77,9 +74,7 @@ export const ediPedido = async (req, res) => {
     if (!resultado) {
       return res.status(404).json({ msg: "pedido no encontrado" });
     } else {
-      return res
-        .status(200)
-        .json({ msg: "pedido actualizado correctamente", resultado });
+      return res.status(200).json({ msg: "pedido actualizado correctamente", resultado });
     }
   } catch (error) {
     console.log(error);
@@ -94,9 +89,7 @@ export const elimElem = async (req, res) => {
     const token = req.headers.token;
 
     if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
@@ -107,10 +100,7 @@ export const elimElem = async (req, res) => {
     const idUsuario = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
 
-    const result = await pedidos.updateOne(
-      { usuario: idUsuario },
-      { $pull: { productos: { producto: new ObjectId(idProducto) } } }
-    );
+    const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: new ObjectId(idProducto) } } });
 
     if (!result.modifiedCount) {
       return res.status(404).json({ msg: "Producto no encontrado" });
@@ -120,14 +110,10 @@ export const elimElem = async (req, res) => {
 
     if (cardFind.productos.length === 0) {
       await pedidos.findOneAndDelete({ usuario: idUsuario });
-      return res
-        .status(200)
-        .json({ msg: "El pedido fue eliminado de la base de datos" });
+      return res.status(200).json({ msg: "El pedido fue eliminado de la base de datos" });
     }
 
-    return res
-      .status(200)
-      .json({ msg: "El producto fue eliminado correctamente" });
+    return res.status(200).json({ msg: "El producto fue eliminado correctamente" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Error en el servidor" });
@@ -140,9 +126,7 @@ export const elimPedido = async (req, res) => {
     const token = req.headers.token;
 
     if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
@@ -157,9 +141,7 @@ export const elimPedido = async (req, res) => {
       return res.status(404).json({ msg: "Pedido no encontrado" });
     }
 
-    return res
-      .status(200)
-      .json({ msg: "El pedido fue eliminado correctamente" });
+    return res.status(200).json({ msg: "El pedido fue eliminado correctamente" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Error en el servidor" });
@@ -172,9 +154,7 @@ export const obtPedido = async (req, res) => {
     const { idUsuario } = req.params;
 
     // Buscar el pedido y poblar los productos
-    const result = await pedidos
-      .findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) })
-      .populate("productos.producto");
+    const result = await pedidos.findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) }).populate("productos.producto");
 
     if (!result) {
       return res.status(404).json({ msg: "No se encontró el pedido" });

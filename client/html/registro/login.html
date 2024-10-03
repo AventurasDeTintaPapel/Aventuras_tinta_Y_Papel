@@ -13,20 +13,22 @@
   </head>
   <body>
     <main>
-      <img class="imagenGenral" src="/client/src/assets/img/registro2.jpg" alt="" />
-
-      <form id="form" class="formulario">
-        <p class="titulo">INGRESAR</p>
+      <form id="form" class="formulario bg-emerald-200">
+        <p class="titulo text-emerald-900">INGRESAR</p>
         <div class="form-container">
           <div class="preguntas">
-            <label for="exampleFormControlInput1" class="form-label">Nombre de usuario</label>
-            <input type="text" name="" id="usuario" placeholder="Roberto_E" />
-            <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-            <input type="password" name="password" placeholder="#####" id="contraseña" />
+            <div class="">
+              <label for="exampleFormControlInput1" class="form-label text-emerald-900">Nombre de usuario</label>
+              <input class="w-full" type="text" name="" id="usuario" placeholder="Roberto_E" />
+            </div>
+            <div class="">
+              <label for="exampleFormControlInput1" class="form-labe text-emerald-900">Contraseña</label>
+              <input class="w-full" type="password" name="password" placeholder="#####" id="contraseña" />
+            </div>
           </div>
-          <p class="link2">¿Olvidaste tu contraseña? <a class="link" href="">Click aqui</a></p>
+          <p class="link2 text-emerald-900">¿Olvidaste tu contraseña? <a class="link" href="">Click aqui</a></p>
           <button type="submit" class="btn btn-dark">Entrar</button>
-          <a class="link2" href="../../html/registro/registro.html">¿No tienes cuenta? registrate</a>
+          <a class="link2 text-emerald-900" href="../../html/registro/registro.html">¿No tienes cuenta? registrate</a>
         </div>
       </form>
     </main>
@@ -34,5 +36,6 @@
     <script src="../../src/assets/js/auten.js"></script>
 
     <script src="../../src/assets/js/login.js"></script>
+    <script type="module" src="../../src/assets/js/mainTailwind.js"></script>
   </body>
 </html>

@@ -1,7 +1,6 @@
 // archivo: MiBoton.jsx (o el nombre que prefieras)
 import React, { useEffect } from "react";
 
-export const direccionRegistro = "../../html/registro/login.html";
 export const direccionCerrarSesion = "../../html/inicio/inicioCambiado.html";
 
 function iniciarSeccion() {
@@ -11,7 +10,7 @@ function iniciarSeccion() {
   if (seccion) {
     if (!token) {
       seccion.innerHTML = `
-                <a href="${direccionRegistro}">
+                <a href="http://localhost:5173/login">
                     <p class="usuariosOn">Iniciar Sesión</p>
                 </a>
             `;
