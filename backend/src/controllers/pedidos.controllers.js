@@ -8,6 +8,24 @@ import { validarJWT } from "../helpers/validadJWT.js";
 export const agrePedido = async (req, res) => {
   try {
     const { totalFinal, productos } = req.body;
+<<<<<<< HEAD
+=======
+    const token = req.headers.token;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
+    }
+
+    const usuario = await validarJWT(token);
+    if (!usuario) {
+      return res.status(401).json({ msg: "Token inválido" });
+    }
+
+    const idUsuario = usuario._id;
+    const ObjectId = mongoose.Types.ObjectId;
+>>>>>>> d781520f1799f845ba389d3c6165accd4d0cfff9
 
     if (!totalFinal || !productos || productos.length === 0) {
       return res.status(400).json({ msg: "Datos incompletos" });

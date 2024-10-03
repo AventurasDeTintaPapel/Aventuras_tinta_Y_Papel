@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const publics = new Schema(
   {
-    titulo: {
+    title: {
       type: String,
       required: true,
       trim: true,
@@ -11,12 +11,12 @@ const publics = new Schema(
       type: Schema.Types.ObjectId,
       ref: "usuarios",
     },
-    descripcion: {
+    description: {
       type: String,
       required: true,
       trim: true,
     },
-    precio: {
+    price: {
       type: Number,
       required: true,
       trim: true,
@@ -25,6 +25,17 @@ const publics = new Schema(
       type: String,
       required: true,
     },
+    coments: [
+      {
+        body: {
+          type: String,
+        },
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "usuarios",
+        },
+      },
+    ],
   },
   {
     timestamps: true,

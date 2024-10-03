@@ -3,7 +3,7 @@ import { generarJWT } from "../helpers/generarJWT.js";
 import usuario from "../models/usuarios.model.js";
 import { validationResult } from "express-validator";
 
-//controlador de registro
+// register
 export const register = async (req, res) => {
   const {
     nombreUsuario,
@@ -21,7 +21,6 @@ export const register = async (req, res) => {
       return res.status(400).json(errores);
     }
 
-    // Encriptar la contraseña
     const contrasenia = bcrypt.hashSync(ingreContra, 10);
 
     const newUser = new usuario({
@@ -41,7 +40,7 @@ export const register = async (req, res) => {
 };
 //controlador de login
 export const login = async (req, res) => {
-  const { nombreUsuario, contrasenia } = req.body;
+  const { nameUser, password } = req.body;
 
   try {
     const errores = validationResult(req);
@@ -49,20 +48,22 @@ export const login = async (req, res) => {
       return res.status(400).json(errores);
     }
 
-    if (!nombreUsuario || !contrasenia) {
+    if (!nameUser || !password) {
       return res
         .status(400)
         .json({ msg: "Datos insuficientes para la autenticación" });
     }
 
-    const usuarioEncontrado = await usuario.findOne({ nombreUsuario });
+    const usuarioEncontrado = await usuario.findOne({
+      nombreUSuario: nameUser,
+    });
 
     if (!usuarioEncontrado) {
       return res.status(400).json({ msg: "Usuario o contraseña incorrectos" });
     }
 
     const validarContrasenia = bcrypt.compareSync(
-      contrasenia,
+      password,
       usuarioEncontrado.contrasenia
     );
 

@@ -51,6 +51,21 @@ const productos = new Schema(
       type: String,
       required: true,
     },
+    comentarios: [
+      {
+        body: {
+          type: String,
+        },
+        usuario: {
+          type: Schema.Types.ObjectId,
+          ref: "usuarios",
+        },
+      },
+    ],
+    proveedor: {
+      type: Schema.Types.ObjectId,
+      ref: "proveedores",
+    },
   },
   {
     timestamps: true,
