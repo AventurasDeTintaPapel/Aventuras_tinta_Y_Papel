@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 export function Login() {
   // Estado para los campos del formulario
-  const [nombreUsuario, setNombreUsuario] = useState("");
-  const [contrasenia, setcontrasenia] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setcontrasenia] = useState("");
+  console.log(email, password);
 
   // Función para iniciar sesión
   const login = async (e) => {
@@ -13,7 +14,7 @@ export function Login() {
     // Realizamos la petición a nuestro servidor.
     const peticion = await fetch("http://localhost:3400/api/auth/login", {
       method: "POST",
-      body: JSON.stringify({ nombreUsuario, contrasenia }),
+      body: JSON.stringify({ email, password }),
       headers: {
         "Content-type": "application/json",
       },
@@ -54,16 +55,9 @@ export function Login() {
           <div className="preguntas my-[1vw] flex flex-col gap-[1vw]">
             <div className="">
               <label htmlFor="usuario" className="form-label text-emerald-900">
-                Nombre de usuario:
+                Email:
               </label>
-              <input
-                className="w-full"
-                type="text"
-                id="usuario"
-                placeholder="Roberto_E"
-                value={nombreUsuario}
-                onChange={(e) => setNombreUsuario(e.target.value)}
-              />
+              <input className="w-full" type="text" id="usuario" placeholder="Roberto_E" value={email} onChange={(e) => setemail(e.target.value)} />
             </div>
 
             <div className="">
@@ -75,7 +69,7 @@ export function Login() {
                 type="password"
                 id="contraseña"
                 placeholder="####"
-                value={contrasenia}
+                value={password}
                 onChange={(e) => setcontrasenia(e.target.value)}
               />
             </div>

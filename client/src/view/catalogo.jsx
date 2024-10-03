@@ -3,29 +3,28 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import React, { useEffect, useState } from "react";
 
+// Función para añadir al carrito
 const añadirCarrito = async (event) => {
   const idProducto = event.target.dataset.id; // Obtén el ID del producto desde el dataset del botón
   const token = localStorage.getItem("token");
   const totalFinal = calcularTotal(); // Implementa esta función para calcular el total basado en el carrito
-  // Obtén el idUsuario desde el token
-  console.log(token);
-  try {
-    if (!token) {
-      alert("Debe registrarse para poder realizar esta tarea");
-      return; // Salir de la función si no hay token
-    }
 
-    console.log(idProducto, totalFinal);
+  if (!token) {
+    alert("Debe registrarse para poder realizar esta tarea");
+    return; // Salir de la función si no hay token
+  }
+
+  console.log(idProducto, totalFinal);
+  try {
     const cargarCarrito = await fetch(`http://localhost:3400/api/pedidos/`, {
       method: "POST",
       body: JSON.stringify({
-        token, // Agrega el idUsuario
         totalFinal, // Agrega el total final
         productos: [{ idProducto }], // Envía los productos como un array
       }),
       headers: {
         "Content-Type": "application/json",
-        token: token,
+        Authorization: `Bearer ${token}`, // Enviar el token como un encabezado de autorización
       },
     });
 
@@ -45,14 +44,16 @@ const añadirCarrito = async (event) => {
 
 // Implementa esta función según tu lógica para calcular el total final
 const calcularTotal = () => {
-  // Lógica para calcular el total basado en los productos en el carrito
-  return 0; // Retorna el total calculado
+  // Aquí deberías implementar la lógica para calcular el total basado en los productos en el carrito
+  return 0; // Retorna el total calculado (esto es un ejemplo)
 };
 
-//funcion para añadir a favoritos
+// Función para añadir a favoritos
 const añadirFavorito = async (event) => {
   const idProducto = event.target.dataset.id;
+  const token = localStorage.getItem("token"); // Asegúrate de obtener el token aquí
   console.log(idProducto);
+
   try {
     const cargarFavoritos = await fetch(`http://localhost:3400/favoritos/6692cf802772b70d57574598`, {
       method: "POST",
@@ -61,17 +62,23 @@ const añadirFavorito = async (event) => {
       }),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Enviar el token si es necesario
       },
     });
+
     if (cargarFavoritos.ok) {
       alert("Se ha añadido el producto a favoritos");
+    } else {
+      const errorResponse = await cargarFavoritos.json();
+      alert(errorResponse.msg || "Error al añadir a favoritos");
     }
   } catch (error) {
     console.log(error);
+    alert("Se produjo un error al añadir a favoritos");
   }
 };
 
-// tarjeta del producto
+// Componente de tarjeta del producto
 function TarjetaProducto({ imagen, titulo, precio, id, onAñadirFavorito, onAñadirCarrito }) {
   const maxLength = 20; // Máxima longitud deseada para el título
   const tituloResumido = titulo.length > maxLength ? titulo.substring(0, maxLength) + "..." : titulo;
@@ -103,10 +110,8 @@ function TarjetaProducto({ imagen, titulo, precio, id, onAñadirFavorito, onAña
   );
 }
 
-// lista de productos
+// Componente de lista de productos
 const ListarComics = ({ productos, onAñadirCarrito, onAñadirFavorito }) => {
-  const token = localStorage.getItem("token");
-
   // Verifica que productos sea un array
   if (!Array.isArray(productos) || productos.length === 0) {
     return <p>No hay productos disponibles.</p>; // Mensaje o componente alternativo
@@ -129,6 +134,7 @@ const ListarComics = ({ productos, onAñadirCarrito, onAñadirFavorito }) => {
   );
 };
 
+// Componente principal del catálogo
 export function Catalogo() {
   const [productos, setProductos] = useState([]);
 

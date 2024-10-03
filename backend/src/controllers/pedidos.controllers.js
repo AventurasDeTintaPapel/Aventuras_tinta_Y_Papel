@@ -8,14 +8,10 @@ import { validarJWT } from "../helpers/validadJWT.js";
 export const agrePedido = async (req, res) => {
   try {
     const { totalFinal, productos } = req.body;
-<<<<<<< HEAD
-=======
     const token = req.headers.token;
 
     if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
@@ -24,13 +20,13 @@ export const agrePedido = async (req, res) => {
     }
 
     const idUsuario = usuario._id;
-    const ObjectId = mongoose.Types.ObjectId;
->>>>>>> d781520f1799f845ba389d3c6165accd4d0cfff9
+    const ObjectId = new mongoose.Types.ObjectId();
 
-    if (!totalFinal || !productos || productos.length === 0) {
+    if (!idUsuario || !totalFinal || !productos || productos.length === 0) {
       return res.status(400).json({ msg: "Datos incompletos" });
     }
 
+    // Extraer el primer producto del array
     const { idProducto, cantidad = 1 } = productos[0];
 
     const obtProducto = await producto.findById(idProducto);
@@ -69,7 +65,7 @@ export const agrePedido = async (req, res) => {
       }
 
       await cardFind.save();
-      return res.json({ msg: "pedido agregado", cardFind });
+      return res.json(cardFind);
     }
   } catch (error) {
     console.log(error);
