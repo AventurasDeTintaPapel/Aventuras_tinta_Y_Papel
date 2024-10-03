@@ -8,20 +8,21 @@ import { IoRemoveOutline } from "react-icons/io5";
 export function Footer() {
   return (
     <footer className="text-purple-100">
-      <div className="bg-purple-900 py-[2vw] px-[3.5vw]">
-        <div className="flex">
+      <div className="bg-purple-900 py-[2vw] px-[3.5vw] space-y-[2vw]">
+        <div className="flex justify-center gap-[10vw]">
           {/* sobre nosotros */}
-          <div className=" w-[50%] flex items-center flex-col">
+          <div className="w-[30vw] flex flex-col pt-[1vw]">
             <p className="text-[1.5vw] text-start font-semibold mb-[0.2vw]">
               Sobre Nosotros
             </p>
-            <p className="text-[1.3vw] text-purple-200 w-[80%]">
+            <p className="w-[30vw] text-[1.3vw] text-purple-200 ">
               Somos tu tienda de confianza para encontrar cómics, mangas y más.
               Disfruta de los mejores productos del mundo del entretenimiento.
             </p>
           </div>
+
           {/* rutass rapidas */}
-          <div className=" w-[50%] flex items-center flex-col">
+          <div className=" flex flex-col">
             <p className="text-[1.5vw] font-semibold mb-[0.2vw] ">
               Enlaces Rápidos
             </p>
@@ -47,10 +48,11 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex">
+
+        <div className="flex justify-center gap-[12vw]">
           {/* redes sociales */}
-          <div className="space-y-[1vw]">
-            <p className="text-[1.5vw] font-semibold mb-[0.2vw]">
+          <div className="w-[28vw] space-y-[1vw]">
+            <p className="text-[1.5vw] font-semibold mb-[0.2vw] w-[30vw]">
               Redes Sociales
             </p>
 
@@ -78,7 +80,7 @@ export function Footer() {
             </div>
           </div>
           {/* info */}
-          <div className="space-y-[1vw]">
+          <div className="space-y-[1vw] w-[25vw] ">
             <p className="text-[1.5vw] mb-[0.5vw] font-semibold">Contáctanos</p>
             <div className="space-y-[0.5vw]">
               <p className="flex items-center gap-[1vw] ">
@@ -102,7 +104,7 @@ export function Footer() {
         </div>
       </div>
 
-      <IoRemoveOutline size={1} />
+      <IoRemoveOutline size={0.5} />
 
       <div className="bg-purple-950 py-[1.5vw]">
         <p className="text-[1.4vw] font-semibold text-center">
