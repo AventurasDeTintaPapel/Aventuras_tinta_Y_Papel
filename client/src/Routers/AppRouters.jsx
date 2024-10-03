@@ -7,7 +7,7 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/contacto" element={<Contactos />} />
+        <Route path="/contactos" element={<Contactos />} />
 
         <Route path="/inicio" element={<Inicio />} />
       </Routes>

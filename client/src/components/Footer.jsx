@@ -1,75 +1,121 @@
+import { FaFacebook, FaMapMarkerAlt } from "react-icons/fa";
+import { AiFillInstagram } from "react-icons/ai";
+import { FaSquareTwitter } from "react-icons/fa6";
+import { IoIosMail } from "react-icons/io";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { IoRemoveOutline } from "react-icons/io5";
+
 export function Footer() {
   return (
-    <footer className="bg-purple-900 col-span-3 row-start-3 text-purple-100">
-      <div className="flex">
-        <div className="w-[25%] p-[1vw] items-center flex flex-col border-r-[0.2vw] border-r-purple-400">
-          <p className="text-[1.5vw] mb-[0.2vw]">Sobre Nosotros</p>
-          <p className="text-[1.1vw] text-justify w-[80%]">
-            Somos tu tienda de confianza para encontrar cómics, mangas y más. Disfruta de los mejores productos del mundo del entretenimiento.
-          </p>
-        </div>
-
-        <div className="w-[25%] p-[1vw] items-center flex flex-col border-r-[0.2vw] border-r-purple-400">
-          <p className="text-[1.5vw] mb-[0.2vw]">Enlaces Rápidos</p>
-          <div className="flex gap-[2vw] ml-[3vw]">
-            <div className="flex flex-col text-[1vw]">
-              <a className="list-item" href="#">
-                Inicio
-              </a>
-              <a className="list-item" href="#">
-                Contactos
-              </a>
-              <a className="list-item" href="#">
-                Libros
-              </a>
-              <a className="list-item" href="#">
-                Mangas
-              </a>
-            </div>
-            <div className="flex flex-col text-[1vw]">
-              <a className="list-item" href="#">
-                Comics
-              </a>
-              <a className="list-item" href="#">
-                Merch
-              </a>
-              <a className="list-item" href="#">
-                Vender
-              </a>
-              <a className="list-item" href="#">
-                Intercambio
-              </a>
+    <footer className="text-purple-100">
+      <div className="bg-purple-900 py-[2vw] px-[3.5vw]">
+        <div className="flex">
+          {/* sobre nosotros */}
+          <div className=" w-[50%] flex items-center flex-col">
+            <p className="text-[1.5vw] text-start font-semibold mb-[0.2vw]">
+              Sobre Nosotros
+            </p>
+            <p className="text-[1.3vw] text-purple-200 w-[80%]">
+              Somos tu tienda de confianza para encontrar cómics, mangas y más.
+              Disfruta de los mejores productos del mundo del entretenimiento.
+            </p>
+          </div>
+          {/* rutass rapidas */}
+          <div className=" w-[50%] flex items-center flex-col">
+            <p className="text-[1.5vw] font-semibold mb-[0.2vw] ">
+              Enlaces Rápidos
+            </p>
+            <div className="grid grid-cols-[15vw_9vw] gap-[0.5vw]">
+              {[
+                "Inicio",
+                "Contactos",
+                "Libros",
+                "Mangas",
+                "Comics",
+                "Merch",
+                "Vender",
+                "Intercambio",
+              ].map((item) => (
+                <a
+                  key={item}
+                  href={`/${item.toLowerCase()}`}
+                  className="text-[1.3vw] hover:text-white transition-colors"
+                >
+                  {item}
+                </a>
+              ))}
             </div>
           </div>
         </div>
+        <div className="flex">
+          {/* redes sociales */}
+          <div className="space-y-[1vw]">
+            <p className="text-[1.5vw] font-semibold mb-[0.2vw]">
+              Redes Sociales
+            </p>
 
-        <div className="w-[25%] p-[1vw] items-center flex flex-col border-r-[0.2vw] border-r-purple-400">
-          <p className="text-[1.5vw] mb-[0.2vw]">Redes Sociales</p>
-          <div className="flex flex-col">
-            <a className="text-[1.2vw] list-item" href="#">
-              Facebook
-            </a>
-            <a className="text-[1.2vw] list-item" href="#">
-              Instagram
-            </a>
-            <a className="text-[1.2vw] list-item" href="#">
-              Twitter
-            </a>
+            <div className="space-y-[1vw]">
+              <div className="flex gap-[1vw]  items-center">
+                <FaFacebook />
+                <a className="text-[1.2vw]" href="#">
+                  Facebook
+                </a>
+              </div>
+
+              <div className="flex gap-[1vw] items-center">
+                <AiFillInstagram />
+                <a className="text-[1.2vw]" href="#">
+                  Instagram
+                </a>
+              </div>
+
+              <div className="flex gap-[1vw] items-center">
+                <FaSquareTwitter />
+                <a className="text-[1.2vw]" href="#">
+                  Twitter
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="w-[25%] p-[1vw] items-center flex flex-col">
-          <p className="text-[1.5vw] mb-[0.5vw]">Contáctanos</p>
-          <p className="text-[1.2vw] ml-[1vw]">
-            Dirección: Calle Ficticia 123, Ciudad <br />
-            Teléfono: +54 370 1234567 <br />
-            Email: info@comicstienda.com
-          </p>
+          {/* info */}
+          <div className="space-y-[1vw]">
+            <p className="text-[1.5vw] mb-[0.5vw] font-semibold">Contáctanos</p>
+            <div className="space-y-[0.5vw]">
+              <p className="flex items-center gap-[1vw] ">
+                <FaMapMarkerAlt size={20} />
+                <span className="text-[1.3vw] mb-[0.2vw]">
+                  Calle Ficticia 123, Ciudad
+                </span>
+              </p>
+              <p className="flex items-center gap-[1vw] ">
+                <BsFillTelephoneFill size={20} />
+                <span className="text-[1.3vw] mb-[0.2vw]">+54 370 1234567</span>
+              </p>
+              <p className="flex items-center gap-[1vw]">
+                <IoIosMail size={20} />
+                <span className="text-[1.3vw] mb-[0.2vw]">
+                  info@comicstienda.com
+                </span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="bg-purple-950 pl-[1vw] py-[0.5vw]">
-        <p className="text-[1.2vw]">&copy; 2024 Comi cs Tienda. Todos los derechos reservados.</p>
+      <IoRemoveOutline size={1} />
+
+      <div className="bg-purple-950 py-[1.5vw]">
+        <p className="text-[1.4vw] font-semibold text-center">
+          &copy; 2024 Comics Tienda. Todos los derechos reservados.
+        </p>
+        <div className="flex justify-center gap-[2vw] mt-[2vw]">
+          <a className="opacity-80" href="#">
+            Terminos de Servicios
+          </a>
+          <a className="opacity-80" href="#">
+            Politicas de Privacidad
+          </a>
+        </div>
       </div>
     </footer>
   );

@@ -4,9 +4,23 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Carruseltarjetas } from "../components/tarrjeta";
 
+import imgCarrusel1 from '../assets/img/imgCarrusel1.png';
+import imgCarrusel2 from '../assets/img/imgCarrusel2.png';
+import imgCarrusel3 from '../assets/img/imgCarrusel3.png';
+
+
 function Separador({ texto }) {
   return <p className="text-purple-950 text-[2.5vw] font-semibold text-center bg-purple-100 w-[101%]">{texto}:</p>;
 }
+
+function ImagenCarrusel({ imagen, numberImg, isVisible }) {
+  return (
+    <div className={`sliderSection w-[calc(100%/3)] ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 ease-in-out flex justify-center`}>
+      <img className="w-[75%] h-full" src={imagen} alt={numberImg} />
+    </div>
+  );
+}
+
 
 function Carrusel() {
   const carruselRef = useRef(null);
@@ -39,7 +53,7 @@ function Carrusel() {
     const operacion = newCounter * imgWidth;
     if (carruselRef.current) {
       carruselRef.current.style.transform = `translate(-${operacion}%)`;
-      carruselRef.current.style.transition = "transform 0.6s ease";
+      carruselRef.current.style.transition = "transform 1.2s ease";
     }
   };
 
@@ -53,45 +67,37 @@ function Carrusel() {
   }, [sliderSections, imgWidth]);
 
   return (
-    <div className="contenedorCarrusel relative overflow-hidden mx-[1vw]">
-      <div className="carruseles w-[500%] h-[25vw] flex ml-[0.5vw]" id="carruseles" ref={carruselRef}>
-        <div className="sliderSection w-[calc(100%/3)]">
-          <img className="w-full h-full" src="../../src/assets/img/Diseño sin título (5).png" alt="img1" />
-        </div>
-        <div className="sliderSection w-[calc(100%/3)]">
-          <img className="w-full h-full" src="../../src/assets/img/Diseño sin título (5).png" alt="img2" />
-        </div>
-        <div className="sliderSection w-[calc(100%/3)]">
-          <img className="w-full h-full" src="../../src/assets/img/Diseño sin título (5).png" alt="img3" />
-        </div>
-        <div className="sliderSection w-[calc(100%/3)]">
-          <img className="w-full h-full" src="../../src/assets/img/Diseño sin título (5).png" alt="img4" />
-        </div>
-        <div className="sliderSection w-[calc(100%/3)]">
-          <img className="w-full h-full" src="../../src/assets/img/Diseño sin título (5).png" alt="img5" />
-        </div>
+    <div className="contenedorCarrusel relative overflow-hidden my-[1vw] ">
+      <div className="carruseles w-[300%] h-[30vw] flex ml-[0.5vw]" id="carruseles" ref={carruselRef}>
+        
+        <ImagenCarrusel imagen={imgCarrusel1} numberImg={"img1"} isVisible={counter === 0} />
+        <ImagenCarrusel imagen={imgCarrusel2} numberImg={"img2"} isVisible={counter === 1} />
+        <ImagenCarrusel imagen={imgCarrusel3} numberImg={"img3"} isVisible={counter === 2} />
+
       </div>
 
       {/* Botones de navegación */}
       <div className="btnleft" onClick={moveToLeft}>
-        <svg className="fi-rs-angle-right absolute top-[10vw] left-[4vw] w-[3vw] z-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg className="fi-rs-angle-right absolute top-[13vw] left-[2.5vw]  w-[5vw] z-10  " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
             d="M16.041,24,6.534,14.48a3.507,3.507,0,0,1,0-4.948L16.052,0,18.17,2.121,8.652,11.652a.5.5,0,0,0,0,.707l9.506,9.52Z"
-            className="fill-[white]"
+            className="fill-[#34074b]"
           />
         </svg>
       </div>
+  
       <div className="btnRight" onClick={moveToRight}>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="fi-rs-angle-right absolute top-[10vw] right-[4vw] w-[3vw] z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="fi-rs-angle-right absolute top-[13vw] right-[2.5vw] w-[5vw] z-10">
           <path
             d="M8.534,24l9.507-9.52a3.507,3.507,0,0,0,0-4.948L8.525,0,6.407,2.121,15.927,11.652a.5.5,0,0,1,0,.707L6.421,21.172Z"
-            className="fill-[white]"
+             className="fill-[#34074b]"
           />
         </svg>
       </div>
     </div>
   );
 }
+
 
 export function Inicio() {
   return (
