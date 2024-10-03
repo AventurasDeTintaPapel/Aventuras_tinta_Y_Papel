@@ -1,13 +1,13 @@
 import { Schema, model } from "mongoose";
 
-const proveedor = new Schema(
+const supplier = new Schema(
   {
-    nombre: {
+    name: {
       type: String,
       required: true,
       trim: true,
     },
-    empresa: {
+    company: {
       type: String,
       required: true,
       trim: true,
@@ -18,13 +18,13 @@ const proveedor = new Schema(
       required: true,
       trim: true,
     },
-    direccion: {
+    address: {
       type: String,
       required: true,
       trim: true,
     },
-    telefono: {
-      type: Number,
+    phone: {
+      type: String,
       required: true,
       trim: true,
     },
@@ -34,4 +34,4 @@ const proveedor = new Schema(
   }
 );
 
-export default model("proveedor", proveedor);
+export default model("supplier", supplier);
