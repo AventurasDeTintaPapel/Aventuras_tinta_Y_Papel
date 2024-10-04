@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+    <link rel="stylesheet" href="./chatbot.css" />
+    <link rel="icon" href="data:," />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+  </head>
+
+  <body>
+    <header class="bg-purple-950">
+      <div class="contenedorHeader">
+        <img
+          class="imgLogo"
+          src="./img/Aventuras__4_-removebg-preview2.png"
+          alt=""
+        />
+
+        <div class="buscador">
+          <input
+            class="barradelBuscador"
+            type="text"
+            placeholder="¿Qué desea buscar?"
+          />
+          <i class="lupaIcon fi-br-search"></i>
+        </div>
+        <div class="BotonesDelHeader">
+          <a href="#"><i id="btnUsuario" class="usuarioIcon fi-ss-user"></i></a>
+          <a href="../pedidos/favoritos.html"><i class="corazonIcon fi-ss-heart"></i></a>
+          <a href="../pedidos/carrito.html"><i class="carritoIcon fi-ss-shopping-cart"></i></a>
+          <div id="seccion"></div>
+        </div>
+      </div>
+      <nav>
+        <div class="contenedorNav">
+          <ul class="Nav">
+            <li><a href="../inicio/inicio.html" class="botonNav">Inicio</a></li>
+            <li><a href="../contacto.html" class="botonNav">Contactos</a></li>
+            <li><a href="../productos/ProductosLibros.html" class="botonNav">Libros</a></li>
+            <li><a href="../productos/ProductosMangas.html" class="botonNav">Mangas</a></li>
+            <li><a href="../productos/ProductosComics.html" class="botonNav">Cómics</a></li>
+            <li><a href="../productos/ProductosMerch.html" class="botonNav">Merch</a></li>
+            <li><a href="#" class="botonNav">Vender</a></li>
+            <li><a href="#" class="botonNav">Intercambio</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+        <section> 
+            <div class="main-content">
+              <div id="chat">
+                <h2 class="chat-title">Soporte al cliente</h2>
+                <ul id="messages" class="chat-messages"></ul>
+                <div id="options-container" class="options-container"></div> <!-- Contenedor para las opciones -->
+                <form id="message-form" class="chat-form">
+                  <input
+                    id="message-input"
+                    type="text"
+                    placeholder="Escribe un mensaje..."
+                    autocomplete="off"
+                    class="input-message"
+                  />
+                  <button id="send-button" type="submit" class="send-button">Enviar</button>
+                </form>
+              </div>
+            </div>
+          </section>
+          
+          <script type="module">
+            import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+          
+            const socket = io();
+          
+            const form = document.getElementById("message-form");
+            const input = document.getElementById("message-input");
+            const messages = document.getElementById("messages");
+            const optionsContainer = document.getElementById("options-container"); // Contenedor para las opciones
+          
+            const formatTime = (timestamp) => {
+              const date = new Date(timestamp);
+              const hours = date.getHours().toString().padStart(2, "0");
+              const minutes = date.getMinutes().toString().padStart(2, "0");
+              return `${hours}:${minutes}`;
+            };
+          
+            socket.on("message", (msg) => {
+              const item = `
+                <li class="message-item">
+                  <span class="username">SoporteBot</span>
+                  <p class="message-text">${msg}</p>
+                </li>`;
+              messages.insertAdjacentHTML("beforeend", item);
+              messages.scrollTop = messages.scrollHeight; // Desplazar hacia abajo
+            });
+          
+            socket.on("options", (data) => {
+              optionsContainer.innerHTML = ''; // Limpiar opciones anteriores
+          
+              const question = document.createElement('p');
+              question.textContent = data.question;
+              optionsContainer.appendChild(question);
+          
+              data.options.forEach((option) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-button');
+                button.onclick = () => {
+                  socket.emit('optionSelected', option); // Enviar la opción seleccionada al servidor
+                  optionsContainer.innerHTML = ''; // Limpiar opciones después de seleccionar
+                };
+                optionsContainer.appendChild(button);
+              });
+            });
+          
+            form.addEventListener("submit", (e) => {
+              e.preventDefault();
+              if (input.value) {
+                socket.emit("chat message", input.value);
+                input.value = "";
+              }
+            });
+          </script>
