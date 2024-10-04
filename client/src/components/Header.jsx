@@ -1,5 +1,10 @@
 // archivo: MiBoton.jsx (o el nombre que prefieras)
-import React, { useEffect } from "react";
+import { Divider } from "antd";
+import React, { useEffect, useState, useRef } from "react";
+import { FaHeart, FaQuestionCircle, FaUser, FaUserCircle } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import { PiHandbagSimpleFill } from "react-icons/pi";
+import { IoCart } from "react-icons/io5";
 
 export const direccionCerrarSesion = "../../html/inicio/inicioCambiado.html";
 
@@ -114,9 +119,11 @@ export function Header() {
 
         {/* Action buttons */}
         <div className="flex items-center space-x-[1.5vw]">
-          <ActionButton href="#" icon="user" label="Usuario" />
-          <ActionButton href="#" icon="heart" label="Favoritos" />
-          <ActionButton href="#" icon="cart" label="Carrito" />
+          <BotonPerfil />
+          <div className="flex items-center justify-center text-purple-950 bg-purple-100 w-[3.1vw] h-[3.1vw] rounded-full hover:bg-white transition-all ease-in-out duration-200">
+            <IoCart className="text-[1.5vw] mr-[0.1vw]" />
+          </div>
+
           <MyButton />
         </div>
       </div>
@@ -124,32 +131,91 @@ export function Header() {
   );
 }
 
-function ActionButton({ href, icon, label }) {
-  const icons = {
-    user: (
-      <path
-        fillRule="evenodd"
-        d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-        clipRule="evenodd"
-      />
-    ),
-    heart: (
-      <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25c0-2.413 1.697-4.665 4.14-5.05 2.226-.351 4.486.76 5.61 2.621 1.124-1.86 3.384-2.972 5.61-2.621 2.442.385 4.14 2.637 4.14 5.05 0 3.924-2.439 7.111-4.74 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-    ),
-    cart: (
-      <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
-    ),
-  };
+function BotonPerfil() {
+  const [mostrarSeccion, setMostrarSeccion] = useState(false);
+  const [estiloBoton, setEstiloBoton] = useState({});
+  const menuRef = useRef(null); // Referencia al menú
+  const botonRef = useRef(null); // Referencia al botón
+
+  // Efecto para cerrar el menú si se hace clic fuera
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // Verificar si el clic es fuera del menú y fuera del botón
+      if (menuRef.current && !menuRef.current.contains(event.target) && !botonRef.current.contains(event.target)) {
+        setMostrarSeccion(false); // Cierra el menú
+        setEstiloBoton({}); // Resetea el estilo del botón
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef, botonRef]);
 
   return (
-    <a
-      href={href}
-      className="flex items-center justify-center w-[3vw] h-[3vw] rounded-full bg-purple-100 text-purple-950 border-r-[0.2vw] border-purple-900 hover:w-[3.3vw] hover:h-[3.3vw] hover:bg-purple-50 transition-all ease-in-out duration-300"
-      aria-label={label}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-[2vw] h-[2vw]">
-        {icons[icon]}
-      </svg>
-    </a>
+    <div>
+      <button
+        ref={botonRef} // Referencia al botón
+        onClick={() => {
+          setMostrarSeccion(!mostrarSeccion);
+          setEstiloBoton(
+            mostrarSeccion
+              ? {}
+              : {
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 0,
+                  backgroundColor: "white",
+                  marginTop: "20px",
+                }
+          );
+        }}
+        style={estiloBoton}
+        className="flex items-center justify-center text-purple-950 bg-purple-100 w-[3.1vw] h-[3.1vw] rounded-full hover:bg-white transition-all ease-in-out duration-200"
+      >
+        <FaUser className="text-[1.5vw]" />
+      </button>
+
+      <div
+        ref={menuRef} // Referencia al menú
+        className={`${
+          mostrarSeccion ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+        } transition-all ease-in-out duration-200 text-[1.5vw] absolute z-20 shadow-xl bg-white w-[17vw] p-[1vw]`}
+      >
+        <div className="transition-all ease-in-out duration-300 hover:px-[1.2vw] ">
+          <a className="flex items-center gap-[0.6vw] text-purple-950" href="#">
+            <FaUserCircle className="text-[1.5vw]" />
+            <span className="text-[1.3vw]">Perfil</span>
+          </a>
+        </div>
+        <Divider />
+        <div className="transition-all ease-in-out duration-300 hover:px-[1.2vw]">
+          <a className="flex items-center gap-[0.6vw] text-purple-950" href="#">
+            <FaHeart className="text-[1.5vw]" />
+            <span className="text-[1.3vw]">Favoritos</span>
+          </a>
+        </div>
+        <Divider />
+        <div className="transition-all ease-in-out duration-300 hover:px-[1.2vw]">
+          <a className="flex items-center gap-[0.6vw] text-purple-950" href="#">
+            <PiHandbagSimpleFill className="text-[1.5vw]" />
+            <span className="text-[1.3vw]">Mis compras</span>
+          </a>
+        </div>
+        <Divider />
+        <div className="transition-all ease-in-out duration-300 hover:px-[1.2vw]">
+          <a className="flex items-center gap-[0.6vw] text-purple-950" href="#">
+            <FaQuestionCircle className="text-[1.5vw]" />
+            <span className="text-[1.3vw]">Soporte al Cliente</span>
+          </a>
+        </div>
+        <Divider />
+        <div className="transition-all ease-in-out duration-300 hover:px-[1.2vw]">
+          <a className="flex items-center gap-[0.6vw] text-red-600" href="#">
+            <MdCancel className="text-[1.5vw]" />
+            <span className="text-[1.3vw]">Cerrar Sesión</span>
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
