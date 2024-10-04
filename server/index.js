@@ -1,7 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import mongoose from 'mongoose';
-import fetch from 'node-fetch'; // Asegúrate de tener `node-fetch` instalado
+import fetch from 'node-fetch'; 
 import { Server } from 'socket.io';
 import { createServer } from 'node:http';
 import path from 'path';
