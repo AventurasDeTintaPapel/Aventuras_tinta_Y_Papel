@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input } from "antd";
-
+import { Input, Button } from "antd";
 import imgRegistro from "../assets/img/imgRegistro.png";
 
 export function Registro() {
@@ -59,11 +58,7 @@ export function Registro() {
   return (
     <>
       <div className="bg-black z-20 w-full h-[100vh] absolute opacity-40"></div>
-      <img
-        className="absolute z-10 h-full w-full"
-        src={imgRegistro}
-        alt="Imagen de registro"
-      />
+      <img className="absolute z-10 h-full w-full" src={imgRegistro} alt="Imagen de registro" />
 
       <div className="bg-white rounded-md bg-opacity-90 w-[32vw] absolute z-30 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="pb-[2vw] pt-[1vw]">
@@ -86,10 +81,7 @@ export function Registro() {
                 />
               </div>
               <div className=" space-y-[0.8vw]">
-                <label
-                  htmlFor="apellido"
-                  className="text-[1.1vw] font-semibold"
-                >
+                <label htmlFor="apellido" className="text-[1.1vw] font-semibold">
                   Apellido
                 </label>
                 <Input
@@ -118,10 +110,7 @@ export function Registro() {
               />
             </div>
             <div className=" space-y-[0.8vw]">
-              <label
-                htmlFor="fecha-nacimiento"
-                className="text-[1.1vw] font-semiboldl"
-              >
+              <label htmlFor="fecha-nacimiento" className="text-[1.1vw] font-semiboldl">
                 Fecha de Nacimiento
               </label>
               <Input
@@ -147,10 +136,7 @@ export function Registro() {
               />
             </div>
             <div className=" space-y-[0.8vw]">
-              <label
-                htmlFor="contraseña"
-                className="text-[1.1vw] font-semibold"
-              >
+              <label htmlFor="contraseña" className="text-[1.1vw] font-semibold">
                 Contraseña
               </label>
               <Input
@@ -173,10 +159,7 @@ export function Registro() {
               >
                 Reset
               </Button>
-              <Button
-                className="bg-purple-800 h-[3.5vw] text-white font-bold text-[1.6vw] w-[50%]"
-                htmlType="submit"
-              >
+              <Button className="bg-purple-800 h-[3.5vw] text-white font-bold text-[1.6vw] w-[50%]" htmlType="submit">
                 Enviar
               </Button>
             </div>
