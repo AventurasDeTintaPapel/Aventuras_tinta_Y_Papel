@@ -179,3 +179,26 @@ const TarjetaProducto = ({ imagen, tituloResumido, precio, id, onAñadirFavorito
 
 export default TarjetaProducto;
 
+const seccion = [
+  {
+    title: 'Perfil',
+    link: '#'
+  },
+  {
+    title: 'Favoritos',
+    link: '#'
+  }
+];
+
+function App() {
+  return (
+    <div>
+      {seccion.map((seccion, index) => (
+        <a key={index} href={seccion.link}>
+          {seccion.title}
+        </a>
+      ))}
+    </div>
+  );
+}
+

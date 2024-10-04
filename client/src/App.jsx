@@ -3,6 +3,7 @@ import "./style.css";
 import AppRouter from "./Routers/AppRouters";
 import Chat from "./view/chatbot.jsx" // Asegúrate de que la ruta sea correcta
 
+
 function App() {
   return (
     <div>
