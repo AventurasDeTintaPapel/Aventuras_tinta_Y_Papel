@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Input, Button } from "antd";
 import imgRegistro from "../assets/img/imgRegistro.png";
 
 export function Registro() {
@@ -57,115 +56,140 @@ export function Registro() {
 
   return (
     <>
-      <div className="bg-black z-20 w-full h-[100vh] absolute opacity-40"></div>
-      <img className="absolute z-10 h-full w-full" src={imgRegistro} alt="Imagen de registro" />
+      <div className="flex justify-center absolute items-center h-[100vh] w-full z-30">
+        <form
+          className="bg-orange-50 px-[2vw] py-[1vw] bg-opacity-75 w-[45vw] flex flex-col gap-[1.5vw]"
+          onSubmit={register}
+        >
+          {/* titulo */}
+          <p className="text-[2.5vw] font-bold text-center">REGISTRATE</p>
 
-      <div className="bg-white rounded-md bg-opacity-90 w-[32vw] absolute z-30 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="pb-[2vw] pt-[1vw]">
-          <p className="text-[1.8vw] font-bold text-center">REGISTRATE</p>
-        </div>
-        <div>
-          <form className="space-y-[1vw] px-[2vw] pb-[1vw]" onSubmit={register}>
-            <div className="grid grid-cols-2 gap-[1vw]">
-              <div className="space-y-[0.8vw]">
-                <label htmlFor="nombre" className=" text-[1.1vw] font-semibold">
-                  Nombre
-                </label>
-                <Input
-                  className="h-[2.5vw] text-[1.5vw]"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  placeholder="Roberto"
-                  required
-                  id="nombre"
-                />
-              </div>
-              <div className=" space-y-[0.8vw]">
-                <label htmlFor="apellido" className="text-[1.1vw] font-semibold">
-                  Apellido
-                </label>
-                <Input
-                  className="h-[2.5vw] text-[1.5vw]"
-                  required
-                  id="apellido"
-                  value={apellido}
-                  onChange={(e) => setApellido(e.target.value)}
-                  placeholder="Espinoza"
-                />
-              </div>
-            </div>
-
-            <div className=" space-y-[0.8vw]">
-              <label htmlFor="email" className=" text-[1.1vw] font-semiboldl">
-                Email
-              </label>
-              <Input
-                className="h-[2.5vw] text-[1.5vw]"
-                required
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="nombre@gmail.com"
-              />
-            </div>
-            <div className=" space-y-[0.8vw]">
-              <label htmlFor="fecha-nacimiento" className="text-[1.1vw] font-semiboldl">
-                Fecha de Nacimiento
-              </label>
-              <Input
-                className="h-[2.5vw] text-[1.5vw]"
-                required
-                type="date"
-                id="fecha-nacimiento"
-                value={fechaNacimiento}
-                onChange={(e) => setFechaNacimiento(e.target.value)}
-              />
-            </div>
-            <div className=" space-y-[0.8vw]">
-              <label htmlFor="usuario" className="text-[1.1vw] font-semibold">
-                Nombre de usuario
-              </label>
-              <Input
-                className="h-[2.5vw] text-[1.5vw]"
-                required
-                id="usuario"
-                value={nombreUsuario}
-                onChange={(e) => setNombreUsuario(e.target.value)}
-                placeholder="Roberto_E"
-              />
-            </div>
-            <div className=" space-y-[0.8vw]">
-              <label htmlFor="contraseña" className="text-[1.1vw] font-semibold">
-                Contraseña
-              </label>
-              <Input
-                required
-                className="h-[2.5vw] text-[1.5vw]"
-                type="password"
-                id="contraseña"
-                value={ingreContra}
-                onChange={(e) => setIngreContra(e.target.value)}
-                placeholder="#######"
-              />
-            </div>
-
-            <div className="flex justify-center gap-[1vw]">
-              <Button
-                variant="solid"
-                className="bg-purple-800 h-[3.5vw] text-white font-bold text-[1.6vw] w-[50%]"
-                htmlType="button"
-                onClick={onReset}
+          <div className="grid grid-cols-2 gap-[1vw]">
+            <div>
+              <label
+                htmlFor="nombre"
+                className=" text-[1.3vw] ml-[0.4vw] font-semibold"
               >
-                Reset
-              </Button>
-              <Button className="bg-purple-800 h-[3.5vw] text-white font-bold text-[1.6vw] w-[50%]" htmlType="submit">
-                Enviar
-              </Button>
+                Nombre
+              </label>
+              <input
+                className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Roberto"
+                required
+                id="nombre"
+              />
             </div>
-          </form>
-        </div>
+            <div>
+              <label
+                htmlFor="apellido"
+                className="text-[1.3vw] ml-[0.4vw] font-semibold"
+              >
+                Apellido
+              </label>
+              <input
+                className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
+                required
+                id="apellido"
+                value={apellido}
+                onChange={(e) => setApellido(e.target.value)}
+                placeholder="Espinoza"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="email"
+              className=" text-[1.3vw] ml-[0.4vw] font-semiboldl"
+            >
+              Email
+            </label>
+            <input
+              className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
+              required
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="nombre@gmail.com"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="fecha-nacimiento"
+              className="text-[1.3vw] ml-[0.4vw] font-semiboldl"
+            >
+              Fecha de Nacimiento
+            </label>
+            <input
+              className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
+              required
+              type="date"
+              id="fecha-nacimiento"
+              value={fechaNacimiento}
+              onChange={(e) => setFechaNacimiento(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="usuario"
+              className="text-[1.3vw] ml-[0.4vw] font-semibold"
+            >
+              Nombre de usuario
+            </label>
+            <input
+              className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
+              required
+              id="usuario"
+              value={nombreUsuario}
+              onChange={(e) => setNombreUsuario(e.target.value)}
+              placeholder="Roberto_E"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="contraseña"
+              className="text-[1.3vw] ml-[0.4vw] font-semibold"
+            >
+              Contraseña
+            </label>
+            <input
+              required
+              className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
+              type="password"
+              id="contraseña"
+              value={ingreContra}
+              onChange={(e) => setIngreContra(e.target.value)}
+              placeholder="#######"
+            />
+          </div>
+
+          <div className="flex justify-center gap-[1vw]">
+            <button
+              className="bg-red-900 h-[3.5vw] text-white font-bold text-[1.6vw] rounded-[0.3vw] w-[50%] hover:bg-red-800 hover:text-[1.8vw] transition-all ease-linear duration-150 "
+              type="button"
+              onClick={onReset}
+            >
+              Resetear
+            </button>
+            <button
+              className="bg-red-900 h-[3.5vw] text-white font-bold text-[1.6vw] rounded-[0.3vw] w-[50%] hover:bg-red-800 hover:text-[1.8vw] transition-all ease-linear duration-150 "
+              type="submit"
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
       </div>
+
+      <div className="bg-black w-full h-[100vh] absolute  opacity-40 z-20"></div>
+
+      <img className=" h-full w-full absolute z-10" src={imgRegistro} />
     </>
   );
 }

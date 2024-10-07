@@ -11,11 +11,11 @@ export function Footer() {
       <div className="bg-purple-900 py-[2vw] px-[3.5vw] space-y-[2vw]">
         <div className="flex justify-center gap-[10vw]">
           {/* sobre nosotros */}
-          <div className="w-[30vw] flex flex-col pt-[1vw]">
+          <div className="w-[30vw] flex flex-col ">
             <p className="text-[1.5vw] text-start font-semibold mb-[0.2vw]">
               Sobre Nosotros
             </p>
-            <p className="w-[30vw] text-[1.3vw] text-purple-200 ">
+            <p className="w-[30vw] text-[1.3vw] text-purple-200 mt-[0.8vw]">
               Somos tu tienda de confianza para encontrar cómics, mangas y más.
               Disfruta de los mejores productos del mundo del entretenimiento.
             </p>
@@ -40,7 +40,7 @@ export function Footer() {
                 <a
                   key={item}
                   href={`/${item.toLowerCase()}`}
-                  className="text-[1.3vw] hover:text-white transition-colors"
+                  className="text-[1vw] hover:text-white transition-colors"
                 >
                   {item}
                 </a>

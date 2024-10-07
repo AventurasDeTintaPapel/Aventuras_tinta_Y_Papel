@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import imglogin from "../assets/img/fondoLogin.png";
+import { Alert } from "antd";
 
 export function Login() {
-  // Estado para los campos del formulario
+  // Estados para los campos del formulario y el estado de éxito
   const [email, setemail] = useState("");
   const [password, setcontrasenia] = useState("");
-  console.log(email, password);
 
   // Función para iniciar sesión
   const login = async (e) => {
@@ -29,69 +30,105 @@ export function Login() {
     if (!peticion.ok) {
       alert(respuesta.msg);
     } else {
-      // Caso contrario mostrar el mensaje.
+      // Caso contrario mostrar el mensaje de éxito.
       alert(respuesta.msg);
 
       // Seteamos el token en el localStorage.
       localStorage.setItem("token", respuesta.token);
       localStorage.setItem("role", respuesta.role);
 
+      // Redirecciones según el rol
       if (respuesta.role === "admin") {
-        window.location.href = "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
+        window.location.href =
+          "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
       } else if (respuesta.role === "user") {
         window.location.href = "/client/html/inicio/inicio.html";
       } else {
-        // Manejar otros roles o un caso por defecto
         window.location.href = "http://localhost:5173/inicio";
       }
     }
   };
 
   return (
-    <div className="w-full h-[100vh] flex items-center justify-center">
-      <form id="form" className="formulario bg-emerald-200 w-[30vw] px-[2vw] py-[1vw] rounded-md" onSubmit={login}>
-        <p className="titulo text-emerald-900 text-[1.7vw] font-semibold">INGRESAR</p>
-        <div className="form-container text-[1.3vw]">
-          <div className="preguntas my-[1vw] flex flex-col gap-[1vw]">
+    <>
+      <div className="w-full h-[100vh] bg-black opacity-45 z-10 absolute"></div>
+
+      <img
+        className="absolute z-0 w-[98%] h-[100vh] left-[1vw]"
+        src={imglogin}
+        alt=""
+      />
+
+      <div className="w-full h-[100vh] flex items-center justify-center">
+        <form
+          id="form"
+          className="text-emerald-900 bg-opacity-80 bg-teal-50 w-[35vw] px-[2vw] py-[1vw] rounded-[0.6vw] z-20"
+          onSubmit={login}
+        >
+          <p className="text-[2.5vw] text-center font-bold">INGRESAR</p>
+
+          <div className="space-y-[1vw] pb-[2vw] ">
             <div className="">
-              <label htmlFor="usuario" className="form-label text-emerald-900">
+              <label
+                htmlFor="usuario"
+                className="text-[1.5vw] font-semibold ml-[0.2vw]"
+              >
                 Email:
               </label>
-              <input className="w-full" type="text" id="usuario" placeholder="Roberto_E" value={email} onChange={(e) => setemail(e.target.value)} />
+              <input
+                className="w-full pl-[0.7vw] text-[1.2vw] rounded-[0.3vw] py-[0.2vw] focus:border-[0.2vw] font-medium focus:border-emerald-800"
+                type="text"
+                id="usuario"
+                placeholder="email@gmail.com"
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
+              />
             </div>
 
             <div className="">
-              <label htmlFor="contraseña" className="form-label text-emerald-900">
+              <label
+                htmlFor="contraseña"
+                className="text-[1.5vw] font-semibold ml-[0.2vw]"
+              >
                 Contraseña:
               </label>
               <input
-                className="w-full"
+                className="w-full pl-[0.7vw] text-[1.2vw] rounded-[0.3vw] py-[0.2vw] focus:border-[0.2vw] font-medium focus:border-emerald-800"
                 type="password"
                 id="contraseña"
-                placeholder="####"
+                placeholder="#######"
                 value={password}
                 onChange={(e) => setcontrasenia(e.target.value)}
               />
             </div>
           </div>
 
-          <button type="submit" className="btn bg-emerald-900 rounded-sm w-full text-white py-[0.7vw] text-[1.3vw]">
+          <button
+            type="submit"
+            className="font-bold bg-emerald-900 rounded-[0.5vw] w-full text-white py-[0.7vw] text-[1.5vw] hover:text-[1.8vw] hover:bg-emerald-800 transition-all ease-in-out duration-200"
+          >
             Entrar
           </button>
 
           <div className="space-y-[0.2vw] mt-[1vw]">
-            <p className="text-emerald-900">
-              <span>¿No tienes cuenta? </span>
-              <a className="text-blue-800" href="http://localhost:5173/registro">
+            <div>
+              <span className="text-[1.3vw]">¿No tienes cuenta? </span>
+              <a
+                className="text-emerald-500  text-[1.1vw]"
+                href="http://localhost:5173/registro"
+              >
                 Regístrate
               </a>
-            </p>
-            <p className="text-emerald-900">
-              ¿Olvidaste tu contraseña? <a href="#">Click aquí</a>
-            </p>
+            </div>
+            <div>
+              <span className="text-[1.3vw]">¿Olvidaste tu contraseña? </span>
+              <a className="text-emerald-500 text-[1.1vw]" href="#">
+                Click aquí
+              </a>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 }

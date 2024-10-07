@@ -5,6 +5,7 @@ import { Inicio } from "../view/inicio";
 import { Catalogo } from "../view/catalogo";
 import { Login } from "../view/login";
 import { Registro } from "../view/registro";
+import { Perfil } from "../view/perfil";
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
         <Route path="/catalogo" element={<Catalogo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
     </BrowserRouter>
   );

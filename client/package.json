@@ -21,6 +21,8 @@
     "tailwindcss": "^3.4.11"
   },
   "dependencies": {
+    "@fontsource/baloo-2": "^5.1.0",
+    "@fontsource/rubik": "^5.1.0",
     "@paypal/react-paypal-js": "^8.7.0",
     "@vitejs/plugin-react": "^4.3.1",
     "antd": "^5.21.2",
