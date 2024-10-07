@@ -10,7 +10,7 @@ export const regisValidation = [
     // .isEmpty().withMessage('El correo electronico es obligatorio')
     .isEmail()
     .withMessage("Debe ingresar un correo electronico valido"),
-  body("ingreContra")
+  body("password")
     .notEmpty()
     .withMessage("la contraseña es obligatoria")
     .isLength({ min: 8 })

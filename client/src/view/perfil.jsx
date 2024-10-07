@@ -11,11 +11,8 @@ export function Perfil() {
       <Header />
       <Nav />
 
-      <main
-        className=" flex justify-center h-[28vw] bg-slate-200 p-[2vw] "
-        style={{ fontFamily: "'Baloo 2', system-ui" }}
-      >
-        <div className=" w-[65vw] h-full rounded-[1.5vw] grid bg-white grid-cols-[33%_68%] space-x-[2vw]">
+      <main className=" flex justify-center bg-slate-200 p-[2vw] " style={{ fontFamily: "'Baloo 2', system-ui" }}>
+        <div className=" h-[25vw] w-[58vw] rounded-[1.5vw] grid bg-white grid-cols-[33%_68%] space-x-[2vw]">
           {/* parte1 */}
           <div className="rounded-l-[1.5vw] flex flex-col justify-center gap-[3vw] items-center relative">
             {/* imagen */}
@@ -27,9 +24,7 @@ export function Perfil() {
                 alt=""
               />
             </div>
-            <button className=" z-10 w-[15vw] h-[2.5vw] rounded-[0.3vw] text-[1.3vw] font-semibold bg-white">
-              Editar imagen
-            </button>
+            <button className=" z-10 w-[15vw] h-[2.5vw] rounded-[0.3vw] text-[1.3vw] font-semibold bg-white">Editar imagen</button>
           </div>
 
           {/* parte2 */}
@@ -73,10 +68,7 @@ function Botonperfil() {
 
   return (
     <>
-      <button
-        onClick={formularioPerfil}
-        className="w-[40vw] flex justify-center items-center bg-purple-900 text-white h-[3vw] text-[1.4vw] font-bold rounded-[0.5vw] "
-      >
+      <button onClick={formularioPerfil} className="w-[92%] text-center bg-purple-900 text-white h-[3vw] text-[1.4vw] font-bold rounded-[0.5vw] ">
         Editar Informacion
       </button>
       {mostrarFormulario && (
@@ -88,10 +80,7 @@ function Botonperfil() {
               <p className="text-[2.5vw] font-bold text-center">REGISTRATE</p>
 
               <div>
-                <label
-                  htmlFor="email"
-                  className=" text-[1.3vw] ml-[0.4vw] font-semiboldl"
-                >
+                <label htmlFor="email" className=" text-[1.3vw] ml-[0.4vw] font-semiboldl">
                   Nombre de Usario:
                 </label>
                 <input
@@ -104,10 +93,7 @@ function Botonperfil() {
               </div>
 
               <div>
-                <label
-                  htmlFor="email"
-                  className=" text-[1.3vw] ml-[0.4vw] font-semiboldl"
-                >
+                <label htmlFor="email" className=" text-[1.3vw] ml-[0.4vw] font-semiboldl">
                   Email
                 </label>
                 <input
@@ -120,40 +106,21 @@ function Botonperfil() {
               </div>
 
               <div>
-                <label
-                  htmlFor="fecha-nacimiento"
-                  className="text-[1.3vw] ml-[0.4vw] font-semiboldl"
-                >
+                <label htmlFor="fecha-nacimiento" className="text-[1.3vw] ml-[0.4vw] font-semiboldl">
                   Fecha de Nacimiento
                 </label>
-                <input
-                  className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
-                  required
-                  type="date"
-                  id="fecha-nacimiento"
-                />
+                <input className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full" required type="date" id="fecha-nacimiento" />
               </div>
 
               <div>
-                <label
-                  htmlFor="usuario"
-                  className="text-[1.3vw] ml-[0.4vw] font-semibold"
-                >
+                <label htmlFor="usuario" className="text-[1.3vw] ml-[0.4vw] font-semibold">
                   Nombre de usuario
                 </label>
-                <input
-                  className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
-                  required
-                  id="usuario"
-                  placeholder="Roberto_E"
-                />
+                <input className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full" required id="usuario" placeholder="Roberto_E" />
               </div>
 
               <div>
-                <label
-                  htmlFor="contraseña"
-                  className="text-[1.3vw] ml-[0.4vw] font-semibold"
-                >
+                <label htmlFor="contraseña" className="text-[1.3vw] ml-[0.4vw] font-semibold">
                   Contraseña
                 </label>
                 <input

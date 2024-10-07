@@ -1,3 +1,4 @@
+import "@fontsource/baloo-2/700.css";
 // este es la etiqueta (a) sin despleable
 function LiSinDesplegable({ textoNav, id, link }) {
   return (
@@ -30,15 +31,12 @@ function realizarAccionSegunPagina() {
   const reintentar = (callback, intentos = 5) => {
     // aca dice que despues de 5 intentos no pudo encontro el Id se rendira
     if (intentos === 0) {
-      console.warn(
-        "No se pudo encontrar el elemento después de múltiples intentos."
-      );
+      console.warn("No se pudo encontrar el elemento después de múltiples intentos.");
       return;
     }
 
     // estilos
-    const estilos =
-      "justify-center flex items-center bg-purple-100 text-purple-950 font-bold text-[1.8vw] px-[0.5vw] rounded-t-[0.5vw] h-[4vw]";
+    const estilos = "justify-center flex items-center bg-purple-100 text-purple-950 font-bold text-[1.8vw] px-[0.5vw] rounded-t-[0.5vw] h-[4vw]";
 
     // urlActual
     const urlActual = window.location.pathname;
@@ -117,8 +115,6 @@ function realizarAccionSegunPagina() {
 document.addEventListener("DOMContentLoaded", function () {
   realizarAccionSegunPagina();
 });
-
-//NAV
 // categorias
 function HoverNav({ texto, linkHover }) {
   return (
@@ -150,21 +146,13 @@ export function Nav() {
   };
 
   return (
-    <nav>
+    <nav className="row-start-2  col-span-2" style={{ fontFamily: "'Baloo 2', system-ui" }}>
       <ul className="flex bg-purple-900 h-[5vw] text-white justify-evenly items-end font-medium pt-[0.7vw]">
         {/* Incio  */}
-        <LiSinDesplegable
-          textoNav={"Inicio"}
-          id={"inicioNav"}
-          link={"http://localhost:5173/inicio"}
-        />
+        <LiSinDesplegable textoNav={"Inicio"} id={"inicioNav"} link={"http://localhost:5173/inicio"} />
 
         {/* contacto Principal */}
-        <LiSinDesplegable
-          textoNav={"Contactos"}
-          id={"contactoNav"}
-          link={"http://localhost:5173/contactos"}
-        />
+        <LiSinDesplegable textoNav={"Contactos"} id={"contactoNav"} link={"http://localhost:5173/contactos"} />
 
         {/* libro */}
         <li className="group">
@@ -174,88 +162,35 @@ export function Nav() {
             onClick={() => handleNavigation("libros")}
             link={"http://localhost:5173/html/productos/ProductosLibros.html"}
           />
-          <div
-            id="desplegableLibro"
-            className="z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block"
-          >
-            <HoverNav
-              texto={"Terror"}
-              linkHover={"../../../html/productos/ProductosLibros.html"}
-            />
-            <HoverNav
-              texto={"Triller"}
-              linkHover={"../../../html/productos/ProductosLibros.html"}
-            />
-            <HoverNav
-              texto={"Infantiles"}
-              linkHover={"../../../html/productos/ProductosLibros.html"}
-            />
-            <HoverNav
-              texto={"Juveniles"}
-              linkHover={"../../../html/productos/ProductosLibros.html"}
-            />
-            <HoverNav
-              texto={"Romance"}
-              linkHover={"../../../html/productos/ProductosLibros.html"}
-            />
-            <HoverNav
-              texto={"Ciencia Ficcion"}
-              linkHover={"../../../html/productos/ProductosLibros.html"}
-            />
-            <HoverNav
-              texto={"Literatura"}
-              linkHover={"../../../html/productos/ProductosLibros.html"}
-            />
+          <div id="desplegableLibro" className="z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block">
+            <HoverNav texto={"Terror"} linkHover={"../../../html/productos/ProductosLibros.html"} />
+            <HoverNav texto={"Triller"} linkHover={"../../../html/productos/ProductosLibros.html"} />
+            <HoverNav texto={"Infantiles"} linkHover={"../../../html/productos/ProductosLibros.html"} />
+            <HoverNav texto={"Juveniles"} linkHover={"../../../html/productos/ProductosLibros.html"} />
+            <HoverNav texto={"Romance"} linkHover={"../../../html/productos/ProductosLibros.html"} />
+            <HoverNav texto={"Ciencia Ficcion"} linkHover={"../../../html/productos/ProductosLibros.html"} />
+            <HoverNav texto={"Literatura"} linkHover={"../../../html/productos/ProductosLibros.html"} />
           </div>
         </li>
 
         {/* Manga */}
         <li className="group">
-          <AlistaNav
-            textoLista={"Mangas"}
-            id={"MangaNav"}
-            link={"http://localhost:5173/html/productos/ProductosMangas.html"}
-          />
+          <AlistaNav textoLista={"Mangas"} id={"MangaNav"} link={"http://localhost:5173/html/productos/ProductosMangas.html"} />
 
-          <div
-            id="desplegableManga"
-            className="z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block"
-          >
-            <HoverNav
-              texto={"Seinen"}
-              linkHover={"../../../html/productos/ProductosMangas.html"}
-            />
-            <HoverNav
-              texto={"Yuri"}
-              linkHover={"../../../html/productos/ProductosMangas.html"}
-            />
-            <HoverNav
-              texto={"Shonen"}
-              linkHover={"../../../html/productos/ProductosMangas.html"}
-            />
-            <HoverNav
-              texto={"Josei"}
-              linkHover={"../../../html/productos/ProductosMangas.html"}
-            />
-            <HoverNav
-              texto={"Shojo"}
-              linkHover={"../../../html/productos/ProductosMangas.html"}
-            />
+          <div id="desplegableManga" className="z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block">
+            <HoverNav texto={"Seinen"} linkHover={"../../../html/productos/ProductosMangas.html"} />
+            <HoverNav texto={"Yuri"} linkHover={"../../../html/productos/ProductosMangas.html"} />
+            <HoverNav texto={"Shonen"} linkHover={"../../../html/productos/ProductosMangas.html"} />
+            <HoverNav texto={"Josei"} linkHover={"../../../html/productos/ProductosMangas.html"} />
+            <HoverNav texto={"Shojo"} linkHover={"../../../html/productos/ProductosMangas.html"} />
           </div>
         </li>
 
         {/* comics  */}
         <li className="group">
-          <AlistaNav
-            textoLista={"Comics"}
-            id={"comicsNav"}
-            link={"http://localhost:5173/catalogo"}
-          />
+          <AlistaNav textoLista={"Comics"} id={"comicsNav"} link={"http://localhost:5173/catalogo"} />
 
-          <div
-            id="desplegableComic"
-            className="z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block"
-          >
+          <div id="desplegableComic" className="z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block">
             <HoverNav texto={"Super Heroes"} linkHover={""} />
             <HoverNav texto={"Ciencia Ficción"} linkHover={""} />
             <HoverNav texto={"Fantasía"} linkHover={""} />
@@ -269,11 +204,7 @@ export function Nav() {
 
         {/* merch  */}
         <li className="group">
-          <AlistaNav
-            textoLista={"Merch"}
-            id={"MerchNav"}
-            link={"http://localhost:5173/html/productos/ProductosMerch.html"}
-          />
+          <AlistaNav textoLista={"Merch"} id={"MerchNav"} link={"http://localhost:5173/html/productos/ProductosMerch.html"} />
           <div
             id="desplegableMerch"
             className="contenedorLibros z-10 bg-purple-600 bg-opacity-85 text-center w-auto absolute hidden group-hover:block"
@@ -287,18 +218,10 @@ export function Nav() {
         </li>
 
         {/* vender */}
-        <LiSinDesplegable
-          textoNav={"Vender"}
-          id={"VenderNav"}
-          link={"http://localhost:5173/html/productos/#"}
-        />
+        <LiSinDesplegable textoNav={"Vender"} id={"VenderNav"} link={"http://localhost:5173/html/productos/#"} />
 
         {/* intercambio  */}
-        <LiSinDesplegable
-          textoNav={"Intercambio"}
-          id={"IntercamioNav"}
-          link={"http://localhost:5173/html/productos/#"}
-        />
+        <LiSinDesplegable textoNav={"Intercambio"} id={"IntercamioNav"} link={"http://localhost:5173/html/productos/#"} />
       </ul>
     </nav>
   );

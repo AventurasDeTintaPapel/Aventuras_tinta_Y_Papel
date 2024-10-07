@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  FaHeart,
-  FaQuestionCircle,
-  FaUser,
-  FaUserCircle,
-} from "react-icons/fa";
+import { FaHeart, FaQuestionCircle, FaUser, FaUserCircle } from "react-icons/fa";
 import { PiHandbagSimpleFill } from "react-icons/pi";
 import { IoCart } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
+import "@fontsource/baloo-2/700.css";
 
 function cerrarSesion() {
   const token = localStorage.getItem("token");
@@ -27,8 +23,7 @@ function cerrarSesion() {
     if (!cerrarSesionDiv) {
       const newDiv = document.createElement("div");
       newDiv.id = "cerrarSesionDiv"; // Establece un ID para poder verificarlo después
-      newDiv.className =
-        "transition-all ease-in-out duration-300 rounded-b-[0.5vw] group text-red-600";
+      newDiv.className = "transition-all ease-in-out duration-300 rounded-b-[0.5vw] group text-red-600";
       newDiv.innerHTML = `
         <a  class="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-red-700" href="#" id="cerrarSesionLink">
           <span class="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Cerrar Sesión</span>
@@ -60,7 +55,7 @@ function iniciarSeccion() {
     if (!token) {
       seccion.innerHTML = `
       <a href="http://localhost:5173/login">
-      <button  class="bg-purple-100 text-center rounded-[0.3vw] w-[9vw] h-[3vw] font-medium border-r-[0.2vw] border-purple-950
+      <button  class="bg-purple-100 flex items-center justify-center rounded-[0.3vw] w-[9vw] h-[3vw] font-medium border-r-[0.2vw] border-purple-950
         text-[1.25vw] transition-all duration-300 ease-in-out hover:text-[1.35vw] hover:h-[3.5vw] hover:w-[9.5vw] text-purple-950 hover:bg-purple-50">
                     Iniciar Sesión
                     </button>
@@ -86,14 +81,13 @@ export default MyButton;
 // contenedor header
 export function Header() {
   return (
-    <div className="flex justify-between items-center bg-gradient-to-r from-[#4c2e84] via-[#722ed1] to-[#4f279a] py-[0.8vw] px-[1.5vw]">
+    <div
+      style={{ fontFamily: "'Baloo 2', system-ui" }}
+      className="row-start-1 col-span-2 flex justify-between items-center bg-gradient-to-r from-[#4c2e84] via-[#722ed1] to-[#4f279a] py-[0.8vw] px-[1.5vw]"
+    >
       {/* Imagen */}
       <div className="contenedorImg w-[11vw]">
-        <img
-          className="w-full h-full object-cover"
-          src="../../src/assets/img/logo.png"
-          alt="Logo"
-        />
+        <img className="w-full h-full object-cover" src="../../src/assets/img/logo.png" alt="Logo" />
       </div>
 
       <div className=" justify-center flex items-center gap-[1.5vw]">
@@ -111,7 +105,7 @@ export function Header() {
             className="barradelBuscador rounded-full bg-gradient-to-r from-white to-purple-300
           
           /tamaños de letras/ 
-          text-[1.25vw text-purple-950
+          text-[1.25vw] text-purple-950
           font-bold
           
           /paddings y margin/ 
@@ -135,7 +129,7 @@ export function Header() {
         <BotonPerfil />
 
         <a
-          href="#"
+          href="http://localhost:5173/carrito"
           className=" cursor-pointer flex items-center relative justify-center w-[3.1vw] h-[3.1vw] hover:text-[#22075e] text-white rounded-full
          hover:bg-white transition-all ease-in-out duration-500"
         >
@@ -158,11 +152,7 @@ function BotonPerfil() {
   useEffect(() => {
     function handleClickOutside(event) {
       // Verificar si el clic es fuera del menú y fuera del botón
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target) &&
-        !botonRef.current.contains(event.target)
-      ) {
+      if (menuRef.current && !menuRef.current.contains(event.target) && !botonRef.current.contains(event.target)) {
         setMostrarSeccion(false); // Cierra el menú
         setEstiloBoton({}); // Resetea el estilo del botón
       }
@@ -186,7 +176,7 @@ function BotonPerfil() {
                   borderBottomLeftRadius: 0,
                   borderBottomRightRadius: 0,
                   backgroundColor: "white",
-                  marginTop: "20px",
+                  marginTop: "3vw",
                   color: "#22075e",
                 }
           );
@@ -202,9 +192,7 @@ function BotonPerfil() {
         id="menuDesplegable"
         ref={menuRef} // Referencia al menú
         className={`${
-          mostrarSeccion
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-4  pointer-events-none"
+          mostrarSeccion ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-2vw]  pointer-events-none"
         } transition-all ease-in-out duration-500 text-[1.5vw] absolute z-20 shadow-xl bg-white rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[16vw] right-[0vw]`}
       >
         <div className="flex flex-col  gap-[1vw] items-center justify-center py-[1vw]  relative ">
@@ -213,62 +201,77 @@ function BotonPerfil() {
 
           <p className="text-center z-20 text-white">Axel Leger</p>
           <div className="w-[6vw] z-20">
-            <img
-              className="w-full h-full rounded-full "
-              src="https://i.pinimg.com/736x/62/87/26/62872606328a29ace159c2e03926b4df.jpg"
-              alt=""
-            />
+            <img className="w-full h-full rounded-full " src="https://i.pinimg.com/736x/62/87/26/62872606328a29ace159c2e03926b4df.jpg" alt="" />
           </div>
         </div>
 
-        <div className="transition-bg ease-in-out duration-300 rounded-tl-[0.5vw] border-b-[0.1vw] border-purple-200 group">
-          <a
-            className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950"
-            href="http://localhost:5173/perfil"
-          >
-            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">
-              Perfil
-            </span>
-            <FaUserCircle className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.8vw]" />
-          </a>
-        </div>
+        <ButonPerfil />
 
         <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
-          <a
-            className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950"
-            href="#"
-          >
-            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">
-              Favoritos
-            </span>
+          <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="#">
+            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Favoritos</span>
             <FaHeart className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.8vw]" />
           </a>
         </div>
 
         <div className="transition-all ease-in-out duration-300 group border-b-[0.1vw] border-purple-200">
-          <a
-            className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950"
-            href="#"
-          >
-            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">
-              Mis compras
-            </span>
+          <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="#">
+            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Mis compras</span>
             <PiHandbagSimpleFill className="text-[1.5vw] justify-center transition-all duration-300 ease-in-out group-hover:text-[1.8vw]" />
           </a>
         </div>
 
         <div className="transition-all ease-in-out duration-300 rounded-b-[0.5vw] border-b-[0.1vw] border-purple-200 group ">
-          <a
-            className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950"
-            href="#"
-          >
-            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.4vw]">
-              Soporte al Cliente
-            </span>
+          <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="#">
+            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.4vw]">Soporte al Cliente</span>
             <FaQuestionCircle className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.7vw]" />
           </a>
         </div>
       </div>
+    </div>
+  );
+}
+
+function ButonPerfil() {
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  // Función para verificar si el token está presente
+  const checkToken = () => {
+    const token = localStorage.getItem("token"); // o sessionStorage.getItem('token')
+    if (token) {
+      setIsDisabled(false); // Habilita el botón si el token existe
+    } else {
+      setIsDisabled(true); // Deshabilita el botón si no hay token
+    }
+  };
+
+  // Se ejecuta al montar el componente para verificar el token
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  return (
+    <div
+      className={`transition-bg ease-in-out duration-300 rounded-tl-[0.5vw] border-b-[0.1vw] border-purple-200 ${
+        isDisabled ? "opacity-50 cursor-not-allowed" : "group"
+      }`}
+    >
+      <button
+        className={`flex items-center h-[3.8vw] w-full pr-[1vw] gap-[0.6vw] justify-end text-purple-950 ${
+          isDisabled ? "bg-slate-400" : "bg-white"
+        } transition-all duration-300`}
+        onClick={(e) => {
+          if (isDisabled) {
+            e.preventDefault(); // Evita que el evento se propague si está deshabilitado
+          } else {
+            window.location.href = "http://localhost:5173/perfil";
+          }
+        }}
+        disabled={isDisabled} // Controla el estado del botón
+      >
+        <span className={`text-[1.3vw] transition-all duration-300 ${isDisabled ? "" : "group-hover:text-[1.5vw]"}`}>Perfil</span>
+        <FaUserCircle className={`text-[1.5vw] transition-all duration-300 ${isDisabled ? "" : "group-hover:text-[1.8vw]"}`} />
+      </button>
     </div>
   );
 }
