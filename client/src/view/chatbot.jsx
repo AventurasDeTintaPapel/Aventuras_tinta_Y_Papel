@@ -1,117 +1,123 @@
-import React, { useEffect, useRef, useState } from 'react'; 
-import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
-import "../style.css";
+'use client'
 
-const Chat = () => {
-  const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-  const [options, setOptions] = useState([]);
-  const messagesEndRef = useRef(null);
-  const socket = useRef(null);
+import React, { useState, useEffect, useRef } from 'react'
+import { io } from 'socket.io-client'
+
+export default function SupportChat() {
+  const [messages, setMessages] = useState([])
+  const [inputValue, setInputValue] = useState('')
+  const [options, setOptions] = useState([])
+  const messagesEndRef = useRef(null)
+  const socketRef = useRef(null)
 
   useEffect(() => {
-    // Establece la conexión con el socket
-    socket.current = io();
+    socketRef.current = io('http://localhost:3400')
 
-    // Escucha los mensajes del socket
-    socket.current.on('message', (msg) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { user: 'SoporteBot', text: msg },
-      ]);
-    });
-
-    // Escucha las opciones del socket
-    socket.current.on('options', (data) => {
-      setOptions(data.options);
-    });
-
-    // Fetch desde el backend para obtener datos iniciales
-    fetch('http://localhost:3400/chatbot', {
-      method: 'GET',
+    socketRef.current.on('message', (msg) => {
+      setMessages(prev => [...prev, { user: 'SoporteBot', text: msg }])
     })
+
+    socketRef.current.on('options', (data) => {
+      setOptions(data.options)
+    })
+
+    fetch('http://localhost:3400/api/soporte')
       .then(response => response.json())
       .then(data => {
-        // Si recibes un mensaje inicial del backend, lo añades a los mensajes
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { user: 'SoporteBot', text: data.message }, // Cambia 'data.message' por la estructura real de tu respuesta
-        ]);
+        setMessages([{ user: 'SoporteBot', text: data.message }])
       })
       .catch(error => {
-        console.error('Error al obtener datos del backend:', error);
-      });
+        console.error('Error fetching initial data:', error)
+      })
 
     return () => {
-      socket.current.disconnect(); // Limpiar el socket al desmontar
-    };
-  }, []);
+      socketRef.current?.disconnect()
+    }
+  }, [])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue) {
-      socket.current.emit('chat message', inputValue);
-      setInputValue('');
-    }
-  };
+    e.preventDefault()
+    if (inputValue.trim()) {
+      fetch('http://localhost:3400/api/soporte', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: inputValue }),
+      })
+        .then(response => {
+          if (!response.ok) throw new Error('Server response error')
+          return response.json()
+        })
+        .then(data => {
+          setMessages(prev => [
+            ...prev,
+            { user: 'Usuario', text: inputValue },
+            { user: 'SoporteBot', text: data.message },
+          ])
+        })
+        .catch(error => {
+          console.error('Error sending message:', error)
+        })
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+      socketRef.current?.emit('chat message', inputValue)
+      setInputValue('')
+    }
+  }
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   return (
-    <section>
-      <div className="main-content">
-        <div id="chat">
-          <h2 className="chat-title">Soporte al cliente</h2>
-          <ul id="messages" className="chat-messages">
-            {messages.map((msg, index) => (
-              <li key={index} className="message-item">
-                <span className="username">{msg.user}</span>
-                <p className="message-text">{msg.text}</p>
-              </li>
-            ))}
-            <div ref={messagesEndRef} />
-          </ul>
-          <div id="options-container" className="options-container">
-            {options.length > 0 && (
-              <>
-                <p>Selecciona una opción:</p>
-                {options.map((option, index) => (
-                  <button
-                    key={index}
-                    className="option-button"
-                    onClick={() => {
-                      socket.current.emit('optionSelected', option);
-                      setOptions([]); // Limpiar opciones después de seleccionar
-                    }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </>
-            )}
-          </div>
-          <form id="message-form" className="chat-form" onSubmit={handleSubmit}>
-            <input
-              id="message-input"
-              type="text"
-              placeholder="Escribe un mensaje..."
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              autoComplete="off"
-              className="input-message"
-            />
-            <button id="send-button" type="submit" className="send-button">Enviar</button>
-          </form>
-        </div>
+    <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="bg-blue-600 text-white p-4">
+        <h2 className="text-2xl font-bold">Soporte al cliente</h2>
       </div>
-    </section>
-  );
-};
-
-export default Chat;
+      <div className="h-[400px] overflow-y-auto p-4 space-y-4">
+        {messages.map((msg, index) => (
+          <div key={index} className={`flex ${msg.user === 'Usuario' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[70%] ${msg.user === 'Usuario' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'} rounded-lg p-3`}>
+              <p className="text-sm">{msg.text}</p>
+            </div>
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+      {options.length > 0 && (
+        <div className="px-4 pb-4 space-y-2">
+          <p className="text-sm font-medium text-gray-700">Selecciona una opción:</p>
+          <div className="flex flex-wrap gap-2">
+            {options.map((option, index) => (
+              <button
+                key={index}
+                className="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-200"
+                onClick={() => {
+                  socketRef.current?.emit('optionSelected', option)
+                  setOptions([])
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="border-t p-4">
+        <form onSubmit={handleSubmit} className="flex space-x-2">
+          <input
+            type="text"
+            placeholder="Escribe un mensaje..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="flex-grow p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          >
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+  )
+}

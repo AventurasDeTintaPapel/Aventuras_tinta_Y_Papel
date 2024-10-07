@@ -1,17 +1,28 @@
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { getBotResponse, saveMessage } from '../controllers/chatbotcontroller.js';
 
-// Obtén la ruta del directorio del archivo actual
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const router = express.Router();
 
-export const chatbot = express.Router();
-
-// Ruta para el chatbot
-chatbot.get('/chatbot', (req, res) => {
-    res.sendFile(join(__dirname, '..', '..', 'client', 'chatbot.jsx'));
+// Ruta para manejar el mensaje del chatbot
+router.post('/', async (req, res) => {
+    const { message } = req.body;
+    
+    // Guardar el mensaje del usuario
+    await saveMessage(message, 'Usuario');
+    
+    // Obtener respuesta del bot
+    const { message: botMessage, options } = getBotResponse(message);
+    
+    // Enviar la respuesta del bot y las opciones al cliente
+    res.json({ message: botMessage, options });
 });
+
+// Ruta opcional para obtener un mensaje inicial o información del bot
+router.get('/', (req, res) => {
+    res.json(); // Respuesta inicial
+});
+
+export const chatbot = router;
+
 
 

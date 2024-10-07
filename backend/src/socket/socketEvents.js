@@ -4,8 +4,9 @@ const socketEvents = (io) => {
     io.on('connection', (socket) => {
         console.log('Un usuario se ha conectado');
 
+        // Enviar un mensaje de bienvenida al usuario
         socket.emit('message', 'Bienvenido al chat de soporte. ¿Cómo podemos ayudarte?');
-        sendOptions(socket);
+        sendOptions(socket); // Enviar opciones disponibles al usuario
 
         socket.on('chat message', async (msg) => {
             try {
@@ -19,21 +20,24 @@ const socketEvents = (io) => {
 
                 console.log('Recibiendo mensaje:', msg, 'por el usuario:', username);
                 const botResponse = getBotResponse(msg);
-                
+
+                // Guardar mensajes en la base de datos
                 await saveMessage(msg, username); // Guardar mensaje del usuario
                 await saveMessage(botResponse, botUsername); // Guardar respuesta del bot
 
+                // Enviar la respuesta del bot al cliente
                 socket.emit('message', botResponse);
             } catch (e) {
                 console.error('Error al procesar el mensaje:', e);
             }
         });
 
+        // Escuchar las selecciones de opciones del usuario
         socket.on('optionSelected', (selectedOption) => {
             console.log('Opción seleccionada:', selectedOption);
             let response = handleOptionSelection(selectedOption);
-            socket.emit('message', response);
-            sendOptions(socket);
+            socket.emit('message', response); // Enviar respuesta de la opción seleccionada
+            sendOptions(socket); // Volver a enviar opciones después de la selección
         });
 
         socket.on('disconnect', () => {
@@ -42,6 +46,7 @@ const socketEvents = (io) => {
     });
 };
 
+// Función para enviar opciones al usuario
 const sendOptions = (socket) => {
     socket.emit('options', {
         question: 'Elige una opción:',
@@ -49,6 +54,7 @@ const sendOptions = (socket) => {
     });
 };
 
+// Manejar la selección de opciones
 const handleOptionSelection = (selectedOption) => {
     switch (selectedOption) {
         case 'Métodos de pago':
@@ -65,3 +71,4 @@ const handleOptionSelection = (selectedOption) => {
 };
 
 export default socketEvents;
+
