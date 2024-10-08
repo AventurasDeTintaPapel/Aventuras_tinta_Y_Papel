@@ -3,7 +3,7 @@ import { FaHeart, FaQuestionCircle, FaUser, FaUserCircle } from "react-icons/fa"
 import { PiHandbagSimpleFill } from "react-icons/pi";
 import { IoCart } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
-import "@fontsource/baloo-2/700.css";
+import "@fontsource/montserrat/700.css";
 
 function cerrarSesion() {
   const token = localStorage.getItem("token");
@@ -55,8 +55,8 @@ function iniciarSeccion() {
     if (!token) {
       seccion.innerHTML = `
       <a href="http://localhost:5173/login">
-      <button  class="bg-purple-100 flex items-center justify-center rounded-[0.3vw] w-[9vw] h-[3vw] font-medium border-r-[0.2vw] border-purple-950
-        text-[1.25vw] transition-all duration-300 ease-in-out hover:text-[1.35vw] hover:h-[3.5vw] hover:w-[9.5vw] text-purple-950 hover:bg-purple-50">
+      <button  class="bg-purple-100 flex items-center justify-center rounded-[0.3vw] px-[0.5vw] h-[2.5vw] font-medium border-r-[0.2vw] border-purple-950
+        text-[1.1vw] transition-all duration-300 ease-in-out hover:text-[1.2vw] text-purple-950 hover:bg-purple-50">
                     Iniciar Sesión
                     </button>
                     </a>
@@ -76,17 +76,15 @@ const MyButton = () => {
   return <div id="seccion"></div>;
 };
 
-export default MyButton;
-
 // contenedor header
 export function Header() {
   return (
     <div
-      style={{ fontFamily: "'Baloo 2', system-ui" }}
+      style={{ fontFamily: "'Montserrat', sans-serif" }}
       className="row-start-1 col-span-2 flex justify-between items-center bg-gradient-to-r from-[#4c2e84] via-[#722ed1] to-[#4f279a] py-[0.8vw] px-[1.5vw]"
     >
       {/* Imagen */}
-      <div className="contenedorImg w-[11vw]">
+      <div className="contenedorImg w-[10vw]">
         <img className="w-full h-full object-cover" src="../../src/assets/img/logo.png" alt="Logo" />
       </div>
 
@@ -96,20 +94,20 @@ export function Header() {
           className="buscador bg-white rounded-full flex items-center relative
       
       /paddings/ 
-      py-[0.2vw] px-[0.25vw] 
+      py-[0.2vw] px-[0.25vw] mb-[0.2vw]
       
       /tamaños width y heigt/ 
-      w-[60vw] h-[3.1vw]"
+      w-[60vw] h-[2.5vw]"
         >
           <input
             className="barradelBuscador rounded-full bg-gradient-to-r from-white to-purple-300
           
           /tamaños de letras/ 
-          text-[1.25vw] text-purple-950
+          text-[1.1vw] text-purple-950
           font-bold
           
           /paddings y margin/ 
-          pl-[1vw]  
+          pl-[1vw] 
           
           /tamaños width y heigt/ 
           w-full h-[100%]"
@@ -118,7 +116,7 @@ export function Header() {
           />
 
           {/* icono buscador */}
-          <button className="absolute flex justify-end items-center pr-[0.3vw] bg-gradient-to-r from-[#0000] to-purple-100 right-[0.5vw] bg-opacity-70 rounded-r-full w-[5vw] h-[2.1vw]">
+          <button className="absolute right-[0.8vw] top-[0.5vw]">
             <IoSearch className=" text-purple-950 text-[1.4vw]" />
           </button>
         </div>
@@ -130,10 +128,10 @@ export function Header() {
 
         <a
           href="http://localhost:5173/carrito"
-          className=" cursor-pointer flex items-center relative justify-center w-[3.1vw] h-[3.1vw] hover:text-[#22075e] text-white rounded-full
+          className=" cursor-pointer flex items-center relative justify-center w-[2.5vw] h-[2.5vw] hover:text-[#22075e] text-white rounded-full
          hover:bg-white transition-all ease-in-out duration-500"
         >
-          <IoCart className="text-[1.8vw] mr-[0.1vw]" />
+          <IoCart className="text-[1.6vw] mr-[0.1vw]" />
         </a>
 
         <MyButton />
@@ -182,10 +180,10 @@ function BotonPerfil() {
           );
         }}
         style={estiloBoton}
-        className="flex items-center relative justify-center w-[3.1vw] h-[3.1vw] hover:text-[#22075e] text-white rounded-full
+        className="flex items-center relative justify-center w-[2.5vw] h-[2.5vw] hover:text-[#22075e] text-white rounded-full
          hover:bg-white transition-all ease-in-out duration-500"
       >
-        <FaUser className="text-[1.5vw]" />
+        <FaUser className="text-[1.3vw]" />
       </button>
 
       <div
@@ -193,11 +191,11 @@ function BotonPerfil() {
         ref={menuRef} // Referencia al menú
         className={`${
           mostrarSeccion ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-2vw]  pointer-events-none"
-        } transition-all ease-in-out duration-500 text-[1.5vw] absolute z-20 shadow-xl bg-white rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[16vw] right-[0vw]`}
+        } transition-all ease-in-out duration-500 text-[1.5vw] absolute z-50 shadow-xl bg-white rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[17vw] right-[0vw]`}
       >
         <div className="flex flex-col  gap-[1vw] items-center justify-center py-[1vw]  relative ">
-          <div className="w-[96%] rounded-tl-[0.5vw] absolute h-[60%] bg-gradient-to-b from-purple-600 to-purple-950 top-[0.3vw]  z-0"></div>
-          {/* <div className="w-full absolute h-[42%] bg-blue-300 bottom-0 z-0"></div> */}
+          <div className="w-[96%] rounded-tl-[0.5vw] absolute h-[66%] bg-gradient-to-b from-purple-500 to-purple-900 top-[0.3vw]  z-0"></div>
+          <div className="absolute w-[6.5vw] h-[10.2vw] rounded-b-full bg-gradient-to-b from-purple-500 to-purple-900  z-20 top-[0.3vw]"></div>
 
           <p className="text-center z-20 text-white">Axel Leger</p>
           <div className="w-[6vw] z-20">
@@ -205,7 +203,12 @@ function BotonPerfil() {
           </div>
         </div>
 
-        <ButonPerfil />
+        <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
+          <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/perfil">
+            <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Perfil</span>
+            <FaUserCircle className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.8vw]" />
+          </a>
+        </div>
 
         <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
           <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="#">
@@ -228,50 +231,6 @@ function BotonPerfil() {
           </a>
         </div>
       </div>
-    </div>
-  );
-}
-
-function ButonPerfil() {
-  const [isDisabled, setIsDisabled] = useState(true);
-
-  // Función para verificar si el token está presente
-  const checkToken = () => {
-    const token = localStorage.getItem("token"); // o sessionStorage.getItem('token')
-    if (token) {
-      setIsDisabled(false); // Habilita el botón si el token existe
-    } else {
-      setIsDisabled(true); // Deshabilita el botón si no hay token
-    }
-  };
-
-  // Se ejecuta al montar el componente para verificar el token
-  useEffect(() => {
-    checkToken();
-  }, []);
-
-  return (
-    <div
-      className={`transition-bg ease-in-out duration-300 rounded-tl-[0.5vw] border-b-[0.1vw] border-purple-200 ${
-        isDisabled ? "opacity-50 cursor-not-allowed" : "group"
-      }`}
-    >
-      <button
-        className={`flex items-center h-[3.8vw] w-full pr-[1vw] gap-[0.6vw] justify-end text-purple-950 ${
-          isDisabled ? "bg-slate-400" : "bg-white"
-        } transition-all duration-300`}
-        onClick={(e) => {
-          if (isDisabled) {
-            e.preventDefault(); // Evita que el evento se propague si está deshabilitado
-          } else {
-            window.location.href = "http://localhost:5173/perfil";
-          }
-        }}
-        disabled={isDisabled} // Controla el estado del botón
-      >
-        <span className={`text-[1.3vw] transition-all duration-300 ${isDisabled ? "" : "group-hover:text-[1.5vw]"}`}>Perfil</span>
-        <FaUserCircle className={`text-[1.5vw] transition-all duration-300 ${isDisabled ? "" : "group-hover:text-[1.8vw]"}`} />
-      </button>
     </div>
   );
 }

@@ -2,56 +2,90 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { useState } from "react";
+import { MdOutlineSquare } from "react-icons/md";
+import { FaUser } from "react-icons/fa6";
+
+import imgPerfiloff from "../assets/img/imgPerfil.png";
+
 // baloo
 import "@fontsource/baloo-2/700.css";
 
 export function Perfil() {
+  const token = localStorage.getItem("token");
+
   return (
     <>
       <Header />
       <Nav />
 
-      <main className=" flex justify-center bg-slate-200 p-[2vw] " style={{ fontFamily: "'Baloo 2', system-ui" }}>
-        <div className=" h-[25vw] w-[58vw] rounded-[1.5vw] grid bg-white grid-cols-[33%_68%] space-x-[2vw]">
-          {/* parte1 */}
-          <div className="rounded-l-[1.5vw] flex flex-col justify-center gap-[3vw] items-center relative">
-            {/* imagen */}
-            <div className=" absolute w-full h-full bg-gradient-to-b from-fuchsia-300 to to-purple-900 z-0 rounded-l-[1.5vw] "></div>
-            <div className="w-[15vw] h-[15vw] z-10 rounded-full border-[0.5vw] overflow-hidden">
-              <img
-                className="w-full h-full object-cover"
-                src="https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg"
-                alt=""
-              />
-            </div>
-            <button className=" z-10 w-[15vw] h-[2.5vw] rounded-[0.3vw] text-[1.3vw] font-semibold bg-white">Editar imagen</button>
-          </div>
+      <main className=" relative">
+        {token ? (
+          <div className=" flex justify-center h-[100vh] bg-slate-200 p-[2vw] " style={{ fontFamily: "'Baloo 2', system-ui" }}>
+            <div className=" h-[25vw] w-[58vw] rounded-[1.5vw] grid bg-white grid-cols-[33%_68%] space-x-[2vw]">
+              {/* parte1 */}
+              <div className="rounded-l-[1.5vw] flex flex-col justify-center gap-[3vw] items-center relative">
+                {/* imagen */}
+                <div className=" absolute w-full h-full bg-gradient-to-b from-fuchsia-300 to to-purple-900 z-0 rounded-l-[1.5vw] "></div>
+                <div className="w-[15vw] h-[15vw] z-10 rounded-full border-[0.5vw] overflow-hidden">
+                  <img
+                    className="w-full h-full object-cover"
+                    src="https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg"
+                    alt=""
+                  />
+                </div>
+                <button className=" z-10 w-[15vw] h-[2.5vw] rounded-[0.3vw] text-[1.3vw] font-semibold bg-white">Editar imagen</button>
+              </div>
 
-          {/* parte2 */}
-          <div className="py-[1vw] flex flex-col justify-between">
-            <p className="text-[2vw] font-bold ">PERFIL DE USARIO</p>
-            <div className="mr-[4vw] ml-[1vw]">
-              <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                <p className="text-[1.4vw] font-medium">Nombre de Usario: </p>
-                <span className="text-[1.3vw]">Axel Leger</span>
-              </div>
-              <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                <p className="text-[1.4vw] font-medium">Correo Electronico: </p>
-                <span className="text-[1.3vw]">axelleger2@gmail.com</span>
-              </div>
-              <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                <p className="text-[1.4vw] font-medium">Fecha de Nacimiento</p>
-                <span className="text-[1.3vw]">03-03-2005</span>
-              </div>
-              <div className=" flex gap-[0.5vw] h-[3.5vw] border-purple-200 items-center">
-                <p className="text-[1.4vw] font-medium">Contraseña: </p>
-                <span className="text-[1.3vw]">#########</span>
+              {/* parte2 */}
+              <div className="py-[1vw] flex flex-col justify-between">
+                <p className="text-[2vw] font-bold ">PERFIL DE USARIO</p>
+                <div className="mr-[4vw] ml-[1vw]">
+                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                    <p className="text-[1.4vw] font-medium">Nombre de Usario: </p>
+                    <span className="text-[1.3vw]">Axel Leger</span>
+                  </div>
+                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                    <p className="text-[1.4vw] font-medium">Correo Electronico: </p>
+                    <span className="text-[1.3vw]">axelleger2@gmail.com</span>
+                  </div>
+                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                    <p className="text-[1.4vw] font-medium">Fecha de Nacimiento</p>
+                    <span className="text-[1.3vw]">03-03-2005</span>
+                  </div>
+                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-purple-200 items-center">
+                    <p className="text-[1.4vw] font-medium">Contraseña: </p>
+                    <span className="text-[1.3vw]">#########</span>
+                  </div>
+                </div>
+
+                <Botonperfil />
               </div>
             </div>
-
-            <Botonperfil />
           </div>
-        </div>
+        ) : (
+          <>
+            <img className="absolute top-0 left-0 h-full w-full opacity-80" src={imgPerfiloff} alt="" />
+            <div className="items-center flex justify-center h-[100vh]">
+              <div
+                style={{ fontFamily: "'Baloo 2', system-ui" }}
+                className="px-[3vw] py-[4vw] relative bg-opacity-90 bg-[#F2E9E4] flex items-center w-[80vw] h-[40vw] rounded-[1vw]"
+              >
+                <FaUser className="absolute left-[9.9vw]  text-[5vw] text-[#8e808b]" />
+                <MdOutlineSquare className="absolute top-[12.6vw] left-[4.8vw] animate-spin-slow  text-[15vw] text-[#C9ADA7] mb-[0.5vw]  z-10" />
+                <MdOutlineSquare className="absolute top-[11.1vw] left-[3.4vw] animate-spin-slow2 text-[18vw] text-[#9A8C98] mb-[0.5vw] z-0" />
+                <div className="z-20 ml-[20vw]">
+                  <p className="text-[3vw] text-[#22223B]">
+                    <span className="text-[4vw]">I</span>NICIA SESION PARA PODER VER PERFIL
+                  </p>
+                  <div className="flex items-center gap-[1vw] ">
+                    <button className="px-[1vw] bg-[#5E548E] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full ">INICIAR SESION</button>
+                    <button className="px-[1vw] bg-[#9F86C0] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full  ">Registrate ahora</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </main>
 
       <Footer />

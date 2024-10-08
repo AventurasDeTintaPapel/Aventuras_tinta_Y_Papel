@@ -4,7 +4,7 @@ function LiSinDesplegable({ textoNav, id, link }) {
   return (
     <li
       id={id}
-      className="flex justify-center items-center pt-[0.5vw] pb-[1vw] px-[0.5vw]
+      className="flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw]
     hover:bg-purple-700  hover:font-bold hover:text-[1.7vw] rounded-t-[0.6vw] text-[1.5vw]"
     >
       <a href={link}>{textoNav}</a>
@@ -18,7 +18,7 @@ function AlistaNav({ textoLista, id, link }) {
     <a href={link}>
       <p
         id={id}
-        className="group-hover:font-bold group-hover:text-[1.7vw] relative flex justify-center items-center pt-[0.5vw] pb-[0.9vw] px-[0.5vw] text-[1.5vw] rounded-t-[0.5vw] group-hover:bg-purple-700"
+        className="group-hover:font-bold group-hover:text-[1.7vw] relative flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw] text-[1.5vw] rounded-t-[0.5vw] group-hover:bg-purple-700"
       >
         {textoLista}
       </p>
@@ -26,95 +26,6 @@ function AlistaNav({ textoLista, id, link }) {
   );
 }
 
-// funcion para poner estilos a la pagina principal
-function realizarAccionSegunPagina() {
-  const reintentar = (callback, intentos = 5) => {
-    // aca dice que despues de 5 intentos no pudo encontro el Id se rendira
-    if (intentos === 0) {
-      console.warn("No se pudo encontrar el elemento después de múltiples intentos.");
-      return;
-    }
-
-    // estilos
-    const estilos = "justify-center flex items-center bg-purple-100 text-purple-950 font-bold text-[1.8vw] px-[0.5vw] rounded-t-[0.5vw] h-[4vw]";
-
-    // urlActual
-    const urlActual = window.location.pathname;
-
-    // id de las secciones de NAV
-    const inicio = document.getElementById("inicioNav");
-    const contacto = document.getElementById("contactoNav");
-    const libro = document.getElementById("librosNav");
-    const mangas = document.getElementById("MangaNav");
-    const comics = document.getElementById("comicsNav");
-    const merch = document.getElementById("MerchNav");
-    const vender = document.getElementById("VenderNav");
-    const intercambio = document.getElementById("IntercamioNav");
-
-    // id de los desplegables
-
-    if (inicio && contacto && libro) {
-      // inicio
-      if (urlActual === "http://localhost:5173/inicio") {
-        inicio.classList.remove(...inicio.classList);
-        inicio.className = estilos;
-      }
-      // contacto
-      else if (urlActual === "http://localhost:5173/contactos") {
-        contacto.classList.remove(...contacto.classList);
-        contacto.className = estilos;
-      }
-      // libro
-      else if (urlActual === "#") {
-        const desplegablelibro = document.getElementById("desplegableLibro");
-        desplegablelibro.classList.remove("group-hover:block");
-        libro.classList.remove(...libro.classList);
-        libro.className = estilos;
-      }
-      // manga
-      else if (urlActual === "#") {
-        const desplegableManga = document.getElementById("desplegableManga");
-        desplegableManga.classList.remove("group-hover:block");
-        mangas.classList.remove(...mangas.classList);
-        mangas.className = estilos;
-      }
-      // comics
-      else if (urlActual === "#") {
-        const desplegableComic = document.getElementById("desplegableComic");
-        desplegableComic.classList.remove("group-hover:block");
-        comics.classList.remove(...comics.classList);
-        comics.className = estilos;
-      }
-      // merch
-      else if (urlActual === "#") {
-        const desplegableMerch = document.getElementById("desplegableMerch");
-        desplegableMerch.classList.remove("group-hover:block");
-        merch.classList.remove(...merch.classList);
-        merch.className = estilos;
-      }
-      // vender
-      else if (urlActual === "#") {
-        vender.classList.remove(...vender.classList);
-        vender.className = estilos;
-      }
-      // intercambio
-      else if (urlActual === "#") {
-        intercambio.classList.remove(...intercambio.classList);
-        intercambio.className = estilos;
-      }
-    } else {
-      setTimeout(() => reintentar(callback, intentos - 1), 100);
-    }
-  };
-
-  reintentar();
-}
-
-// esto hace que la funcion se ejecute cuando carguen todos los elementos de la pagina
-
-document.addEventListener("DOMContentLoaded", function () {
-  realizarAccionSegunPagina();
-});
 // categorias
 function HoverNav({ texto, linkHover }) {
   return (
@@ -140,14 +51,9 @@ function HoverNav({ texto, linkHover }) {
 
 // contenedor navegador
 export function Nav() {
-  const handleNavigation = (tipo) => {
-    // Cambia la URL sin recargar la página
-    window.history.pushState(null, "", `/productos/${tipo}`);
-  };
-
   return (
     <nav className="row-start-2  col-span-2" style={{ fontFamily: "'Baloo 2', system-ui" }}>
-      <ul className="flex bg-purple-900 h-[5vw] text-white justify-evenly items-end font-medium pt-[0.7vw]">
+      <ul className="flex bg-purple-900 h-[3.5vw] text-white justify-evenly items-end font-medium pt-[0.7vw] border-b-[0.2vw] border-purple-700">
         {/* Incio  */}
         <LiSinDesplegable textoNav={"Inicio"} id={"inicioNav"} link={"http://localhost:5173/inicio"} />
 
