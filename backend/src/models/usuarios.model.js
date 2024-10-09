@@ -27,6 +27,7 @@ const usuario = new Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
     contrasenia: {
       type: String,
@@ -44,4 +45,4 @@ const usuario = new Schema(
   }
 );
 
-export default model("Usuario", usuario);
+export default model("usuario", usuario);

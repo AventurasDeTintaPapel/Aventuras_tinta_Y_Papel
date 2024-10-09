@@ -40,7 +40,5 @@ app.use("/api/supplier", supRouter);
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 app.listen(port, () => {
-  console.log(
-    `El servidor está funcionando en el puerto http://localhost:${port}`
-  );
+  console.log(`El servidor está funcionando en el puerto http://localhost:${port}`);
 });

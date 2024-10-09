@@ -5,14 +5,7 @@ import { validationResult } from "express-validator";
 
 // register
 export const register = async (req, res) => {
-  const {
-    nombreUsuario,
-    apellido,
-    fechaNacimiento,
-    email,
-    ingreContra,
-    nombre,
-  } = req.body;
+  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre } = req.body;
 
   try {
     //validations
@@ -21,7 +14,7 @@ export const register = async (req, res) => {
       return res.status(400).json(errores);
     }
 
-    const contrasenia = bcrypt.hashSync(ingreContra, 10);
+    const contrasenia = bcrypt.hashSync(password, 10);
 
     const newUser = new usuario({
       nombreUsuario,
@@ -38,9 +31,10 @@ export const register = async (req, res) => {
     console.log("ah ocurrido un error ", error);
   }
 };
+
 //controlador de login
 export const login = async (req, res) => {
-  const { nameUser, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     const errores = validationResult(req);
@@ -48,30 +42,34 @@ export const login = async (req, res) => {
       return res.status(400).json(errores);
     }
 
-    if (!nameUser || !password) {
-      return res
-        .status(400)
-        .json({ msg: "Datos insuficientes para la autenticación" });
+    if (!email || !password) {
+      return res.status(400).json({ msg: "Datos insuficientes para la autenticación" });
     }
 
-    const usuarioEncontrado = await usuario.findOne({
-      nombreUSuario: nameUser,
-    });
+    const usuarioEncontrado = await usuario.findOne({ email });
+    console.log(usuarioEncontrado.nombreUsuario);
+    if (usuarioEncontrado.email === email) {
+      console.log("si");
+    }
 
     if (!usuarioEncontrado) {
       return res.status(400).json({ msg: "Usuario o contraseña incorrectos" });
     }
-
-    const validarContrasenia = bcrypt.compareSync(
-      password,
-      usuarioEncontrado.contrasenia
-    );
-
-    const token = await generarJWT({ id: usuarioEncontrado.id });
-    return res.status(200).json({ msg: "Inicio de sesión exitoso", token });
+    console.log(usuarioEncontrado.contrasenia);
+    const validarContrasenia = bcrypt.compareSync(password, usuarioEncontrado.contrasenia);
+    console.log(validarContrasenia);
+    if (!validarContrasenia) {
+      res.status(401).json({ msg: "Credenciales incorrectas" });
+    } else {
+      const token = await generarJWT({ id: usuarioEncontrado.id });
+      return res.status(200).json({
+        exitoLogin: true,
+        msg: "Inicio de sesión exitoso",
+        token,
+      });
+    }
   } catch (error) {
-    return res
-      .status(500)
-      .json({ msg: "Error del servidor, por favor intente más tarde" });
+    console.log(error);
+    return res.status(500).json({ msg: "Error del servidor, por favor intente más tarde" });
   }
 };

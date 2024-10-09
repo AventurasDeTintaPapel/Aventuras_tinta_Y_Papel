@@ -22,23 +22,18 @@ const decreme = async (event) => {
 
     productos.forEach((producto) => {
       if (producto.dataset.id === idProducto) {
-        const precio = parseFloat(
-          producto.querySelector("#precio").textContent.replace("Precio: ", "")
-        );
+        const precio = parseFloat(producto.querySelector("#precio").textContent.replace("Precio: ", ""));
         totalFinal = precio * cantidad;
         console.log(`Precio: ${precio}, Total Final: ${totalFinal}`);
       }
     });
 
     // Actualiza la cantidad y el total en la base de datos
-    const actualizarCantidad = await fetch(
-      `http://localhost:3400/carrito/${idProducto}`,
-      {
-        method: "PUT",
-        body: JSON.stringify({ cantidad, totalFinal }),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const actualizarCantidad = await fetch(`http://localhost:3400/carrito/${idProducto}`, {
+      method: "PUT",
+      body: JSON.stringify({ cantidad, totalFinal }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     if (actualizarCantidad.ok) {
       console.log("Carrito actualizado correctamente");
@@ -64,14 +59,11 @@ const agreg = async (event) => {
     const productos = document.querySelectorAll(".producto");
     let totalFinal = 0;
 
-    const actualizarCantidad = await fetch(
-      `http://localhost:3400/carrito/${idProducto}`,
-      {
-        method: "PUT",
-        body: JSON.stringify({ cantidad, totalFinal }),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const actualizarCantidad = await fetch(`http://localhost:3400/carrito/${idProducto}`, {
+      method: "PUT",
+      body: JSON.stringify({ cantidad, totalFinal }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     if (actualizarCantidad.ok) {
       console.log("Carrito actualizado correctamente");
@@ -86,9 +78,7 @@ const agreg = async (event) => {
 
 // Actualiza el elemento de cantidad en el DOM
 const actualizarCantidadElemento = (idProducto, cantidad) => {
-  const cantidadElemento = document.querySelector(
-    `.producto[data-id="${idProducto}"] #cantidad`
-  );
+  const cantidadElemento = document.querySelector(`.producto[data-id="${idProducto}"] #cantidad`);
   if (cantidadElemento) {
     cantidadElemento.textContent = `${cantidad}`;
   }
@@ -137,9 +127,7 @@ const calcularTotal = () => {
 
   productos.forEach((producto) => {
     const cantidad = parseInt(producto.querySelector("#cantidad").textContent);
-    const precio = parseFloat(
-      producto.querySelector("#precio").textContent.replace("Precio: ", "")
-    );
+    const precio = parseFloat(producto.querySelector("#precio").textContent.replace("Precio: ", ""));
     total += cantidad * precio;
   });
 
@@ -150,12 +138,9 @@ const eliminarEle = async (event) => {
   const id = event.target.dataset.id;
 
   try {
-    const response = await fetch(
-      `http://localhost:3400/carrito/elemento/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`http://localhost:3400/carrito/elemento/${id}`, {
+      method: "DELETE",
+    });
 
     if (response.ok) {
       alert("Producto eliminado correctamente");
@@ -179,9 +164,7 @@ const añadirPed = async (event) => {
   const productos = document.querySelectorAll(".producto");
   productos.forEach((producto) => {
     const cantidad = parseInt(producto.querySelector("#cantidad").textContent);
-    const precio = parseFloat(
-      producto.querySelector("#precio").textContent.replace("Precio: ", "")
-    );
+    const precio = parseFloat(producto.querySelector("#precio").textContent.replace("Precio: ", ""));
     totalFinal += cantidad * precio;
     idCarrito = producto.querySelector(".boton").dataset.id;
   });
@@ -237,16 +220,13 @@ const obtenerCarrito = async () => {
                     <h5>El carrito esta vacio</h5>
                 `;
     } else {
-      // const token = localStorage.getItem("token");
-      const peticion = await fetch(
-        "http://localhost:3400/api/pedidos/66bb6e8f1a0e088b84ae0cc0",
-        {
-          method: "GET",
-          // headers: {
-          //   token: token,
-          // },
-        }
-      );
+      const token = localStorage.getItem("token");
+      const peticion = await fetch("http://localhost:3400/api/carrito/", {
+        method: "GET",
+        headers: {
+          token: token,
+        },
+      });
 
       if (!peticion.ok) {
         console.log("Hubo un error al obtener los productos");
