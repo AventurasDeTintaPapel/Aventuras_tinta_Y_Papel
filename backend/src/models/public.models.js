@@ -18,8 +18,12 @@ const publics = new Schema(
     },
     price: {
       type: Number,
-      required: true,
       trim: true,
+    },
+    type: {
+      type: String,
+      required: true,
+      enum: ["venta", "intercambio"],
     },
     imagen: {
       type: String,
