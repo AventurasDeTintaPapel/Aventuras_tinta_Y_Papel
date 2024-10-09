@@ -9,7 +9,7 @@ export function Registro() {
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [email, setEmail] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [ingreContra, setIngreContra] = useState("");
+  const [password, setPassword] = useState("");
 
   // Funcion para registrarse
   const register = async (e) => {
@@ -25,7 +25,7 @@ export function Registro() {
         nombreUsuario,
         email,
         fechaNacimiento,
-        ingreContra,
+        password,
       }),
       headers: {
         "Content-type": "application/json",
@@ -136,8 +136,8 @@ export function Registro() {
                 className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
                 type="password"
                 id="contraseña"
-                value={ingreContra}
-                onChange={(e) => setIngreContra(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="#######"
               />
             </div>

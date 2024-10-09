@@ -15,7 +15,6 @@ export function Carrito() {
     <>
       <div className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-[65%_35%]">
         <Header />
-        <Nav />
         <main className="row-start-3 col-start-1 "></main>
         <aside className="row-start-3 col-start-2 bg-blue-400"></aside>
         <Footer />

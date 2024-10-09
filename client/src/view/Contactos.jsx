@@ -56,7 +56,6 @@ export function Contactos() {
   return (
     <>
       <Header />
-      <Nav />
       <main>
         <div className="flex justify-evenly py-[3vw]">
           <div className="bg-gradient-to-r from-purple-300 to-purple-400 w-[40vw] flex flex-col gap-[2vw] px-[2vw] py-[2vw] h-auto text-[1.3vw] justify-evenly rounded-xl shadow-lg hover:shadow-xl">

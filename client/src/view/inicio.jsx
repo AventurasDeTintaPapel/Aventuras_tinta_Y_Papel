@@ -12,7 +12,6 @@ export function Inicio() {
   return (
     <>
       <Header />
-      <Nav />
 
       <main className="">
         {/* carrusel */}

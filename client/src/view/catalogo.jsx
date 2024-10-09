@@ -156,7 +156,6 @@ export function Catalogo() {
   return (
     <>
       <Header />
-      <Nav />
       <main>
         <div>
           <p className="text-[2vw] text-purple-950 mt-[1vw] font-bold text-center">CATALOGO DE COMICS</p>
