@@ -1,7 +1,10 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { Nav } from "../components/Nav";
 import React, { useEffect, useState } from "react";
+
+import { GiRose } from "react-icons/gi";
+
+import "@fontsource/baloo-2/700.css";
 
 // Función para añadir al carrito
 const añadirCarrito = async (event) => {
@@ -83,14 +86,14 @@ function TarjetaProducto({ imagen, titulo, precio, id, onAñadirFavorito, onAña
   return (
     <>
       <div className="tarjetas bg-slate-300 flex flex-col items-center w-auto pb-[0.5vw]">
-        <div className="contentImg w-[15vw] h-[20.5vw] bg-slate-400 p-[0.5vw]">
+        <div className="contentImg w-[15vw] h-[20.5vw]">
           <img className="w-full h-full" src={imagen} alt={titulo} />
         </div>
         <div className="contenedorInfo flex flex-col my-[0.5vw] gap-[0.8vw] w-[85%]">
           <div class="w-[13vw] border border-gray-300">
-            <p class="truncate text-[1.5vw]">{titulo}</p>
+            <p class="truncate text-[1.2vw] text-center">{titulo}</p>
           </div>
-          <p className="precio text-[1.4vw]">Precio: {precio}</p>
+          <p className="precio text-[1.2vw]">Precio: {precio}</p>
         </div>
         <div className="contentBotones w-full flex justify-evenly ">
           <button
@@ -118,7 +121,7 @@ const ListarComics = ({ productos, onAñadirCarrito, onAñadirFavorito }) => {
   }
 
   return (
-    <div className="flex justify-center gap-[2vw] my-[2vw] flex-wrap">
+    <div className="flex justify-center gap-[2vw] my-[2vw] mx-[2vw] flex-wrap">
       {productos.map((producto) => (
         <TarjetaProducto
           key={producto._id}
@@ -154,40 +157,27 @@ export function Catalogo() {
   }, []);
 
   return (
-    <div className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-[65%_35%]">
+    <div className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-[84%_16%]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
       <Header />
-      <main className="row-start-3 col-start-1 h-[100vh]">
+      <main className="row-start-3 col-start-1">
         <div>
-          <p className="text-[2vw] text-purple-950 mt-[1vw] font-bold text-center">CATALOGO DE COMICS</p>
           <ListarComics productos={productos} onAñadirCarrito={añadirCarrito} onAñadirFavorito={añadirFavorito} />
         </div>
       </main>
-      <aside className="row-start-3 col-start-2" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+      <aside className="row-start-3 col-start-2">
         <div>
-          <div className="bg-[#9d4edd] ">
-            <p className="text-[3vw] ml-[2vw] text-[#f0e6ef]">FILTROS </p>
+          <div className="bg-[#9d4edd]">
+            <p className="text-[2vw] ml-[1vw] text-[#f0e6ef]">FILTROS </p>
           </div>
-          <div className="bg-[#c77dff] pl-[2vw] pt-[1vw] flex gap-[2vw]">
-            <div className="flex gap-[1vw] items-center">
-              <span className="text-[1.5vw]">Activo:</span>
-              <div className="bg-[#f0e6ef] w-[4vw] h-[1.5vw]"></div>
-            </div>
-            <div className="flex gap-[1vw] items-center">
-              <span className="text-[1.5vw]">Inactivo:</span>
-              <div className="bg-slate-300 w-[4vw] h-[1.5vw]"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 py-[2vw] bg-[#c77dff]">
-            <div className="flex flex-col items-center gap-[1.5vw]">
-              <BotonFiltro filtro={"Romance"} />
-              <BotonFiltro filtro={"Ciencia Ficcion"} />
-              <BotonFiltro filtro={"Literatura"} />
-              <BotonFiltro filtro={"Infantiles"} />
-            </div>
-            <div className="flex flex-col items-center gap-[1.5vw]">
-              <BotonFiltro filtro={"Jueveniles"} />
-              <BotonFiltro filtro={"Terror"} />
-              <BotonFiltro filtro={"Triller"} />
+          <div>
+            <div className="flex flex-col items-center gap-[0.5vw] bg-[#9d4edd] pb-[0.8vw]">
+              <BotonFiltro icono={<GiRose />} filtro={"Romance"} />
+              <BotonFiltro icono={<GiRose />} filtro={"Ciencia Ficcion"} />
+              <BotonFiltro icono={<GiRose />} filtro={"Literatura"} />
+              <BotonFiltro icono={<GiRose />} filtro={"Infantiles"} />
+              <BotonFiltro icono={<GiRose />} filtro={"Jueveniles"} />
+              <BotonFiltro icono={<GiRose />} filtro={"Terror"} />
+              <BotonFiltro icono={<GiRose />} filtro={"Triller"} />
             </div>
           </div>
         </div>
@@ -197,7 +187,7 @@ export function Catalogo() {
   );
 }
 
-function BotonFiltro({ filtro }) {
+function BotonFiltro({ filtro, icono }) {
   const [activo, setActivo] = useState(false);
 
   const botonActivo = () => {
@@ -208,9 +198,10 @@ function BotonFiltro({ filtro }) {
     <button
       onClick={botonActivo}
       className={`${
-        activo ? "bg-[#f0e6ef] text-[1.5vw] text-[#240046]" : "bg-slate-300 text-slate-600"
-      } border w-[13vw] transition-all ease-in-out duration-200 rounded-[0.3vw] h-[3vw] flex items-center justify-center text-[1.3vw]`}
+        activo ? " text-[1.4vw] pl-[1.5vw] bg-[#f0e6ef] text-[#240046]" : " text-slate-600 bg-[#d7adf7] pl-[1vw]"
+      } w-[90%] border-b-[0.1vw] border-purple-400 transition-all ease-in-out duration-200 h-[3vw] flex items-center gap-[0.4vw]  text-[1.2vw]`}
     >
+      {icono}
       {filtro}
     </button>
   );
