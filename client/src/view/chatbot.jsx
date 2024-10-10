@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 export default function SupportChat() {
   const [messages, setMessages] = useState([]);
@@ -81,8 +83,10 @@ export default function SupportChat() {
   }, [messages]);
 
   return (
+    <>
+    <Header/>
     <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      <div className="bg-blue-600 text-white p-4">
+      <div className="bg-purple-500 text-white p-4">
         <h2 className="text-2xl font-bold">Soporte al cliente</h2>
       </div>
       <div className="h-[400px] overflow-y-auto p-4 space-y-4">
@@ -134,5 +138,8 @@ export default function SupportChat() {
         </form>
       </div>
     </div>
+    <Footer/>
+    </>
+
   );
 }

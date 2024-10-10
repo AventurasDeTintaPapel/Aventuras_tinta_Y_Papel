@@ -159,7 +159,7 @@ function BotonesSessionOnn() {
       </div>
 
       <div className="transition-all ease-in-out duration-300 rounded-b-[0.5vw] border-b-[0.1vw] border-purple-200 group ">
-        <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="#">
+        <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/soporte">
           <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.4vw]">Soporte al Cliente</span>
           <FaQuestionCircle className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.7vw]" />
         </a>
