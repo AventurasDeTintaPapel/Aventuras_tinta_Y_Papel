@@ -36,7 +36,7 @@ const socketEvents = (io) => {
         socket.on('optionSelected', (selectedOption) => {
             console.log('Opción seleccionada:', selectedOption);
             let response = handleOptionSelection(selectedOption);
-            socket.emit('message', response); // Enviar respuesta de la opción seleccionada
+            socket.emit('message', response, selectedOption); // Enviar respuesta de la opción seleccionada
             sendOptions(socket); // Volver a enviar opciones después de la selección
         });
 

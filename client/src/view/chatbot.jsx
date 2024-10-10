@@ -1,42 +1,54 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
-import { io } from 'socket.io-client'
+import React, { useState, useEffect, useRef } from 'react';
+import { io } from 'socket.io-client';
 
 export default function SupportChat() {
-  const [messages, setMessages] = useState([])
-  const [inputValue, setInputValue] = useState('')
-  const [options, setOptions] = useState([])
-  const messagesEndRef = useRef(null)
-  const socketRef = useRef(null)
+  const [messages, setMessages] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [options, setOptions] = useState([]);
+  const messagesEndRef = useRef(null);
+  const socketRef = useRef(null);
 
   useEffect(() => {
-    socketRef.current = io('http://localhost:3400')
+    socketRef.current = io('http://localhost:3400');
 
-    socketRef.current.on('message', (msg) => {
-      setMessages(prev => [...prev, { user: 'SoporteBot', text: msg }])
-    })
+    // Manejar los mensajes del bot y las opciones seleccionadas
+    socketRef.current.on('message', (data) => {
+      if (typeof data === 'object') {
+        const { response, selectedOption } = data;
+
+        // Agregar la opción seleccionada al chat
+        setMessages(prev => [...prev, { user: 'Usuario', text: selectedOption }]);
+
+        // Agregar la respuesta del bot al chat
+        setMessages(prev => [...prev, { user: 'SoporteBot', text: response }]);
+      } else {
+        // Manejar los mensajes simples
+        setMessages(prev => [...prev, { user: 'SoporteBot', text: data }]);
+      }
+    });
 
     socketRef.current.on('options', (data) => {
-      setOptions(data.options)
-    })
+      setOptions(data.options);
+    });
 
     fetch('http://localhost:3400/api/soporte')
       .then(response => response.json())
       .then(data => {
-        setMessages([{ user: 'SoporteBot', text: data.message }])
+        setMessages([{ user: 'SoporteBot', text: data.message }]);
       })
       .catch(error => {
-        console.error('Error fetching initial data:', error)
-      })
+        console.error('Error fetching initial data:', error);
+      });
 
     return () => {
-      socketRef.current?.disconnect()
-    }
-  }, [])
+      socketRef.current?.disconnect();
+    };
+  }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (inputValue.trim()) {
       fetch('http://localhost:3400/api/soporte', {
         method: 'POST',
@@ -44,28 +56,29 @@ export default function SupportChat() {
         body: JSON.stringify({ message: inputValue }),
       })
         .then(response => {
-          if (!response.ok) throw new Error('Server response error')
-          return response.json()
+          if (!response.ok) throw new Error('Server response error');
+          return response.json();
         })
         .then(data => {
           setMessages(prev => [
             ...prev,
             { user: 'Usuario', text: inputValue },
             { user: 'SoporteBot', text: data.message },
-          ])
+          ]);
         })
         .catch(error => {
-          console.error('Error sending message:', error)
-        })
+          console.error('Error sending message:', error);
+        });
 
-      socketRef.current?.emit('chat message', inputValue)
-      setInputValue('')
+      socketRef.current?.emit('chat message', inputValue);
+      setInputValue('');
     }
-  }
+  };
 
+  // Desplazar el chat hacia abajo al agregar mensajes
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
@@ -91,8 +104,10 @@ export default function SupportChat() {
                 key={index}
                 className="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-200"
                 onClick={() => {
-                  socketRef.current?.emit('optionSelected', option)
-                  setOptions([])
+                  // Emitir la opción seleccionada y agregarla al chat
+                  socketRef.current?.emit('optionSelected', option);
+                  setMessages(prev => [...prev, { user: 'Usuario', text: option }]); // Mostrar la opción en el chat
+                  setOptions([]); // Limpiar las opciones después de seleccionar
                 }}
               >
                 {option}
@@ -119,5 +134,5 @@ export default function SupportChat() {
         </form>
       </div>
     </div>
-  )
+  );
 }
