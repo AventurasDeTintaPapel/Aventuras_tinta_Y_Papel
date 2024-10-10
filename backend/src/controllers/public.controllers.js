@@ -4,30 +4,41 @@ import publics from "../models/public.models.js";
 //create publics
 export const createPublic = async (req, res) => {
   try {
-    const { title, autor, description, price } = req.body;
+    const { title, description, price, type } = req.body;
     let imagen = "";
 
-    if (req.file) {
-      imagen = "/uploads/" + req.file.filename;
-    } else {
-      return res.status(400).json({ msg: "the image is required" });
+    req.file
+      ? (imagen = "/uploads/" + req.file.filename)
+      : res.status(400).json({ msg: "the image is required" });
+
+    const token = req.headers.token;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to perform this task" });
     }
 
+    const usuario = await validarJWT(token);
+
+    !usuario
+      ? res.status(401).json({ msg: "invalid token" })
+      : (idUser = usuario._id);
+    //save post
     const newPublic = new publics({
       title,
-      autor,
+      autor: idUser,
       description,
       price,
       imagen,
+      type,
     });
 
     const result = await newPublic.save();
 
-    if (!result) {
-      return res.status(400).json({ msg: "error uploading post" });
-    } else {
-      return res.status(201).json({ msg: "post uploaded" });
-    }
+    !result
+      ? res.status(400).json({ msg: "error uploading post" })
+      : res.status(201).json({ msg: "post uploaded" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Internal Server Error" });
@@ -65,7 +76,7 @@ export const editPublics = async (req, res) => {
 
     const usuario = await validarJWT(token);
     if (!usuario) {
-      return res.status(401).json({ msg: "Token inválido" });
+      return res.status(401).json({ msg: "invalid token" });
     }
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;

@@ -15,6 +15,7 @@ import { filRoutes } from "./routers/filter.routes.js";
 import { payrouter } from "./routers/payment.routes.js";
 import { comentRouter } from "./routers/coment.routes.js";
 import { supRouter } from "./routers/supplier.routes.js";
+import { userRoutes } from "./routers/user.routes.js";
 
 //inicializacion de el servidor
 const app = express();
@@ -36,9 +37,12 @@ app.use(payrouter);
 app.use("/api/coments", comentRouter);
 app.use("/api/publics", publiRouter);
 app.use("/api/supplier", supRouter);
+app.use("/api/user", userRoutes);
 
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 app.listen(port, () => {
-  console.log(`El servidor está funcionando en el puerto http://localhost:${port}`);
+  console.log(
+    `El servidor está funcionando en el puerto http://localhost:${port}`
+  );
 });

@@ -52,7 +52,7 @@ export const cargarProducto = async (req, res) => {
       return res.status(400).json({ msg: "La imagen es obligatoria" });
     }
 
-    const proveedor = provedor.findById(idProvedor);
+    const proveedor = proveedor.findById(idProvedor);
     if (!proveedor) {
       res.status(401).json({ msg: "el provedor no se encuentra registrado" });
     }
@@ -134,15 +134,5 @@ export const editarProducto = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ msg: "Error al eliminar el producto" });
-  }
-};
-export const obtCate = async (req, res) => {
-  try {
-    const { type } = req.params;
-    const resultado = await productos.find({ tipo: type });
-    res.status(200).json(resultado);
-  } catch (error) {
-    console.error("Error al obtener libros:", error);
-    res.status(500).json({ message: "Error al obtener libros" });
   }
 };
