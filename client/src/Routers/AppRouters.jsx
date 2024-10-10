@@ -7,6 +7,7 @@ import { Login } from "../view/login";
 import { Registro } from "../view/registro";
 import { Perfil } from "../view/perfil";
 import Chat from "../view/chatbot";
+import { Carrito } from "../view/carrito";
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
         <Route path="/registro" element={<Registro />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/soporte" element={<Chat/>}/>
+        <Route path="/carrito" element={<Carrito />} />
       </Routes>
     </BrowserRouter>
   );

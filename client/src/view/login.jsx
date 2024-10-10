@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import imglogin from "../assets/img/fondoLogin.png";
-import { Alert } from "antd";
+import "@fontsource/baloo-2/700.css";
 
 export function Login() {
   // Estados para los campos del formulario y el estado de éxito
   const [email, setemail] = useState("");
-  const [password, setcontrasenia] = useState("");
+  const [password, setpassword] = useState("");
 
   // Función para iniciar sesión
   const login = async (e) => {
-    // Evitamos el evento submit.
     e.preventDefault();
 
     // Realizamos la petición a nuestro servidor.
@@ -39,8 +38,7 @@ export function Login() {
 
       // Redirecciones según el rol
       if (respuesta.role === "admin") {
-        window.location.href =
-          "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
+        window.location.href = "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
       } else if (respuesta.role === "user") {
         window.location.href = "/client/html/inicio/inicio.html";
       } else {
@@ -51,17 +49,14 @@ export function Login() {
 
   return (
     <>
-      <div className="w-full h-[100vh] bg-black opacity-45 z-10 absolute"></div>
+      <div className=" w-full h-[100vh] bg-black opacity-45 z-10 absolute"></div>
 
-      <img
-        className="absolute z-0 w-[98%] h-[100vh] left-[1vw]"
-        src={imglogin}
-        alt=""
-      />
+      <img className="absolute z-0 w-[98%] h-[100vh] left-[1vw]" src={imglogin} alt="" />
 
       <div className="w-full h-[100vh] flex items-center justify-center">
         <form
           id="form"
+          style={{ fontFamily: "'Baloo 2', system-ui" }}
           className="text-emerald-900 bg-opacity-80 bg-teal-50 w-[35vw] px-[2vw] py-[1vw] rounded-[0.6vw] z-20"
           onSubmit={login}
         >
@@ -69,10 +64,7 @@ export function Login() {
 
           <div className="space-y-[1vw] pb-[2vw] ">
             <div className="">
-              <label
-                htmlFor="usuario"
-                className="text-[1.5vw] font-semibold ml-[0.2vw]"
-              >
+              <label htmlFor="usuario" className="text-[1.5vw] font-semibold ml-[0.2vw]">
                 Email:
               </label>
               <input
@@ -86,10 +78,7 @@ export function Login() {
             </div>
 
             <div className="">
-              <label
-                htmlFor="contraseña"
-                className="text-[1.5vw] font-semibold ml-[0.2vw]"
-              >
+              <label htmlFor="contraseña" className="text-[1.5vw] font-semibold ml-[0.2vw]">
                 Contraseña:
               </label>
               <input
@@ -98,7 +87,7 @@ export function Login() {
                 id="contraseña"
                 placeholder="#######"
                 value={password}
-                onChange={(e) => setcontrasenia(e.target.value)}
+                onChange={(e) => setpassword(e.target.value)}
               />
             </div>
           </div>
@@ -113,10 +102,7 @@ export function Login() {
           <div className="space-y-[0.2vw] mt-[1vw]">
             <div>
               <span className="text-[1.3vw]">¿No tienes cuenta? </span>
-              <a
-                className="text-emerald-500  text-[1.1vw]"
-                href="http://localhost:5173/registro"
-              >
+              <a className="text-emerald-500  text-[1.1vw]" href="http://localhost:5173/registro">
                 Regístrate
               </a>
             </div>

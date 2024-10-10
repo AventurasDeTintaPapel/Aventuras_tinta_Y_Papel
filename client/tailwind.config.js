@@ -3,6 +3,10 @@ export default {
   content: ["./html/**/*.html", "./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
+        "spin-slow2": "spin 4s linear infinite", // Hace que gire más lento (3s)
+      },
       spacing: {
         "72.8vw": "72.8vw",
         "4vw": "4vw",
