@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { autFilter } from "../controllers/filtros.controlers.js";
+import { autFilter } from "../controllers/filters.controlers.js";
 
 export const filRoutes = Router();
 

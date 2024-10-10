@@ -1,23 +1,24 @@
-import { cargarProducto, obtenerProducto, editarProducto, eliminarProducto, obtCate } from '../controllers/productos.controllers.js';
-import {subirImagen} from '../../middlewares/storage.js';
-import { Router } from 'express';
+import {
+  cargarProducto,
+  obtenerProducto,
+  editarProducto,
+  eliminarProducto,
+} from "../controllers/productos.controllers.js";
+import { subirImagen } from "../../middlewares/storage.js";
+import { Router } from "express";
 export const producRouter = Router();
 
 //ruta para cargar los productos
-producRouter.post('/cargar',subirImagen.single('imagen'),cargarProducto);
+producRouter.post("/cargar", subirImagen.single("imagen"), cargarProducto);
 
 //ruta para obtener los productos
-producRouter.get('/',obtenerProducto);
+producRouter.get("/", obtenerProducto);
 
 //ruta para obtener por id
-producRouter.get('/:id',obtenerProducto);
+producRouter.get("/:id", obtenerProducto);
 
 //ruta para eliminar productos
-producRouter.delete('/eliminar/:id',eliminarProducto);
+producRouter.delete("/eliminar/:id", eliminarProducto);
 
 //ruta para editar productos
-producRouter.put('/editar/:id', subirImagen.single('imagen'),editarProducto);
-
-//ruta para obtener los libros
-producRouter.get('/catalogo/:type',obtCate)
-
+producRouter.put("/editar/:id", subirImagen.single("imagen"), editarProducto);

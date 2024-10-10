@@ -16,6 +16,7 @@ import { payrouter } from "./routers/payment.routes.js";
 import { comentRouter } from "./routers/coment.routes.js";
 import { supRouter } from "./routers/supplier.routes.js";
 import { userRoutes } from "./routers/user.routes.js";
+import { emailRouter } from "./routers/email.routes.js";
 
 //inicializacion de el servidor
 const app = express();
@@ -38,6 +39,7 @@ app.use("/api/coments", comentRouter);
 app.use("/api/publics", publiRouter);
 app.use("/api/supplier", supRouter);
 app.use("/api/user", userRoutes);
+app.use("/api/email", emailRouter);
 
 //configuracion del puerto
 const port = process.env.PORT || 3400;
