@@ -90,22 +90,22 @@ export function Perfil() {
 
               {/* parte2 */}
               <div className="py-[1vw] flex flex-col justify-between">
-                <p className="text-[2vw] font-bold ">PERFIL DE USARIO</p>
+                <p className="text-[2.5vw] font-bold ">PERFIL DE USARIO</p>
                 <div className="mr-[4vw] ml-[1vw]">
-                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                    <p className="text-[1.4vw] font-medium">Nombre de Usario: </p>
+                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                    <p className="text-[1.6vw] font-medium">Nombre de Usario: </p>
                     <span className="text-[1.3vw]">Axel Leger</span>
                   </div>
-                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                    <p className="text-[1.4vw] font-medium">Correo Electronico: </p>
+                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                    <p className="text-[1.6vw] font-medium">Correo Electronico: </p>
                     <span className="text-[1.3vw]">axelleger2@gmail.com</span>
                   </div>
-                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                    <p className="text-[1.4vw] font-medium">Fecha de Nacimiento</p>
+                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                    <p className="text-[1.6vw] font-medium">Fecha de Nacimiento: </p>
                     <span className="text-[1.3vw]">03-03-2005</span>
                   </div>
-                  <div className=" flex gap-[0.5vw] h-[3.5vw] border-purple-200 items-center">
-                    <p className="text-[1.4vw] font-medium">Contraseña: </p>
+                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-purple-200 items-center">
+                    <p className="text-[1.6vw] font-medium">Contraseña: </p>
                     <span className="text-[1.3vw]">#########</span>
                   </div>
                 </div>
@@ -164,7 +164,7 @@ function Botonperfil() {
 
   return (
     <>
-      <button onClick={formularioPerfil} className="w-[92%] text-center bg-purple-900 text-white h-[3vw] text-[1.4vw] font-bold rounded-[0.5vw] ">
+      <button onClick={formularioPerfil} className="w-[95%] text-center bg-purple-900 text-white h-[3vw] text-[1.4vw] font-bold rounded-[0.5vw] ">
         Editar Informacion
       </button>
       {mostrarFormulario && (

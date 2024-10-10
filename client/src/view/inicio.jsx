@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { Nav } from "../components/Nav";
 import CarruselReact, { Carruseltarjetas } from "../components/objetosVariasdos";
 
 function Separador({ texto }) {

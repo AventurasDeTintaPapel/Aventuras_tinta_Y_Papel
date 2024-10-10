@@ -122,19 +122,28 @@ function BotonProductos() {
           mostrarMenu ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-1vw]"
         } bg-[#9D4EDD] absolute w-[13vw] top-[2.7vw] z-50 transition-all ease-in-out duration-200`}
       >
-        <a className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]">
+        <a
+          href="http://localhost:5173/catalogo"
+          className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+        >
           <FaBook className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Libros</span>
         </a>
-        <a className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]">
+        <a
+          href="http://localhost:5173/catalogo"
+          className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+        >
           <GiSpellBook className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mangas</span>
         </a>
-        <a className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]">
+        <a
+          href="http://localhost:5173/catalogo"
+          className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+        >
           <GiOpenBook className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Comics</span>
         </a>
-        <a className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw]">
+        <a href="http://localhost:5173/catalogo" className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw]">
           <GiCubes className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mercancia</span>
         </a>

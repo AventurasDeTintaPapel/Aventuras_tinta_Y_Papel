@@ -80,41 +80,41 @@ const añadirFavorito = async (event) => {
 
 // Componente de tarjeta del producto
 function TarjetaProducto({ imagen, titulo, precio, id, onAñadirFavorito, onAñadirCarrito }) {
-  const maxLength = 20; // Máxima longitud deseada para el título
-  const tituloResumido = titulo.length > maxLength ? titulo.substring(0, maxLength) + "..." : titulo;
-
   return (
-    <div className="tarjetas bg-slate-300 flex flex-col items-center w-[15vw] h-[32vw]">
-      <div className="contentImg w-[15vw] h-[20.5vw] bg-slate-400 p-[0.5vw]">
-        <img className="w-full h-full" src={imagen} alt={titulo} />
+    <>
+      <div className="tarjetas bg-slate-300 flex flex-col items-center w-auto pb-[0.5vw]">
+        <div className="contentImg w-[15vw] h-[20.5vw] bg-slate-400 p-[0.5vw]">
+          <img className="w-full h-full" src={imagen} alt={titulo} />
+        </div>
+        <div className="contenedorInfo flex flex-col my-[0.5vw] gap-[0.8vw] w-[85%]">
+          <div class="w-[13vw] border border-gray-300">
+            <p class="truncate text-[1.5vw]">{titulo}</p>
+          </div>
+          <p className="precio text-[1.4vw]">Precio: {precio}</p>
+        </div>
+        <div className="contentBotones w-full flex justify-evenly ">
+          <button
+            onClick={() => onAñadirFavorito({ target: { dataset: { id } } })}
+            className="detalles bg-violet-700 text-slate-200 text-[1.2vw] w-[45%] h-[2vw] rounded-sm"
+          >
+            Favoritos
+          </button>
+          <button
+            onClick={() => onAñadirCarrito({ target: { dataset: { id } } })}
+            className="comprar bg-violet-700 text-slate-200 text-[1.2vw] w-[45%] h-[2vw] rounded-sm"
+          >
+            Comprar
+          </button>
+        </div>
       </div>
-      <div className="contenedorInfo flex flex-col my-[0.5vw] gap-[0.8vw] w-[85%]">
-        <p className="titulo text-[1.6vw] font-medium">{tituloResumido}</p>
-        <p className="precio text-[1.4vw]">Precio: {precio}</p>
-      </div>
-      <div className="contentBotones w-full flex justify-evenly ">
-        <button
-          className="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
-          onClick={() => onAñadirFavorito({ target: { dataset: { id } } })}
-        >
-          Favorito
-        </button>
-        <button
-          className="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm"
-          onClick={() => onAñadirCarrito({ target: { dataset: { id } } })}
-        >
-          Comprar
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
 
 // Componente de lista de productos
 const ListarComics = ({ productos, onAñadirCarrito, onAñadirFavorito }) => {
-  // Verifica que productos sea un array
   if (!Array.isArray(productos) || productos.length === 0) {
-    return <p>No hay productos disponibles.</p>; // Mensaje o componente alternativo
+    return <p className="text-[2vw]">No hay productos disponibles.</p>;
   }
 
   return (
@@ -150,19 +150,68 @@ export function Catalogo() {
   };
 
   useEffect(() => {
-    obtenerProductos(); // Llama a la función para obtener productos al montar el componente
+    obtenerProductos();
   }, []);
 
   return (
-    <>
+    <div className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-[65%_35%]">
       <Header />
-      <main>
+      <main className="row-start-3 col-start-1 h-[100vh]">
         <div>
           <p className="text-[2vw] text-purple-950 mt-[1vw] font-bold text-center">CATALOGO DE COMICS</p>
           <ListarComics productos={productos} onAñadirCarrito={añadirCarrito} onAñadirFavorito={añadirFavorito} />
         </div>
       </main>
+      <aside className="row-start-3 col-start-2" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+        <div>
+          <div className="bg-[#9d4edd] ">
+            <p className="text-[3vw] ml-[2vw] text-[#f0e6ef]">FILTROS </p>
+          </div>
+          <div className="bg-[#c77dff] pl-[2vw] pt-[1vw] flex gap-[2vw]">
+            <div className="flex gap-[1vw] items-center">
+              <span className="text-[1.5vw]">Activo:</span>
+              <div className="bg-[#f0e6ef] w-[4vw] h-[1.5vw]"></div>
+            </div>
+            <div className="flex gap-[1vw] items-center">
+              <span className="text-[1.5vw]">Inactivo:</span>
+              <div className="bg-slate-300 w-[4vw] h-[1.5vw]"></div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 py-[2vw] bg-[#c77dff]">
+            <div className="flex flex-col items-center gap-[1.5vw]">
+              <BotonFiltro filtro={"Romance"} />
+              <BotonFiltro filtro={"Ciencia Ficcion"} />
+              <BotonFiltro filtro={"Literatura"} />
+              <BotonFiltro filtro={"Infantiles"} />
+            </div>
+            <div className="flex flex-col items-center gap-[1.5vw]">
+              <BotonFiltro filtro={"Jueveniles"} />
+              <BotonFiltro filtro={"Terror"} />
+              <BotonFiltro filtro={"Triller"} />
+            </div>
+          </div>
+        </div>
+      </aside>
       <Footer />
-    </>
+    </div>
+  );
+}
+
+function BotonFiltro({ filtro }) {
+  const [activo, setActivo] = useState(false);
+
+  const botonActivo = () => {
+    setActivo(!activo);
+  };
+
+  return (
+    <button
+      onClick={botonActivo}
+      className={`${
+        activo ? "bg-[#f0e6ef] text-[1.5vw] text-[#240046]" : "bg-slate-300 text-slate-600"
+      } border w-[13vw] transition-all ease-in-out duration-200 rounded-[0.3vw] h-[3vw] flex items-center justify-center text-[1.3vw]`}
+    >
+      {filtro}
+    </button>
   );
 }

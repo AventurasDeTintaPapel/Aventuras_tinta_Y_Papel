@@ -1,6 +1,7 @@
 import { Header } from "../components/Header";
-import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
+
+import "@fontsource/baloo-2/700.css";
 
 // input del formulario de contactos
 function LabelInput({ nombreCampo, relacionId, onChange }) {
@@ -56,8 +57,8 @@ export function Contactos() {
   return (
     <>
       <Header />
-      <main>
-        <div className="flex justify-evenly py-[3vw]">
+      <main className="bg-[#f9f1ed]">
+        <div className="flex justify-evenly py-[3vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
           <div className="bg-gradient-to-r from-purple-300 to-purple-400 w-[40vw] flex flex-col gap-[2vw] px-[2vw] py-[2vw] h-auto text-[1.3vw] justify-evenly rounded-xl shadow-lg hover:shadow-xl">
             {/* titulo */}
             <p className="text-[2.5vw] text-center font-bold mb-[-1vw] text-purple-900">Contáctanos</p>
@@ -100,7 +101,7 @@ export function Contactos() {
               ></textarea>
             </div>
 
-            <button type="submit" className="w-full bg-purple-800 text-fuchsia-200 text-[1.5vw] h-[4vw] rounded-md">
+            <button type="submit" className="w-full bg-purple-800 text-fuchsia-200 text-[2vw] h-[4vw] rounded-md">
               Enviar
             </button>
           </form>
