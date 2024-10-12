@@ -1,6 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 
+import { Nav } from "../components/Nav";
 import "@fontsource/baloo-2/700.css";
 
 // input del formulario de contactos
@@ -55,10 +56,11 @@ function P_infocontactos({ textSpan, textInfo }) {
 // main en general de contactos
 export function Contactos() {
   return (
-    <>
-      <Header />
-      <main className="bg-[#f9f1ed]">
-        <div className="flex justify-evenly py-[3vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+    <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
+      <Header colAndrow={"row-start-1"} />
+      <Nav colAndrow={"row-start-2"} />
+      <main className="bg-[#f9f1ed] row-start-3">
+        <div className="flex items-center justify-evenly h-full py-[4vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
           <div className="bg-gradient-to-r from-purple-300 to-purple-400 w-[40vw] flex flex-col gap-[2vw] px-[2vw] py-[2vw] h-auto text-[1.3vw] justify-evenly rounded-xl shadow-lg hover:shadow-xl">
             {/* titulo */}
             <p className="text-[2.5vw] text-center font-bold mb-[-1vw] text-purple-900">Contáctanos</p>
@@ -107,7 +109,7 @@ export function Contactos() {
           </form>
         </div>
       </main>
-      <Footer />
-    </>
+      <Footer colAndrow="row-start-4" />
+    </div>
   );
 }

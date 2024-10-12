@@ -8,6 +8,7 @@ import { Registro } from "../view/registro";
 import { Perfil } from "../view/perfil";
 import Chat from "../view/chatbot";
 import { Carrito } from "../view/carrito";
+import { DetallesProductos } from "../view/detallesProductos";
 
 const AppRouter = () => {
   return (
@@ -16,12 +17,13 @@ const AppRouter = () => {
         <Route path="/contactos" element={<Contactos />} />
 
         <Route path="/inicio" element={<Inicio />} />
-        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/catalogo/:categoria" element={<Catalogo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/perfil" element={<Perfil />} />
-        <Route path="/soporte" element={<Chat/>}/>
+        <Route path="/soporte" element={<Chat />} />
         <Route path="/carrito" element={<Carrito />} />
+        <Route path="/detalles" element={<DetallesProductos />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,10 +1,9 @@
 import "@fontsource/montserrat/700.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaBook } from "react-icons/fa";
-import { GiSpellBook } from "react-icons/gi";
-import { GiCubes } from "react-icons/gi";
-import { GiOpenBook } from "react-icons/gi";
+import { FaCommentAlt } from "react-icons/fa";
+import { IconoLibros, IconoManga, IconoMercancia } from "./icons";
+import { useNavigate } from "react-router-dom";
 
 // este es la etiqueta (a) sin despleable
 function LiSinDesplegable({ textoNav, id, link }) {
@@ -58,9 +57,9 @@ function LiSinDesplegable({ textoNav, id, link }) {
 
 // contenedor navegador
 
-export function Nav() {
+export function Nav({ colAndrow }) {
   return (
-    <nav className="row-start-2  col-span-2" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+    <nav className={colAndrow} style={{ fontFamily: "'Montserrat', sans-serif" }}>
       <ul className="flex bg-[#3C096C] h-[3.1vw] text-white justify-evenly items-end font-medium pt-[0.7vw] border-b-[0.2vw] border-[#9D4EDD]">
         {/* Incio  */}
         <LiSinDesplegable textoNav={"Inicio"} id={"inicioNav"} link={"http://localhost:5173/inicio"} />
@@ -86,6 +85,8 @@ function BotonProductos() {
   const [mostrarMenu, serMostrarMenu] = useState(false);
   const [styleBoton, setStyleBoton] = useState({});
   const [angulo, setAngulo] = useState(0);
+  const menuRef = useRef(null);
+  const botonRef = useRef(null);
 
   const rotar = () => {
     setAngulo(angulo + 180); // Cambia este valor para rotar más o menos grados
@@ -99,15 +100,33 @@ function BotonProductos() {
         ? {}
         : {
             backgroundColor: "rgba(123, 43, 191, 0.6)",
-            borderTopLeftRadius: "8px",
-            borderTopRightRadius: "8px",
           }
     );
   }
 
+  useEffect(() => {
+    function clickAfuera(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target) && !botonRef.current.contains(event.target)) {
+        serMostrarMenu(false);
+        setStyleBoton({});
+      }
+    }
+    document.addEventListener("mousedown", clickAfuera);
+    return () => {
+      document.removeEventListener("mousedown", clickAfuera);
+    };
+  }, [menuRef, botonRef]);
+
+  const navigate = useNavigate();
+
+  const handleRedirect = (categoria) => {
+    navigate(`/catalogo/${categoria}`);
+  };
+
   return (
     <div className="relative">
       <button
+        ref={botonRef}
         style={styleBoton}
         onClick={() => {
           manejarClick(), rotar();
@@ -117,37 +136,41 @@ function BotonProductos() {
         <span>Productos</span>
         <IoIosArrowDown style={{ transform: `rotate(${angulo}deg)` }} />
       </button>
-      <div
+      <ul
+        ref={menuRef}
         className={`${
           mostrarMenu ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-1vw]"
-        } bg-[#9D4EDD] absolute w-[13vw] top-[2.7vw] z-50 transition-all ease-in-out duration-200`}
+        } bg-[#9D4EDD] absolute w-[13vw] top-auto z-50 transition-all ease-in-out duration-300`}
       >
-        <a
-          href="http://localhost:5173/catalogo"
-          className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+        <li
+          onClick={() => handleRedirect("libros")}
+          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.5vw] gap-[0.5vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
         >
-          <FaBook className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
-          <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Libros</span>
-        </a>
-        <a
-          href="http://localhost:5173/catalogo"
-          className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+          <IconoLibros />
+          <span className="transition-all ease-linear duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Libros</span>
+        </li>
+        <li
+          onClick={() => handleRedirect("mangas")}
+          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.5vw] gap-[0.5vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
         >
-          <GiSpellBook className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
+          <IconoManga />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mangas</span>
-        </a>
-        <a
-          href="http://localhost:5173/catalogo"
-          className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+        </li>
+        <li
+          onClick={() => handleRedirect("comics")}
+          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.6vw] gap-[0.6vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
         >
-          <GiOpenBook className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
+          <FaCommentAlt className="transition-all ease-in-out duration-200 text-[1vw] mt-[0.1vw] group-hover:text-[1.2vw]" />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Comics</span>
-        </a>
-        <a href="http://localhost:5173/catalogo" className="hover:bg-[#b465f1] group h-[2.5vw] flex items-center pl-[0.5vw] gap-[0.8vw] text-[1.2vw]">
-          <GiCubes className="transition-all ease-in-out duration-200 text-[1.3vw] mb-[0.2vw] group-hover:text-[1.5vw]" />
+        </li>
+        <li
+          onClick={() => handleRedirect("mercancia")}
+          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.5vw] gap-[0.5vw] text-[1.2vw]"
+        >
+          <IconoMercancia />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mercancia</span>
-        </a>
-      </div>
+        </li>
+      </ul>
     </div>
   );
 }

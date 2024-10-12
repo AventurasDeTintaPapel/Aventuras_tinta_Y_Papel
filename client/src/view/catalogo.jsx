@@ -1,10 +1,14 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import React, { useEffect, useState } from "react";
-
-import { GiRose } from "react-icons/gi";
+import { FaGhost } from "react-icons/fa";
+import { RiKnifeBloodFill } from "react-icons/ri";
+import { Divider } from "antd";
 
 import "@fontsource/baloo-2/700.css";
+import { IconoCienciaFiccion, IconoInfantiles, IconoJuveniles, IconoLibro, IconoRomance } from "../components/icons";
+import { BrowserRouter as Router, Route, Routes, useParams } from "react-router-dom";
+import { Nav } from "../components/Nav";
 
 // Función para añadir al carrito
 const añadirCarrito = async (event) => {
@@ -85,12 +89,15 @@ const añadirFavorito = async (event) => {
 function TarjetaProducto({ imagen, titulo, precio, id, onAñadirFavorito, onAñadirCarrito }) {
   return (
     <>
-      <div className="tarjetas bg-slate-300 flex flex-col items-center w-auto pb-[0.5vw]">
-        <div className="contentImg w-[15vw] h-[20.5vw]">
+      <a
+        href="http://localhost:5173/detalles"
+        className="bg-[#5b85aa] h-[28.6vw] flex flex-col items-center justify-between w-auto pb-[0.5vw] group transition-all ease-in-out duration-300 hover:h-[30vw] hover:shadow-custom-shadow"
+      >
+        <div className="contentImg w-[15vw] h-[20.5vw] group-hover:w-[16vw] group-hover:h-[21.5vw] transition-all ease-in-out duration-300">
           <img className="w-full h-full" src={imagen} alt={titulo} />
         </div>
         <div className="contenedorInfo flex flex-col my-[0.5vw] gap-[0.8vw] w-[85%]">
-          <div class="w-[13vw] border border-gray-300">
+          <div class="w-[13vw]">
             <p class="truncate text-[1.2vw] text-center">{titulo}</p>
           </div>
           <p className="precio text-[1.2vw]">Precio: {precio}</p>
@@ -98,18 +105,18 @@ function TarjetaProducto({ imagen, titulo, precio, id, onAñadirFavorito, onAña
         <div className="contentBotones w-full flex justify-evenly ">
           <button
             onClick={() => onAñadirFavorito({ target: { dataset: { id } } })}
-            className="detalles bg-violet-700 text-slate-200 text-[1.2vw] w-[45%] h-[2vw] rounded-sm"
+            className="detalles bg-[#414770] text-slate-200 text-[1.2vw] w-[45%] h-[2vw] rounded-sm"
           >
             Favoritos
           </button>
           <button
             onClick={() => onAñadirCarrito({ target: { dataset: { id } } })}
-            className="comprar bg-violet-700 text-slate-200 text-[1.2vw] w-[45%] h-[2vw] rounded-sm"
+            className="comprar bg-[#414770] text-slate-200 text-[1.2vw] w-[45%] h-[2vw] rounded-sm"
           >
             Comprar
           </button>
         </div>
-      </div>
+      </a>
     </>
   );
 }
@@ -121,7 +128,7 @@ const ListarComics = ({ productos, onAñadirCarrito, onAñadirFavorito }) => {
   }
 
   return (
-    <div className="flex justify-center gap-[2vw] my-[2vw] mx-[2vw] flex-wrap">
+    <div className="flex justify-center gap-[2vw] my-[2vw] mx-[2vw] flex-wrap ">
       {productos.map((producto) => (
         <TarjetaProducto
           key={producto._id}
@@ -140,12 +147,12 @@ const ListarComics = ({ productos, onAñadirCarrito, onAñadirFavorito }) => {
 // Componente principal del catálogo
 export function Catalogo() {
   const [productos, setProductos] = useState([]);
+  const { categoria } = useParams();
 
   const obtenerProductos = async () => {
     try {
-      const response = await fetch("http://localhost:3400/api/productos/catalogo/comic");
+      const response = await fetch(`http://localhost:3400/api/productos/catalogo/${categoria}`);
       const data = await response.json();
-      console.log(data); // Verifica los productos obtenidos
       setProductos(data); // Actualiza el estado con los productos obtenidos
     } catch (error) {
       console.log("Error al obtener los productos", error);
@@ -153,36 +160,40 @@ export function Catalogo() {
   };
 
   useEffect(() => {
-    obtenerProductos();
-  }, []);
+    obtenerProductos(); // Llama a obtenerProductos cada vez que cambia la categoría
+  }, [categoria]); // La dependencia es 'categoria', se recarga cuando esta cambia
 
   return (
-    <div className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-[84%_16%]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
-      <Header />
-      <main className="row-start-3 col-start-1">
+    <div className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-[81%_19%] h-screen" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+      <Header colAndrow={"row-start-1 col-span-2"} />
+      <Nav colAndrow={"row-start-2 col-span-2"} />
+      <main className="row-start-3 col-start-1 bg-[#f4ecf3]">
+        <Divider orientation="left" style={{ borderColor: "#5a189a", fontSize: "2vw", textTransform: "uppercase", color: "#3c096c" }}>
+          {categoria}
+        </Divider>
         <div>
           <ListarComics productos={productos} onAñadirCarrito={añadirCarrito} onAñadirFavorito={añadirFavorito} />
         </div>
       </main>
-      <aside className="row-start-3 col-start-2">
+      <aside className="row-start-3 col-start-2 bg-[#dacaff]">
         <div>
           <div className="bg-[#9d4edd]">
             <p className="text-[2vw] ml-[1vw] text-[#f0e6ef]">FILTROS </p>
           </div>
           <div>
             <div className="flex flex-col items-center gap-[0.5vw] bg-[#9d4edd] pb-[0.8vw]">
-              <BotonFiltro icono={<GiRose />} filtro={"Romance"} />
-              <BotonFiltro icono={<GiRose />} filtro={"Ciencia Ficcion"} />
-              <BotonFiltro icono={<GiRose />} filtro={"Literatura"} />
-              <BotonFiltro icono={<GiRose />} filtro={"Infantiles"} />
-              <BotonFiltro icono={<GiRose />} filtro={"Jueveniles"} />
-              <BotonFiltro icono={<GiRose />} filtro={"Terror"} />
-              <BotonFiltro icono={<GiRose />} filtro={"Triller"} />
+              <BotonFiltro icono={<IconoRomance />} filtro={"Romance"} />
+              <BotonFiltro icono={<IconoCienciaFiccion />} filtro={"Ciencia Ficcion"} />
+              <BotonFiltro icono={<IconoLibro />} filtro={"Literatura"} />
+              <BotonFiltro icono={<IconoInfantiles />} filtro={"Infantiles"} />
+              <BotonFiltro icono={<IconoJuveniles />} filtro={"Juveniles"} />
+              <BotonFiltro icono={<FaGhost />} filtro={"Terror"} />
+              <BotonFiltro icono={<RiKnifeBloodFill />} filtro={"Triller"} />
             </div>
           </div>
         </div>
       </aside>
-      <Footer />
+      <Footer rowAndcol={"row-start-4  col-span-2"} />
     </div>
   );
 }
@@ -198,8 +209,8 @@ function BotonFiltro({ filtro, icono }) {
     <button
       onClick={botonActivo}
       className={`${
-        activo ? " text-[1.4vw] pl-[1.5vw] bg-[#f0e6ef] text-[#240046]" : " text-slate-600 bg-[#d7adf7] pl-[1vw]"
-      } w-[90%] border-b-[0.1vw] border-purple-400 transition-all ease-in-out duration-200 h-[3vw] flex items-center gap-[0.4vw]  text-[1.2vw]`}
+        activo ? " text-[1.4vw] bg-[#f0e6ef] justify-center text-[#240046]" : " text-slate-600 bg-slate-300 pl-[1vw]"
+      } w-[90%] border-b-[0.1vw] border-purple-400 transition-all ease-in-out duration-200 h-[3vw] flex items-center gap-[0.4vw]  text-[1.4vw]`}
     >
       {icono}
       {filtro}

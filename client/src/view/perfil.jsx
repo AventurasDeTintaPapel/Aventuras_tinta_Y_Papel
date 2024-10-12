@@ -69,17 +69,19 @@ export default CargarImagenConBoton;
 
 // baloo
 import "@fontsource/baloo-2/700.css";
+import { Nav } from "../components/Nav";
 
 export function Perfil() {
   const token = localStorage.getItem("token");
 
   return (
-    <>
-      <Header />
+    <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
+      <Header colAndrow={"row-start-1"} />
+      <Nav colAndrow={"row-start-2"} />
 
-      <main className=" relative">
+      <main className="row-start-3 relative">
         {token ? (
-          <div className=" flex justify-center items-center h-[100vh] bg-slate-200 p-[2vw] " style={{ fontFamily: "'Baloo 2', system-ui" }}>
+          <div className="flex justify-center items-center py-[4vw] bg-slate-200  h-full " style={{ fontFamily: "'Baloo 2', system-ui" }}>
             <div className=" h-[30vw] w-[70vw] rounded-[1.5vw] grid bg-white grid-cols-[33%_68%] space-x-[2vw]">
               {/* parte1 */}
               <div className="rounded-l-[1.5vw] flex flex-col justify-center gap-[6vw] items-center relative">
@@ -150,8 +152,8 @@ export function Perfil() {
         )}
       </main>
 
-      <Footer />
-    </>
+      <Footer colAndrow={"row-start-4"} />
+    </div>
   );
 }
 

@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FaHeart, FaQuestionCircle, FaUser, FaUserCircle } from "react-icons/fa";
-import { PiHandbagSimpleFill } from "react-icons/pi";
+import { FaUser } from "react-icons/fa";
 import { IoCart } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-import { MdCancel } from "react-icons/md";
 import "@fontsource/montserrat/700.css";
-import { Nav } from "./Nav";
+import { IconoCerrarSesion, IconoFvoritos, IconoMisCompras, IconoPerfil, IconoSoporteAlCliente } from "./icons";
 
 // boton iniciar sesion
 function iniciarSeccion() {
@@ -107,18 +105,16 @@ function BotonPerfil() {
 
 // boton cerrar sesion
 function CerrarSesion() {
-  const token = localStorage.getItem("token");
-
   const handleCerrarSesion = (e) => {
     e.preventDefault();
-    localStorage.removeItem("token");
+    localStorage.clear();
     window.location.reload();
   };
 
   return (
     <button onClick={handleCerrarSesion} className="group flex items-center gap-[0.6vw] text-red-600 h-[3.8vw] w-full justify-end pr-[1vw]">
       <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">Cerrar Secion</span>
-      <MdCancel className="transition-all duration-300 ease-in-out text-[1.7vw] group-hover:text-[1.8vw]" />
+      <IconoCerrarSesion />
     </button>
   );
 }
@@ -140,28 +136,28 @@ function BotonesSessionOnn() {
       <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
         <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/perfil">
           <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Perfil</span>
-          <FaUserCircle className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.8vw]" />
+          <IconoPerfil />
         </a>
       </div>
 
       <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
         <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="#">
           <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Favoritos</span>
-          <FaHeart className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.8vw]" />
+          <IconoFvoritos />
         </a>
       </div>
 
       <div className="transition-all ease-in-out duration-300 group border-b-[0.1vw] border-purple-200">
         <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="#">
           <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Mis compras</span>
-          <PiHandbagSimpleFill className="text-[1.5vw] justify-center transition-all duration-300 ease-in-out group-hover:text-[1.8vw]" />
+          <IconoMisCompras />
         </a>
       </div>
 
       <div className="transition-all ease-in-out duration-300 rounded-b-[0.5vw] border-b-[0.1vw] border-purple-200 group ">
-        <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/soporte">
+        <a className="flex items-center h-[3.8vw] gap-[0.8vw] pr-[1vw] justify-end text-purple-950" href="http://localhost:5173/soporte">
           <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.4vw]">Soporte al Cliente</span>
-          <FaQuestionCircle className="text-[1.5vw] transition-all duration-300 ease-in-out group-hover:text-[1.7vw]" />
+          <IconoSoporteAlCliente />
         </a>
       </div>
     </>
@@ -215,9 +211,9 @@ function BotonBuscador() {
 }
 
 // contenedor header
-export function Header() {
+export function Header({ colAndrow }) {
   return (
-    <>
+    <header className={colAndrow}>
       <div
         style={{ fontFamily: "'Montserrat', sans-serif" }}
         className="row-start-1 col-span-2 flex justify-between items-center bg-gradient-to-r from-[#5A189A] via-[#7B2CBF] to-[#5A189A] px-[1.5vw]"
@@ -241,7 +237,6 @@ export function Header() {
           <MyButton />
         </div>
       </div>
-      <Nav />
-    </>
+    </header>
   );
 }

@@ -1,24 +1,5 @@
 import { useRef, React } from "react";
 import { Carousel } from "antd";
-import { FaEyeSlash } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
-import { Input } from "antd";
-
-// input pregunta con ojito
-export function InputContraseña({ estilos, id, valor, evento }) {
-  return (
-    <Input.Password
-      required
-      id={id}
-      value={valor}
-      type="password"
-      onChange={evento}
-      className={estilos}
-      placeholder="input password"
-      iconRender={(visible) => (visible ? <IoEyeSharp /> : <FaEyeSlash />)}
-    />
-  );
-}
 
 // carrusel inicio tarjetas
 function Tarjeta({ imagen, titulo, precio }) {
@@ -34,8 +15,8 @@ function Tarjeta({ imagen, titulo, precio }) {
         <p className="precio text-[1.4vw]">Precio: $6000</p>
       </div>
       <div className="contentBotones w-full flex justify-evenly ">
-        <button className="detalles bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Detalles</button>
-        <button className="comprar bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Comprar</button>
+        <button className="bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Favorito</button>
+        <button className=" bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Comprar</button>
       </div>
     </div>
   );
