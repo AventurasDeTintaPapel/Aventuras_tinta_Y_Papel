@@ -1,6 +1,8 @@
 //dependencias
 import express from "express";
 import cors from "cors";
+import session from "express-session";
+import path from "path";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import mongoose from "./database/db.js";
@@ -18,23 +20,43 @@ import { supRouter } from "./routers/supplier.routes.js";
 import { userRoutes } from "./routers/user.routes.js";
 import { emailRouter } from "./routers/email.routes.js";
 
+const __dirname = path.resolve();
 //inicializacion de el servidor
 const app = express();
 
 //aplicacion de los middlewares
+app.use(
+  cors({
+    // Permitir solicitudes desde el front-end
+    origin: ["http://localhost:5500", "http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // Habilitar envío de cookies
+  })
+);
 app.use(express.static("./public"));
-app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 dotenv.config();
-
+app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  session({
+    secret: "mi_secreto",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      sameSite: "lax",
+    },
+  })
+);
 //rutas
 app.use("/api/auth", authRouter);
 app.use("/api/pedidos", pedido);
 app.use("/api/productos", producRouter);
 app.use("/api/favoritos", favoritos);
 app.use("/api/filters", filRoutes);
-app.use(payrouter);
+app.use("/api/", payrouter);
 app.use("/api/coments", comentRouter);
 app.use("/api/publics", publiRouter);
 app.use("/api/supplier", supRouter);

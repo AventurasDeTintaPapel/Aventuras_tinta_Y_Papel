@@ -37,7 +37,7 @@ export const register = async (req, res) => {
   }
 };
 
-//controlador de login
+//login with JWT
 export const login = async (req, res) => {
   const { email, password } = req.body;
 

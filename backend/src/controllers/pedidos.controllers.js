@@ -4,26 +4,28 @@ import usuario from "../models/usuarios.model.js";
 import producto from "../models/productos.model.js";
 import { validarJWT } from "../helpers/validadJWT.js";
 
-// Agregar al pedido
-export const agrePedido = async (req, res) => {
+// add item of the cart
+export const addCart = async (req, res) => {
   try {
     const { totalFinal, productos } = req.body;
     const token = req.headers.token;
 
     if (!token) {
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
     const usuario = await validarJWT(token);
     if (!usuario) {
-      return res.status(401).json({ msg: "Token inválido" });
+      return res.status(401).json({ msg: "Invalid Token" });
     }
 
     const idUsuario = usuario._id;
     const ObjectId = new mongoose.Types.ObjectId();
 
     if (!idUsuario || !totalFinal || !productos || productos.length === 0) {
-      return res.status(400).json({ msg: "Datos incompletos" });
+      return res.status(400).json({ msg: "incomplete data" });
     }
 
     // Extraer el primer producto del array
@@ -31,7 +33,7 @@ export const agrePedido = async (req, res) => {
 
     const obtProducto = await producto.findById(idProducto);
     if (!obtProducto) {
-      return res.status(404).json({ msg: "Producto no encontrado" });
+      return res.status(404).json({ msg: "product not find" });
     }
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
@@ -53,7 +55,9 @@ export const agrePedido = async (req, res) => {
       await newPedido.save();
       return res.json(newPedido);
     } else {
-      const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === idProducto);
+      const prodFind = cardFind.productos.find(
+        (p) => p.producto && p.producto.toString() === idProducto
+      );
 
       if (prodFind) {
         prodFind.cantidad += cantidad;
@@ -69,12 +73,12 @@ export const agrePedido = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Error en el servidor" });
+    return res.status(500).json({ msg: "Internal server error" });
   }
 };
 
-// Editar el producto del pedido
-export const ediPedido = async (req, res) => {
+//update orders
+export const uptdaOrder = async (req, res) => {
   try {
     const { id, state } = req.body;
     const estado = state;
@@ -86,97 +90,120 @@ export const ediPedido = async (req, res) => {
       }
     );
     if (!resultado) {
-      return res.status(404).json({ msg: "pedido no encontrado" });
+      return res.status(404).json({ msg: "order not find" });
     } else {
-      return res.status(200).json({ msg: "pedido actualizado correctamente", resultado });
+      return res.status(200).json({ msg: "updated order", resultado });
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Error en el servidor" });
+    return res.status(500).json({ msg: "internal server error " });
   }
 };
 
-// Eliminar un producto del array de productos
-export const elimElem = async (req, res) => {
+//delete items of the cart
+export const deletItem = async (req, res) => {
   try {
     const { idProducto } = req.params;
     const token = req.headers.token;
 
     if (!token) {
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
     const usuario = await validarJWT(token);
     if (!usuario) {
-      return res.status(401).json({ msg: "Token inválido" });
+      return res.status(401).json({ msg: "Invalid token" });
     }
 
     const idUsuario = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
 
-    const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: new ObjectId(idProducto) } } });
+    const result = await pedidos.updateOne(
+      { usuario: idUsuario },
+      { $pull: { productos: { producto: new ObjectId(idProducto) } } }
+    );
 
     if (!result.modifiedCount) {
-      return res.status(404).json({ msg: "Producto no encontrado" });
+      return res.status(404).json({ msg: "Product not find" });
     }
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
 
     if (cardFind.productos.length === 0) {
       await pedidos.findOneAndDelete({ usuario: idUsuario });
-      return res.status(200).json({ msg: "El pedido fue eliminado de la base de datos" });
+      return res.status(200).json({ msg: "Delete order" });
     }
 
-    return res.status(200).json({ msg: "El producto fue eliminado correctamente" });
+    return res.status(200).json({ msg: "the product was eliminated " });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Error en el servidor" });
+    return res.status(500).json({ msg: "Interval server error" });
   }
 };
 
-// Eliminar el pedido completo
-export const elimPedido = async (req, res) => {
+// delete order
+export const deletOrder = async (req, res) => {
   try {
     const token = req.headers.token;
 
     if (!token) {
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
     const usuario = await validarJWT(token);
     if (!usuario) {
-      return res.status(401).json({ msg: "Token inválido" });
+      return res.status(401).json({ msg: "invalid Token " });
     }
 
     const idUsuario = usuario._id;
     const result = await pedidos.findOneAndDelete({ usuario: idUsuario });
 
     if (!result) {
-      return res.status(404).json({ msg: "Pedido no encontrado" });
+      return res.status(404).json({ msg: "order not find" });
     }
 
-    return res.status(200).json({ msg: "El pedido fue eliminado correctamente" });
+    return res.status(200).json({ msg: "Delete order" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Error en el servidor" });
+    return res.status(500).json({ msg: "Interval server error" });
   }
 };
 
-// Obtener el pedido
-export const obtPedido = async (req, res) => {
+// get order for user id
+export const getOrder = async (req, res) => {
   try {
     const { idUsuario } = req.params;
 
     // Buscar el pedido y poblar los productos
-    const result = await pedidos.findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) }).populate("productos.producto");
+    const result = await pedidos
+      .findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) })
+      .populate("productos.producto");
 
     if (!result) {
-      return res.status(404).json({ msg: "No se encontró el pedido" });
+      return res.status(404).json({ msg: "order not find" });
     }
 
     return res.json(result);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Error en el servidor" });
+    return res.status(500).json({ msg: "Interval error sever" });
+  }
+};
+
+//get all oders
+export const getAllOrders = async (req, res) => {
+  try {
+    const result = await pedidos.find();
+
+    if (result.length === 0) {
+      res.status(204).json({ msg: "There are no orders" });
+    }
+  } catch (error) {
+    console.log("server error", error);
+    return res.status(500).json({ msg: "interval error server" });
   }
 };

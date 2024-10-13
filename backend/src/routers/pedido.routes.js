@@ -1,21 +1,25 @@
 import { Router } from "express";
 import {
-  agrePedido,
-  ediPedido,
-  elimElem,
-  elimPedido,
-  obtPedido,
+  addCart,
+  uptdaOrder,
+  deletItem,
+  deletOrder,
+  getOrder,
+  getAllOrders,
 } from "../controllers/pedidos.controllers.js";
+import { sessionVerified, rolAdmVerified } from "../../middlewares/session.js";
 
-export const pedido = Router();
+export const order = Router();
 
-//rutas para los carritos
-pedido.post("/", agrePedido);
-//ruta para editar el carrito
-pedido.put("/", ediPedido);
-//ruta para eliminar todos los productos del carrito
-pedido.delete("/", elimPedido);
-//ruta para eliminar un producto del carrito
-pedido.delete("elemento/:id", elimElem);
-//ruta para obtener el carrito por id de usuario
-pedido.get("/:idUsuario", obtPedido);
+//add product to cart
+order.post("/", sessionVerified, addCart);
+//update order
+order.put("/", sessionVerified, uptdaOrder);
+//delete order
+order.delete("/", sessionVerified, deletOrder);
+//delete item of the order
+order.delete("elemento/:id", sessionVerified, deletItem);
+//get order for id user
+order.get("/", sessionVerified, getOrder);
+//get all orders
+order.get("/oders", rolAdmVerified, getAllOrders);
