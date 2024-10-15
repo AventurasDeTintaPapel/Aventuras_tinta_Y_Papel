@@ -1,12 +1,10 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import React, { useEffect, useState } from "react";
-import { FaGhost } from "react-icons/fa";
-import { RiKnifeBloodFill } from "react-icons/ri";
 import { Divider } from "antd";
+import { createRoot } from "react-dom/client";
 
 import "@fontsource/baloo-2/700.css";
-import { IconoCienciaFiccion, IconoInfantiles, IconoJuveniles, IconoLibro, IconoRomance } from "../components/icons";
 import { BrowserRouter as Router, Route, Routes, useParams } from "react-router-dom";
 import { Nav } from "../components/Nav";
 
@@ -153,7 +151,7 @@ export function Catalogo() {
     try {
       const response = await fetch(`http://localhost:3400/api/productos/catalogo/${categoria}`);
       const data = await response.json();
-      setProductos(data); // Actualiza el estado con los productos obtenidos
+      setProductos(data);
     } catch (error) {
       console.log("Error al obtener los productos", error);
     }
@@ -168,7 +166,10 @@ export function Catalogo() {
       <Header colAndrow={"row-start-1 col-span-2"} />
       <Nav colAndrow={"row-start-2 col-span-2"} />
       <main className="row-start-3 col-start-1 bg-[#f4ecf3]">
-        <Divider orientation="left" style={{ borderColor: "#5a189a", fontSize: "2vw", textTransform: "uppercase", color: "#3c096c" }}>
+        <Divider
+          orientation="left"
+          style={{ borderColor: "#5a189a", fontSize: "2.5vw", textTransform: "uppercase", color: "#3c096c", fontFamily: "'Baloo 2', system-ui" }}
+        >
           {categoria}
         </Divider>
         <div>
@@ -180,17 +181,7 @@ export function Catalogo() {
           <div className="bg-[#9d4edd]">
             <p className="text-[2vw] ml-[1vw] text-[#f0e6ef]">FILTROS </p>
           </div>
-          <div>
-            <div className="flex flex-col items-center gap-[0.5vw] bg-[#9d4edd] pb-[0.8vw]">
-              <BotonFiltro icono={<IconoRomance />} filtro={"Romance"} />
-              <BotonFiltro icono={<IconoCienciaFiccion />} filtro={"Ciencia Ficcion"} />
-              <BotonFiltro icono={<IconoLibro />} filtro={"Literatura"} />
-              <BotonFiltro icono={<IconoInfantiles />} filtro={"Infantiles"} />
-              <BotonFiltro icono={<IconoJuveniles />} filtro={"Juveniles"} />
-              <BotonFiltro icono={<FaGhost />} filtro={"Terror"} />
-              <BotonFiltro icono={<RiKnifeBloodFill />} filtro={"Triller"} />
-            </div>
-          </div>
+          <div id="contenedorFiltros"></div>
         </div>
       </aside>
       <Footer rowAndcol={"row-start-4  col-span-2"} />
@@ -215,5 +206,89 @@ function BotonFiltro({ filtro, icono }) {
       {icono}
       {filtro}
     </button>
+  );
+}
+
+// funcion para cambiar el aside
+function onLoad() {
+  const paginaAside = document.getElementById("contenedorFiltros");
+
+  // Verifica si el elemento existe
+  if (paginaAside) {
+    const URLactual = window.location.pathname;
+
+    if (URLactual === "/catalogo/libros") {
+      const root = createRoot(paginaAside);
+      root.render(<AsideLibros />);
+    } else if (URLactual === "/catalogo/mangas") {
+      const root = createRoot(paginaAside);
+      root.render(<AsideMangas />);
+    } else if (URLactual === "/catalogo/comics") {
+      const root = createRoot(paginaAside);
+      root.render(<AsideComics />);
+    } else if (URLactual === "/catalogo/mercancia") {
+      const root = createRoot(paginaAside);
+      root.render(<AsideMercancia />);
+    }
+  }
+}
+
+window.addEventListener("load", onLoad);
+
+// Aside de libros
+function AsideLibros() {
+  return (
+    <div className="flex flex-col items-center gap-[0.5vw] bg-[#9d4edd] pb-[0.8vw]">
+      <BotonFiltro filtro={"Romance"} />
+      <BotonFiltro filtro={"Ciencia Ficcion"} />
+      <BotonFiltro filtro={"Literatura"} />
+      <BotonFiltro filtro={"Infantiles"} />
+      <BotonFiltro filtro={"Juveniles"} />
+      <BotonFiltro filtro={"Terror"} />
+      <BotonFiltro filtro={"Triller"} />
+    </div>
+  );
+}
+
+// Aside mangas
+function AsideMangas() {
+  return (
+    <div className="flex flex-col items-center gap-[0.5vw] bg-[#9d4edd] pb-[0.8vw]">
+      <BotonFiltro filtro={"Shonen"} />
+      <BotonFiltro filtro={"Seinen"} />
+      <BotonFiltro filtro={"Yuri"} />
+      <BotonFiltro filtro={"Josei"} />
+      <BotonFiltro filtro={"Shojo"} />
+      <BotonFiltro filtro={"Boyslove"} />
+    </div>
+  );
+}
+
+// Aside comics
+function AsideComics() {
+  return (
+    <div className="flex flex-col items-center gap-[0.5vw] bg-[#9d4edd] pb-[0.8vw]">
+      <BotonFiltro filtro={"Superhéroes"} />
+      <BotonFiltro filtro={"Ciencia Ficción"} />
+      <BotonFiltro filtro={"Fantasía"} />
+      <BotonFiltro filtro={"Terror"} />
+      <BotonFiltro filtro={"Romance"} />
+      <BotonFiltro filtro={"Comedia"} />
+      <BotonFiltro filtro={"Slice of Life"} />
+      <BotonFiltro filtro={"Histórico"} />
+    </div>
+  );
+}
+
+// Aside mercancia
+function AsideMercancia() {
+  return (
+    <div className="flex flex-col items-center gap-[0.5vw] bg-[#9d4edd] pb-[0.8vw]">
+      <BotonFiltro filtro={"Remeras"} />
+      <BotonFiltro filtro={"Posters"} />
+      <BotonFiltro filtro={"Llaveros"} />
+      <BotonFiltro filtro={"Pines"} />
+      <BotonFiltro filtro={"Tazas"} />
+    </div>
   );
 }

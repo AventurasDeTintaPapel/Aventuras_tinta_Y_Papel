@@ -2,70 +2,11 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { MdOutlineSquare } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
+import React, { useState } from "react";
+import { BsEyeSlashFill } from "react-icons/bs";
+import { IoEyeSharp } from "react-icons/io5";
 
 import imgPerfilonn from "../assets/img/imgPerfil.png";
-
-import { useState, useRef, useEffect } from "react";
-
-function CargarImagenConBoton() {
-  const [imagenPrevia, setImagenPrevia] = useState(null);
-  const inputFileRef = useRef(null); // Referencia al input oculto
-
-  // Verifica si hay un token de sesión
-  const tieneToken = () => {
-    return localStorage.getItem("token") !== null;
-  };
-
-  const manejarCambioImagen = (event) => {
-    const archivo = event.target.files[0];
-
-    if (archivo) {
-      const lector = new FileReader();
-
-      lector.onload = (e) => {
-        setImagenPrevia(e.target.result); // Almacenar la URL en el estado
-      };
-
-      lector.readAsDataURL(archivo); // Leer el archivo como una URL
-    }
-  };
-
-  const manejarClickBoton = () => {
-    inputFileRef.current.click(); // Disparar el click en el input file oculto
-  };
-
-  useEffect(() => {
-    // Cargar la imagen guardada al iniciar
-    const imagenGuardada = localStorage.getItem("imagen");
-    if (imagenGuardada) {
-      setImagenPrevia(imagenGuardada);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Almacenar la imagen en localStorage solo si hay un token
-    if (imagenPrevia && tieneToken()) {
-      localStorage.setItem("imagen", imagenPrevia);
-    }
-  }, [imagenPrevia]);
-
-  return (
-    <div className="z-20 flex justify-around items-center flex-col w-full h-full">
-      <input type="file" accept="image/*" ref={inputFileRef} style={{ display: "none" }} onChange={manejarCambioImagen} />
-
-      <div className="h-[18vw] w-[18vw]">
-        {imagenPrevia && (
-          <img className="w-full border-[0.7vw] border-[#240046] h-full object-cover rounded-full" src={imagenPrevia} alt="Imagen Previa" />
-        )}
-      </div>
-      <button onClick={manejarClickBoton} className="bg-[#f0e6ef] text-[1.8vw] px-[1vw] py-[0.3vw] rounded-[0.5vw]">
-        Seleccionar Imagen
-      </button>
-    </div>
-  );
-}
-
-export default CargarImagenConBoton;
 
 // baloo
 import "@fontsource/baloo-2/700.css";
@@ -81,39 +22,30 @@ export function Perfil() {
 
       <main className="row-start-3 relative">
         {token ? (
-          <div className="flex justify-center items-center py-[4vw] bg-slate-200  h-full " style={{ fontFamily: "'Baloo 2', system-ui" }}>
-            <div className=" h-[30vw] w-[70vw] rounded-[1.5vw] grid bg-white grid-cols-[33%_68%] space-x-[2vw]">
-              {/* parte1 */}
-              <div className="rounded-l-[1.5vw] flex flex-col justify-center gap-[6vw] items-center relative">
-                {/* imagen */}
-                <div className=" absolute w-full h-full bg-gradient-to-b from-fuchsia-300 to to-purple-900 z-0 rounded-l-[1.5vw] "></div>
-                <CargarImagenConBoton />
-              </div>
-
-              {/* parte2 */}
-              <div className="py-[1vw] flex flex-col justify-between">
-                <p className="text-[2.5vw] font-bold ">PERFIL DE USARIO</p>
-                <div className="mr-[4vw] ml-[1vw]">
-                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                    <p className="text-[1.6vw] font-medium">Nombre de Usario: </p>
-                    <span className="text-[1.3vw]">Axel Leger</span>
-                  </div>
-                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                    <p className="text-[1.6vw] font-medium">Correo Electronico: </p>
-                    <span className="text-[1.3vw]">axelleger2@gmail.com</span>
-                  </div>
-                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                    <p className="text-[1.6vw] font-medium">Fecha de Nacimiento: </p>
-                    <span className="text-[1.3vw]">03-03-2005</span>
-                  </div>
-                  <div className=" flex gap-[0.5vw] h-[4.5vw] border-purple-200 items-center">
-                    <p className="text-[1.6vw] font-medium">Contraseña: </p>
-                    <span className="text-[1.3vw]">#########</span>
-                  </div>
+          <div
+            className="flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0]  h-full "
+            style={{ fontFamily: "'Baloo 2', system-ui" }}
+          >
+            <div className=" h-[30vw] shadow-xl shadow-purple-300 w-[60vw] rounded-[1vw] bg-gradient-to-r from-purple-200 to-[#cfa8ea] flex flex-col py-[1.2vw] justify-between px-[2vw]">
+              <p className="text-[2.5vw] font-bold ">PERFIL DE USARIO</p>
+              <div className="ml-[1vw]">
+                <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                  <p className="text-[1.4vw] font-medium">Nombre de Usario: </p>
+                  <span className="text-[1.4vw] text-[#5A189A]">Axel Leger</span>
+                </div>
+                <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                  <p className="text-[1.4vw] font-medium">Correo Electronico: </p>
+                  <span className="text-[1.4vw] text-[#5A189A]">axelleger2@gmail.com</span>
+                </div>
+                <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+                  <p className="text-[1.4vw] font-medium">Fecha de Nacimiento: </p>
+                  <span className="text-[1.4vw] text-[#5A189A]">03-03-2005</span>
                 </div>
 
-                <Botonperfil />
+                <TextModifier />
               </div>
+
+              <Botonperfil />
             </div>
           </div>
         ) : (
@@ -158,96 +90,107 @@ export function Perfil() {
 }
 
 function Botonperfil() {
-  const [mostrarFormulario, setmostrarFormulario] = useState(false);
+  const [mostrarMenu, setMostrarMenu] = useState(false);
 
-  const formularioPerfil = () => {
-    setmostrarFormulario(true);
+  const manejarClick = () => {
+    setMostrarMenu(true);
+  };
+
+  const cerrarForm = (e) => {
+    setMostrarMenu(false);
   };
 
   return (
     <>
-      <button onClick={formularioPerfil} className="w-[95%] text-center bg-purple-900 text-white h-[3vw] text-[1.4vw] font-bold rounded-[0.5vw] ">
-        Editar Informacion
+      <button
+        onClick={manejarClick}
+        className="bg-[#53187e] text-white rounded-[0.7vw] hover:text-[1.7vw] transition-all ease-in-out duration-200 py-[0.5vw] text-[1.5vw]"
+      >
+        EDITAR INFORMACION
       </button>
-      {mostrarFormulario && (
-        <div>
-          <div className="w-full h-full bg-black absolute opacity-50 top-0 left-0 z-20"></div>
-          <div className="flex justify-center absolute left-[0vw] top-[5vw] items-center h-[100vh] w-full z-30">
-            <form className="bg-orange-50 px-[2vw] py-[1vw] w-[45vw] flex flex-col gap-[1.5vw] rounded-[0.4vw]">
-              {/* titulo */}
-              <p className="text-[2.5vw] font-bold text-center">REGISTRATE</p>
 
-              <div>
-                <label htmlFor="email" className=" text-[1.3vw] ml-[0.4vw] font-semiboldl">
-                  Nombre de Usario:
-                </label>
-                <input
-                  className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
-                  required
-                  type="text"
-                  id="usario"
-                  placeholder=" axel leger"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className=" text-[1.3vw] ml-[0.4vw] font-semiboldl">
-                  Email
-                </label>
-                <input
-                  className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
-                  required
-                  type="email"
-                  id="email"
-                  placeholder="nombre@gmail.com"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="fecha-nacimiento" className="text-[1.3vw] ml-[0.4vw] font-semiboldl">
-                  Fecha de Nacimiento
-                </label>
-                <input className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full" required type="date" id="fecha-nacimiento" />
-              </div>
-
-              <div>
-                <label htmlFor="usuario" className="text-[1.3vw] ml-[0.4vw] font-semibold">
-                  Nombre de usuario
-                </label>
-                <input className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full" required id="usuario" placeholder="Roberto_E" />
-              </div>
-
-              <div>
-                <label htmlFor="contraseña" className="text-[1.3vw] ml-[0.4vw] font-semibold">
-                  Contraseña
-                </label>
-                <input
-                  required
-                  className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
-                  type="password"
-                  id="contraseña"
-                  placeholder="#######"
-                />
-              </div>
-
-              <div className="flex justify-center gap-[1vw]">
-                <button
-                  className="bg-red-900 h-[3.5vw] text-white font-bold text-[1.6vw] rounded-[0.3vw] w-[50%] hover:bg-red-800 hover:text-[1.8vw] transition-all ease-linear duration-150 "
-                  type="button"
-                >
-                  Resetear
-                </button>
-                <button
-                  className="bg-red-900 h-[3.5vw] text-white font-bold text-[1.6vw] rounded-[0.3vw] w-[50%] hover:bg-red-800 hover:text-[1.8vw] transition-all ease-linear duration-150 "
-                  type="submit"
-                >
-                  Enviar
-                </button>
-              </div>
-            </form>
+      <div className={`${mostrarMenu ? "opacity-60 bg-black" : "opacity-0 pointer-events-none"} absolute w-full h-full top-0 left-0 `}></div>
+      <form
+        className={`${
+          mostrarMenu ? " opacity-100 " : "opacity-0 pointer-events-none "
+        } bg-[#9453bd] text-white py-[1vw] px-[2vw] transition-all ease-in-out duration-500  absolute right-0 top-0 flex flex-col justify-around
+        h-full`}
+      >
+        <p className="text-[2.3vw]">EDITAR INFORMACION</p>
+        <div className="space-y-[1.5vw]">
+          <div className="">
+            <label htmlFor="" className="text-[1.5vw]">
+              Nombre de usario:
+            </label>
+            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw]" type="text" />
+          </div>
+          <div className="">
+            <label htmlFor="" className="text-[1.5vw]">
+              Email:
+            </label>
+            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw]" type="email" />
+          </div>
+          <div className="">
+            <label htmlFor="" className="text-[1.5vw]">
+              Fecha de Nacimiento:
+            </label>
+            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw] pr-[0.5vw]" type="date" />
+          </div>
+          <div className="">
+            <label htmlFor="" className="text-[1.5vw]">
+              Constraseña:
+            </label>
+            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw]" type="password" />
           </div>
         </div>
-      )}
+        <button className="bg-[#732ab6] w-full text-[1.5vw] rounded-[0.3vw] py-[0.5vw] hover:text-[1.4vw] transition-all ease-in-out duration-200">
+          EDITAR INFORMACION
+        </button>
+        <button onClick={cerrarForm}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-[2.5vw] absolute top-[2.2vw] right-[1.7vw] hover:w-[2.8vw] transition-all ease-in-out duration-200 hover:translate-x-[0.2vw]"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12S6.47 2 12 2m3.59 5L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41z"
+            ></path>
+          </svg>
+        </button>
+      </form>
     </>
   );
 }
+
+const TextModifier = () => {
+  const [text, setText] = useState("Contraseña123");
+  const [isHashtags, setIsHashtags] = useState(true);
+
+  // Función para alternar entre el texto original y hashtags
+  const toggleText = () => {
+    setIsHashtags(!isHashtags);
+  };
+
+  // Función para convertir el texto a hashtags
+  const getHashtagText = () => {
+    return text
+      .split("")
+      .map(() => "#")
+      .join("");
+  };
+
+  return (
+    <div className="flex gap-[0.5vw] h-[4.5vw] relative border-purple-200 items-center">
+      <div className="flex gap-[0.7vw]">
+        <p className="text-[1.4vw]">Contraseña:</p>
+        <span className="text-[1.4vw] text-[#5A189A]">{isHashtags ? getHashtagText() : text}</span>
+      </div>
+      <button className="absolute right-[1vw] top-[1.5vw]" onClick={toggleText}>
+        {isHashtags ? <IoEyeSharp className="text-[1.5vw]" /> : <BsEyeSlashFill className="text-[1.5vw]" />}
+      </button>
+    </div>
+  );
+};
+
+export default TextModifier;

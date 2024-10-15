@@ -1,23 +1,22 @@
-import React, { useState } from "react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { Carruseltarjetas } from "../components/objetosVariasdos";
+import Carrusel, { Carruseltarjetas } from "../components/objetosVariasdos";
 import { Nav } from "../components/Nav";
 import "@fontsource/baloo-2/700.css";
 
 function Separador({ texto }) {
-  return <p className="text-purple-950 text-[2.5vw] font-semibold text-center bg-purple-100 w-full">{texto}:</p>;
+  return <p className="text-white text-[2.5vw] font-semibold text-center bg-gradient-to-r from-blue-950 to-fuchsia-400 w-full">{texto}</p>;
 }
 
 export function Inicio() {
   return (
-    <div className="grid grid-rows-[auto_auto_1fr_auto]">
+    <div className="grid grid-rows-[auto_auto_1fr_auto] bg-gradient-to-br from-white to-purple-300">
       <Header colAndrow={"row-start-1"} />
       <Nav colAndrow={"row-start-2"} />
 
       <main className="row-start-3" style={{ fontFamily: "'Baloo 2', system-ui" }}>
         {/* carrusel */}
-        {/* <CarruselReact /> */}
+        <Carrusel />
 
         <div className="flex flex-col items-center gap-[2vw] my-[2vw]">
           {/* separador */}

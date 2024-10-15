@@ -1,22 +1,23 @@
 import { useRef, React } from "react";
-import { Carousel } from "antd";
+import Carousel from "react-material-ui-carousel";
+import { Paper, Button } from "@mui/material";
 
 // carrusel inicio tarjetas
 function Tarjeta({ imagen, titulo, precio }) {
   return (
-    <div className="tarjetas bg-slate-300 flex flex-col items-center w-[17vw] pb-[0.5vw]">
-      <div className="contentImg w-[15vw] h-[20.5vw] bg-slate-400 p-[0.5vw]">
+    <div className="tarjetas bg-[#f6f9ff] flex flex-col items-center w-[17vw] pb-[0.5vw]">
+      <div className="contentImg w-[15vw] h-[20.5vw]">
         <img className="w-full h-full" src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg" alt="" />
       </div>
-      <div className="contenedorInfo flex flex-col my-[0.5vw] gap-[0.8vw] w-[85%]">
-        <div class="w-[13vw] border border-gray-300">
-          <p class="truncate text-[1.5vw]">Los Juicios De Salem - LA HISTORIA QUE NUNCA TE AN CONTADO</p>
+      <div className="text-[#320c3a] flex flex-col my-[0.5vw] gap-[0.8vw] w-[85%]">
+        <div class="w-[13vw]">
+          <p class="truncate text-center text-[1.5vw]">Los Juicios De Salem - LA HISTORIA QUE NUNCA TE AN CONTADO</p>
         </div>
         <p className="precio text-[1.4vw]">Precio: $6000</p>
       </div>
       <div className="contentBotones w-full flex justify-evenly ">
-        <button className="bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Favorito</button>
-        <button className=" bg-violet-700 text-slate-200 text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Comprar</button>
+        <button className="bg-[#6c6b90] text-white text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Favorito</button>
+        <button className=" bg-[#6c6b90] text-white text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Comprar</button>
       </div>
     </div>
   );
@@ -55,11 +56,11 @@ export function Carruseltarjetas() {
 
   return (
     <div>
-      <div className="flex relative bg-purple-500 w-[76vw] justify-center py-[1vw]">
+      <div className="flex relative bg-[#fcf7f3] shadow-xl w-[76vw] justify-center py-[1vw]">
         <div
           ref={contenedor2Ref}
           id="contenedorTarjetas2"
-          className="contenedorTarjetas gap-[1vw] py-[1vw] px-[1vw] bg-purple-800 flex w-[64.9vw] overflow-hidden"
+          className="contenedorTarjetas gap-[1vw] py-[1vw] px-[1vw] bg-[#eeeaf4] flex w-[64.9vw] overflow-hidden"
           style={{ scrollBehavior: "smooth" }}
         >
           <Tarjeta />
@@ -85,7 +86,7 @@ export function Carruseltarjetas() {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="fi-rs-angle-right right-[0.1vw] w-[3vw] z-10">
             <path
               d="M8.534,24l9.507-9.52a3.507,3.507,0,0,0,0-4.948L8.525,0,6.407,2.121,15.927,11.652a.5.5,0,0,1,0,.707L6.421,21.172Z"
-              className="fill-[white]"
+              className="fill-[purple]"
             />
           </svg>
         </button>
@@ -102,7 +103,7 @@ export function Carruseltarjetas() {
           <svg className="fi-rs-angle-right left-[0.1vw] w-[3vw] z-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
               d="M16.041,24,6.534,14.48a3.507,3.507,0,0,1,0-4.948L16.052,0,18.17,2.121,8.652,11.652a.5.5,0,0,0,0,.707l9.506,9.52Z"
-              className="fill-[white]"
+              className="fill-[purple]"
             />
           </svg>
         </button>
@@ -111,23 +112,22 @@ export function Carruseltarjetas() {
   );
 }
 
-// carrusel Inicio
-import imgLibroCarrrusel from "../assets/img/imgComics.png";
-import imgMangaCarrusel from "../assets/img/imgManga.png";
-import imgComicCarrusel from "../assets/img/imgLirbos.png";
+import img1 from "../assets/img/imgComics.png";
+import img2 from "../assets/img/imgLirbos.png";
+import img3 from "../assets/img/imgManga.png";
 
-const CarruselReact = () => (
-  <Carousel autoplay className="w-[80%] ml-[10vw] mt-[1vw] z-0">
-    <div className="w-full h-[31vw]">
-      <img className="w-full h-full" src={imgLibroCarrrusel} alt="" />
-    </div>
-    <div className="w-full h-[31vw]">
-      <img className="w-full h-full" src={imgComicCarrusel} alt="" />
-    </div>
-    <div className="w-full h-[31vw]">
-      <img className="w-full h-full" src={imgMangaCarrusel} alt="" />
-    </div>
-  </Carousel>
-);
+const Carrusel = () => {
+  const items = [{ img: img1 }, { img: img2 }, { img: img3 }];
 
-export default CarruselReact;
+  return (
+    <Carousel className="">
+      {items.map((item, i) => (
+        <Paper key={i}>
+          <img src={item.img} className="h-[28vw] w-full" alt={`Imagen ${i + 1}`} />
+        </Paper>
+      ))}
+    </Carousel>
+  );
+};
+
+export default Carrusel;

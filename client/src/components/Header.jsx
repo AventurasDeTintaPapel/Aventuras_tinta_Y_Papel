@@ -123,16 +123,6 @@ function CerrarSesion() {
 function BotonesSessionOnn() {
   return (
     <>
-      <div className="flex flex-col  gap-[1vw] items-center justify-center py-[1vw]  relative ">
-        <div className="w-[96%] rounded-tl-[0.5vw] absolute h-[66%] bg-gradient-to-b from-purple-500 to-purple-900 top-[0.3vw]  z-0"></div>
-        <div className="absolute w-[6.5vw] h-[10.2vw] rounded-b-full bg-gradient-to-b from-purple-500 to-purple-900  z-20 top-[0.3vw]"></div>
-
-        <p className="text-center z-20 text-white">Axel Leger</p>
-        <div className="w-[6vw] z-20">
-          <img className="w-full h-full rounded-full " src="https://i.pinimg.com/736x/62/87/26/62872606328a29ace159c2e03926b4df.jpg" alt="" />
-        </div>
-      </div>
-
       <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
         <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/perfil">
           <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Perfil</span>

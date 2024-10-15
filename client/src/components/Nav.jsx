@@ -1,8 +1,6 @@
 import "@fontsource/montserrat/700.css";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaCommentAlt } from "react-icons/fa";
-import { IconoLibros, IconoManga, IconoMercancia } from "./icons";
 import { useNavigate } from "react-router-dom";
 
 // este es la etiqueta (a) sin despleable
@@ -17,45 +15,6 @@ function LiSinDesplegable({ textoNav, id, link }) {
     </li>
   );
 }
-
-// esta es las partes de la (lista) que se desplegan
-// function AlistaNav({ textoLista, id, link }) {
-//   return (
-//     <a href={link}>
-//       <p
-//         id={id}
-//         className="group-hover:font-bold group-hover:text-[1.7vw] relative flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw] text-[1.5vw] rounded-t-[0.5vw] group-hover:bg-purple-700"
-//       >
-//         {textoLista}
-//       </p>
-//     </a>
-//   );
-// }
-
-// categorias
-// function HoverNav({ texto, linkHover }) {
-//   return (
-//     <a href={linkHover}>
-//       <div
-//         className={`transition-all ease-in-out duration-200 py-[0.2vw] border-b-[0.1vw] border-purple-400
-
-//         /tamaño letra/
-//         text-[1.5vw]
-
-//         /tamaño/
-//         w-[15vw]
-
-//         /hover/
-//       hover:bg-purple-800 hover:font-bold
-//         hover:text-[1.75vw]`}
-//       >
-//         {texto}
-//       </div>
-//     </a>
-//   );
-// }
-
-// contenedor navegador
 
 export function Nav({ colAndrow }) {
   return (
@@ -121,6 +80,7 @@ function BotonProductos() {
 
   const handleRedirect = (categoria) => {
     navigate(`/catalogo/${categoria}`);
+    window.location.reload();
   };
 
   return (
@@ -139,35 +99,28 @@ function BotonProductos() {
       <ul
         ref={menuRef}
         className={`${
-          mostrarMenu ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-1vw]"
+          mostrarMenu ? "opacity-90 translate-y-0" : "opacity-0 translate-y-[-1vw] pointer-events-none"
         } bg-[#9D4EDD] absolute w-[13vw] top-auto z-50 transition-all ease-in-out duration-300`}
       >
         <li
           onClick={() => handleRedirect("libros")}
-          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.5vw] gap-[0.5vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
         >
-          <IconoLibros />
           <span className="transition-all ease-linear duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Libros</span>
         </li>
         <li
           onClick={() => handleRedirect("mangas")}
-          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.5vw] gap-[0.5vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
         >
-          <IconoManga />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mangas</span>
         </li>
         <li
           onClick={() => handleRedirect("comics")}
-          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.6vw] gap-[0.6vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
+          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
         >
-          <FaCommentAlt className="transition-all ease-in-out duration-200 text-[1vw] mt-[0.1vw] group-hover:text-[1.2vw]" />
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Comics</span>
         </li>
-        <li
-          onClick={() => handleRedirect("mercancia")}
-          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[0.5vw] gap-[0.5vw] text-[1.2vw]"
-        >
-          <IconoMercancia />
+        <li onClick={() => handleRedirect("mercancia")} className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw]">
           <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mercancia</span>
         </li>
       </ul>
