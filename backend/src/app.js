@@ -9,7 +9,7 @@ import mongoose from "./database/db.js";
 
 //importacion de rutas
 import { authRouter } from "./routers/auth.routes.js";
-import { pedido } from "./routers/pedido.routes.js";
+import { order } from "./routers/pedido.routes.js";
 import { producRouter } from "./routers/productos.routes.js";
 import { publiRouter } from "./routers/public.routes.js";
 import { favoritos } from "./routers/fav.routes.js";
@@ -52,7 +52,7 @@ app.use(
 );
 //rutas
 app.use("/api/auth", authRouter);
-app.use("/api/pedidos", pedido);
+app.use("/api/pedidos", order);
 app.use("/api/productos", producRouter);
 app.use("/api/favoritos", favoritos);
 app.use("/api/filters", filRoutes);
@@ -66,7 +66,5 @@ app.use("/api/email", emailRouter);
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 app.listen(port, () => {
-  console.log(
-    `El servidor está funcionando en el puerto http://localhost:${port}`
-  );
+  console.log(`El servidor está funcionando en el puerto http://localhost:${port}`);
 });
