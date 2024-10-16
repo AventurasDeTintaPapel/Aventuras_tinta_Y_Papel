@@ -15,11 +15,11 @@ export const sessionVerified = (req, res, next) => {
 };
 
 //Check that the role is admin
-export const rolAdmVerified = (req, res, next) => {
-  if (req.session.usuario.rol !== "admin") {
-    return res
-      .status(403)
-      .send("access denied requires administrator privileges");
-  }
-  next();
-};
+// export const rolAdmVerified = (req, res, next) => {
+//   if (req.session.usuario.rol !== "admin") {
+//     return res
+//       .status(403)
+//       .send("access denied requires administrator privileges");
+//   }
+//   next();
+// };

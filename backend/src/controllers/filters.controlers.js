@@ -1,7 +1,7 @@
 import productos from "../models/productos.model.js";
 
 export const autFilter = async (req, res) => {
-  const { query } = req.query;
+  const { query } = req.query; // 'libros' en tu caso
 
   try {
     const result = await productos.aggregate([
@@ -9,14 +9,7 @@ export const autFilter = async (req, res) => {
         $search: {
           text: {
             query: query,
-            path: [
-              "autor",
-              "titulo",
-              "descripcion",
-              "categoria",
-              "idioma",
-              "tipo",
-            ],
+            path: ["autor", "titulo", "descripcion", "categoria", "idioma", "tipo"],
             fuzzy: { maxEdits: 1 },
           },
         },
