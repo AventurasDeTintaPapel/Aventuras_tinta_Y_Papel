@@ -6,9 +6,9 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 
 import "@fontsource/montserrat/700.css";
 
-export function Footer({ rowAndcol }) {
+export function Footer({ colAndrow }) {
   return (
-    <footer className={rowAndcol} style={{ fontFamily: "'Montserrat', sans-serif" }}>
+    <footer className={colAndrow} style={{ fontFamily: "'Montserrat', sans-serif" }}>
       <div className="bg-purple-900 text-purple-100">
         <div className="justify-center grid-cols-[1fr_1fr_20vw_1fr] grid space-y-[2vw] pb-[2vw]">
           {/* sobre nosotros */}
