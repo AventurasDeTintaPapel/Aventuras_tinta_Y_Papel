@@ -31,8 +31,8 @@ const server = createServer(app);
 
 // Configuración de CORS
 const corsOptions = {
-    origin: 'http://localhost:5173', // Cambia esto por la URL de tu frontend
-    methods: ['GET', 'POST'],
+    origin: 'http://localhost:5173',  // Cambia esto por la URL de tu frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 };
 

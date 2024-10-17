@@ -41,4 +41,4 @@ const publics = new Schema(
     timestamps: true,
   }
 );
-export default model("publics ", publics);
+export default model("publics", publics);
