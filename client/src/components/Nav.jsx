@@ -78,8 +78,8 @@ function BotonProductos() {
 
   const navigate = useNavigate();
 
-  const handleRedirect = (categoria) => {
-    navigate(`/catalogo/${categoria}`);
+  const handleRedirect = (tipo) => {
+    navigate(`/catalogo/${tipo}`);
     window.location.reload();
   };
 

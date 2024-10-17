@@ -15,9 +15,8 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/contactos" element={<Contactos />} />
-
         <Route path="/inicio" element={<Inicio />} />
-        <Route path="/catalogo/:categoria" element={<Catalogo />} />
+        <Route path="/catalogo/:tipo" element={<Catalogo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/perfil" element={<Perfil />} />
