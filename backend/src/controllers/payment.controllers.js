@@ -11,22 +11,21 @@ const port = process.env.PORT;
 
 export const createOrder = async (req, res) => {
   try {
-    // const token = req.headers.token;
-    // if (!token) {
-    //   return res.status(401).json({
-    //     msg: "Debe registrarse para realizar esa tarea",
-    //   });
-    // }
+    const token = req.headers.token;
+    if (!token) {
+      return res.status(401).json({
+        msg: "Debe registrarse para realizar esa tarea",
+      });
+    }
 
-    // const usuario = await validarJWT(token);
-    // const idUsuario = usuario._id;
+    const usuario = await validarJWT(token);
+    const idUsuario = usuario._id;
 
-    // if (!idUsuario) {
-    //   return res.status(401).json({
-    //     msg: "Token inválido",
-    //   });
-    // }
-    const idUsuario = "66bb6e8f1a0e088b84ae0cc0";
+    if (!idUsuario) {
+      return res.status(401).json({
+        msg: "Token inválido",
+      });
+    }
     // Buscar el pedido del usuario
     const pedido = await pedidos.findOne({
       usuario: new mongoose.Types.ObjectId(idUsuario),

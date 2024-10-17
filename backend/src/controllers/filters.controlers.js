@@ -1,29 +1,46 @@
 import productos from "../models/productos.model.js";
 
 export const autFilter = async (req, res) => {
-  const { query } = req.query; // 'libros' en tu caso
+  const { query, categoria, tipo } = req.query;
 
   try {
-    const result = await productos.aggregate([
+    const pipeline = [
       {
         $search: {
           text: {
             query: query,
-            path: ["autor", "titulo", "descripcion", "categoria", "idioma", "tipo"],
+            path: [
+              "autor",
+              "titulo",
+              "descripcion",
+              "categoria",
+              "idioma",
+              "tipo",
+            ],
             fuzzy: { maxEdits: 1 },
           },
         },
       },
-    ]);
+    ];
 
-    // Verificar si se encontraron resultados
+    if (categoria) {
+      pipeline.push({
+        $match: { categoria: categoria },
+      });
+    }
+    if (tipo) {
+      pipeline.push({
+        $match: { tipo: tipo },
+      });
+    }
+    const result = await productos.aggregate(pipeline);
     if (result.length === 0) {
-      return res.status(404).json({ msg: "No se encontraron resultados" });
+      return res.status(404).json({ msg: "No results found" });
     }
 
     res.json(result);
   } catch (error) {
-    console.log("Error en autFilter:", error.message);
-    res.status(500).json({ msg: "error interno del servidor", error });
+    console.log("Error en autFilter:", error);
+    res.status(500).json({ msg: "interval server error ", error });
   }
 };

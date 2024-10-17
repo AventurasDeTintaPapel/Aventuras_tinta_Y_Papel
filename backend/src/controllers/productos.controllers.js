@@ -1,4 +1,5 @@
 import productos from "../models/productos.model.js";
+
 import mongoose from "mongoose";
 export const obtenerProducto = async (req, res) => {
   try {

@@ -3,8 +3,8 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import path from "path";
-import dotenv from "dotenv";
 import morgan from "morgan";
+import dotenv from "dotenv";
 import mongoose from "./database/db.js";
 
 //importacion de rutas
@@ -66,5 +66,7 @@ app.use("/api/email", emailRouter);
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 app.listen(port, () => {
-  console.log(`El servidor está funcionando en el puerto http://localhost:${port}`);
+  console.log(
+    `El servidor está funcionando en el puerto http://localhost:${port}`
+  );
 });
