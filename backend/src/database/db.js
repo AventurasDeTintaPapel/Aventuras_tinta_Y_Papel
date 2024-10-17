@@ -5,7 +5,7 @@ const url =
 (async () => {
   try {
     const db = await mongoose.connect(url, {});
-    console.log("La conexión fue exitosa");
+    console.log("the connection was successful");
   } catch (error) {
     console.log(error);
   }
