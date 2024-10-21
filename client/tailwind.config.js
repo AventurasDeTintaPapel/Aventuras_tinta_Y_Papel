@@ -19,7 +19,7 @@ export default {
         xlsecundario: "2000px",
       },
       boxShadow: {
-        "custom-shadow": "1vw 1vw 1vw rgba(0, 0, 0, 0.1)",
+        detelles: "0 0.4vw 1vw rgba(0, 0, 0, 0.3)",
       },
       backgroundImage: {
         "custom-gradient": "repeating-radial-gradient(circle at 0 0, transparent 0, #cb76e3 15px), repeating-linear-gradient(#54008955, #540089)",

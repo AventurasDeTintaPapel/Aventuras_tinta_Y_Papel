@@ -22,7 +22,7 @@ const AppRouter = () => {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/soporte" element={<Chat />} />
         <Route path="/carrito" element={<Carrito />} />
-        <Route path="/detalles" element={<DetallesProductos />} />
+        <Route path="/detalles/:id" element={<DetallesProductos />} />
       </Routes>
     </BrowserRouter>
   );

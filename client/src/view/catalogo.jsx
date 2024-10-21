@@ -218,14 +218,18 @@ export function Catalogo() {
   }
 
   // boton mas informacion de la tarjeta
-  function MasInfo() {
+  function MasInfo({ id }) {
+    const verDetalles = () => {
+      window.location.href = `/detalles/${id}`;
+    };
+
     return (
-      <a
-        href="http://localhost:5173/detalles"
+      <button
+        onClick={verDetalles}
         className=" absolute bottom-[0.5vw] left-[0.5vw] bg-[#8321d8] bg-opacity-85 text-slate-100 hover:text-white text-[0.8vw] rounded-md px-[0.4vw] py-[0.2vw] hover:bg-opacity-100 hover:text-[0.85vw] transition-all ease-in-out duration-300"
       >
         Más información
-      </a>
+      </button>
     );
   }
 
@@ -247,8 +251,10 @@ export function Catalogo() {
 
       <main style={{ fontFamily: "'Baloo 2', system-ui" }} className="col-start-1 row-start-3 flex justify-center items-center">
         <div>
+          {/* contenedor de tarjetas */}
           <div className="flex flex-wrap py-[2vw] justify-center items-center gap-[2.5vw]">
             {productos.map((producto) => (
+              // tarjeta
               <div
                 key={producto._id}
                 className="w-[16vw] relative h-[30vw] flex flex-col rounded-lg gap-[1vw] border-[0.1vw] shadow-lg shadow-purple-300 "
@@ -256,7 +262,7 @@ export function Catalogo() {
                 {/* imagen */}
                 <div className="w-auto h-[22vw] relative">
                   <img className="w-full h-full rounded-t-lg object-cover" src={producto.imagen} alt={producto.titulo} />
-                  <MasInfo />
+                  <MasInfo id={producto._id} v />
                 </div>
                 {/* titulo y precio */}
                 <div className="pl-[1vw] relative">
