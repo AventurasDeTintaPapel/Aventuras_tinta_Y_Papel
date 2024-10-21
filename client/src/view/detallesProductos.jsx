@@ -4,12 +4,14 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import "@fontsource/baloo-2/700.css";
 import "@fontsource/poppins/700.css";
-import { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Input } from "antd";
+const { TextArea } = Input;
 
 export function DetallesProductos() {
   const { id } = useParams();
@@ -33,13 +35,13 @@ export function DetallesProductos() {
   return (
     <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"row-start-1"} />
-      <Nav colAndrow={" row-start-2"} />
-      <main className="col-start-1 row-start-3 py-[3vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+      <Nav colAndrow={"row-start-2"} />
+      <main className="row-start-3 py-[3vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
         <div className="bg-white w-full h-full flex justify-center items-center">
           <div className="grid grid-rows-[auto_auto_auto] shadow-detelles rounded-[1vw] w-[70vw]">
             <div className=" row-start-1 p-[2vw] flex gap-[2vw] ">
               {/* contenedor imagen */}
-              <div className="w-[16.5vw] h-[25vw] p-[1vw] rounded-[0.5vw] bg-[#3C096C]">
+              <div className="w-[17vw] h-[25vw] p-[1vw] rounded-[0.5vw] bg-[#3C096C]">
                 <img className="w-full h-full" src={producto.imagen} alt="" />
               </div>
 
@@ -63,13 +65,7 @@ export function DetallesProductos() {
                 </div>
                 {/* botones */}
                 <div className="flex gap-[2vw] h-[5vw] items-center">
-                  <button
-                    href="#"
-                    className="flex bg-[#5A189A] text-white px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] text-[1.5vw] hover:text-[1.7vw] group 
-                  transition-all ease-in-out duration-300"
-                  >
-                    Comprar
-                  </button>
+                  <BotonComprar />
                   <VolverCatalogo />
                 </div>
               </div>
@@ -82,8 +78,9 @@ export function DetallesProductos() {
               </p>
               <p className="w-[95%] text-[#4c197b]  pl-[1vw] pt-[0.5vw] text-[1.3vw]"> {producto.descripcion} </p>
             </div>
-            <div className=" pl-[4vw] rounded-b-[1vw] space-y-[1vw] py-[1vw] bg-[#efe1f7]  row-start-3">
-              <div className="flex gap-[0.5vw]">
+            {/* comentarios */}
+            <div className=" rounded-b-[1vw] space-y-[1vw] pt-[1vw] bg-[#efe3f6]  row-start-3">
+              <div className="flex pl-[1vw] gap-[0.5vw]">
                 <FaStar className="text-[2.5vw]" />
                 <FaStar className="text-[2.5vw]" />
                 <FaStar className="text-[2.5vw]" />
@@ -130,23 +127,80 @@ function VolverCatalogo() {
 
 function Comentarios() {
   const [comentarios, setComentarios] = useState(false);
+  const [estilos, setEstilos] = useState({});
 
   const manejarClic = () => {
     setComentarios(!comentarios);
+    setEstilos(comentarios ? { transition: "transform 0.5s ease" } : { transform: "rotate(-180deg)", transition: "transform 0.5s ease" });
   };
 
   return (
     <>
-      <button onClick={manejarClic} className="flex items-center gap-[0.3vw]">
+      <button onClick={manejarClic} className="text-[#361158] flex items-center gap-[0.3vw] pl-[1.3vw]">
         <span className="text-[1.5vw]">Comentarios</span>
-        <IoIosArrowDown className="text-[1.8vw]" />
+        <IoIosArrowDown style={estilos} className="text-[1.8vw]" />
       </button>
-      <div className={` ${comentarios ? " block" : " hidden "} transition-all ease-in-out duration-700`}>
-        <p>hola mundo</p>
-        <p>hola mundo</p>
-        <p>hola mundo</p>
-        <p>hola mundo</p>
+      <div
+        className={` ${
+          comentarios ? " max-h-[30vw] opacity-100 " : "opacity-0 pointer-events-none max-h-0 "
+        } transition-all ease-in-out duration-500 overflow-hidden`}
+      >
+        <div className="w-full h-[30vw] grid grid-rows-[1fr_auto]">
+          {/* inpur comnetario */}
+          <div className=" bg-[#efe3f6] rounded-b-[1vw] w-full row-start-2 flex items-center pl-[2vw] gap-[1.5vw] relative py-[1.5vw]">
+            <AutoGrowingTextarea />
+            <button
+              style={{ fontFamily: "'Poppins', sans-serif" }}
+              className="shadow-2xl right-[3vw] absolute bg-white h-[3vw] text-[1.2vw] text-[#4c1363] hover:text-[1.5vw]  hover:h-[3.2vw] hover:translate-x-[0.5vw] transition-all ease-in-out duration-300 rounded-full px-[2vw]"
+            >
+              Enviar
+            </button>
+          </div>
+          <div className="bg-white overflow-y-auto"></div>
+        </div>
       </div>
     </>
+  );
+}
+
+const AutoGrowingTextarea = () => {
+  const [text, setText] = useState("");
+  const textareaRef = useRef(null);
+
+  // Función para ajustar la altura automáticamente
+  const ajustarAltura = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = "auto"; // Resetea la altura
+    textarea.style.height = `${textarea.scrollHeight}px`; // Ajusta según el contenido
+  };
+
+  useEffect(() => {
+    ajustarAltura();
+  }, [text]);
+
+  return (
+    <div className="w-[80%]">
+      <textarea
+        ref={textareaRef}
+        className="w-full mt-[0.4vw] px-[1vw] py-[0.5vw] text-[1.4vw] border border-gray-300 resize-none rounded-[1vw] overflow-hidden"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        rows="1"
+        placeholder="Añadir comentario"
+        style={{ minHeight: "3rem", height: "auto" }}
+      />
+    </div>
+  );
+};
+
+function BotonComprar() {
+  return (
+    <button
+      href="#"
+      className="flex bg-[#5A189A] text-white px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] text-[1.5vw] hover:text-[1.7vw] group 
+transition-all ease-in-out duration-300"
+    >
+      Comprar
+    </button>
   );
 }

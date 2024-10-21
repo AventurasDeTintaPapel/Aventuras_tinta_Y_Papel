@@ -21,20 +21,48 @@ export function Catalogo() {
   const urlComics = `http://localhost:5173/catalogo?query=comics`;
   const urlMercancia = `http://localhost:5173/catalogo?query=mercancia`;
 
-  // Boton Favoritos
-  function BotonFavoritos() {
-    const [activo, setActivo] = useState(false);
+  // Función para agregar a favoritos
+  const agregarAFavoritos = async (idProducto) => {
+    const token = localStorage.getItem("token"); // Ajusta según tu almacenamiento
 
-    const ManejoClic = () => {
-      setActivo(!activo);
+    try {
+      const response = await fetch("http://localhost:3400/api/favoritos/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        body: JSON.stringify({ idProducto }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error:", errorData);
+        throw new Error(errorData.msg || "Error al agregar a favoritos");
+      }
+
+      const data = await response.json();
+      console.log("Éxito:", data.msg);
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
+
+  const MiComponente = () => {
+    const manejarClick = (id) => {
+      agregarAFavoritos(id);
     };
 
     return (
-      <button className="absolute right-[1vw] text-red-500 top-[0.4vw]" onClick={ManejoClic}>
-        {activo ? <FaHeart className="text-[1.4vw]" /> : <FaRegHeart className="text-[1.4vw]" />}
-      </button>
+      <div>
+        {productos.map((producto) => (
+          <button onClick={() => manejarClick(producto.id)} className="bg-blue-500 text-white rounded px-2 py-1">
+            Agregar a Favoritos
+          </button>
+        ))}
+      </div>
     );
-  }
+  };
 
   // Retorna el boton de filtros de aside
   function BotonAside({ activation, evento, text, traerProduct }) {
@@ -267,7 +295,7 @@ export function Catalogo() {
                 {/* titulo y precio */}
                 <div className="pl-[1vw] relative">
                   <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">{producto.titulo}</div>
-                  <BotonFavoritos />
+                  <MiComponente />
                   <p className="text-[1.6vw] text-[#4d2b6c]">Precio: ${producto.precio}</p>
                 </div>
                 {/* boton */}
