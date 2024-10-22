@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-const favoritos = new Schema({
+const favorites = new Schema({
   producto: {
     type: Schema.Types.ObjectId,
     ref: "productos",
@@ -9,4 +9,4 @@ const favoritos = new Schema({
     ref: "usuarios",
   },
 });
-export default model("favoritos", favoritos);
+export default model("favorites", favorites);

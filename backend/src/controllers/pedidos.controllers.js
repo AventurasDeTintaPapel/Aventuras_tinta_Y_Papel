@@ -39,7 +39,8 @@ export const addCart = async (req, res) => {
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
     let numPedido = cardFind ? cardFind.numPedido : 1;
 
-    if (!cardFind || cardFind.estado == "incompleto") {
+    //create new card
+    if (!cardFind || cardFind.estado == "pendiente") {
       const newPedido = new pedidos({
         productos: [
           {

@@ -14,7 +14,7 @@ export const authRouter = Router();
 authRouter.post("/register", regisValidation, applyValidations, register);
 
 // router login user
-authRouter.post("/login", loginValidation, applyValidations, session, login);
+authRouter.post("/login", loginValidation, applyValidations, login);
 
 //router logout
 authRouter.post("/logout", sessionVerified, logout);

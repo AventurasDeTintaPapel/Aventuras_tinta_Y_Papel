@@ -1,12 +1,15 @@
-import { Router } from 'express';
+import { Router } from "express";
 
-import { agreFav, obtFavotiros, elimiFav } from '../controllers/favorit.controllers.js';
-
+import {
+  addToFav,
+  getFavs,
+  deleteFavs,
+} from "../controllers/favorit.controllers.js";
 
 export const favoritos = Router();
-//agregar a favoritos
-favoritos.post('/:id',agreFav);
-//ruta para obtener favoritos
-favoritos.get('/:id',obtFavotiros);
-//ruta para eliminar favoritos
-favoritos.delete('/:idfav',elimiFav)
+//add  to favorites
+favoritos.post("/", addToFav);
+//get favs
+favoritos.get("/", getFavs);
+//delete fav
+favoritos.delete("/", deleteFavs);

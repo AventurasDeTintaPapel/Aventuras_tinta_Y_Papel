@@ -59,7 +59,7 @@ export const login = async (req, res) => {
     if (!userFind || !correctPassword) {
       return res.status(400).json({ msg: " incorrect email or password " });
     } else {
-      const token = await generarJWT({ id: usuarioEncontrado.id });
+      const token = await generarJWT({ id: userFind.id });
       return res.status(200).json({
         exitoLogin: true,
         msg: "exit login",
