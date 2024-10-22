@@ -33,6 +33,11 @@ app.use(
       "http://localhost:3000",
       "http://localhost:5173",
     ],
+    origin: [
+      "http://localhost:5500",
+      "http://localhost:3000",
+      "http://localhost:5173",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
