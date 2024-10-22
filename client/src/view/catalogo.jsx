@@ -5,9 +5,9 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import "@fontsource/baloo-2/700.css";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+
 import { PiArrowFatLineLeftFill } from "react-icons/pi";
+import { MiComponenteFavorite } from "../components/objetosVariasdos";
 
 export function Catalogo() {
   const [productos, setProductos] = useState([]);
@@ -20,49 +20,6 @@ export function Catalogo() {
   const urlManga = `http://localhost:5173/catalogo?query=mangas`;
   const urlComics = `http://localhost:5173/catalogo?query=comics`;
   const urlMercancia = `http://localhost:5173/catalogo?query=mercancia`;
-
-  // Función para agregar a favoritos
-  const agregarAFavoritos = async (idProducto) => {
-    const token = localStorage.getItem("token"); // Ajusta según tu almacenamiento
-
-    try {
-      const response = await fetch("http://localhost:3400/api/favoritos/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token: token,
-        },
-        body: JSON.stringify({ idProducto }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
-        throw new Error(errorData.msg || "Error al agregar a favoritos");
-      }
-
-      const data = await response.json();
-      console.log("Éxito:", data.msg);
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    }
-  };
-
-  const MiComponente = () => {
-    const manejarClick = (id) => {
-      agregarAFavoritos(id);
-    };
-
-    return (
-      <div>
-        {productos.map((producto) => (
-          <button onClick={() => manejarClick(producto.id)} className="bg-blue-500 text-white rounded px-2 py-1">
-            Agregar a Favoritos
-          </button>
-        ))}
-      </div>
-    );
-  };
 
   // Retorna el boton de filtros de aside
   function BotonAside({ activation, evento, text, traerProduct }) {
@@ -129,7 +86,7 @@ export function Catalogo() {
   // fetch para trear libros y sus filtros
   const fetchProductos = async (tipo, category = null) => {
     setProductos([]);
-    setIsFiltered(!!category); // Actualiza isFiltered a true si hay una categoría
+    setIsFiltered(!!category);
     try {
       const url = category
         ? `http://localhost:3400/api/filters?query=${tipo}&categoria=${category}`
@@ -295,7 +252,7 @@ export function Catalogo() {
                 {/* titulo y precio */}
                 <div className="pl-[1vw] relative">
                   <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">{producto.titulo}</div>
-                  <MiComponente />
+                  <MiComponenteFavorite array={productos} estilos={"text-purple-900 text-[1.6vw]"} />
                   <p className="text-[1.6vw] text-[#4d2b6c]">Precio: ${producto.precio}</p>
                 </div>
                 {/* boton */}

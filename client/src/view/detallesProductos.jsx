@@ -53,18 +53,27 @@ export function DetallesProductos() {
                   <p className="text-[2.8vw] text-[#361158]" style={{ fontFamily: "'Poppins', sans-serif" }}>
                     {producto.titulo}
                   </p>
-                  <p className="text-[1.5vw] pl-[0.8vw]  text-[#62269a]">
-                    <span className="text-[#361158] text-[1.6vw]">Tipo:</span> {producto.tipo}
+                  <p className="text-[1.6vw] pl-[0.8vw]  text-[#62269a]">
+                    <span style={{ fontFamily: "'Poppins', sans-serif" }} className="text-[#361158] text-[1.8vw]">
+                      Tipo:
+                    </span>{" "}
+                    {producto.tipo}
                   </p>
-                  <p className="text-[1.5vw] pl-[0.8vw] text-[#62269a]">
-                    <span className="text-[#361158] text-[1.6vw]">Autor:</span> {producto.autor}
+                  <p className="text-[1.6vw] pl-[0.8vw] text-[#62269a]">
+                    <span style={{ fontFamily: "'Poppins', sans-serif" }} className="text-[#361158] text-[1.8vw]">
+                      Autor:
+                    </span>{" "}
+                    {producto.autor}
                   </p>
-                  <p className="text-[1.5vw] pl-[0.8vw] text-[#62269a]">
-                    <span className="text-[#361158] text-[1.6vw]">Precio:</span> ${producto.precio}
+                  <p className="text-[1.6vw] pl-[0.8vw] text-[#62269a]">
+                    <span style={{ fontFamily: "'Poppins', sans-serif" }} className="text-[#361158] text-[1.8vw]">
+                      Precio:
+                    </span>{" "}
+                    ${producto.precio}
                   </p>
                 </div>
                 {/* botones */}
-                <div className="flex gap-[2vw] h-[5vw] items-center">
+                <div className="relative gap-[2vw] h-[5vw] ">
                   <BotonComprar />
                   <VolverCatalogo />
                 </div>
@@ -94,34 +103,6 @@ export function DetallesProductos() {
       </main>
       <Footer colAndrow={"row-start-4"} />
     </div>
-  );
-}
-
-function VolverCatalogo() {
-  const navigate = useNavigate();
-
-  const hancleRedirect = () => {
-    navigate(-1);
-  };
-  return (
-    <button
-      onClick={hancleRedirect}
-      className="flex border-[#5A189A] text-[#3f1569] border-[0.2vw] px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] group hover:translate-x-[-0.5vw] transition-all ease-in-out duration-300"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-[1.7vw] mb-[0.3vw] group-hover:w-[1.8vw] transition-all ease-in-out duration-300"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          fillRule="evenodd"
-          d="M10 2a1 1 0 0 0-1.79-.614l-7 9a1 1 0 0 0 0 1.228l7 9A1 1 0 0 0 10 20v-3.99c5.379.112 7.963 1.133 9.261 2.243c1.234 1.055 1.46 2.296 1.695 3.596l.061.335a1 1 0 0 0 1.981-.122c.171-2.748-.086-6.73-2.027-10.061C19.087 8.768 15.695 6.282 10 6.022z"
-          clipRule="evenodd"
-        ></path>
-      </svg>
-      <span className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300">Volver a Catalogo</span>
-    </button>
   );
 }
 
@@ -193,11 +174,39 @@ const AutoGrowingTextarea = () => {
   );
 };
 
+function VolverCatalogo() {
+  const navigate = useNavigate();
+
+  const hancleRedirect = () => {
+    navigate(-1);
+  };
+  return (
+    <button
+      onClick={hancleRedirect}
+      className="flex absolute  top-[0.5vw] right-[3vw] border-[#5A189A] text-[#3f1569] border-[0.2vw] px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] group hover:translate-x-[0.5vw] transition-all ease-in-out duration-300"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-[1.7vw] mb-[0.3vw] group-hover:w-[1.8vw] transition-all ease-in-out duration-300"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M10 2a1 1 0 0 0-1.79-.614l-7 9a1 1 0 0 0 0 1.228l7 9A1 1 0 0 0 10 20v-3.99c5.379.112 7.963 1.133 9.261 2.243c1.234 1.055 1.46 2.296 1.695 3.596l.061.335a1 1 0 0 0 1.981-.122c.171-2.748-.086-6.73-2.027-10.061C19.087 8.768 15.695 6.282 10 6.022z"
+          clipRule="evenodd"
+        ></path>
+      </svg>
+      <span className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300">Volver a Catalogo</span>
+    </button>
+  );
+}
+
 function BotonComprar() {
   return (
     <button
       href="#"
-      className="flex bg-[#5A189A] text-white px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] text-[1.5vw] hover:text-[1.7vw] group 
+      className="flex left-[0.5vw] top-[0.5vw] bg-[#5A189A] absolute text-white px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] text-[1.5vw] hover:translate-x-[-0.5vw] hover:text-[1.7vw] group 
 transition-all ease-in-out duration-300"
     >
       Comprar

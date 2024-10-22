@@ -1,6 +1,91 @@
-import { useRef, React } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@mui/material";
+import { Paper } from "@mui/material";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+
+// Función para agregar a favoritos
+const agregarAFavoritos = async (idProducto) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch("http://localhost:3400/api/favoritos/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        token: token,
+      },
+      body: JSON.stringify({ idProducto }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Error:", errorData);
+      throw new Error(errorData.msg || "Error al agregar a favoritos");
+    }
+
+    const data = await response.json();
+    console.log("Se agrego con exito a favoritos:", data.msg);
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+  }
+};
+
+const eliminarFavorito = async (idProd) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch("http://localhost:3400/api/favoritos/", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        token: token,
+      },
+      body: JSON.stringify({ idProd }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Error:", errorData);
+      throw new Error(errorData.msg || "Error al eliminar de favoritos");
+    }
+
+    const data = await response.json();
+    console.log("Se elimino con exito de favoritos:", data.msg);
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+  }
+};
+
+export function MiComponenteFavorite({ array, estilos }) {
+  const [agregado, setAgregado] = useState(false);
+
+  const manejarClickAgregar = (id) => {
+    setAgregado(!agregado);
+    agregarAFavoritos(id);
+  };
+
+  const manejarClickEliminar = (id) => {
+    setAgregado(!agregado);
+    eliminarFavorito(id);
+  };
+
+  return (
+    <div>
+      {agregado
+        ? array.map((producto) => (
+            <button key={producto._id} onClick={() => manejarClickEliminar(producto._id)} className="absolute right-[1vw] top-[0.45vw] ">
+              <FaHeart className={estilos} />
+            </button>
+          ))
+        : array.map((producto) => (
+            <button key={producto._id} onClick={() => manejarClickAgregar(producto._id)} className="absolute right-[1vw] top-[0.45vw] ">
+              <FaRegHeart className={estilos} />
+            </button>
+          ))}
+    </div>
+  );
+}
 
 // carrusel inicio tarjetas
 function Tarjeta({ imagen, titulo, precio }) {
