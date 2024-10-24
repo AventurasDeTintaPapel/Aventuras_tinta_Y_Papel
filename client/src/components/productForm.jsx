@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 export default function ProductForm() {
   const [formData, setFormData] = useState({
@@ -6,50 +7,56 @@ export default function ProductForm() {
     description: '',
     price: '',
     imagen: null,
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [message, setMessage] = useState({ type: '', content: '' })
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState({ type: '', content: '' });
+  const navigate = useNavigate(); // Inicializa el hook useNavigate
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target
+    const { name, value, files } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: files ? files[0] : value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setMessage({ type: '', content: '' })
-  
-    const submitData = new FormData()
+    e.preventDefault();
+    setIsSubmitting(true);
+    setMessage({ type: '', content: '' });
+
+    const submitData = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      submitData.append(key, value)
-    })
-  
+      submitData.append(key, value);
+    });
+
     try {
       const response = await fetch('http://localhost:3400/api/publics/cargar', {
         method: 'POST',
         body: submitData,
-      })
-  
+      });
+
       if (response.ok) {
-        const result = await response.json()
-        setMessage({ type: 'success', content: 'Producto creado exitosamente!' })
-        setFormData({ title: '', description: '', price: '', imagen: null })
+        const result = await response.json();
+        setMessage({ type: 'success', content: 'Producto creado exitosamente!' });
+        setFormData({ title: '', description: '', price: '', imagen: null });
+
+        // Redirige a la página de lista de productos después de un breve retraso
+        setTimeout(() => {
+          navigate('/list'); // Cambia esto por la ruta de tu lista de productos
+        }, 2000);
       } else {
-        const error = await response.json()
-        setMessage({ type: 'error', content: error.message || 'Error al crear el producto.' })
+        const error = await response.json();
+        setMessage({ type: 'error', content: error.message || 'Error al crear el producto.' });
       }
     } catch (error) {
-      console.error('Error durante la solicitud:', error)
-      setMessage({ type: 'error', content: 'Error en la conexión con el servidor.' })
+      console.error('Error durante la solicitud:', error);
+      setMessage({ type: 'error', content: 'Error en la conexión con el servidor.' });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
-  
+  };
+
   return (
     <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Añadir un nuevo producto</h2>
@@ -131,5 +138,6 @@ export default function ProductForm() {
         </div>
       )}
     </div>
-  )
+  );
 }
+

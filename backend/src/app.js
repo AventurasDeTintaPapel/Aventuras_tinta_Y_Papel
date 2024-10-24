@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import path from "node:path";
 import { Server } from "socket.io";
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'url';
@@ -50,6 +51,7 @@ dotenv.config();
 app.use(logger('dev'));
 app.use(express.static(join(__dirname, '..', 'client')));
 app.use(express.static("./public")); // Asegúrate de que esta línea esté después de la configuración de CORS
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Rutas
 app.use("/api/auth", authRouter);

@@ -8,8 +8,10 @@ import { Login } from "../view/login";
 import { Registro } from "../view/registro";
 import Chat from "../view/chatbot";
 import ProductForm from "../components/productForm";
-import ProductItem from "../components/productItem";
 import ProductList from "../components/productList";
+import ProductItem from "../components/ProductItem";
+import EditProduct from "../components/productEdit";
+
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -24,6 +26,7 @@ const AppRouter = () => {
         <Route path="/vender" element={<ProductForm/>}/>
         <Route path="/item" element={<ProductItem/>}/>
         <Route path="/list" element={<ProductList/>}/>
+        <Route path="/edit" element={<EditProduct/>}/>
       </Routes>
     </BrowserRouter>
   );
