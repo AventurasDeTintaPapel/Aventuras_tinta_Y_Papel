@@ -22,6 +22,11 @@ export const publicValidation = [
     .withMessage("The price must be numeric")
     .notEmpty()
     .withMessage("The price must not be empty"),
+  body("phone")
+    .isNumeric()
+    .withMessage("The phone must be numeric")
+    .notEmpty()
+    .withMessage("The phone must not be empty"),
   body("imagen").notEmpty().withMessage("Image must not be empty"),
 ];
 

@@ -4,7 +4,7 @@ import publics from "../models/public.models.js";
 //create publics
 export const createPublic = async (req, res) => {
   try {
-    const { title, description, price, type } = req.body;
+    const { title, description, price, type, phone } = req.body;
     let imagen = "";
 
     req.file
@@ -32,6 +32,7 @@ export const createPublic = async (req, res) => {
       price,
       imagen,
       type,
+      phone,
     });
 
     const result = await newPublic.save();
