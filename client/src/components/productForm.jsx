@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import React, { useState } from 'react'; 
+import { useNavigate } from 'react-router-dom'; 
 
 export default function ProductForm() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
+    phone: '',
     price: '',
     imagen: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: '', content: '' });
-  const navigate = useNavigate(); // Inicializa el hook useNavigate
+  const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -39,12 +41,13 @@ export default function ProductForm() {
       if (response.ok) {
         const result = await response.json();
         setMessage({ type: 'success', content: 'Producto creado exitosamente!' });
-        setFormData({ title: '', description: '', price: '', imagen: null });
+        setShowAlert(true);
+        setFormData({ title: '', description: '', phone: '', price: '', imagen: null });
 
-        // Redirige a la página de lista de productos después de un breve retraso
         setTimeout(() => {
-          navigate('/list'); // Cambia esto por la ruta de tu lista de productos
-        }, 2000);
+          setShowAlert(false);
+          navigate('/list');
+        }, 2500);
       } else {
         const error = await response.json();
         setMessage({ type: 'error', content: error.message || 'Error al crear el producto.' });
@@ -58,8 +61,8 @@ export default function ProductForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Añadir un nuevo producto</h2>
+    <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-md relative">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Añadir producto para intercambio</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
@@ -89,6 +92,21 @@ export default function ProductForm() {
             rows={3}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Ingrese la descripción del producto"
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+            Contacto
+          </label>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Ingrese su numero de contacto"
           />
         </div>
         <div>
@@ -128,11 +146,11 @@ export default function ProductForm() {
           {isSubmitting ? 'Añadiendo producto' : 'Añadir producto'}
         </button>
       </form>
-      {message.content && (
+      
+      {message.content && showAlert && (
         <div
-          className={`mt-4 p-3 rounded-md ${
-            message.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-          }`}
+          className={`fixed top-5 left-1/2 transform -translate-x-1/2 px-6 py-4 text-lg rounded-lg shadow-lg text-center z-50
+            ${message.type === 'success' ? 'bg-purple-500 text-white' : 'bg-red-500 text-white'}`}
         >
           {message.content}
         </div>
@@ -140,4 +158,3 @@ export default function ProductForm() {
     </div>
   );
 }
-

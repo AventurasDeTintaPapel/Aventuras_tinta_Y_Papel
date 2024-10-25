@@ -4,7 +4,7 @@ import publics from "../models/public.models.js";
 //create publics
 export const createPublic = async (req, res) => {
   try {
-    const { title, autor, description, price } = req.body;
+    const { title, autor, description, price, phone } = req.body;
     let imagen = "";
 
     if (req.file) {
@@ -18,6 +18,7 @@ export const createPublic = async (req, res) => {
       autor,
       description,
       price,
+      phone,
       imagen,
     });
 
@@ -70,7 +71,7 @@ export const editPublics = async (req, res) => {
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
 
-    const { author, title, price, description } = req.body;
+    const { author, title, price, description, phone } = req.body;
     console.log(author, title, price, description);
 
     const publicFind = await publics.findOne({ autor: idUser });
@@ -90,6 +91,7 @@ export const editPublics = async (req, res) => {
       title,
       price,
       description,
+      phone,
     };
 
     const result = await publics.findByIdAndUpdate(
