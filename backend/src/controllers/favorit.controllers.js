@@ -3,28 +3,28 @@ import usuario from "../models/usuarios.model.js";
 import producto from "../models/productos.model.js";
 import mongoose from "mongoose";
 
-// Agregar producto a favoritos
+// add products a favoritos
 export const addToFav = async (req, res) => {
   try {
-    const { idProduct, idUser } = req.body;
-    // const token = req.headers.token;
+    const { idProduct } = req.body;
+    const token = req.headers.token;
 
-    // // Verificar si el token está presente
-    // if (!token) {
-    //   return res
-    //     .status(401)
-    //     .json({ msg: "You must register to be able to perform this task" });
-    // }
+    // Verificar si el token está presente
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
+    }
 
-    // const user = await validarJWT(token);
-    // // Verificar si el token es válido
-    // if (!user) {
-    //   return res.status(401).json({ msg: "Invalid Token" });
-    // }
+    const user = await validarJWT(token);
+    // Verificar si el token es válido
+    if (!user) {
+      return res.status(401).json({ msg: "Invalid Token" });
+    }
 
-    // const userId = user._id;
-    // console.log(idProducto);
-    // console.log(user);
+    const userId = user._id;
+    console.log(idProducto);
+    console.log(user);
 
     // Buscar el usuario
     const userFind = await usuario.findById(idUser);
@@ -51,24 +51,22 @@ export const addToFav = async (req, res) => {
   }
 };
 
-// Obtener favoritos por ID
-
+// get favorites por ID
 export const getFavs = async (req, res) => {
   try {
-    const { idUser } = req.body;
-    //     const token = req.headers.token;
-    //     // Verificar si el token está presente
-    //     if (!token) {
-    //       return res
-    //         .status(401)
-    //         .json({ msg: "You must register to be able to perform this task" });
-    //     }
-    //     const usuario = await validarJWT(token);
-    //     // Verificar si el token es válido
-    //     if (!usuario) {
-    //       return res.status(401).json({ msg: "Invalid Token" });
-    //     }
-    //     const idUsuario = usuario._id;
+    const token = req.headers.token;
+    // Verificar si el token está presente
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
+    }
+    const usuario = await validarJWT(token);
+    // Verificar si el token es válido
+    if (!usuario) {
+      return res.status(401).json({ msg: "Invalid Token" });
+    }
+    const idUser = usuario._id;
 
     const result = await usuario
       .findById(idUser)
@@ -85,51 +83,25 @@ export const getFavs = async (req, res) => {
   }
 };
 
-// // Eliminar productos de favoritos
-// export const deleteFavs = async (req, res) => {
-//   try {
-//     const token = req.headers.token;
-//     const { idProd } = req.body;
-
-//     // Verificar si el token está presente
-//     if (!token) {
-//       return res
-//         .status(401)
-//         .json({ msg: "You must register to be able to perform this task" });
-//     }
-
-//     const usuario = await validarJWT(token);
-//     // Verificar si el token es válido
-//     if (!usuario) {
-//       return res.status(401).json({ msg: "Invalid Token" });
-//     }
-
-//     const idUsuario = usuario._id;
-
-//     // Eliminar el favorito
-//     const result = await favorites.deleteOne({
-//       usuario: idUsuario,
-//       producto: idProd,
-//     });
-
-//     if (result.deletedCount > 0) {
-//       return res
-//         .status(200)
-//         .json({ msg: "Product successfully removed from favorites" });
-//     } else {
-//       return res.status(400).json({ msg: "Product not found in favorites" });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json({ msg: "Internal server error" });
-//   }
-// };
-
+//delete favorites
 //delete favs
 export const deleteFavs = async (req, res) => {
-  const { idProduct, idUser } = req.body;
-
+  const { idProduct } = req.body;
   try {
+    const token = req.headers.token;
+    // Verificar si el token está presente
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
+    }
+    const usuario = await validarJWT(token);
+    // Verificar si el token es válido
+    if (!usuario) {
+      return res.status(401).json({ msg: "Invalid Token" });
+    }
+    const idUser = usuario._id;
+
     const userFind = await usuario.findById(idUser);
     if (!userFind) {
       return res.status(404).json({ msg: "User not found" });
