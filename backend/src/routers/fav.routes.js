@@ -1,10 +1,6 @@
 import { Router } from "express";
 
-import {
-  addToFav,
-  getFavs,
-  deleteFavs,
-} from "../controllers/favorit.controllers.js";
+import { addToFav, getFavs, deleteFavs } from "../controllers/favorit.controllers.js";
 
 export const favoritos = Router();
 //add  to favorites
