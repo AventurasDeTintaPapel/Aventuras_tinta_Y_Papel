@@ -4,6 +4,7 @@ import {
   editarProducto,
   eliminarProducto,
 } from "../controllers/productos.controllers.js";
+import { addStar } from "../controllers/stars.controller.js";
 import {
   producValidUpdate,
   producValidation,
@@ -20,6 +21,7 @@ producRouter.post(
   subirImagen.single("imagen"),
   cargarProducto
 );
+producRouter.post("/star", addStar);
 
 //ruta para obtener los productos
 producRouter.get("/", obtenerProducto);
