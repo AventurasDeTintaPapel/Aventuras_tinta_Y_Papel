@@ -5,17 +5,17 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
 // Función para agregar a favoritos
-const agregarAFavoritos = async (idProducto) => {
+const agregarAFavoritos = async (idProduct) => {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch("http://localhost:3400/api/favoritos/", {
+    const response = await fetch("http://localhost:3400/api/favoritos/addFav", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         token: token,
       },
-      body: JSON.stringify({ idProducto }),
+      body: JSON.stringify({ idProduct }),
     });
 
     if (!response.ok) {
@@ -35,7 +35,7 @@ const eliminarFavorito = async (idProd) => {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch("http://localhost:3400/api/favoritos/", {
+    const response = await fetch("http://localhost:3400/api/favoritos/deleteFav", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -73,11 +73,13 @@ export function MiComponenteFavorite({ array, estilos }) {
   return (
     <div>
       {agregado
-        ? array.map((producto) => (
-            <button key={producto._id} onClick={() => manejarClickEliminar(producto._id)} className="absolute right-[1vw] top-[0.45vw] ">
-              <FaHeart className={estilos} />
-            </button>
-          ))
+        ? array.map((producto) =>
+            user.favorites.includes(producto._id)(
+              <button key={producto._id} onClick={() => manejarClickEliminar(producto._id)} className="absolute right-[1vw] top-[0.45vw] ">
+                <FaHeart className={estilos} />
+              </button>
+            )
+          )
         : array.map((producto) => (
             <button key={producto._id} onClick={() => manejarClickAgregar(producto._id)} className="absolute right-[1vw] top-[0.45vw] ">
               <FaRegHeart className={estilos} />
@@ -86,6 +88,10 @@ export function MiComponenteFavorite({ array, estilos }) {
     </div>
   );
 }
+
+const TrajetasInicio = () => {
+  const [trajeta, setTarjeta] = useState([]);
+};
 
 // carrusel inicio tarjetas
 function Tarjeta({ imagen, titulo, precio }) {

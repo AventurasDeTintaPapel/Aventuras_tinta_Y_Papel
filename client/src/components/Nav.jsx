@@ -81,7 +81,7 @@ export function Nav({ colAndrow }) {
         <LiSinDesplegable textoNav={"Inicio"} link={"http://localhost:5173/inicio"} />
         <LiSinDesplegable textoNav={"Contactos"} link={"http://localhost:5173/contactos"} />
         <ProductosMenu />
-        <LiSinDesplegable textoNav={"Vender"} link={"#"} />
+        <LiSinDesplegable textoNav={"Intercambio"} link={"#"} />
         <LiSinDesplegable textoNav={"Mercancia"} link={"#"} />
       </div>
     </nav>

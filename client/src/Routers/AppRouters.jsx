@@ -9,7 +9,7 @@ import { Perfil } from "../view/perfil";
 import Chat from "../view/chatbot";
 import { Carrito } from "../view/carrito";
 import { DetallesProductos } from "../view/detallesProductos";
-import { Favoritos } from "../view/favoritos";
+import Favorites from "../view/favoritos";
 
 const AppRouter = () => {
   return (
@@ -23,7 +23,7 @@ const AppRouter = () => {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/soporte" element={<Chat />} />
         <Route path="/carrito" element={<Carrito />} />
-        <Route path="/favoritos" element={<Favoritos />} />
+        <Route path="/favoritos" element={<Favorites />} />
         <Route path="/detalles/:id" element={<DetallesProductos />} />
       </Routes>
     </BrowserRouter>
