@@ -8,8 +8,8 @@ import {
 
 export const favoritos = Router();
 //add  to favorites
-favoritos.post("/", addToFav);
+favoritos.post("/addFav", addToFav);
 //get favs
-favoritos.get("/", getFavs);
+favoritos.get("/getFav", getFavs);
 //delete fav
-favoritos.delete("/", deleteFavs);
+favoritos.delete("/delete", deleteFavs);

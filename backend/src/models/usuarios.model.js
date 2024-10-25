@@ -39,6 +39,14 @@ const usuario = new Schema(
       default: "user",
       enum: ["user", "admin"],
     },
+    favorites: [
+      {
+        producto: {
+          type: Schema.Types.ObjectId,
+          ref: "productos",
+        },
+      },
+    ],
   },
   {
     timestamps: true,
