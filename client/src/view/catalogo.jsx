@@ -5,83 +5,14 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import "@fontsource/baloo-2/700.css";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-import { PiArrowFatLineLeftFill } from "react-icons/pi";
-import { MiComponenteFavorite } from "../components/objetosVariasdos";
+import { botonVolver, renderAside } from "../components/AsideCatalogo";
 
 export function Catalogo() {
   const [productos, setProductos] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(null);
-  const location = useLocation();
   const [isFiltered, setIsFiltered] = useState(false);
-
-  const urlActual = window.location.href;
-  const urlLibros = `http://localhost:5173/catalogo?query=libros`;
-  const urlManga = `http://localhost:5173/catalogo?query=mangas`;
-  const urlComics = `http://localhost:5173/catalogo?query=comics`;
-  const urlMercancia = `http://localhost:5173/catalogo?query=mercancia`;
-
-  // Retorna el boton de filtros de aside
-  function BotonAside({ activation, evento, text, traerProduct }) {
-    return (
-      <button
-        className={`${
-          activation === traerProduct ? "bg-white text-purple-800 justify-center" : "bg-gray-300 text-slate-700 pl-[1vw] justify-start "
-        } w-full text-[1.1vw] flex items-center h-[2vw] rounded`}
-        onClick={() => evento(traerProduct)}
-      >
-        {text}
-      </button>
-    );
-  }
-
-  // retorna el boton de volver a ver todos los libos
-  function botonVolver() {
-    if (!isFiltered) {
-      return null; // No retorna nada si no está filtrado
-    }
-
-    if (urlActual === urlLibros) {
-      return (
-        <a className="flex items-center justify-center gap-[0.5vw] group" href={urlLibros}>
-          <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
-          <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver todos los libros</span>
-        </a>
-      );
-    } else if (urlActual === urlManga) {
-      return (
-        <a className="flex items-center justify-center gap-[0.5vw] group" href={urlManga}>
-          <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
-          <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver todos los mangas</span>
-        </a>
-      );
-    } else if (urlActual === urlComics) {
-      return (
-        <a className="flex items-center justify-center gap-[0.5vw] group" href={urlComics}>
-          <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
-          <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver todos los comics</span>
-        </a>
-      );
-    } else if (urlActual === urlMercancia) {
-      return (
-        <a className="flex items-center justify-center gap-[0.5vw] group" href={urlMercancia}>
-          <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
-          <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver toda la mercancia</span>
-        </a>
-      );
-    } else {
-      console.log("no se encontró la ruta para el aside");
-      return null;
-    }
-  }
-
-  // trae todos los libros
-  useEffect(() => {
-    const tipo = new URLSearchParams(location.search).get("query");
-    if (tipo) {
-      fetchProductos(tipo);
-    }
-  }, [location]);
+  const location = useLocation();
 
   // fetch para trear libros y sus filtros
   const fetchProductos = async (tipo, category = null) => {
@@ -98,109 +29,13 @@ export function Catalogo() {
     }
   };
 
-  // funcion para que ande filtros
-  const handleCategoryClick = (category) => {
-    setActiveCategory(category);
+  // trae todos los libros
+  useEffect(() => {
     const tipo = new URLSearchParams(location.search).get("query");
-    fetchProductos(tipo, category);
-  };
-
-  function renderAside() {
-    if (urlActual === urlLibros) {
-      return <AsideLibros />;
-    } else if (urlActual === urlManga) {
-      return <AsideManga />;
-    } else if (urlActual === urlComics) {
-      return <AsideComic />;
-    } else if (urlActual === urlMercancia) {
-      return <AsideMercanica />;
-    } else {
-      console.log("no se encontro la ruta para el aside");
+    if (tipo) {
+      fetchProductos(tipo);
     }
-  }
-
-  // aside LIBRO
-  function AsideLibros() {
-    return (
-      <>
-        {/* botón Ciencia Ficción */}
-        <BotonAside text={"Ciencia Ficción"} traerProduct={"ciencia ficcion"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Juveniles */}
-        <BotonAside text={"Juveniles"} traerProduct={"juvenil"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Romance */}
-        <BotonAside text={"Romance"} traerProduct={"romance"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Literatura Clasica */}
-        <BotonAside text={"Literatura Clasica"} traerProduct={"literatura clasica"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Terror */}
-        <BotonAside text={"Terror"} traerProduct={"terror"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Triller */}
-        <BotonAside text={"Triller"} traerProduct={"triller"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Infatiles */}
-        <BotonAside text={"Infatiles"} traerProduct={"infantiles"} evento={handleCategoryClick} activation={activeCategory} />
-      </>
-    );
-  }
-
-  // aside MANGA no anda las direccione porque no estan en base de datos
-  function AsideManga() {
-    return (
-      <>
-        {/* botón Shonen */}
-        <BotonAside text={"Shonen"} traerProduct={"shonen"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Seinen */}
-        <BotonAside text={"Seinen"} traerProduct={"seinen"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Yuri */}
-        <BotonAside text={"Yuri"} traerProduct={"yuri"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Josei */}
-        <BotonAside text={"Josei"} traerProduct={"josei"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Shojo */}
-        <BotonAside text={"Shojo"} traerProduct={"shojo"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Boys love */}
-        <BotonAside text={"Boys love"} traerProduct={"boyslove"} evento={handleCategoryClick} activation={activeCategory} />
-      </>
-    );
-  }
-
-  // aside COMICS no anda las direccione porque no estan en base de datos
-  function AsideComic() {
-    return (
-      <>
-        {/* botón Superhéroes */}
-        <BotonAside text={"Superhéroes"} traerProduct={"superhéroes"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Ciencia Ficción */}
-        <BotonAside text={"Ciencia Ficción"} traerProduct={"ciencia Ficción"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Fantasía */}
-        <BotonAside text={"Fantasía"} traerProduct={"fantasía"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Romance */}
-        <BotonAside text={"Romance"} traerProduct={"romance"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Terror */}
-        <BotonAside text={"Terror"} traerProduct={"terror"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Comedia */}
-        <BotonAside text={"Comedia"} traerProduct={"comedia"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Slice of Life */}
-        <BotonAside text={"Slice of Life"} traerProduct={"slice of Life"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Histórico */}
-        <BotonAside text={"Histórico"} traerProduct={"histórico"} evento={handleCategoryClick} activation={activeCategory} />
-      </>
-    );
-  }
-
-  // aside MERCANCIA no anda las direccione porque no estan en base de datos
-  function AsideMercanica() {
-    return (
-      <>
-        {/* botón Remeras */}
-        <BotonAside text={"Remeras"} traerProduct={"Remeras"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Pines */}
-        <BotonAside text={"Pines"} traerProduct={"pines"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Posters */}
-        <BotonAside text={"Posters"} traerProduct={"posters"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Tazas */}
-        <BotonAside text={"Tazas"} traerProduct={"tazas"} evento={handleCategoryClick} activation={activeCategory} />
-        {/* botón Terror */}
-      </>
-    );
-  }
+  }, [location]);
 
   // boton mas informacion de la tarjeta
   function MasInfo({ id }) {
@@ -228,8 +63,8 @@ export function Catalogo() {
         <div className="bg-purple-600  text-white py-[1vw] px-[2vw]  space-y-[0.5vw]">
           <p className="text-[2.5vw] ">Filtros</p>
           <div className="flex flex-col justify-center items-center gap-[1vw] ">
-            {renderAside()}
-            {botonVolver()}
+            {renderAside(fetchProductos)}
+            {botonVolver(isFiltered)}
           </div>
         </div>
       </aside>
@@ -252,7 +87,8 @@ export function Catalogo() {
                 {/* titulo y precio */}
                 <div className="pl-[1vw] relative">
                   <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">{producto.titulo}</div>
-                  <MiComponenteFavorite array={productos} estilos={"text-purple-900 text-[1.6vw]"} />
+                  <Producto key={producto._id} producto={producto} />
+
                   <p className="text-[1.6vw] text-[#4d2b6c]">Precio: ${producto.precio}</p>
                 </div>
                 {/* boton */}
@@ -269,3 +105,78 @@ export function Catalogo() {
     </div>
   );
 }
+
+const Producto = ({ producto }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await axios.get("http://localhost:3400/api/favoritos/getFav", {
+            headers: { token },
+          });
+          const favoritesData = response.data.favorites;
+          setFavorites(favoritesData);
+          // Verificación local
+          const isFavorite = favoritesData.some((fav) => fav.producto._id === producto._id);
+          setIsFavorite(isFavorite);
+        } catch (error) {
+          console.error("Error fetching favorites:", error);
+        }
+      }
+    };
+
+    fetchFavorites();
+  }, []); // Solo se ejecuta al montar el componente
+
+  const handleFavoriteToggle = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return; // Si no hay token, no hacer nada
+
+    try {
+      if (isFavorite) {
+        // Eliminar de favoritos
+        await axios.delete("http://localhost:3400/api/favoritos/deleteFav", {
+          headers: { token },
+          data: { idProduct: producto._id },
+        });
+        setFavorites((prev) => prev.filter((fav) => fav.producto._id !== producto._id));
+        console.log("se elimino con exito");
+      } else {
+        // Agregar a favoritos
+        await axios.post(
+          "http://localhost:3400/api/favoritos/addFav",
+          {
+            idProduct: producto._id,
+          },
+          {
+            headers: { token },
+          }
+        );
+        console.log(" se agrego con exito a favoritos");
+
+        setFavorites((prev) => [...prev, { producto }]);
+      }
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error("Error updating favorites:", error);
+    }
+  };
+
+  return (
+    <div>
+      <h2>{producto.nombre}</h2>
+      <div className="text-[#5a189a] absolute right-[1vw] top-[0.6vw] text-[1.4vw]">
+        <button onClick={handleFavoriteToggle} className="transition-transform duration-300 ease-in-out">
+          {/* Aquí aplicamos las clases para la animación */}
+          <span className={`${isFavorite ? "" : ""} transition-colors duration-300 ease-in-out`}>
+            {isFavorite ? <FaHeart className="transform scale-110" /> : <FaRegHeart className="transform scale-100" />}
+          </span>
+        </button>
+      </div>
+    </div>
+  );
+};
