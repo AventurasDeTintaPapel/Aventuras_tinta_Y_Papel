@@ -41,7 +41,7 @@ export function DetallesProductos() {
           <div className="grid grid-rows-[auto_auto_auto] shadow-detelles rounded-[1vw] w-[70vw]">
             <div className=" row-start-1 p-[2vw] flex gap-[2vw] ">
               {/* contenedor imagen */}
-              <div className="w-[17vw] h-[25vw] p-[1vw] rounded-[0.5vw] bg-[#3C096C]">
+              <div className="w-[18vw] h-[25vw] p-[1vw] rounded-[0.5vw] bg-[#3C096C]">
                 <img className="w-full h-full" src={producto.imagen} alt="" />
               </div>
 
@@ -56,7 +56,7 @@ export function DetallesProductos() {
                   <p className="text-[1.6vw] pl-[0.8vw]  text-[#62269a]">
                     <span style={{ fontFamily: "'Poppins', sans-serif" }} className="text-[#361158] text-[1.8vw]">
                       Tipo:
-                    </span>{" "}
+                    </span>
                     {producto.tipo}
                   </p>
                   <p className="text-[1.6vw] pl-[0.8vw] text-[#62269a]">
@@ -183,7 +183,7 @@ function VolverCatalogo() {
   return (
     <button
       onClick={hancleRedirect}
-      className="flex absolute  top-[0.5vw] right-[3vw] border-[#5A189A] text-[#3f1569] border-[0.2vw] px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] group hover:translate-x-[0.5vw] transition-all ease-in-out duration-300"
+      className="flex absolute  top-[0.5vw] left-[12vw] border-[#5A189A] text-[#3f1569] border-[0.2vw] px-[1.5vw] justify-center h-[4vw] items-center gap-[1vw] rounded-[0.4vw] group hover:translate-x-[-0.2vw] transition-all ease-in-out duration-300"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@ function VolverCatalogo() {
           clipRule="evenodd"
         ></path>
       </svg>
-      <span className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300">Volver a Catalogo</span>
+      <span className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300">Volver </span>
     </button>
   );
 }

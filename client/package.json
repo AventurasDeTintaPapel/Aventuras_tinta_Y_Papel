@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@fontsource/baloo-2": "^5.1.0",
+    "@fontsource/boogaloo": "^5.1.0",
+    "@fontsource/bree-serif": "^5.1.0",
     "@fontsource/montserrat": "^5.1.0",
     "@fontsource/poppins": "^5.1.0",
     "@mui/material": "^5.16.7",

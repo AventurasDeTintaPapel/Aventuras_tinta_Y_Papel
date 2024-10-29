@@ -25,10 +25,12 @@ export function Nav({ colAndrow }) {
   function ProductosMenu() {
     const [mostrarMenu, setMostarMenu] = useState(false);
     const [estilo, setEstilo] = useState({});
+    const [estiloFlecha, setEstiloFlecha] = useState({});
 
     const manejarClic = () => {
       setMostarMenu(!mostrarMenu);
-      setEstilo(mostrarMenu ? {} : { backgroundColor: "#5A189A" });
+      setEstilo(mostrarMenu ? {} : { backgroundColor: "#591899" });
+      setEstiloFlecha(mostrarMenu ? { transition: "transform 0.5s ease" } : { transform: "rotate(-180deg)", transition: "transform 0.5s ease" });
     };
 
     return (
@@ -36,15 +38,15 @@ export function Nav({ colAndrow }) {
         <button
           style={estilo}
           onClick={manejarClic}
-          className="flex justify-center items-center h-[2.6vw] w-[10vw] hover:bg-[#5A189A] transition-all duration-200 ease-in-out rounded-t-[0.3vw]"
+          className="flex justify-center items-center h-[2.6vw] w-[10vw] hover:bg-[#5A189A] gap-[0.3vw] transition-all duration-200 ease-in rounded-t-[0.3vw]"
         >
           <span className="text-[1.35vw]">Productos</span>
-          <IoIosArrowDown className="text-[1.35vw]" />
+          <IoIosArrowDown style={estiloFlecha} className="text-[1.35vw]" />
         </button>
         <div
           className={`${
-            mostrarMenu ? "opacity-90 translate-x-0" : "opacity-0 translate-y-[-1vw] pointer-events-none"
-          } flex flex-col absolute w-[10vw] transition-all ease-in-out duration-200 bg-purple-900 text-white text-[1.4vw] z-50`}
+            mostrarMenu ? " max-h-[15vw] opacity-100 " : "opacity-0 pointer-events-none max-h-0 "
+          } flex flex-col absolute w-[10vw] transition-all ease-linear duration-200 bg-purple-900 text-white text-[1.4vw] z-50`}
         >
           <button
             className=" h-[3vw] flex pl-[1vw] items-center hover:bg-purple-800 hover:text-[1.6vw] transition-all ease-in-out duration-300"

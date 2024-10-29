@@ -1,12 +1,7 @@
 import { useState } from "react";
-import { PiArrowFatLineLeftFill } from "react-icons/pi";
+import { IoArrowUndoSharp } from "react-icons/io5";
 
 // ASIDE DE CATALOGO
-const urlActual = window.location.href;
-const urlLibros = `http://localhost:5173/catalogo?query=libros`;
-const urlManga = `http://localhost:5173/catalogo?query=mangas`;
-const urlComics = `http://localhost:5173/catalogo?query=comics`;
-const urlMercancia = `http://localhost:5173/catalogo?query=mercancia`;
 
 const AsideButtons = ({ items, handleCategoryClick, activeCategory }) => {
   return (
@@ -29,8 +24,10 @@ function BotonAside({ activation, evento, text, traerProduct }) {
   return (
     <button
       className={`${
-        activation === traerProduct ? "bg-white text-purple-800 justify-center" : "bg-gray-300 text-slate-700 pl-[1vw] justify-start "
-      } w-full text-[1.1vw] flex items-center py-[0.3vw] rounded`}
+        activation === traerProduct
+          ? "bg-[#5c456f] w-[95%] text-white h-[3vw] font-breeSerif text-[1.4vw]"
+          : "bg-slate-50 w-[90%] hover:w-[93%] shadow-asiSeccion text-[1.2vw] hover:text-[1.2vw] h-[2.5vw] hover:bg-[#f0e9f5] hover:text-[#66596f] text-[#72667a] "
+      } transition-all ease-linear duration-200 rounded-[0.5vw] pl-[1vw]`}
       onClick={() => evento(traerProduct)}
     >
       {text}
@@ -38,21 +35,21 @@ function BotonAside({ activation, evento, text, traerProduct }) {
   );
 }
 
-export function AsideLibros({ handleCategoryClick, activeCategory }) {
+function AsideLibros({ handleCategoryClick, activeCategory }) {
   const items = [
-    { text: "Ciencia Ficción", traerProduct: "ciencia ficcion" },
-    { text: "Juveniles", traerProduct: "juvenil" },
+    { text: "Terror", traerProduct: "ciencia ficcion" },
+    { text: "Triller", traerProduct: "juvenil" },
     { text: "Romance", traerProduct: "romance" },
-    { text: "Literatura Clasica", traerProduct: "literatura clasica" },
-    { text: "Terror", traerProduct: "terror" },
-    { text: "Triller", traerProduct: "triller" },
-    { text: "Infantiles", traerProduct: "infantiles" },
+    { text: "Infantiles", traerProduct: "literatura clasica" },
+    { text: "Juveniles", traerProduct: "terror" },
+    { text: "Ciencia Ficción", traerProduct: "triller" },
+    { text: "Literatura Clasica", traerProduct: "infantiles" },
   ];
 
   return <AsideButtons items={items} handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
 }
 
-export function AsideManga({ handleCategoryClick, activeCategory }) {
+function AsideManga({ handleCategoryClick, activeCategory }) {
   const items = [
     { text: "Shonen", traerProduct: "shonen" },
     { text: "Seinen", traerProduct: "seinen" },
@@ -65,7 +62,7 @@ export function AsideManga({ handleCategoryClick, activeCategory }) {
   return <AsideButtons items={items} handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
 }
 
-export function AsideComic({ handleCategoryClick, activeCategory }) {
+function AsideComic({ handleCategoryClick, activeCategory }) {
   const items = [
     { text: "Superhéroes", traerProduct: "superhéroes" },
     { text: "Ciencia Ficción", traerProduct: "ciencia Ficción" },
@@ -80,7 +77,7 @@ export function AsideComic({ handleCategoryClick, activeCategory }) {
   return <AsideButtons items={items} handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
 }
 
-export function AsideMercanica({ handleCategoryClick, activeCategory }) {
+function AsideMercanica({ handleCategoryClick, activeCategory }) {
   const items = [
     { text: "Remeras", traerProduct: "Remeras" },
     { text: "Pines", traerProduct: "pines" },
@@ -91,8 +88,25 @@ export function AsideMercanica({ handleCategoryClick, activeCategory }) {
   return <AsideButtons items={items} handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
 }
 
+// Urls
+function obtenerDatosUrlActual() {
+  const urlActual = window.location.href;
+  const urls = [
+    { name: "libros", url: "http://localhost:5173/catalogo?query=libros" },
+    { name: "manga", url: "http://localhost:5173/catalogo?query=mangas" },
+    { name: "comics", url: "http://localhost:5173/catalogo?query=comics" },
+    { name: "mercancia", url: "http://localhost:5173/catalogo?query=mercancia" },
+  ];
+
+  const matchedUrl = urls.find(({ url }) => url === urlActual);
+
+  return matchedUrl || null;
+}
+
+// renderizado de los diferentes aside
 export function renderAside(fetchProductosProp) {
   const [activeCategory, setActiveCategory] = useState(null);
+  const datosurl = obtenerDatosUrlActual();
 
   // funcion para que ande filtros
   const handleCategoryClick = (category) => {
@@ -102,51 +116,54 @@ export function renderAside(fetchProductosProp) {
   };
 
   // RENDERIZA EL ASIDE DEPENDIENDO DE DONDE NOS ENCONTREMOS
-
-  if (urlActual === urlLibros) {
+  if (datosurl.name === "libros") {
     return <AsideLibros handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
-  } else if (urlActual === urlManga) {
+  } else if (datosurl.name === "manga") {
     return <AsideManga handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
-  } else if (urlActual === urlComics) {
+  } else if (datosurl.name === "comics") {
     return <AsideComic handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
-  } else if (urlActual === urlMercancia) {
+  } else if (datosurl.name === "mercancia") {
     return <AsideMercanica handleCategoryClick={handleCategoryClick} activeCategory={activeCategory} />;
   } else {
-    console.log("no se encontro la ruta para el aside");
+    console.log("No se encontró la ruta para el aside");
   }
 }
 
 // retorna el boton de volver a ver todos los libos
 export function botonVolver(filtro) {
+  const datosUrl = obtenerDatosUrlActual();
   if (!filtro) {
     return null; // No retorna nada si no está filtrado
   }
 
-  if (urlActual === urlLibros) {
+  const filtroVolver =
+    "rounded-[0.5vw] flex justify-center items-center font-breeSerif gap-[0.5vw] border-[#d5cadb] bg-none hover:bg-[#a59aaa] hover:text-white h-[2.5vw] w-[90%] hover:border-none border-[0.15vw] text-[#9a85a3] group";
+
+  if (datosUrl.name === "libros") {
     return (
-      <a className="flex items-center justify-center gap-[0.5vw] group" href={urlLibros}>
-        <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
+      <a className={filtroVolver} href={datosUrl.url}>
+        <IoArrowUndoSharp className="text-[1.4vw] group-hover:text-[1.5vw] transition-all ease-in-out duration-300" />
         <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver todos los libros</span>
       </a>
     );
-  } else if (urlActual === urlManga) {
+  } else if (datosUrl.name === "manga") {
     return (
-      <a className="flex items-center justify-center gap-[0.5vw] group" href={urlManga}>
-        <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
+      <a className={filtroVolver} href={datosUrl.url}>
+        <IoArrowUndoSharp className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
         <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver todos los mangas</span>
       </a>
     );
-  } else if (urlActual === urlComics) {
+  } else if (datosUrl.name === "comics") {
     return (
-      <a className="flex items-center justify-center gap-[0.5vw] group" href={urlComics}>
-        <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
+      <a className={filtroVolver} href={datosUrl.url}>
+        <IoArrowUndoSharp className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
         <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver todos los comics</span>
       </a>
     );
-  } else if (urlActual === urlMercancia) {
+  } else if (datosUrl.name === "mercancia") {
     return (
-      <a className="flex items-center justify-center gap-[0.5vw] group" href={urlMercancia}>
-        <PiArrowFatLineLeftFill className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
+      <a className={filtroVolver} href={datosUrl.url}>
+        <IoArrowUndoSharp className="text-[1.5vw] group-hover:text-[1.6vw] transition-all ease-in-out duration-300" />
         <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver toda la mercancia</span>
       </a>
     );

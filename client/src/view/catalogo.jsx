@@ -5,9 +5,10 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import "@fontsource/baloo-2/700.css";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import "@fontsource/bree-serif";
 
 import { botonVolver, renderAside } from "../components/AsideCatalogo";
+import { CorazonFav } from "../components/Fav";
 
 export function Catalogo() {
   const [productos, setProductos] = useState([]);
@@ -37,42 +38,26 @@ export function Catalogo() {
     }
   }, [location]);
 
-  // boton mas informacion de la tarjeta
-  function MasInfo({ id }) {
-    const verDetalles = () => {
-      window.location.href = `/detalles/${id}`;
-    };
-
-    return (
-      <button
-        onClick={verDetalles}
-        className=" absolute bottom-[0.5vw] left-[0.5vw] bg-[#8321d8] bg-opacity-85 text-slate-100 hover:text-white text-[0.8vw] rounded-md px-[0.4vw] py-[0.2vw] hover:bg-opacity-100 hover:text-[0.85vw] transition-all ease-in-out duration-300"
-      >
-        Más información
-      </button>
-    );
-  }
-
   // retorna el ASIDE Y MAIN
   return (
-    <div className="grid grid-cols-[80%_20%] grid-rows-[auto_auto_1fr_auto] h-screen">
+    <div className="grid grid-cols-[17%_1fr] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"col-span-2 row-start-1"} />
       <Nav colAndrow={"col-span-2 row-start-2"} />
 
-      <aside className="col-start-2 row-start-3" style={{ fontFamily: "'Baloo 2', system-ui" }}>
-        <div className="bg-purple-600  text-white py-[1vw] px-[2vw]  space-y-[0.5vw]">
-          <p className="text-[2.5vw] ">Filtros</p>
-          <div className="flex flex-col justify-center items-center gap-[1vw] ">
+      <aside className="col-start-1 row-start-3 mb-[2vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+        <div className="bg-white">
+          <div className="flex flex-col w-full shadow-asideProductos rounded-br-[1vw] gap-[0.5vw] justify-center items-center pb-[1vw] ">
+            <p className="bg-[#f8f5fa] text-[#4a395a] pl-[1vw] w-full py-[0.4vw] font-breeSerif text-[2vw]">Filtros:</p>
             {renderAside(fetchProductos)}
             {botonVolver(isFiltered)}
           </div>
         </div>
       </aside>
 
-      <main style={{ fontFamily: "'Baloo 2', system-ui" }} className="col-start-1 row-start-3 flex justify-center items-center">
+      <main style={{ fontFamily: "'Baloo 2', system-ui" }} className="col-start-2 row-start-3 flex flex-col">
         <div>
           {/* contenedor de tarjetas */}
-          <div className="flex flex-wrap py-[2vw] justify-center items-center gap-[2.5vw]">
+          <div className="flex flex-wrap py-[2vw] justify-center items-center gap-[2.5vw] ">
             {productos.map((producto) => (
               // tarjeta
               <div
@@ -82,12 +67,18 @@ export function Catalogo() {
                 {/* imagen */}
                 <div className="w-auto h-[22vw] relative">
                   <img className="w-full h-full rounded-t-lg object-cover" src={producto.imagen} alt={producto.titulo} />
-                  <MasInfo id={producto._id} v />
+                  <MasInfo
+                    id={producto._id}
+                    text={"Mas informacion"}
+                    estilos={
+                      " absolute bottom-[0.5vw] font-breeSerif left-[0.5vw] bg-[#8321d8] bg-opacity-85 text-white hover:text-white text-[0.8vw] rounded-md px-[0.4vw] py-[0.2vw] hover:bg-opacity-100 hover:text-[0.85vw] hover:translate-y-[0.05vw] transition-all ease-in-out duration-300"
+                    }
+                  />
                 </div>
                 {/* titulo y precio */}
                 <div className="pl-[1vw] relative">
                   <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">{producto.titulo}</div>
-                  <Producto key={producto._id} producto={producto} />
+                  <CorazonFav key={producto._id} producto={producto} estilo={"text-[#5a189a] absolute right-[1vw] top-[0.4vw] text-[1.5vw]"} />
 
                   <p className="text-[1.6vw] text-[#4d2b6c]">Precio: ${producto.precio}</p>
                 </div>
@@ -106,77 +97,14 @@ export function Catalogo() {
   );
 }
 
-const Producto = ({ producto }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await axios.get("http://localhost:3400/api/favoritos/getFav", {
-            headers: { token },
-          });
-          const favoritesData = response.data.favorites;
-          setFavorites(favoritesData);
-          // Verificación local
-          const isFavorite = favoritesData.some((fav) => fav.producto._id === producto._id);
-          setIsFavorite(isFavorite);
-        } catch (error) {
-          console.error("Error fetching favorites:", error);
-        }
-      }
-    };
-
-    fetchFavorites();
-  }, []); // Solo se ejecuta al montar el componente
-
-  const handleFavoriteToggle = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return; // Si no hay token, no hacer nada
-
-    try {
-      if (isFavorite) {
-        // Eliminar de favoritos
-        await axios.delete("http://localhost:3400/api/favoritos/deleteFav", {
-          headers: { token },
-          data: { idProduct: producto._id },
-        });
-        setFavorites((prev) => prev.filter((fav) => fav.producto._id !== producto._id));
-        console.log("se elimino con exito");
-      } else {
-        // Agregar a favoritos
-        await axios.post(
-          "http://localhost:3400/api/favoritos/addFav",
-          {
-            idProduct: producto._id,
-          },
-          {
-            headers: { token },
-          }
-        );
-        console.log(" se agrego con exito a favoritos");
-
-        setFavorites((prev) => [...prev, { producto }]);
-      }
-      setIsFavorite(!isFavorite);
-    } catch (error) {
-      console.error("Error updating favorites:", error);
-    }
+export function MasInfo({ id, estilos, text }) {
+  const verDetalles = () => {
+    window.location.href = `/detalles/${id}`;
   };
 
   return (
-    <div>
-      <h2>{producto.nombre}</h2>
-      <div className="text-[#5a189a] absolute right-[1vw] top-[0.6vw] text-[1.4vw]">
-        <button onClick={handleFavoriteToggle} className="transition-transform duration-300 ease-in-out">
-          {/* Aquí aplicamos las clases para la animación */}
-          <span className={`${isFavorite ? "" : ""} transition-colors duration-300 ease-in-out`}>
-            {isFavorite ? <FaHeart className="transform scale-110" /> : <FaRegHeart className="transform scale-100" />}
-          </span>
-        </button>
-      </div>
-    </div>
+    <button onClick={verDetalles} className={estilos}>
+      {text}
+    </button>
   );
-};
+}

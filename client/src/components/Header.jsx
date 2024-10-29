@@ -87,8 +87,8 @@ function BotonPerfil() {
         id="menuDesplegable"
         ref={menuRef} // Referencia al menú
         className={`${
-          mostrarSeccion ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-2vw]  pointer-events-none"
-        } transition-all ease-in-out duration-500 text-[1.5vw] absolute z-50 shadow-xl bg-[#f0e6ef] rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[17vw] right-[0vw]`}
+          mostrarSeccion ? "opacity-100 max-h-[19vw]" : "opacity-0 max-h-0 pointer-events-none"
+        } transition-all ease-in-out duration-500 text-[1.5vw] absolute z-50 shadow-xl bg-[#f0e6ef] rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[18vw] right-[0vw]`}
       >
         {!token ? (
           <BotonesSessionOnn />
@@ -179,11 +179,11 @@ function BotonBuscador() {
     <div className="relative">
       <div
         className={`${
-          mostrarMenu ? "opacity-100 translate-x-0" : "opacity-0 translate-x-[3vw]  pointer-events-none"
-        } bg-white rounded-l-full flex items-center transition-all duration-500 ease-in-out py-[0.2vw] px-[0.25vw] w-[50vw] h-[2.5vw] absolute right-[3.5vw]`}
+          mostrarMenu ? "opacity-100 translate-x-0 w-[50vw]" : "opacity-0 w-0 translate-x-[3vw]  pointer-events-none"
+        } bg-white rounded-l-full flex items-center transition-all duration-500 ease-linear py-[0.2vw] px-[0.25vw] h-[2.5vw] absolute right-[3.5vw]`}
       >
         <input
-          className="barradelBuscador rounded-l-full bg-gradient-to-r from-white to-purple-300 text-[1.1vw] text-purple-950 font-bold pl-[1vw] w-full h-[100%]"
+          className=" rounded-l-full bg-gradient-to-r from-white to-purple-300 text-[1.1vw] text-purple-950 font-bold pl-[1vw] w-full h-[100%]"
           type="text"
           placeholder="Search product"
         />
