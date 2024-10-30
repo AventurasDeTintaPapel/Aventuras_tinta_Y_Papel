@@ -1,5 +1,8 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
+import { Header } from './Header';
+import { Footer } from './Footer';
+
 
 export default function ProductForm() {
   const [formData, setFormData] = useState({
@@ -32,9 +35,12 @@ export default function ProductForm() {
       submitData.append(key, value);
     });
 
+    const token = localStorage.getItem('token'); // Obtiene el token de autenticación
     try {
       const response = await fetch('http://localhost:3400/api/publics/cargar', {
         method: 'POST',
+        headers: {
+          token:token,         },
         body: submitData,
       });
 
@@ -61,6 +67,8 @@ export default function ProductForm() {
   };
 
   return (
+    <>
+    <Header/>
     <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-md relative">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Añadir producto para intercambio</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -135,13 +143,13 @@ export default function ProductForm() {
             name="imagen"
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
           />
         </div>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out disabled:opacity-50"
+          className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-300 ease-in-out disabled:opacity-50"
         >
           {isSubmitting ? 'Añadiendo producto' : 'Añadir producto'}
         </button>
@@ -156,5 +164,7 @@ export default function ProductForm() {
         </div>
       )}
     </div>
+    <Footer/>
+    </>
   );
 }

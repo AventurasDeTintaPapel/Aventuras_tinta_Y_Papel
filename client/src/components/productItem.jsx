@@ -7,6 +7,7 @@ const ProductItem = ({ product, onProductDeleted }) => {
     title: product.title,
     description: product.description,
     price: product.price,
+    phone: product.phone,
     imagen: product.imagen,
   });
 
@@ -20,9 +21,9 @@ const ProductItem = ({ product, onProductDeleted }) => {
     }
   };
 
-  // Maneja el modo de edición
+  // Activa el modo de edición
   const handleEditClick = () => {
-    setIsEditing(true); // Activa el modo de edición
+    setIsEditing(true);
   };
 
   // Guarda los cambios al editar
@@ -45,7 +46,7 @@ const ProductItem = ({ product, onProductDeleted }) => {
   };
 
   return (
-    <div className="product-card">
+    <div className="product-card bg-white p-6 rounded-lg shadow-md">
       {isEditing ? (
         <div>
           {/* Modo de edición */}
@@ -54,6 +55,7 @@ const ProductItem = ({ product, onProductDeleted }) => {
             name="title"
             value={editedProduct.title}
             onChange={handleChange}
+            className="border p-2 w-full mb-2 rounded"
             placeholder="Nombre del producto"
           />
           <input
@@ -61,6 +63,7 @@ const ProductItem = ({ product, onProductDeleted }) => {
             name="description"
             value={editedProduct.description}
             onChange={handleChange}
+            className="border p-2 w-full mb-2 rounded"
             placeholder="Descripción"
           />
           <input
@@ -68,6 +71,7 @@ const ProductItem = ({ product, onProductDeleted }) => {
             name="price"
             value={editedProduct.price}
             onChange={handleChange}
+            className="border p-2 w-full mb-2 rounded"
             placeholder="Precio"
           />
           <input
@@ -75,20 +79,37 @@ const ProductItem = ({ product, onProductDeleted }) => {
             name="imagen"
             value={editedProduct.imagen}
             onChange={handleChange}
+            className="border p-2 w-full mb-2 rounded"
             placeholder="URL de la imagen"
           />
-          {/* Botón para guardar los cambios */}
-          <button onClick={handleSaveClick}>Guardar</button>
+          <button
+            onClick={handleSaveClick}
+            className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200"
+          >
+            Guardar
+          </button>
         </div>
       ) : (
         <div>
           {/* Modo de visualización */}
-          <img src={product.imagen} alt={product.title} className="product-image" />
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <span>${product.price}</span>
-          <button onClick={handleEditClick}>Editar</button>
-          <button onClick={handleDelete}>Eliminar</button>
+          <img src={product.imagen} alt={product.title} className="product-image w-full h-48 object-cover rounded-md mb-4" />
+          <h2 className="text-xl font-bold mb-2">{product.title}</h2>
+          <p className="text-gray-700 mb-2">{product.description}</p>
+          <span className="text-purple-500 font-semibold text-lg">${product.price}</span>
+          <div className="flex space-x-2 mt-4">
+            <button
+              onClick={handleEditClick}
+              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+            >
+              Editar
+            </button>
+            <button
+              onClick={handleDelete}
+              className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-200"
+            >
+              Eliminar
+            </button>
+          </div>
         </div>
       )}
     </div>

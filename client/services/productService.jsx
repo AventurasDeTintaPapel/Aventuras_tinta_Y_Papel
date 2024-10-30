@@ -1,14 +1,15 @@
-const API_URL = 'http://localhost:3400/api/publics/obtener'; // URL del backend
+const API_URL = 'http://localhost:3400/api/publics'; // URL del backend
 
 // Función para crear un producto
 export const createProduct = async (productData) => {
   const token = localStorage.getItem('token'); // Obtén el token desde localStorage
+  console.log(token)
   try {
-    const response = await fetch(`${API_URL}`, {
+    const response = await fetch('http://localhost:3400/api/publics/cargar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, 
+        token:token, 
       },
       body: JSON.stringify(productData),
     });
@@ -63,34 +64,35 @@ export const fetchProducts = async () => {
 export const updateProduct = async (id, productData) => {
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`http://localhost:3400/api/publics/edit/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        token:token,
       },
       body: JSON.stringify(productData),
     });
 
-    if (!response.ok) {
-      throw new Error('Error al actualizar el producto');
+    const data = await response.json();
+    if (response.status === 401) {
+      console.error('No tienes autorización para realizar esta acción.');
+    } else {
+      console.log(data);
     }
-
-    return await response.json();
   } catch (error) {
     console.error('Error al actualizar el producto:', error);
-    throw error;
   }
 };
 
 // Función para eliminar un producto
 export const deleteProduct = async (id) => {
   const token = localStorage.getItem('token'); // Obtén el token desde localStorage
+  console.log(token)
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`http://localhost:3400/api/publics/delete/`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`, 
+        token:token, 
       },
     });
 

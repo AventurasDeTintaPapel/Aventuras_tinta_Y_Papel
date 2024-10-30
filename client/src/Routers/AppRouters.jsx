@@ -9,7 +9,6 @@ import { Registro } from "../view/registro";
 import Chat from "../view/chatbot";
 import ProductForm from "../components/productForm";
 import ProductList from "../components/productList";
-import ProductItem from "../components/ProductItem";
 import EditProduct from "../components/productEdit";
 
 const AppRouter = () => {
@@ -24,7 +23,6 @@ const AppRouter = () => {
         <Route path="/registro" element={<Registro />} />
         <Route path="/soporte" element={<Chat/>}/>
         <Route path="/vender" element={<ProductForm/>}/>
-        <Route path="/item" element={<ProductItem/>}/>
         <Route path="/list" element={<ProductList/>}/>
         <Route path="/edit" element={<EditProduct/>}/>
       </Routes>

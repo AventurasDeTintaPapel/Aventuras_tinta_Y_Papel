@@ -1,18 +1,19 @@
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"; // Importar jwt como un todo
 import usuario from "../models/usuarios.model.js";
-import verify from "jsonwebtoken";
 
-//funcion para validar jwt
+// función para validar jwt
 export const validarJWT = async (token) => {
   try {
-    const { id } = verify(token, "mysecret");
-    //funcion para buscar al usuario
-    const usuario = await usuario.findById(id);
+    // Llamar a jwt.verify directamente
+    const { id } = jwt.verify(token, "mysecret");
 
-    if (!usuario) {
+    // función para buscar al usuario
+    const usuarioEncontrado = await usuario.findById(id);
+
+    if (!usuarioEncontrado) {
       return false;
     } else {
-      return usuario;
+      return usuarioEncontrado;
     }
   } catch (error) {
     console.log(error);
