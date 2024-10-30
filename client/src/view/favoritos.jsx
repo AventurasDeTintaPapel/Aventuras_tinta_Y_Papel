@@ -46,22 +46,22 @@ const MisFavoritos = () => {
         <div className="flex flex-wrap justify-center items-center h-full gap-[2vw] py-[2vw]">
           {favorites.map((fav) => (
             // tarjetas
-            <div key={fav.producto._id} className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[39vw] h-[15vw] p-[0.6vw]">
+            <div key={fav.producto._id} className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[80%] h-[17vw] p-[0.6vw]">
               <CorazonFav key={fav.producto._id} producto={fav.producto} estilo={"text-[#5a189a] absolute right-[1.5vw] top-[1.3vw] text-[2vw]"} />
               {/* imagen */}
-              <div className="w-[15.5vw] h-full">
+              <div className="w-[13.7vw] h-full">
                 <img src={fav.producto.imagen} className="w-full h-full object-cover rounded-bl-[1vw] rounded-[0.6vw]" alt="" />
               </div>
               {/* info */}
-              <div className="w-full flex flex-col justify-between py-[0.2vw] pl-[0.8vw]">
+              <div className="w-full flex flex-col justify-between pl-[1.5vw] py-[0.2vw] ">
                 <div>
                   {/* titulo */}
-                  <div className="w-[21vw]">
-                    <p className="truncate text-[#5F3F73] text-[2.3vw]">{fav.producto.titulo}</p>
+                  <div className="w-[80%]">
+                    <p className="truncate text-[#5F3F73] text-[3vw]"> {fav.producto.titulo}</p>
                   </div>
 
+                  <div className=" w-[20vw]">
                   {/* autor */}
-                  <div className="pl-[0.3vw] w-[20vw]">
                     <p className="text-[20px] text-[#7D608F] truncate">
                       <span className="text-[#5F3F73]">Autor: </span>
                       {fav.producto.autor}
@@ -74,11 +74,11 @@ const MisFavoritos = () => {
                   </div>
                 </div>
                 <div className="w-full h-[2.6vw] relative font-breeSerif">
-                  <button className="absolute bg-[#8f719e] left-[0.3vw] w-[8.5vw] h-[2.6vw] rounded-[0.6vw] text-white text-[1.3vw]">Comprar</button>
+                  <button className="absolute bg-[#8f719e] right-0 w-[8.5vw] h-[2.6vw] rounded-[0.6vw] text-white text-[1.3vw]">Comprar</button>
                   <MasInfo
                     text={"Detalles"}
                     id={fav.producto._id}
-                    estilos={"absolute border-[0.15vw] border-[#977aa6] w-[7.5vw] left-[10vw] h-[2.6vw] rounded-[0.6vw] text-[#977aa6] text-[1.3vw]"}
+                    estilos={"absolute border-[0.15vw] border-[#977aa6] w-[7.5vw] right-[10vw] h-[2.6vw] rounded-[0.6vw] text-[#977aa6] text-[1.3vw]"}
                   />
                 </div>
               </div>
