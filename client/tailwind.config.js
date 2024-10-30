@@ -11,6 +11,10 @@ export default {
         "72.8vw": "72.8vw",
         "4vw": "4vw",
       },
+      fontFamily: {
+        boogaloo: ["Boogaloo", "system-ui"],
+        breeSerif: ["Bree Serif", "serif"],
+      },
       colors: {
         "custom-color": "rgb(227, 220, 227)", // Color personalizado
       },
@@ -19,7 +23,10 @@ export default {
         xlsecundario: "2000px",
       },
       boxShadow: {
-        "custom-shadow": "1vw 1vw 1vw rgba(0, 0, 0, 0.1)",
+        detelles: "0 0.4vw 1vw rgba(0, 0, 0, 0.3)",
+        asideProductos: "0.1vw 0.1vw 0.8vw #a69aaa",
+        asiSeccion: "0vw 0.1vw 0.2vw #a69aaa",
+        fav: "0vw 0.2vw 0.5vw #a69aaa",
       },
       backgroundImage: {
         "custom-gradient": "repeating-radial-gradient(circle at 0 0, transparent 0, #cb76e3 15px), repeating-linear-gradient(#54008955, #540089)",

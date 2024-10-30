@@ -1,129 +1,91 @@
-import "@fontsource/montserrat/700.css";
-import { useEffect, useRef, useState } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "@fontsource/baloo-2/700.css";
+import { IoIosArrowDown } from "react-icons/io";
 
 // este es la etiqueta (a) sin despleable
-function LiSinDesplegable({ textoNav, id, link }) {
+function LiSinDesplegable({ textoNav, link }) {
   return (
-    <li
-      id={id}
+    <button
       className="flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw]
-    hover:bg-[#5A189A] transition-all duration-200 ease-in-out hover:font-bold  rounded-t-[0.3vw] text-[1.3vw]"
+    hover:bg-[#5A189A] transition-all duration-200 ease-in-out hover:font-bold  rounded-t-[0.3vw] text-[1.35vw]"
     >
       <a href={link}>{textoNav}</a>
-    </li>
+    </button>
   );
 }
 
 export function Nav({ colAndrow }) {
-  return (
-    <nav className={colAndrow} style={{ fontFamily: "'Montserrat', sans-serif" }}>
-      <ul className="flex bg-[#3C096C] h-[3.1vw] text-white justify-evenly items-end font-medium pt-[0.7vw] border-b-[0.2vw] border-[#9D4EDD]">
-        {/* Incio  */}
-        <LiSinDesplegable textoNav={"Inicio"} id={"inicioNav"} link={"http://localhost:5173/inicio"} />
+  const navigate = useNavigate();
 
-        {/* contacto Principal */}
-        <LiSinDesplegable textoNav={"Contactos"} id={"contactoNav"} link={"http://localhost:5173/contactos"} />
-
-        <BotonProductos />
-
-        {/* vender */}
-        <LiSinDesplegable textoNav={"Vender"} id={"VenderNav"} link={"http://localhost:5173/html/productos/#"} />
-
-        {/* intercambio  */}
-        <LiSinDesplegable textoNav={"Intercambio"} id={"IntercamioNav"} link={"http://localhost:5173/html/productos/#"} />
-      </ul>
-    </nav>
-  );
-}
-
-// boton productos
-
-function BotonProductos() {
-  const [mostrarMenu, serMostrarMenu] = useState(false);
-  const [styleBoton, setStyleBoton] = useState({});
-  const [angulo, setAngulo] = useState(0);
-  const menuRef = useRef(null);
-  const botonRef = useRef(null);
-
-  const rotar = () => {
-    setAngulo(angulo + 180); // Cambia este valor para rotar más o menos grados
+  const handleTypeClick = (type) => {
+    navigate(`/catalogo?query=${type}`);
   };
 
-  function manejarClick() {
-    const nuevoEstado = !mostrarMenu;
-    serMostrarMenu(nuevoEstado);
-    setStyleBoton(
-      mostrarMenu
-        ? {}
-        : {
-            backgroundColor: "rgba(123, 43, 191, 0.6)",
-          }
+  function ProductosMenu() {
+    const [mostrarMenu, setMostarMenu] = useState(false);
+    const [estilo, setEstilo] = useState({});
+    const [estiloFlecha, setEstiloFlecha] = useState({});
+
+    const manejarClic = () => {
+      setMostarMenu(!mostrarMenu);
+      setEstilo(mostrarMenu ? {} : { backgroundColor: "#591899" });
+      setEstiloFlecha(mostrarMenu ? { transition: "transform 0.5s ease" } : { transform: "rotate(-180deg)", transition: "transform 0.5s ease" });
+    };
+
+    return (
+      <div className="relative">
+        <button
+          style={estilo}
+          onClick={manejarClic}
+          className="flex justify-center items-center h-[2.6vw] w-[10vw] hover:bg-[#5A189A] gap-[0.3vw] transition-all duration-200 ease-in rounded-t-[0.3vw]"
+        >
+          <span className="text-[1.35vw]">Productos</span>
+          <IoIosArrowDown style={estiloFlecha} className="text-[1.35vw]" />
+        </button>
+        <div
+          className={`${
+            mostrarMenu ? " max-h-[15vw] opacity-100 " : "opacity-0 pointer-events-none max-h-0 "
+          } flex flex-col absolute w-[10vw] transition-all ease-linear duration-200 bg-purple-900 text-white text-[1.4vw] z-50`}
+        >
+          <button
+            className=" h-[3vw] flex pl-[1vw] items-center hover:bg-purple-800 hover:text-[1.6vw] transition-all ease-in-out duration-300"
+            onClick={() => handleTypeClick("libros")}
+          >
+            Libros
+          </button>
+          <button
+            className=" h-[3vw] flex pl-[1vw] items-center hover:bg-purple-800 hover:text-[1.6vw] transition-all ease-in-out duration-300"
+            onClick={() => handleTypeClick("comics")}
+          >
+            Cómics
+          </button>
+          <button
+            className=" h-[3vw] flex pl-[1vw] items-center hover:bg-purple-800 hover:text-[1.6vw] transition-all ease-in-out duration-300"
+            onClick={() => handleTypeClick("mangas")}
+          >
+            Mangas
+          </button>
+          <button
+            className=" h-[3vw] flex pl-[1vw] items-center hover:bg-purple-800 hover:text-[1.6vw] transition-all ease-in-out duration-300"
+            onClick={() => handleTypeClick("mercancia")}
+          >
+            Mercancía
+          </button>
+        </div>
+      </div>
     );
   }
 
-  useEffect(() => {
-    function clickAfuera(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target) && !botonRef.current.contains(event.target)) {
-        serMostrarMenu(false);
-        setStyleBoton({});
-      }
-    }
-    document.addEventListener("mousedown", clickAfuera);
-    return () => {
-      document.removeEventListener("mousedown", clickAfuera);
-    };
-  }, [menuRef, botonRef]);
-
-  const navigate = useNavigate();
-
-  const handleRedirect = (categoria) => {
-    navigate(`/catalogo/${categoria}`);
-    window.location.reload();
-  };
-
   return (
-    <div className="relative">
-      <button
-        ref={botonRef}
-        style={styleBoton}
-        onClick={() => {
-          manejarClick(), rotar();
-        }}
-        className="flex justify-center transition-all ease-linear duration-150 items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw] text-[1.3vw] rounded-t-[0.3vw] hover:bg-[#5A189A] gap-[0.5vw]"
-      >
-        <span>Productos</span>
-        <IoIosArrowDown style={{ transform: `rotate(${angulo}deg)` }} />
-      </button>
-      <ul
-        ref={menuRef}
-        className={`${
-          mostrarMenu ? "opacity-90 translate-y-0" : "opacity-0 translate-y-[-1vw] pointer-events-none"
-        } bg-[#9D4EDD] absolute w-[13vw] top-auto z-50 transition-all ease-in-out duration-300`}
-      >
-        <li
-          onClick={() => handleRedirect("libros")}
-          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
-        >
-          <span className="transition-all ease-linear duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Libros</span>
-        </li>
-        <li
-          onClick={() => handleRedirect("mangas")}
-          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
-        >
-          <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mangas</span>
-        </li>
-        <li
-          onClick={() => handleRedirect("comics")}
-          className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw] border-b-[0.1vw] border-[#C77DFF]"
-        >
-          <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Comics</span>
-        </li>
-        <li onClick={() => handleRedirect("mercancia")} className="hover:bg-[#b465f1] group h-[3vw] flex items-center pl-[1vw] text-[1.2vw]">
-          <span className="transition-all ease-in-out duration-200 text-[1.4vw] group-hover:text-[1.6vw]">Mercancia</span>
-        </li>
-      </ul>
-    </div>
+    <nav className={colAndrow} style={{ fontFamily: "'Baloo 2', system-ui" }}>
+      <div className="bg-[#3C096C] h-[3vw] items-end flex justify-evenly text-white">
+        <LiSinDesplegable textoNav={"Inicio"} link={"http://localhost:5173/inicio"} />
+        <LiSinDesplegable textoNav={"Contactos"} link={"http://localhost:5173/contactos"} />
+        <ProductosMenu />
+        <LiSinDesplegable textoNav={"Intercambio"} link={"#"} />
+        <LiSinDesplegable textoNav={"Mercancia"} link={"#"} />
+      </div>
+    </nav>
   );
 }

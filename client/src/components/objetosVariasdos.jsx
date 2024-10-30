@@ -1,6 +1,6 @@
-import { useRef, React } from "react";
+import React, { useRef } from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@mui/material";
+import { Paper } from "@mui/material";
 
 // carrusel inicio tarjetas
 function Tarjeta({ imagen, titulo, precio }) {
@@ -120,7 +120,7 @@ const Carrusel = () => {
   const items = [{ img: img1 }, { img: img2 }, { img: img3 }];
 
   return (
-    <Carousel className="">
+    <Carousel className="h-auto">
       {items.map((item, i) => (
         <Paper key={i}>
           <img src={item.img} className="h-[28vw] w-full" alt={`Imagen ${i + 1}`} />

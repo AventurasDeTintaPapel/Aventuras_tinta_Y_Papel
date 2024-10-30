@@ -9,21 +9,22 @@ import { Perfil } from "../view/perfil";
 import Chat from "../view/chatbot";
 import { Carrito } from "../view/carrito";
 import { DetallesProductos } from "../view/detallesProductos";
+import MisFavoritos from "../view/favoritos";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/contactos" element={<Contactos />} />
-
         <Route path="/inicio" element={<Inicio />} />
-        <Route path="/catalogo/:categoria" element={<Catalogo />} />
+        <Route path="/catalogo" element={<Catalogo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/soporte" element={<Chat />} />
         <Route path="/carrito" element={<Carrito />} />
-        <Route path="/detalles" element={<DetallesProductos />} />
+        <Route path="/favoritos" element={<MisFavoritos />} />
+        <Route path="/detalles/:id" element={<DetallesProductos />} />
       </Routes>
     </BrowserRouter>
   );
