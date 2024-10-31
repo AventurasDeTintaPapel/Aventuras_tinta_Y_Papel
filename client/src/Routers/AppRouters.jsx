@@ -10,6 +10,8 @@ import Chat from "../view/chatbot";
 import { Carrito } from "../view/carrito";
 import { DetallesProductos } from "../view/detallesProductos";
 import MisFavoritos from "../view/favoritos";
+import ProductForm from "../components/productForm";
+import ProductList from "../components/productList";
 
 const AppRouter = () => {
   return (
@@ -25,6 +27,8 @@ const AppRouter = () => {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/favoritos" element={<MisFavoritos />} />
         <Route path="/detalles/:id" element={<DetallesProductos />} />
+        <Route path="/intercambiar" element={<ProductForm/>}/>
+        <Route path="/listado" element={<ProductList/>}/>
       </Routes>
     </BrowserRouter>
   );
