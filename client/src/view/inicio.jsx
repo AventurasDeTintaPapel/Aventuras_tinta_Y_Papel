@@ -1,11 +1,16 @@
 import { Footer } from "../components/Footer";
+import React from "react";
 import { Header } from "../components/Header";
 import Carrusel, { Carruseltarjetas } from "../components/objetosVariasdos";
 import { Nav } from "../components/Nav";
 import "@fontsource/baloo-2/700.css";
 
 function Separador({ texto }) {
-  return <p className="text-white text-[2.5vw] font-semibold text-center bg-gradient-to-r from-blue-950 to-fuchsia-400 w-full">{texto}</p>;
+  return (
+    <p className="text-white text-[2.5vw] font-semibold text-center bg-gradient-to-r from-blue-950 to-fuchsia-400 w-full">
+      {texto}
+    </p>
+  );
 }
 
 export function Inicio() {
@@ -14,7 +19,10 @@ export function Inicio() {
       <Header colAndrow={"row-start-1"} />
       <Nav colAndrow={"row-start-2"} />
 
-      <main className="row-start-3" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+      <main
+        className="row-start-3"
+        style={{ fontFamily: "'Baloo 2', system-ui" }}
+      >
         {/* carrusel */}
         <Carrusel />
 
@@ -28,7 +36,9 @@ export function Inicio() {
           {/* algo */}
           <div className="flex py-[2vw] gap-[1vw] w-auto">
             <div className="bg-purple-500 rounded-xl">
-              <p className="text-center text-[2.5vw] bg-purple-800 rounded-t-xl text-purple-100 font-medium">Comics</p>
+              <p className="text-center text-[2.5vw] bg-purple-800 rounded-t-xl text-purple-100 font-medium">
+                Comics
+              </p>
               <div className="contenedorImg w-[18.3vw] h-[10vw] px-[1vw] py-[0.5vw]">
                 <img
                   className="w-full h-full rounded-b-xl"
@@ -39,7 +49,9 @@ export function Inicio() {
             </div>
 
             <div className="bg-purple-500 rounded-xl">
-              <p className="text-center text-[2.5vw] rounded-t-xl bg-purple-800 text-purple-100 font-medium">Mangas</p>
+              <p className="text-center text-[2.5vw] rounded-t-xl bg-purple-800 text-purple-100 font-medium">
+                Mangas
+              </p>
               <div className="contenedorImg w-[18.3vw] h-[10vw] px-[1vw] py-[0.5vw]">
                 <img
                   className="w-full h-full rounded-b-xl"
@@ -49,7 +61,9 @@ export function Inicio() {
               </div>
             </div>
             <div className="bg-purple-500 rounded-xl">
-              <p className="text-center text-[2.5vw] rounded-t-xl bg-purple-800 text-purple-100 font-medium">Libros</p>
+              <p className="text-center text-[2.5vw] rounded-t-xl bg-purple-800 text-purple-100 font-medium">
+                Libros
+              </p>
               <div className="contenedorImg w-[18.3vw] h-[10vw] px-[1vw] py-[0.5vw]">
                 <img
                   className="w-full h-full rounded-b-xl"
@@ -59,9 +73,15 @@ export function Inicio() {
               </div>
             </div>
             <div className="bg-purple-500 rounded-xl">
-              <p className="text-center text-[2.5vw] rounded-t-xl bg-purple-800 text-purple-100 font-medium">Merch</p>
+              <p className="text-center text-[2.5vw] rounded-t-xl bg-purple-800 text-purple-100 font-medium">
+                Merch
+              </p>
               <div className="contenedorImg w-[18.3vw] h-[10vw] px-[1vw] py-[0.5vw]">
-                <img className="w-full h-full rounded-b-xl" src="https://m.media-amazon.com/images/I/61WWpQv+snL._AC_SL1000_.jpg" alt="" />
+                <img
+                  className="w-full h-full rounded-b-xl"
+                  src="https://m.media-amazon.com/images/I/61WWpQv+snL._AC_SL1000_.jpg"
+                  alt=""
+                />
               </div>
             </div>
           </div>
