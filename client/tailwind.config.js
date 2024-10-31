@@ -23,7 +23,6 @@ export default {
         xlsecundario: "2000px",
       },
       boxShadow: {
-        detelles: "0 0.4vw 1vw rgba(0, 0, 0, 0.3)",
         asideProductos: "0.1vw 0.1vw 0.8vw #a69aaa",
         asiSeccion: "0vw 0.1vw 0.2vw #a69aaa",
         fav: "0vw 0.2vw 0.5vw #a69aaa",
