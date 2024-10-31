@@ -35,11 +35,12 @@ export default function ProductForm() {
     });
 
     const token = localStorage.getItem("token"); // Obtiene el token de autenticación
+    console.log(token)
     try {
       const response = await fetch("http://localhost:3400/api/publics/cargar", {
         method: "POST",
         headers: {
-          token: token,
+           token:token
         },
         body: submitData,
       });
