@@ -15,15 +15,15 @@ export const publiRouter = Router();
 
 //ruta para cargar los productos
 publiRouter.post(
-  "/upload",
+  "/cargar",
   sessionVerified,
   publicValidation,
   subirImagen.single("imagen"),
   createPublic
 );
 //update publics
-publiRouter.put("/update", sessionVerified, updateValidation, editPublics);
+publiRouter.put("/edit", sessionVerified, updateValidation, editPublics);
 //get publics
-publiRouter.get("/", sessionVerified, getAllpublics);
+publiRouter.get("/obtener", sessionVerified, getAllpublics);
 //delete publics
-publiRouter.delete("/delete", sessionVerified, deletPublic);
+publiRouter.delete("/delete/", sessionVerified, deletPublic);

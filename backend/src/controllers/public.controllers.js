@@ -1,30 +1,37 @@
 import mongoose from "mongoose";
 import publics from "../models/public.models.js";
-
-//create publics
+import { validarJWT } from "../helpers/validadJWT.js";
+// Create public
 export const createPublic = async (req, res) => {
   try {
+    const token = req.headers.token;
+    console.log(token)
+    
     const { title, description, price, type, phone } = req.body;
     let imagen = "";
 
-    req.file
-      ? (imagen = "/uploads/" + req.file.filename)
-      : res.status(400).json({ msg: "the image is required" });
+    if (req.file) {
+      imagen = "/uploads/" + req.file.filename;
+    } else {
+      return res.status(400).json({ msg: "the image is required" });
+    }
 
-    const token = req.headers.token;
-
+    
     if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to perform this task" });
+      console.log("Token invuesto")
+
+      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
+    if (!usuario) {
+      console.log("Token invuesto")
 
-    !usuario
-      ? res.status(401).json({ msg: "invalid token" })
-      : (idUser = usuario._id);
-    //save post
+      return res.status(401).json({ msg: "Token inválido" });
+    }
+
+
+    const idUser = usuario._id;
     const newPublic = new publics({
       title,
       autor: idUser,
@@ -36,15 +43,16 @@ export const createPublic = async (req, res) => {
     });
 
     const result = await newPublic.save();
-
-    !result
-      ? res.status(400).json({ msg: "error uploading post" })
-      : res.status(201).json({ msg: "post uploaded" });
+    if (!result) {
+      return res.status(400).json({ msg: "error uploading post" });
+    }
+    return res.status(201).json({ msg: "post uploaded" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Internal Server Error" });
+    return res.status(500).json({ msg: "Internal Server Error" });
   }
 };
+
 //get all publics or for id
 export const getAllpublics = async (req, res) => {
   try {
