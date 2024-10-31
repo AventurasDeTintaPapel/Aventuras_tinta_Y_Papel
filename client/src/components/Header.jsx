@@ -88,7 +88,7 @@ function BotonPerfil() {
         ref={menuRef} // Referencia al menú
         className={`${
           mostrarSeccion ? "opacity-100 max-h-[20vw]" : "opacity-0 max-h-0 pointer-events-none"
-        } transition-all ease-in-out duration-500 text-[1.5vw] absolute z-50 shadow-xl bg-[#f0e6ef] rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[18vw] right-[0vw]`}
+        } transition-all ease-in-out duration-300 text-[1.5vw] absolute z-50 shadow-xl bg-[#f0e6ef] rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[18vw] right-[0vw]`}
       >
         {!token ? (
           <BotonesSessionOnn />

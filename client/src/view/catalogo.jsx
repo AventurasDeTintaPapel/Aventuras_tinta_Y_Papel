@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
@@ -9,42 +7,18 @@ import "@fontsource/bree-serif";
 
 import { botonVolver, renderAside } from "../components/AsideCatalogo";
 import { CorazonFav } from "../components/Fav";
+import { useFetchProductos } from "../hook/useFetchProductos";
 
 export function Catalogo() {
-  const [productos, setProductos] = useState([]);
-  const [isFiltered, setIsFiltered] = useState(false);
-  const location = useLocation();
-
-  // fetch para trear libros y sus filtros
-  const fetchProductos = async (tipo, category = null) => {
-    setProductos([]);
-    setIsFiltered(!!category);
-    try {
-      const url = category
-        ? `http://localhost:3400/api/filters?query=${tipo}&categoria=${category}`
-        : `http://localhost:3400/api/filters?query=${tipo}`;
-      const response = await axios.get(url);
-      setProductos(response.data); // Actualizar con los productos nuevos
-    } catch (error) {
-      console.error("Error al obtener productos:", error);
-    }
-  };
-
-  // trae todos los libros
-  useEffect(() => {
-    const tipo = new URLSearchParams(location.search).get("query");
-    if (tipo) {
-      fetchProductos(tipo);
-    }
-  }, [location]);
+  const { productos, isFiltered, fetchProductos } = useFetchProductos();
 
   // retorna el ASIDE Y MAIN
   return (
-    <div className="grid grid-cols-[17%_1fr] grid-rows-[auto_auto_1fr_auto] h-screen">
+    <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"col-span-2 row-start-1"} />
       <Nav colAndrow={"col-span-2 row-start-2"} />
 
-      <aside className="col-start-1 row-start-3 mb-[2vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
+      <aside className="col-start-1 row-start-3 w-[20vw] mb-[2vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
         <div className="bg-white">
           <div className="flex flex-col w-full shadow-asideProductos rounded-br-[1vw] gap-[0.5vw] justify-center items-center pb-[1vw] ">
             <p className="bg-[#f8f5fa] text-[#4a395a] pl-[1vw] w-full py-[0.4vw] font-breeSerif text-[2vw]">Filtros:</p>
@@ -57,7 +31,7 @@ export function Catalogo() {
       <main style={{ fontFamily: "'Baloo 2', system-ui" }} className="col-start-2 row-start-3 flex flex-col">
         <div>
           {/* contenedor de tarjetas */}
-          <div className="flex flex-wrap py-[2vw] justify-center items-center gap-[2.5vw] ">
+          <div className="grid grid-cols-4 px-[4vw] justify-items-center py-[2vw] gap-[2.5vw] ">
             {productos.map((producto) => (
               // tarjeta
               <div

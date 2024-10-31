@@ -1,11 +1,5 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { LuTrash2 } from "react-icons/lu";
-import { FaMinus } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
-import { useState } from "react";
-
-import { Divider } from "antd";
 
 import "@fontsource/baloo-2/700.css";
 
