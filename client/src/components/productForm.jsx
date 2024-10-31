@@ -53,7 +53,7 @@ export default function ProductForm() {
         setTimeout(() => {
           setShowAlert(false);
           navigate('/list');
-        }, 2500);
+        }, 2000);
       } else {
         const error = await response.json();
         setMessage({ type: 'error', content: error.message || 'Error al crear el producto.' });
