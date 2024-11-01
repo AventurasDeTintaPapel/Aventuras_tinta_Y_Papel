@@ -1,19 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "@fontsource/baloo-2/700.css";
+import { useNavigate, Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
-
-// este es la etiqueta (a) sin despleable
-function LiSinDesplegable({ textoNav, link }) {
-  return (
-    <button
-      className="flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw]
-    hover:bg-[#5A189A] transition-all duration-200 ease-in-out hover:font-bold  rounded-t-[0.3vw] text-[1.35vw]"
-    >
-      <a href={link}>{textoNav}</a>
-    </button>
-  );
-}
 
 export function Nav({ colAndrow }) {
   const navigate = useNavigate();
@@ -78,13 +65,30 @@ export function Nav({ colAndrow }) {
   }
 
   return (
-    <nav className={colAndrow} style={{ fontFamily: "'Baloo 2', system-ui" }}>
+    <nav className={`${colAndrow}`}>
       <div className="bg-[#3C096C] h-[3vw] items-end flex justify-evenly text-white">
-        <LiSinDesplegable textoNav={"Inicio"} link={"http://localhost:5173/inicio"} />
-        <LiSinDesplegable textoNav={"Contactos"} link={"http://localhost:5173/contactos"} />
+        <Link
+          to={"/"}
+          className="flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw]
+//     hover:bg-[#5A189A] transition-all duration-200 ease-in-out hover:font-bold  rounded-t-[0.3vw] text-[1.35vw]"
+        >
+          Inicio
+        </Link>
+        <Link
+          to={"/contactos"}
+          className="flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw]
+//     hover:bg-[#5A189A] transition-all duration-200 ease-in-out hover:font-bold  rounded-t-[0.3vw] text-[1.35vw]"
+        >
+          Contactos
+        </Link>
         <ProductosMenu />
-        <LiSinDesplegable textoNav={"Intercambio"} link={"#"} />
-        <LiSinDesplegable textoNav={"Mercancia"} link={"#"} />
+        <Link
+          to={"/intercambiar"}
+          className="flex justify-center items-center pt-[0.2vw] pb-[0.4vw] px-[0.5vw]
+//     hover:bg-[#5A189A] transition-all duration-200 ease-in-out hover:font-bold  rounded-t-[0.3vw] text-[1.35vw]"
+        >
+          Intercambio
+        </Link>
       </div>
     </nav>
   );

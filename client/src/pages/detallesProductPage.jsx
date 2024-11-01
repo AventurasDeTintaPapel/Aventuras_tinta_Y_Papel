@@ -2,7 +2,6 @@ import axios from "axios";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
-import "@fontsource/baloo-2/700.css";
 import "@fontsource/poppins/700.css";
 import React, { useState, useRef, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
@@ -12,7 +11,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { CorazonFav } from "../components/Fav";
 
-export function DetallesProductos() {
+export default function DetallesProductos() {
   const { id } = useParams();
   const [producto, setProducto] = useState(null);
 

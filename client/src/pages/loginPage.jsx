@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import imglogin from "../assets/img/fondoLogin.png";
-import "@fontsource/baloo-2/700.css";
+import { useNavigate } from "react-router-dom";
 
-export function Login() {
+export default function Login() {
   // Estados para los campos del formulario y el estado de éxito
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const navigation = useNavigate();
 
   // Función para iniciar sesión
   const login = async (e) => {
@@ -39,10 +40,8 @@ export function Login() {
       // Redirecciones según el rol
       if (respuesta.role === "admin") {
         window.location.href = "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
-      } else if (respuesta.role === "user") {
-        window.location.href = "/client/html/inicio/inicio.html";
       } else {
-        window.location.href = "http://localhost:5173/inicio";
+        navigation("/");
       }
     }
   };

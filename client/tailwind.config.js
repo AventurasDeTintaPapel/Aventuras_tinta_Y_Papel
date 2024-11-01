@@ -14,6 +14,7 @@ export default {
       fontFamily: {
         boogaloo: ["Boogaloo", "system-ui"],
         breeSerif: ["Bree Serif", "serif"],
+        baloo: ["'Baloo 2'", "system-ui"],
       },
       colors: {
         "custom-color": "rgb(227, 220, 227)", // Color personalizado

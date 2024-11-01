@@ -1,18 +1,19 @@
+// exportaciones de funciones
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import { Nav } from "../components/Nav";
+import React, { useState } from "react";
+
+// imagen
+import imgPerfilonn from "../assets/img/imgPerfil.png";
+
+// iconos
 import { MdOutlineSquare } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
-import React, { useState } from "react";
 import { BsEyeSlashFill } from "react-icons/bs";
 import { IoEyeSharp } from "react-icons/io5";
 
-import imgPerfilonn from "../assets/img/imgPerfil.png";
-
-// baloo
-import "@fontsource/baloo-2/700.css";
-import { Nav } from "../components/Nav";
-
-export function Perfil() {
+export default function Perfil() {
   const token = localStorage.getItem("token");
 
   return (
@@ -22,10 +23,7 @@ export function Perfil() {
 
       <main className="row-start-3 relative">
         {token ? (
-          <div
-            className="flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0]  h-full "
-            style={{ fontFamily: "'Baloo 2', system-ui" }}
-          >
+          <div className="flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0]  h-full ">
             <div className=" h-[30vw] shadow-xl shadow-purple-300 w-[60vw] rounded-[1vw] bg-gradient-to-r from-purple-200 to-[#cfa8ea] flex flex-col py-[1.2vw] justify-between px-[2vw]">
               <p className="text-[2.5vw] font-bold ">PERFIL DE USARIO</p>
               <div className="ml-[1vw]">
@@ -192,5 +190,3 @@ const TextModifier = () => {
     </div>
   );
 };
-
-export default TextModifier;

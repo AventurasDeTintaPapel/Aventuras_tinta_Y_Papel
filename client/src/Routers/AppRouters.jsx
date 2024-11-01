@@ -1,36 +1,48 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Contactos } from "../view/Contactos";
-import { Inicio } from "../view/inicio";
-import { Catalogo } from "../view/catalogo";
-import { Login } from "../view/login";
-import { Registro } from "../view/registro";
-import { Perfil } from "../view/perfil";
-import Chat from "../view/chatbot";
-import { Carrito } from "../view/carrito";
-import { DetallesProductos } from "../view/detallesProductos";
-import MisFavoritos from "../view/favoritos";
-import ProductForm from "../view/productForm";
-import ProductList from "../view/productList";
+import { Suspense } from "react";
+import Layout from "./layout";
+import {
+  Carrito,
+  Catalogo,
+  Contactos,
+  DetallesProductos,
+  Inicio,
+  Login,
+  MisFavoritos,
+  Perfil,
+  ProductForm,
+  ProductList,
+  Registro,
+  SupportChat,
+} from "../pages";
 
 const AppRouter = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/contactos" element={<Contactos />} />
-        <Route path="/inicio" element={<Inicio />} />
-        <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/soporte" element={<Chat />} />
-        <Route path="/carrito" element={<Carrito />} />
-        <Route path="/favoritos" element={<MisFavoritos />} />
-        <Route path="/detalles/:id" element={<DetallesProductos />} />
-        <Route path="/intercambiar" element={<ProductForm />} />
-        <Route path="/listado" element={<ProductList />} />
-      </Routes>
-    </BrowserRouter>
+    <Suspense fallback={<p>Cargando página ...</p>}>
+      <BrowserRouter>
+        <Routes>
+          {/* Rutas que usan el Layout */}
+          <Route element={<Layout />}>
+            <Route path="/contactos" element={<Contactos />} />
+            <Route path="/" element={<Inicio />} />
+            <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="/perfil" element={<Perfil />} />
+            <Route path="/soporte" element={<SupportChat />} />
+            <Route path="/carrito" element={<Carrito />} />
+            <Route path="/favoritos" element={<MisFavoritos />} />
+            <Route path="/detalles/:id" element={<DetallesProductos />} />
+            <Route path="/intercambiar" element={<ProductForm />} />
+            <Route path="/listado" element={<ProductList />} />
+          </Route>
+
+          {/* Rutas sin el Layout */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Registro />} />
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 };
+
 export default AppRouter;
