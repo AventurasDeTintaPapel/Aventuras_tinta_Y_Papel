@@ -5,8 +5,8 @@ import { validarJWT } from "../helpers/validadJWT.js";
 export const createPublic = async (req, res) => {
   try {
     const token = req.headers.token;
-    console.log(token)
-    
+    console.log(token);
+
     const { title, description, price, type, phone } = req.body;
     let imagen = "";
 
@@ -16,20 +16,18 @@ export const createPublic = async (req, res) => {
       return res.status(400).json({ msg: "the image is required" });
     }
 
-    
-    if (!token) {
-      console.log("Token invuesto")
+    // if (!token) {
+    //   console.log("Token invuesto")
 
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
-    }
+    //   return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+    // }
 
     const usuario = await validarJWT(token);
-    if (!usuario) {
-      console.log("Token invuesto")
+    // if (!usuario) {
+    //   console.log("Token invuesto")
 
-      return res.status(401).json({ msg: "Token inválido" });
-    }
-
+    //   return res.status(401).json({ msg: "Token inválido" });
+    // }
 
     const idUser = usuario._id;
     const newPublic = new publics({
