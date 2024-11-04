@@ -12,21 +12,19 @@ export default function Login() {
   const login = async (e) => {
     e.preventDefault();
 
-    // Realizamos la petición a nuestro servidor.
     const peticion = await fetch("http://localhost:3400/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: {
         "Content-type": "application/json",
       },
+      credentials: "include",
     });
-
     console.log("Petición realizada:", peticion);
 
     // Convertimos en json la respuesta.
     const respuesta = await peticion.json();
-
-    // En caso de que falle la petición, mostrar el mensaje de error.
+    console.log(respuesta);
     if (!peticion.ok) {
       alert(respuesta.msg);
     } else {

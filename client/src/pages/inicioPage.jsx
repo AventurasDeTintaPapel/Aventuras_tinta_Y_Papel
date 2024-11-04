@@ -1,3 +1,4 @@
+import React from "react";
 import Carrusel, { Carruseltarjetas } from "../components/objetosVariasdos";
 
 function Separador({ texto }) {

@@ -1,5 +1,6 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 
 export const CorazonFav = ({ producto, estilo }) => {
@@ -9,10 +10,12 @@ export const CorazonFav = ({ producto, estilo }) => {
   useEffect(() => {
     const fetchFavorites = async () => {
       const token = localStorage.getItem("token");
+      console.log(token);
       if (token) {
         try {
           const response = await axios.get("http://localhost:3400/api/favoritos/getFav", {
             headers: { token },
+            credentials: "include",
           });
           const favoritesData = response.data.favorites;
           setFavorites(favoritesData);
