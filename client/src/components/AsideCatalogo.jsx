@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { IoArrowUndoSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 // ASIDE DE CATALOGO
 
@@ -142,10 +143,11 @@ export function botonVolver(filtro) {
 
   if (datosUrl.name === "libros") {
     return (
-      <a className={filtroVolver} href={datosUrl.url}>
+      <Link className={filtroVolver} to={"/catalogo?query=libros"}>
+        {" "}
         <IoArrowUndoSharp className="text-[1.4vw] group-hover:text-[1.5vw] transition-all ease-in-out duration-300" />
         <span className="text-[1.2vw] group-hover:text-[1.3vw] transition-all ease-in-out duration-300">Ver todos los libros</span>
-      </a>
+      </Link>
     );
   } else if (datosUrl.name === "manga") {
     return (

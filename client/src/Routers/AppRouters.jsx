@@ -26,17 +26,19 @@ const AppRouter = () => {
           <Route element={<Layout />}>
             <Route path="/contactos" element={<Contactos />} />
             <Route path="/" element={<Inicio />} />
-            <Route path="/catalogo" element={<Catalogo />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/soporte" element={<SupportChat />} />
-            <Route path="/carrito" element={<Carrito />} />
-            <Route path="/favoritos" element={<MisFavoritos />} />
             <Route path="/detalles/:id" element={<DetallesProductos />} />
-            <Route path="/intercambiar" element={<ProductForm />} />
             <Route path="/listado" element={<ProductList />} />
           </Route>
 
-          {/* Rutas sin el Layout */}
+          {/* rutas con aside*/}
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/favoritos" element={<MisFavoritos />} />
+          <Route path="/intercambiar" element={<ProductForm />} />
+
+          {/* Rutas sin header,nav o footer */}
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
         </Routes>

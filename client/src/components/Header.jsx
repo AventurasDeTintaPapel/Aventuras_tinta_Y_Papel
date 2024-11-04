@@ -4,6 +4,7 @@ import { IoCart } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import "@fontsource/montserrat/700.css";
 import { IconoCerrarSesion, IconoFvoritos, IconoMisCompras, IconoPerfil, IconoSoporteAlCliente } from "./icons";
+import { Link } from "react-router-dom";
 
 // boton iniciar sesion
 function iniciarSeccion() {
@@ -123,12 +124,13 @@ function CerrarSesion() {
 function BotonesSessionOnn() {
   return (
     <>
-      <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
-        <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/perfil">
-          <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Perfil</span>
-          <IconoPerfil />
-        </a>
-      </div>
+      <Link
+        to={"/perfil"}
+        className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950 transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200"
+      >
+        <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Perfil</span>
+        <IconoPerfil />
+      </Link>
 
       <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
         <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/favoritos">

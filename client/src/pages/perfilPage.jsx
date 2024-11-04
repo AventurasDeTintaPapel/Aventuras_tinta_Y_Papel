@@ -1,7 +1,3 @@
-// exportaciones de funciones
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import { Nav } from "../components/Nav";
 import React, { useState } from "react";
 
 // imagen
@@ -17,73 +13,64 @@ export default function Perfil() {
   const token = localStorage.getItem("token");
 
   return (
-    <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
-      <Header colAndrow={"row-start-1"} />
-      <Nav colAndrow={"row-start-2"} />
+    <main className="row-start-3 relative flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0]  h-full ">
+      {token ? (
+        <div className=" h-[30vw] shadow-xl shadow-purple-300 w-[60vw] rounded-[1vw] bg-gradient-to-r from-purple-200 to-[#cfa8ea] flex flex-col py-[1.2vw] justify-between px-[2vw]">
+          <p className="text-[2.5vw] font-bold ">PERFIL DE USARIO</p>
+          <div className="ml-[1vw]">
+            <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+              <p className="text-[1.4vw] font-medium">Nombre de Usario: </p>
+              <span className="text-[1.4vw] text-[#5A189A]">Axel Leger</span>
+            </div>
+            <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+              <p className="text-[1.4vw] font-medium">Correo Electronico: </p>
+              <span className="text-[1.4vw] text-[#5A189A]">axelleger2@gmail.com</span>
+            </div>
+            <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+              <p className="text-[1.4vw] font-medium">Fecha de Nacimiento: </p>
+              <span className="text-[1.4vw] text-[#5A189A]">03-03-2005</span>
+            </div>
 
-      <main className="row-start-3 relative">
-        {token ? (
-          <div className="flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0]  h-full ">
-            <div className=" h-[30vw] shadow-xl shadow-purple-300 w-[60vw] rounded-[1vw] bg-gradient-to-r from-purple-200 to-[#cfa8ea] flex flex-col py-[1.2vw] justify-between px-[2vw]">
-              <p className="text-[2.5vw] font-bold ">PERFIL DE USARIO</p>
-              <div className="ml-[1vw]">
-                <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                  <p className="text-[1.4vw] font-medium">Nombre de Usario: </p>
-                  <span className="text-[1.4vw] text-[#5A189A]">Axel Leger</span>
-                </div>
-                <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                  <p className="text-[1.4vw] font-medium">Correo Electronico: </p>
-                  <span className="text-[1.4vw] text-[#5A189A]">axelleger2@gmail.com</span>
-                </div>
-                <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-                  <p className="text-[1.4vw] font-medium">Fecha de Nacimiento: </p>
-                  <span className="text-[1.4vw] text-[#5A189A]">03-03-2005</span>
-                </div>
+            <TextModifier />
+          </div>
 
-                <TextModifier />
+          <Botonperfil />
+        </div>
+      ) : (
+        <>
+          <img className="absolute top-0 left-0 h-full w-full opacity-80" src={imgPerfilonn} alt="" />
+          <div className="items-center flex justify-center h-[100vh]">
+            <div
+              style={{ fontFamily: "'Baloo 2', system-ui" }}
+              className="px-[3vw] py-[4vw] relative bg-opacity-90 bg-[#F2E9E4] flex items-center w-[80vw] h-[40vw] rounded-[1vw]"
+            >
+              <FaUser className="absolute left-[9.9vw]  text-[5vw] text-[#8e808b]" />
+              <MdOutlineSquare className="absolute top-[12.6vw] left-[4.8vw] animate-spin-slow  text-[15vw] text-[#C9ADA7] mb-[0.5vw]  z-10" />
+              <MdOutlineSquare className="absolute top-[11.1vw] left-[3.4vw] animate-spin-slow2 text-[18vw] text-[#9A8C98] mb-[0.5vw] z-0" />
+              <div className="z-20 ml-[20vw]">
+                <p className="text-[3vw] text-[#22223B]">
+                  <span className="text-[4vw]">I</span>NICIA SESION PARA PODER VER PERFIL
+                </p>
+                <div className="flex items-center gap-[1vw] ">
+                  <a
+                    href="http://localhost:5173/login"
+                    className="px-[1vw] bg-[#5E548E] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full "
+                  >
+                    INICIAR SESION
+                  </a>
+                  <a
+                    href="http://localhost:5173/registro"
+                    className="px-[1vw] bg-[#9F86C0] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full  "
+                  >
+                    Registrate ahora
+                  </a>
+                </div>
               </div>
-
-              <Botonperfil />
             </div>
           </div>
-        ) : (
-          <>
-            <img className="absolute top-0 left-0 h-full w-full opacity-80" src={imgPerfilonn} alt="" />
-            <div className="items-center flex justify-center h-[100vh]">
-              <div
-                style={{ fontFamily: "'Baloo 2', system-ui" }}
-                className="px-[3vw] py-[4vw] relative bg-opacity-90 bg-[#F2E9E4] flex items-center w-[80vw] h-[40vw] rounded-[1vw]"
-              >
-                <FaUser className="absolute left-[9.9vw]  text-[5vw] text-[#8e808b]" />
-                <MdOutlineSquare className="absolute top-[12.6vw] left-[4.8vw] animate-spin-slow  text-[15vw] text-[#C9ADA7] mb-[0.5vw]  z-10" />
-                <MdOutlineSquare className="absolute top-[11.1vw] left-[3.4vw] animate-spin-slow2 text-[18vw] text-[#9A8C98] mb-[0.5vw] z-0" />
-                <div className="z-20 ml-[20vw]">
-                  <p className="text-[3vw] text-[#22223B]">
-                    <span className="text-[4vw]">I</span>NICIA SESION PARA PODER VER PERFIL
-                  </p>
-                  <div className="flex items-center gap-[1vw] ">
-                    <a
-                      href="http://localhost:5173/login"
-                      className="px-[1vw] bg-[#5E548E] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full "
-                    >
-                      INICIAR SESION
-                    </a>
-                    <a
-                      href="http://localhost:5173/registro"
-                      className="px-[1vw] bg-[#9F86C0] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full  "
-                    >
-                      Registrate ahora
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </main>
-
-      <Footer colAndrow={"row-start-4"} />
-    </div>
+        </>
+      )}
+    </main>
   );
 }
 

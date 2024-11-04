@@ -38,8 +38,9 @@ export const CorazonFav = ({ producto, estilo }) => {
     try {
       if (isFavorite) {
         // Eliminar de favoritos
-        await axios.delete("http://localhost:3400/api/favoritos/deleteFav", {
+        await axios.delete("http://localhost:3400/api/favoritos/delete", {
           headers: { token },
+          credentials: "include",
           data: { idProduct: producto._id },
         });
         setFavorites((prev) => prev.filter((fav) => fav.producto._id !== producto._id));
@@ -53,6 +54,7 @@ export const CorazonFav = ({ producto, estilo }) => {
           },
           {
             headers: { token },
+            credentials: "include",
           }
         );
         console.log(" se agrego con exito a favoritos");
