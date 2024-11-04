@@ -33,11 +33,7 @@ app.use(
       "http://localhost:3000",
       "http://localhost:5173",
     ],
-    origin: [
-      "http://localhost:5500",
-      "http://localhost:3000",
-      "http://localhost:5173",
-    ],
+
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -56,6 +52,7 @@ app.use(
       secure: false,
       httpOnly: true,
       sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );

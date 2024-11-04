@@ -27,6 +27,12 @@ export const session = async (req, res) => {
       req.session.userId = userFind.id;
       req.session.username = userFind.nombreUsuario;
       req.session.rol = userFind.rol;
+
+      return res.json({
+        msg: "Login successful",
+        user: req.session.username,
+        role: req.session.rol,
+      });
     }
   } catch (error) {
     console.log(error);

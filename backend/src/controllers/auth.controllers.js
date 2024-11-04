@@ -62,7 +62,7 @@ export const login = async (req, res) => {
       const token = await generarJWT({ id: userFind.id });
       return res.status(200).json({
         exitoLogin: true,
-        msg: "exit login",
+        msg: "correct login",
         token,
       });
     }

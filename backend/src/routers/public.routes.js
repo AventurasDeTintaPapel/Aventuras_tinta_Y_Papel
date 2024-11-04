@@ -14,13 +14,7 @@ import { Router } from "express";
 export const publiRouter = Router();
 
 //ruta para cargar los productos
-publiRouter.post(
-  "/cargar",
-  sessionVerified,
-  publicValidation,
-  subirImagen.single("imagen"),
-  createPublic
-);
+publiRouter.post("/cargar", subirImagen.single("imagen"), createPublic);
 //update publics
 publiRouter.put("/edit", sessionVerified, updateValidation, editPublics);
 //get publics

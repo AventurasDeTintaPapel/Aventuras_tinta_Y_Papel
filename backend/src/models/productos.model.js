@@ -66,16 +66,21 @@ const productos = new Schema(
       type: Schema.Types.ObjectId,
       ref: "proveedores",
     },
-    raiting: [
+    stars: {
+      1: { type: Number, default: 0 },
+      2: { type: Number, default: 0 },
+      3: { type: Number, default: 0 },
+      4: { type: Number, default: 0 },
+      5: { type: Number, default: 0 },
+    },
+    ratings: [
       {
-        userId: { type: Schema.Types.ObjectId, ref: "usuarios" },
-        stars: {
-          1: { type: Number, default: 0 },
-          2: { type: Number, defaulr: 0 },
-          3: { type: Number, default: 0 },
-          4: { type: Number, default: 0 },
-          5: { type: Number, default: 0 },
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
         },
+        rating: { type: Number, required: true },
       },
     ],
   },

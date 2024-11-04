@@ -7,7 +7,7 @@ export const generarJWT = (id) => {
       id,
       "mysecret",
       {
-        expiresIn: 600 * 600,
+        expiresIn: 1700 * 1700,
       },
       (err, token) => {
         err ? reject(err) : resolve(token);

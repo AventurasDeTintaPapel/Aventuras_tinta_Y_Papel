@@ -16,20 +16,22 @@ export const createPublic = async (req, res) => {
       return res.status(400).json({ msg: "the image is required" });
     }
 
-    // if (!token) {
-    //   console.log("Token invuesto")
+    if (!token) {
+      console.log("Token invuesto");
 
-    //   return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
-    // }
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
+    }
 
-    const usuario = await validarJWT(token);
-    // if (!usuario) {
-    //   console.log("Token invuesto")
+    const user = await validarJWT(token);
+    if (!user) {
+      console.log("Token invuesto");
 
-    //   return res.status(401).json({ msg: "Token inválido" });
-    // }
+      return res.status(401).json({ msg: "Token inválido" });
+    }
 
-    const idUser = usuario._id;
+    const idUser = user._id;
     const newPublic = new publics({
       title,
       autor: idUser,

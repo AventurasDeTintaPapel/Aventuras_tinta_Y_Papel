@@ -1,6 +1,6 @@
 import { Router } from "express";
 export const supRouter = Router();
-// import { rolAdmVerified } from "../../middlewares/session.js";
+import { rolAdmVerified } from "../../middlewares/session.js";
 import {
   createSupplier,
   deleSupplier,
@@ -9,10 +9,10 @@ import {
 } from "../controllers/proveedores.controllers.js";
 
 //create a supplier
-supRouter.post("/create/", createSupplier);
+supRouter.post("/create/", rolAdmVerified, createSupplier);
 //edite supplier
-supRouter.put("/edit/:id", updateSupplier);
+supRouter.put("/edit/:id", rolAdmVerified, updateSupplier);
 //delete supplier
-supRouter.delete("/delete/:id", deleSupplier);
+supRouter.delete("/delete/:id", rolAdmVerified, deleSupplier);
 //get all supplier
-supRouter.get("/", getAllSupplier);
+supRouter.get("/", rolAdmVerified, getAllSupplier);

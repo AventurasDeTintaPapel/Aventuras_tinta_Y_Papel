@@ -35,6 +35,5 @@ export const loginValidation = [
   body("password")
     .notEmpty()
     .withMessage("la contraseña es obligatoria")
-    .isLength({ min: 8 })
-    .withMessage("La contraseña debe tener como minimo 8 caracteres"),
+  
 ];
