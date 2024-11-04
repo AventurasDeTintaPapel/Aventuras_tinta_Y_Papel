@@ -4,6 +4,11 @@ import usuario from "../models/usuarios.model.js";
 // función para validar jwt
 export const validarJWT = async (token) => {
   try {
+    if (!token || token.split(".").length !== 3) {
+      console.log("Token mal formado o no presente");
+      return false;
+    }
+
     // Llamar a jwt.verify directamente
     const { id } = jwt.verify(token, "mysecret");
 
