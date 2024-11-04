@@ -5,7 +5,7 @@ const socketEvents = (io) => {
         console.log('Un usuario se ha conectado');
 
         // Enviar un mensaje de bienvenida al usuario
-        socket.emit('message', 'Bienvenido al chat de soporte. ¿Cómo podemos ayudarte?');
+        socket.emit('message', 'A continuación te dejamos las opciones de consultas que podes seleccionar');
         sendOptions(socket); // Enviar opciones disponibles al usuario
 
         socket.on('chat message', async (msg) => {

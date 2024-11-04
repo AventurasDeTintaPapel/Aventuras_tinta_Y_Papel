@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 
 // Ruta opcional para obtener un mensaje inicial o información del bot
 router.get('/', (req, res) => {
-    res.json(); // Respuesta inicial
+    res.json({ message: "Bienvenido al chatbot de soporte", options: [] }); // Respuesta inicial
 });
 
 export const chatbot = router;
