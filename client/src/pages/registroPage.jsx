@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import imgRegistro from "../assets/img/imgREGISTRO.png";
-import "@fontsource/baloo-2/700.css";
 
-export function Registro() {
+export default function Registro() {
   // Estado para los campos del formulario
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");

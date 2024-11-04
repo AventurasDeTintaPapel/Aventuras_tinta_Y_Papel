@@ -1,4 +1,5 @@
 import { FaBook } from "react-icons/fa";
+import React from "react";
 
 // MENU DESPLEGABLE HEADER
 
@@ -23,7 +24,11 @@ export function IconoPerfil() {
 // icono en menu desplegable del header de FAVORITOS
 export function IconoFvoritos() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-[1.5vw]  transition-all duration-300 ease-in-out group-hover:w-[1.8vw]" viewBox="0 0 15 15">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-[1.5vw]  transition-all duration-300 ease-in-out group-hover:w-[1.8vw]"
+      viewBox="0 0 15 15"
+    >
       <path
         fill="currentColor"
         d="M13.91 7.75c-1.17 2.25-4.3 5.31-6.07 6.94a.5.5 0 0 1-.67 0C5.39 13.06 2.26 10 1.09 7.75C-1.48 2.8 5-.5 7.5 4.45C10-.5 16.48 2.8 13.91 7.75"
@@ -69,7 +74,11 @@ export function IconoSoporteAlCliente() {
 // icono en menu desplegable del header de CERRAR SESION
 export function IconoCerrarSesion() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-[1.6vw]  transition-all duration-300 ease-in-out group-hover:w-[1.8vw]" viewBox="0 0 24 24">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-[1.6vw]  transition-all duration-300 ease-in-out group-hover:w-[1.8vw]"
+      viewBox="0 0 24 24"
+    >
       <path
         fill="currentColor"
         d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"

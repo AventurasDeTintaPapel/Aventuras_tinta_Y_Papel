@@ -15,8 +15,10 @@ export const useFetchProductos = () => {
       const url = category
         ? `http://localhost:3400/api/filters?query=${tipo}&categoria=${category}`
         : `http://localhost:3400/api/filters?query=${tipo}`;
-      const response = await axios.get(url);
-      setProductos(response.data); // Actualizamos el estado de productos.
+      const response = await axios.get(url, {
+        credentials: "include",
+      });
+      setProductos(response.data);
     } catch (error) {
       console.error("Error al obtener productos:", error);
     }

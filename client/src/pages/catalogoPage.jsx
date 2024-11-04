@@ -1,37 +1,28 @@
 import React from "react";
-import { Header } from "../components/Header";
-import { Nav } from "../components/Nav";
-import { Footer } from "../components/Footer";
-import "@fontsource/baloo-2/700.css";
 import "@fontsource/bree-serif";
 
 import { botonVolver, renderAside } from "../components/AsideCatalogo";
 import { CorazonFav } from "../components/Fav";
 import { useFetchProductos } from "../hook/useFetchProductos";
 
-export function Catalogo() {
+export default function Catalogo() {
   const { productos, isFiltered, fetchProductos } = useFetchProductos();
 
   // retorna el ASIDE Y MAIN
   return (
-    <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr_auto] h-screen">
-      <Header colAndrow={"col-span-2 row-start-1"} />
-      <Nav colAndrow={"col-span-2 row-start-2"} />
-
-      <aside className="col-start-1 row-start-3 w-[20vw] mb-[2vw]" style={{ fontFamily: "'Baloo 2', system-ui" }}>
-        <div className="bg-white">
-          <div className="flex flex-col w-full shadow-asideProductos rounded-br-[1vw] gap-[0.5vw] justify-center items-center pb-[1vw] ">
-            <p className="bg-[#f8f5fa] text-[#4a395a] pl-[1vw] w-full py-[0.4vw] font-breeSerif text-[2vw]">Filtros:</p>
-            {renderAside(fetchProductos)}
-            {botonVolver(isFiltered)}
-          </div>
+    <>
+      <aside className=" col-start-1 row-start-3 w-[20vw] mb-[2vw]">
+        <div className="flex flex-col w-full shadow-asideProductos rounded-br-[1vw] gap-[0.5vw] justify-center items-center pb-[1vw] ">
+          <p className="bg-[#f8f5fa] text-[#4a395a] pl-[1vw] w-full py-[0.4vw] font-breeSerif text-[2vw]">Filtros:</p>
+          {renderAside(fetchProductos)}
+          {botonVolver(isFiltered)}
         </div>
       </aside>
 
-      <main style={{ fontFamily: "'Baloo 2', system-ui" }} className="col-start-2 row-start-3 flex flex-col">
+      <main className="col-start-2 row-start-3 flex flex-col">
         <div>
           {/* contenedor de tarjetas */}
-          <div className="grid grid-cols-4 px-[4vw] justify-items-center py-[2vw] gap-[2.5vw] ">
+          <div className="grid grid-cols-4 pr-[2vw] justify-items-center py-[2vw] gap-[2.5vw] ">
             {productos.map((producto) => (
               // tarjeta
               <div
@@ -65,9 +56,7 @@ export function Catalogo() {
           </div>
         </div>
       </main>
-
-      <Footer colAndrow={"col-span-2 row-start-4"} />
-    </div>
+    </>
   );
 }
 

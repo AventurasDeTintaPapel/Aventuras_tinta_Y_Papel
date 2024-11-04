@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchProducts, deleteProduct, updateProduct } from "../../services/productService.jsx";
 import { Header } from "../components/Header.jsx";
-import { Nav } from "../components/Nav.jsx";
+import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer.jsx";
 
 export default function ProductList() {
