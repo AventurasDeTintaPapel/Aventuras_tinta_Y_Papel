@@ -7,7 +7,7 @@ export const createPublic = async (req, res) => {
     const token = req.headers.token;
     console.log(token);
 
-    const { title, description, price, type, phone } = req.body;
+    const { title, description, price, phone } = req.body;
     let imagen = "";
 
     if (req.file) {
@@ -19,9 +19,7 @@ export const createPublic = async (req, res) => {
     if (!token) {
       console.log("Token invuesto");
 
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const user = await validarJWT(token);
@@ -38,7 +36,6 @@ export const createPublic = async (req, res) => {
       description,
       price,
       imagen,
-      type,
       phone,
     });
 
@@ -57,10 +54,7 @@ export const createPublic = async (req, res) => {
 export const getAllpublics = async (req, res) => {
   try {
     const { id } = req.body;
-    const getPublics =
-      id === undefined
-        ? await publics.find()
-        : await publics.find({ autor: id });
+    const getPublics = id === undefined ? await publics.find() : await publics.find({ autor: id });
 
     //not publics
     if (!getPublics) {
@@ -78,9 +72,7 @@ export const editPublics = async (req, res) => {
     const token = req.headers.token;
 
     if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
@@ -112,11 +104,7 @@ export const editPublics = async (req, res) => {
       description,
     };
 
-    const result = await publics.findByIdAndUpdate(
-      id,
-      { $set: updatedData },
-      { new: true }
-    );
+    const result = await publics.findByIdAndUpdate(id, { $set: updatedData }, { new: true });
 
     if (!result) {
       return res.status(304).json({ msg: "Post not updated" });
@@ -135,9 +123,7 @@ export const deletPublic = async (req, res) => {
     const token = req.headers.token;
 
     if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
