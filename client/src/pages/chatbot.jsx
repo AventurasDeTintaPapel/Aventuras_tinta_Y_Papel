@@ -84,7 +84,6 @@ export default function SupportChat() {
 
   return (
     <>
-    <Header/>
     <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="bg-purple-500 text-white p-4">
         <h2 className="text-2xl font-bold">Soporte al cliente</h2>
@@ -138,7 +137,6 @@ export default function SupportChat() {
         </form>
       </div>
     </div>
-    <Footer/>
     </>
 
   );

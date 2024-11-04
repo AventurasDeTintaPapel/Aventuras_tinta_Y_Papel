@@ -38,11 +38,12 @@ export default function ProductForm() {
       const response = await fetch("http://localhost:3400/api/publics/cargar", {
         method: "POST",
         headers: {
-          token: token,
+        "token": token // Incluir el token en los encabezados
         },
         body: submitData,
+        credentials: "include",
       });
-
+console.log(submitData);
       if (response.ok) {
         const result = await response.json();
         setMessage({ type: "success", content: "Producto creado exitosamente!" });
