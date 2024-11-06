@@ -1,5 +1,4 @@
 import axios from "axios";
-import "@fontsource/poppins/700.css";
 import React, { useState, useRef, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
@@ -33,46 +32,40 @@ export default function DetallesProductos() {
       {/* contenedor general */}
       <div className="bg-white w-full px-[5vw] h-full grid grid-rows-[auto_auto_auto]">
         {/*contenedor de imagen y botones */}
-        <div className="row-start-1 p-[1vw] bg-red-300 flex ">
+        <div className="row-start-1 p-[1vw] flex shadow-xl ">
           {/* contenedor imagen */}
           <div className="w-[20vw]">
             <img className="w-full h-full object-cover" src={producto.imagen} alt="" />
           </div>
 
           {/* titulo e info */}
-          <div className="bg-green-200 w-full relative h-full px-[1vw]">
-            <CorazonFav producto={producto} key={producto._id} estilo={"absolute right-0"} />
+          <div className="w-full relative h-full pl-[1vw]">
+            <CorazonFav producto={producto} key={producto._id} estilo={"absolute right-[3vw] text-[2.5vw] top-[1.5vw]"} />
 
             {/* titulo */}
-            <div className="bg-violet-300">
-              <p className="text-[3vw] " style={{ fontFamily: "'Poppins', sans-serif" }}>
-                {producto.titulo}
-              </p>
+            <div className=" border-b border-slate-500">
+              <div className="text-slate-900 w-[80%] pb-[0.5vw] pt-[1vw]">
+                <p className="text-[3vw] truncate font-poopins">{producto.titulo}</p>
+              </div>
             </div>
-            <p className="">
-              <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
-                Tipo:
-              </span>
+            {/* tipo */}
+            <p className=" font-baloo text-slate-700 text-[1.5vw] list-item ml-[1.5vw] pt-[1vw]">
+              <span className="font-poopins text-slate-800">Tipo: </span>
               {producto.tipo}
             </p>
-            <p className="">
-              <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
-                Autor:
-              </span>{" "}
-              {producto.autor}
+            {/* autor */}
+            <p className=" font-baloo text-slate-700 text-[1.5vw] list-item ml-[1.5vw]">
+              <span className="font-poopins text-slate-800">Autor: </span> {producto.autor}
             </p>
-            <p className="">
-              <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
-                Precio:
-              </span>
-              ${producto.precio}
+            {/* precio */}
+            <p className=" font-baloo text-slate-700 text-[1.5vw] list-item ml-[1.5vw]">
+              <span className="font-poopins text-slate-800">Precio: </span>${producto.precio}
             </p>
-            <div className="absolute bottom-[1vw] rounded-[0.5vw] bg-red-400 px-[2vw] py-[0.4vw]">
-              <BotonComprar producto={producto} estilos={"text-[1.5vw] font-medium tracking-wide"} />
-              {/* <Volver />  */}
+            <div className="absolute bottom-[0.5vw] font-breeSerif rounded-[0.5vw] bg-[#250642] px-[2vw] py-[0.4vw]">
+              <BotonComprar producto={producto} estilos={"text-[1.5vw] font-medium tracking-wide text-white"} />
+              <Volver />
             </div>
           </div>
-          {/* botones */}
 
           {/* contenerdor Descripcion */}
         </div>
@@ -135,9 +128,7 @@ function Comentarios() {
                   className="w-[95%] rounded-[1vw] pl-[1vw] pt-[0.8vw] text-[1.8vw] h-[4vw] tracking-wide"
                 ></textarea>
               </div>
-              <button style={{ fontFamily: "'Poppins', sans-serif" }} className="">
-                Enviar
-              </button>
+              <button>Enviar</button>
             </div>
           </div>
           <div className="bg-white overflow-y-auto"></div>
@@ -157,7 +148,7 @@ function Volver() {
   return (
     <button
       onClick={hancleRedirect}
-      className="flex items-center gap-[0.5vw] absolute px-[1.5vw] rounded-[0.5vw] border-[0.2vw] border-[#622699] text-[#622699] left-[12vw] py-[0.5vw] text-[1.5vw]"
+      className="flex items-center gap-[0.5vw] absolute px-[1.5vw] rounded-[0.5vw] border-[0.2vw] border-[#250642]  text-[#250642]  left-[12vw] py-[0.5vw] text-[1.5vw]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

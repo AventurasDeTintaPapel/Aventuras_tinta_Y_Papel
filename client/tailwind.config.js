@@ -15,6 +15,7 @@ export default {
         boogaloo: ["Boogaloo", "system-ui"],
         breeSerif: ["Bree Serif", "serif"],
         baloo: ["'Baloo 2'", "system-ui"],
+        poopins: ["'Poppins'", "sans-serif"],
       },
       colors: {
         "custom-color": "rgb(227, 220, 227)", // Color personalizado
