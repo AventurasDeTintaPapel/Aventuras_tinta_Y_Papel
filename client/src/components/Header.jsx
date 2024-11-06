@@ -114,7 +114,7 @@ function CerrarSesion() {
 
   return (
     <button onClick={handleCerrarSesion} className="group flex items-center gap-[0.6vw] text-red-600 h-[3.8vw] w-full justify-end pr-[1vw]">
-      <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">Cerrar Secion</span>
+      <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">Cerrar Sesion</span>
       <IconoCerrarSesion />
     </button>
   );

@@ -2,6 +2,31 @@ import React, { useRef } from "react";
 import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
 
+// boton agregar a carrito
+export function BotonComprar({ producto, estilos }) {
+  const { Alerta, mostrarAlerta } = useAlert();
+
+  const agregarProductoAlCarrito = () => {
+    try {
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      carrito.push(producto);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      mostrarAlerta("Se agrego correctamente a carrito");
+    } catch (error) {
+      mostrarAlerta("No se pudo agregar el producto a carrito");
+    }
+  };
+
+  return (
+    <>
+      <button onClick={agregarProductoAlCarrito} className={estilos}>
+        Enviar al Carrito
+      </button>
+      {Alerta}
+    </>
+  );
+}
+
 // carrusel inicio tarjetas
 function Tarjeta({ imagen, titulo, precio }) {
   return (
@@ -115,6 +140,7 @@ export function Carruseltarjetas() {
 import img1 from "../assets/img/imgComics.png";
 import img2 from "../assets/img/imgLirbos.png";
 import img3 from "../assets/img/imgManga.png";
+import { useAlert } from "../hook/useAlert";
 
 const Carrusel = () => {
   const items = [{ img: img1 }, { img: img2 }, { img: img3 }];

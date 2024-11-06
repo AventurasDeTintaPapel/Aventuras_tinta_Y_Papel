@@ -3,7 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 export const useFetchProductos = () => {
-  const [productos, setProductos] = useState([]);
+  const [Product, setProductos] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const location = useLocation();
 
@@ -33,5 +33,5 @@ export const useFetchProductos = () => {
   }, [location]);
 
   // Retornamos los productos, el estado de filtrado, y la función fetchProductos.
-  return { productos, isFiltered, fetchProductos };
+  return { Product, isFiltered, fetchProductos };
 };

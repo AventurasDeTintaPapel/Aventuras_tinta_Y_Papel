@@ -1,7 +1,4 @@
 import axios from "axios";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import { Nav } from "../components/Nav";
 import "@fontsource/poppins/700.css";
 import React, { useState, useRef, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
@@ -10,6 +7,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { CorazonFav } from "../components/Fav";
+import { BotonComprar } from "../components/objetosVariasdos";
 
 export default function DetallesProductos() {
   const { id } = useParams();
@@ -31,82 +29,75 @@ export default function DetallesProductos() {
   if (!producto) return <p>Cargando unu</p>;
 
   return (
-    <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
-      <Header colAndrow={"row-start-1"} />
-      <Nav colAndrow={"row-start-2"} />
-      <main className="row-start-3" style={{ fontFamily: "'Baloo 2', system-ui" }}>
-        {/* contenedor general */}
-        <div className="bg-white w-full px-[5vw] h-full grid grid-rows-[auto_auto_auto]">
-          {/*contenedor de imagen y botones */}
-          <div className="row-start-1 p-[1vw] bg-red-300 flex ">
-            {/* contenedor imagen */}
-            <div className="w-[20vw]">
-              <img className="w-full h-full object-cover" src={producto.imagen} alt="" />
-            </div>
-            {/* contenedor nombre,autor,etc*/}
-            <div className="">
-              {/* titulo e info */}
-              <div className="bg-green-200 w-full relative h-full px-[1vw]">
-                <CorazonFav producto={producto} key={producto._id} estilo={"absolute right-0"} />
-
-                {/* titulo */}
-                <div className="bg-violet-300">
-                  <p className="text-[3vw] " style={{ fontFamily: "'Poppins', sans-serif" }}>
-                    {producto.titulo}
-                  </p>
-                </div>
-                <p className="">
-                  <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
-                    Tipo:
-                  </span>
-                  {producto.tipo}
-                </p>
-                <p className="">
-                  <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
-                    Autor:
-                  </span>{" "}
-                  {producto.autor}
-                </p>
-                <p className="">
-                  <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
-                    Precio:
-                  </span>
-                  ${producto.precio}
-                </p>
-              </div>
-              {/* botones */}
-              <div className="">
-                {/* <BotonComprar />
-                <Volver /> */}
-              </div>
-            </div>
-
-            {/* contenerdor Descripcion */}
+    <main className="row-start-3">
+      {/* contenedor general */}
+      <div className="bg-white w-full px-[5vw] h-full grid grid-rows-[auto_auto_auto]">
+        {/*contenedor de imagen y botones */}
+        <div className="row-start-1 p-[1vw] bg-red-300 flex ">
+          {/* contenedor imagen */}
+          <div className="w-[20vw]">
+            <img className="w-full h-full object-cover" src={producto.imagen} alt="" />
           </div>
 
-          {/* descripcion */}
-          <div className=" pl-[2vw] bg-[#f7f1fa] row-start-2 py-[1vw]">
-            <p className="text-[1.9vw] text-[#361158]" style={{ fontFamily: "'Poppins', sans-serif" }}>
-              De que trata este {producto.tipo}:
+          {/* titulo e info */}
+          <div className="bg-green-200 w-full relative h-full px-[1vw]">
+            <CorazonFav producto={producto} key={producto._id} estilo={"absolute right-0"} />
+
+            {/* titulo */}
+            <div className="bg-violet-300">
+              <p className="text-[3vw] " style={{ fontFamily: "'Poppins', sans-serif" }}>
+                {producto.titulo}
+              </p>
+            </div>
+            <p className="">
+              <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
+                Tipo:
+              </span>
+              {producto.tipo}
             </p>
-            <p className="w-[95%] text-[#4c197b]  pl-[1vw] pt-[0.5vw] text-[1.3vw]"> {producto.descripcion} </p>
-          </div>
-
-          {/* comentarios */}
-          <div className=" rounded-b-[1vw] space-y-[1vw] pt-[1vw] bg-[#efe3f6]  row-start-3">
-            <div className="flex pl-[1vw] gap-[0.5vw]">
-              <FaStar className="text-[2.5vw]" />
-              <FaStar className="text-[2.5vw]" />
-              <FaStar className="text-[2.5vw]" />
-              <FaRegStar className="text-[2.5vw]" />
-              <FaRegStar className="text-[2.5vw]" />
+            <p className="">
+              <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
+                Autor:
+              </span>{" "}
+              {producto.autor}
+            </p>
+            <p className="">
+              <span style={{ fontFamily: "'Poppins', sans-serif" }} className="">
+                Precio:
+              </span>
+              ${producto.precio}
+            </p>
+            <div className="absolute bottom-[1vw] rounded-[0.5vw] bg-red-400 px-[2vw] py-[0.4vw]">
+              <BotonComprar producto={producto} estilos={"text-[1.5vw] font-medium tracking-wide"} />
+              {/* <Volver />  */}
             </div>
-            <Comentarios />
           </div>
+          {/* botones */}
+
+          {/* contenerdor Descripcion */}
         </div>
-      </main>
-      <Footer colAndrow={"row-start-4"} />
-    </div>
+
+        {/* descripcion */}
+        <div className=" pl-[2vw] bg-[#f7f1fa] row-start-2 py-[1vw]">
+          <p className="text-[1.9vw] text-[#361158]" style={{ fontFamily: "'Poppins', sans-serif" }}>
+            De que trata este {producto.tipo}:
+          </p>
+          <p className="w-[95%] text-[#4c197b]  pl-[1vw] pt-[0.5vw] text-[1.3vw]"> {producto.descripcion} </p>
+        </div>
+
+        {/* comentarios */}
+        <div className=" rounded-b-[1vw] space-y-[1vw] pt-[1vw] bg-[#efe3f6]  row-start-3">
+          <div className="flex pl-[1vw] gap-[0.5vw]">
+            <FaStar className="text-[2.5vw]" />
+            <FaStar className="text-[2.5vw]" />
+            <FaStar className="text-[2.5vw]" />
+            <FaRegStar className="text-[2.5vw]" />
+            <FaRegStar className="text-[2.5vw]" />
+          </div>
+          <Comentarios />
+        </div>
+      </div>
+    </main>
   );
 }
 
@@ -181,15 +172,6 @@ function Volver() {
         ></path>
       </svg>
       <span className="group-hover:text-[1.6vw] transition-all ease-in-out duration-300">Volver </span>
-    </button>
-  );
-}
-
-// boton de comprar
-function BotonComprar() {
-  return (
-    <button href="#" className="absolute px-[1.5vw] rounded-[0.5vw] bg-[#622699] text-white left-[1vw] py-[0.6vw] text-[1.5vw]">
-      Comprar
     </button>
   );
 }

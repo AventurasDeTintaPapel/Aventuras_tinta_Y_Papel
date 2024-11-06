@@ -2,15 +2,16 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
+import { useAlertFav } from "../hook/useAlert";
 
 export const CorazonFav = ({ producto, estilo }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const { Alerta, mostrarAlerta } = useAlertFav();
 
   useEffect(() => {
     const fetchFavorites = async () => {
       const token = localStorage.getItem("token");
-      console.log(token);
       if (token) {
         try {
           const response = await axios.get("http://localhost:3400/api/favoritos/getFav", {
@@ -57,8 +58,7 @@ export const CorazonFav = ({ producto, estilo }) => {
             credentials: "include",
           }
         );
-        console.log(" se agrego con exito a favoritos");
-
+        mostrarAlerta("Se agrego correctamente a carrito");
         setFavorites((prev) => [...prev, { producto }]);
       }
       setIsFavorite(!isFavorite);
@@ -69,6 +69,7 @@ export const CorazonFav = ({ producto, estilo }) => {
 
   return (
     <div>
+      {Alerta}
       <div className={estilo}>
         <button onClick={handleFavoriteToggle}>{isFavorite ? <FaHeart /> : <FaRegHeart />}</button>
       </div>

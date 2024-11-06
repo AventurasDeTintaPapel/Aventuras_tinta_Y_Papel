@@ -7,9 +7,11 @@ import { useFetchProductos } from "../hook/useFetchProductos";
 import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
+import { BotonComprar } from "../components/objetosVariasdos";
+import { useAlert } from "../hook/useAlert";
 
 export default function Catalogo() {
-  const { productos, isFiltered, fetchProductos } = useFetchProductos();
+  const { Product, isFiltered, fetchProductos } = useFetchProductos();
 
   // retorna el ASIDE Y MAIN
   return (
@@ -28,7 +30,7 @@ export default function Catalogo() {
         <div>
           {/* contenedor de tarjetas */}
           <div className="grid grid-cols-4 px-[3vw] justify-items-center py-[2vw] gap-[2vw] ">
-            {productos.map((producto) => (
+            {Product.map((producto) => (
               // tarjeta
               <div
                 key={producto._id}
@@ -58,9 +60,12 @@ export default function Catalogo() {
                 </div>
 
                 {/* boton */}
-                <button className="bg-[#7c23c9] absolute bottom-0 w-full rounded-b-lg group-hover:rounded-b-[0.2vw] transition-all ease-in-out duration-150 text-slate-100 hover:text-white hover:bg-[#6017a4] h-[2.3vw] text-[1.3vw] hover:text-[1.4vw]">
-                  Comprar
-                </button>
+                <BotonComprar
+                  producto={producto}
+                  estilos={
+                    "bg-[#7c23c9] absolute bottom-0 w-full rounded-b-lg group-hover:rounded-b-[0.2vw] transition-all ease-in-out duration-150 text-slate-100 hover:text-white hover:bg-[#6017a4] h-[2.3vw] text-[1.3vw] hover:text-[1.4vw]"
+                  }
+                />
               </div>
             ))}
           </div>
