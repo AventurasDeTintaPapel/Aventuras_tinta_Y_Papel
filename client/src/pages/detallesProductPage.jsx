@@ -148,7 +148,7 @@ function Volver() {
   return (
     <button
       onClick={hancleRedirect}
-      className="flex items-center gap-[0.5vw] absolute px-[1.5vw] rounded-[0.5vw] border-[0.2vw] border-[#250642]  text-[#250642]  left-[12vw] py-[0.5vw] text-[1.5vw]"
+      className="flex items-center gap-[0.5vw] absolute px-[1.5vw] rounded-[0.5vw] border-[0.2vw] border-[#250642]  text-[#250642] left-[12vw] py-[0.5vw] text-[1.5vw]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
