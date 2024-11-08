@@ -1,18 +1,11 @@
 import { Router } from "express";
-import {
-  addCart,
-  uptdaOrder,
-  deletItem,
-  deletOrder,
-  getOrder,
-  getAllOrders,
-} from "../controllers/pedidos.controllers.js";
+import { addCart, uptdaOrder, deletItem, deletOrder, getOrder, getAllOrders } from "../controllers/pedidos.controllers.js";
 import { sessionVerified, rolAdmVerified } from "../../middlewares/session.js";
 
 export const order = Router();
 
 //add product to cart
-order.post("/", sessionVerified, addCart);
+order.post("/addPedido", addCart);
 //update order
 order.put("/", sessionVerified, uptdaOrder);
 //delete order
