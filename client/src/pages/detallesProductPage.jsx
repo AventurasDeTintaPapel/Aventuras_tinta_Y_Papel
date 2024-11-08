@@ -62,15 +62,12 @@ export default function DetallesProductos() {
               <span className="font-poopins text-slate-800">Precio: </span>${producto.precio}
             </p>
             <div className="absolute bottom-[0.5vw] font-breeSerif rounded-[0.5vw] bg-[#250642] px-[2vw] py-[0.4vw]">
-              <BotonComprar producto={producto} estilos={"text-[1.5vw] font-medium tracking-wide text-white"} />
+              <BotonComprar producto={producto} estilos={"text-[1.5vw] font-medium left-[3vw] tracking-wide text-white"} />
               <Volver />
             </div>
           </div>
-
-          {/* contenerdor Descripcion */}
         </div>
-
-        {/* descripcion */}
+        {/* contenerdor Descripcion */}
         <div className=" pl-[2vw] bg-[#f7f1fa] row-start-2 py-[1vw]">
           <p className="text-[1.9vw] text-[#361158]" style={{ fontFamily: "'Poppins', sans-serif" }}>
             De que trata este {producto.tipo}:
@@ -148,7 +145,7 @@ function Volver() {
   return (
     <button
       onClick={hancleRedirect}
-      className="flex items-center gap-[0.5vw] absolute px-[1.5vw] rounded-[0.5vw] border-[0.2vw] border-[#250642]  text-[#250642] left-[12vw] py-[0.5vw] text-[1.5vw]"
+      className="flex items-center gap-[0.5vw] absolute px-[1.5vw] rounded-[0.5vw] border-[0.2vw] border-[#410d71]  text-[#410d71] top-0 left-[18vw] py-[0.25vw] text-[1.5vw]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

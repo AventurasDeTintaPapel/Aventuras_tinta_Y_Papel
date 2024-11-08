@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Nav } from "../components/Nav";
+import PayPalPayment from "../components/PaypalComponent.JSX";
 
 import { SlArrowRight } from "react-icons/sl";
 import { SlArrowLeft } from "react-icons/sl";
 import { CorazonFav } from "../components/Fav";
 import { MasInfo } from "./catalogoPage";
-import axios from "axios";
 
 function ArrowAgregar({ agregarProductoAlCarrito, producto }) {
   return (
@@ -42,51 +42,28 @@ function obtenerCarrito() {
     } else {
       acumulador.push({ ...producto, cantidad: 1 });
     }
+
     return acumulador;
   }, []);
-
   return carritoConCantidad;
 }
 
 export default function Carrito() {
   const [carrito, setCarrito] = useState([]);
 
-  // calcula el total de todo los precios que esten en carrito
-  const calcularTotal = () => {
-    return carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
+  const calcularTotal = (carrito) => {
+    return carrito.reduce((total, producto) => {
+      if (producto.precio && producto.cantidad) {
+        return total + producto.precio * producto.cantidad;
+      }
+      return total;
+    }, 0);
   };
 
   useEffect(() => {
     const productosCarrito = obtenerCarrito();
     setCarrito(productosCarrito);
   }, []);
-
-  const enviarCarito = async () => {
-    try {
-      const total = calcularTotal();
-      const token = localStorage.getItem("token");
-
-      const response = await fetch("http://localhost:3400/api/pedidos/addPedido", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token: token,
-        },
-        credentials: "include",
-        body: JSON.stringify({ result: carrito, total }),
-      });
-
-      if (!token) {
-        console.log("error al enivar token");
-      }
-
-      if (!response) {
-        console.log("error al enivar productos");
-      }
-    } catch (error) {
-      console.error("Error en el fetch", error);
-    }
-  };
 
   // elimina todos productos con el mismo id
   const eliminarTodosLosProductos = (idProducto) => {
@@ -165,17 +142,11 @@ export default function Carrito() {
           <div className="border-t pt-[1vw]">
             <div className="flex justify-between items-center font-semibold text-lg">
               <span className=" text-[1.2vw]">Total:</span>
-              <span className="text-green-600 text-[1.2vw]">${calcularTotal().toFixed(2)}</span>
+              <span className="text-green-600 text-[1.2vw]">${calcularTotal(carrito).toFixed(2)}</span>
             </div>
           </div>
 
-          <button
-            onClick={enviarCarito}
-            className="w-full mt-[1vw] text-[1.2vw] bg-blue-600 text-white py-[0.6vw] rounded-md hover:bg-blue-700 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={carrito.length === 0}
-          >
-            Proceder al Pago
-          </button>
+          <PayPalPayment carrito={carrito} />
         </div>
       </aside>
       <main className="row-start-3 col-start-1">

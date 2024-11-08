@@ -1,4 +1,5 @@
 import React from "react";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@fontsource/boogaloo";
 import "@fontsource/poppins/700.css";
@@ -20,6 +21,7 @@ import {
   Registro,
   SupportChat,
 } from "../pages";
+import PayPalPayment from "../components/PaypalComponent.JSX";
 
 const AppRouter = () => {
   return (
@@ -38,9 +40,13 @@ const AppRouter = () => {
 
           {/* rutas con aside*/}
           <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/carrito" element={<Carrito />} />
           <Route path="/favoritos" element={<MisFavoritos />} />
           <Route path="/intercambiar" element={<ProductForm />} />
+
+          {/* Ruta para paypal */}
+          <Route path="/carrito" element={<Carrito />}>
+            <Route path="/carrito" element={<PayPalPayment />} />
+          </Route>
 
           {/* Rutas sin header,nav o footer */}
           <Route path="/login" element={<Login />} />
