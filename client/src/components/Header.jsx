@@ -22,7 +22,6 @@ function iniciarSeccion() {
                     </a>
             `;
     } else {
-      console.log("la session ya fue iniciada");
       CerrarSesion();
     }
   }

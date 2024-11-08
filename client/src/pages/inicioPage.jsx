@@ -1,5 +1,5 @@
 import React from "react";
-import Carrusel, { Carruseltarjetas } from "../components/objetosVariasdos";
+import { CarruselInicio, CatalogoPrueba } from "../components/objetosVariasdos";
 
 function Separador({ texto }) {
   return <p className="text-white text-[2.5vw] font-semibold text-center bg-gradient-to-r from-blue-950 to-fuchsia-400 w-full">{texto}</p>;
@@ -9,14 +9,14 @@ export default function Inicio() {
   return (
     <main className="font-baloo">
       {/* carrusel */}
-      <Carrusel />
+      <CarruselInicio />
 
       <div className="flex flex-col items-center gap-[2vw] my-[2vw]">
         {/* separador */}
         <Separador texto={"LO MAS VENDIDO"} />
 
         {/* contendor de tarjetas y flechas 1 */}
-        <Carruseltarjetas />
+        <CatalogoPrueba />
 
         {/* algo */}
         <div className="flex py-[2vw] gap-[1vw] w-auto">
@@ -63,7 +63,7 @@ export default function Inicio() {
         <Separador texto={"NOVEDADES"} />
 
         {/* contendor de tarjetas y flechas 2 */}
-        <Carruseltarjetas />
+        <CatalogoPrueba />
       </div>
     </main>
   );

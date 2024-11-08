@@ -1,3 +1,5 @@
+import React from "react";
+
 // input del formulario de contactos
 function LabelInput({ nombreCampo, relacionId, onChange }) {
   return (

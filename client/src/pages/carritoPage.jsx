@@ -51,13 +51,17 @@ function obtenerCarrito() {
 export default function Carrito() {
   const [carrito, setCarrito] = useState([]);
 
-  const calcularTotal = (carrito) => {
-    return carrito.reduce((total, producto) => {
-      if (producto.precio && producto.cantidad) {
-        return total + producto.precio * producto.cantidad;
-      }
-      return total;
-    }, 0);
+  const calcularTotal = () => {
+    try {
+      return carrito.reduce((total, producto) => {
+        if (producto.precio && producto.cantidad) {
+          return total + producto.precio * producto.cantidad;
+        }
+        return total;
+      }, 0);
+    } catch (error) {
+      console.log("calcularTotal", error);
+    }
   };
 
   useEffect(() => {
@@ -110,6 +114,9 @@ export default function Carrito() {
     setCarrito(obtenerCarrito());
   };
 
+  const total = calcularTotal();
+  console.log(total);
+
   return (
     <div className="grid grid-cols-[70%_30%] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"row-start-1 col-span-2"} />
@@ -142,11 +149,11 @@ export default function Carrito() {
           <div className="border-t pt-[1vw]">
             <div className="flex justify-between items-center font-semibold text-lg">
               <span className=" text-[1.2vw]">Total:</span>
-              <span className="text-green-600 text-[1.2vw]">${calcularTotal(carrito).toFixed(2)}</span>
+              <span className="text-green-600 text-[1.2vw]">${calcularTotal().toFixed(2)}</span>
             </div>
           </div>
 
-          <PayPalPayment carrito={carrito} />
+          <PayPalPayment carrito={carrito} total={total} />
         </div>
       </aside>
       <main className="row-start-3 col-start-1">

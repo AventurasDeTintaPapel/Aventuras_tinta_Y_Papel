@@ -5,6 +5,8 @@ const PayPalPayment = ({ carrito }) => {
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const [currency, setCurrency] = useState(options.currency);
 
+  const total = 900;
+
   const onCurrencyChange = ({ target: { value } }) => {
     setCurrency(value);
     dispatch({
@@ -13,27 +15,30 @@ const PayPalPayment = ({ carrito }) => {
     });
   };
 
-  const onCreateOrder = (data, actions) => {
-    const total = 8.99; // Valor fijo directamente
-    console.log("Total en PayPal onCreateOrder:", total); // Verifica el total
-    if (total <= 0) {
-      console.log("El total no puede ser cero o negativo");
-      return;
-    }
+  const onCreateOrder = async (data, actions) => {
+    try {
+      console.log("Total en PayPal onCreateOrder:", total); // Verifica el total
+      if (total <= 0) {
+        console.log("El total no puede ser cero o negativo");
+        return;
+      }
 
-    // Crear la orden de PayPal con el total calculado
-    return actions.order
-      .create({
+      // Crear la orden de PayPal con el total calculado
+      const ordenCarrito = await actions.order.create({
         purchase_units: [{ amount: { value: total } }],
-      })
-      .then((orderId) => {
-        // Asegúrate de retornar el orderId correcto
-        console.log("Order created successfully:", orderId);
-        return orderId; // Retorna el orderId para completar el flujo
       });
+
+      console.log("Order created successfully:", ordenCarrito);
+
+      return ordenCarrito;
+    } catch (error) {
+      console.log({ error });
+    }
   };
 
   const onApproveOrder = async (data, actions) => {
+    console.log({ data });
+
     try {
       // Capturar la orden
       const details = await actions.order.capture();
@@ -58,25 +63,25 @@ const PayPalPayment = ({ carrito }) => {
       }
 
       // Enviar el carrito y el total al backend
-      const response = await fetch("http://localhost:3400/api/create-order", {
+      const response = await fetch("http://localhost:3400/api/create-orderPost", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           token: token,
         },
-        body: JSON.stringify({ result: carrito, total: 8.99 }), // Usando 8.99 directamente
+        body: JSON.stringify({ result: carrito, total }),
       });
 
       // Manejar la respuesta del backend
       if (!response.ok) {
-        console.log("Error al enviar productos al backend");
+        console.log("Error al enviar productos al backend", { result: carrito, total });
         return;
       }
 
       const data = await response.json();
       console.log("Orden creada en el backend:", data);
     } catch (error) {
-      console.error("Error en el fetch al backend", error);
+      console.error("enviarCarrito:", error);
     }
   };
 

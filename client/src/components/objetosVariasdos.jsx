@@ -1,6 +1,9 @@
-import React, { useRef } from "react";
-import Carousel from "react-material-ui-carousel";
-import { Paper } from "@mui/material";
+import React, { useRef, useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import { useAlert } from "../hook/useAlert";
+import { MasInfo } from "../pages/catalogoPage";
+import { CorazonFav } from "./Fav";
 
 // boton agregar a carrito
 export function BotonComprar({ producto, estilos }) {
@@ -27,136 +30,113 @@ export function BotonComprar({ producto, estilos }) {
   );
 }
 
-// carrusel inicio tarjetas
-function Tarjeta({ imagen, titulo, precio }) {
-  return (
-    <div className="tarjetas bg-[#f6f9ff] flex flex-col items-center w-[17vw] pb-[0.5vw]">
-      <div className="contentImg w-[15vw] h-[20.5vw]">
-        <img className="w-full h-full" src="https://cordexizdesign.es/wp-content/uploads/2020/10/brujas_portada_predisenada.jpg" alt="" />
-      </div>
-      <div className="text-[#320c3a] flex flex-col my-[0.5vw] gap-[0.8vw] w-[85%]">
-        <div class="w-[13vw]">
-          <p class="truncate text-center text-[1.5vw]">Los Juicios De Salem - LA HISTORIA QUE NUNCA TE AN CONTADO</p>
-        </div>
-        <p className="precio text-[1.4vw]">Precio: $6000</p>
-      </div>
-      <div className="contentBotones w-full flex justify-evenly ">
-        <button className="bg-[#6c6b90] text-white text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Favorito</button>
-        <button className=" bg-[#6c6b90] text-white text-[1.3vw] px-[1vw] py-[0.2vw] rounded-sm">Comprar</button>
-      </div>
-    </div>
-  );
-}
-
-const porcentajeDesplazamiento = 30; // 30% del ancho del contenedor
-let intervalId = null;
-
-export function Carruseltarjetas() {
-  const contenedor2Ref = useRef(null);
-
-  // Función para mover el contenedor en la dirección dada
-  const moverContenedor = (contenedor, direccion) => {
-    if (contenedor) {
-      const desplazamiento = contenedor.clientWidth * porcentajeDesplazamiento;
-      if (direccion === "derecha") {
-        contenedor.scrollLeft += desplazamiento;
-      } else if (direccion === "izquierda") {
-        contenedor.scrollLeft -= desplazamiento;
-      }
-    }
-  };
-
-  // Función para iniciar el desplazamiento
-  const iniciarDesplazamiento = (contenedor, direccion) => {
-    if (intervalId === null) {
-      intervalId = setInterval(() => moverContenedor(contenedor, direccion), 100);
-    }
-  };
-
-  // Función para detener el desplazamiento
-  const detenerDesplazamiento = () => {
-    clearInterval(intervalId);
-    intervalId = null;
-  };
-
-  return (
-    <div>
-      <div className="flex relative bg-[#fcf7f3] shadow-xl w-[76vw] justify-center py-[1vw]">
-        <div
-          ref={contenedor2Ref}
-          id="contenedorTarjetas2"
-          className="contenedorTarjetas gap-[1vw] py-[1vw] px-[1vw] bg-[#eeeaf4] flex w-[64.9vw] overflow-hidden"
-          style={{ scrollBehavior: "smooth" }}
-        >
-          <Tarjeta />
-          <Tarjeta />
-          <Tarjeta />
-          <Tarjeta />
-
-          <Tarjeta />
-          <Tarjeta />
-          <Tarjeta />
-          <Tarjeta />
-        </div>
-
-        {/* flecha Izquierda */}
-        <button
-          className="text-[2vw] absolute top-[17vw] right-[2vw]"
-          onMouseDown={() => iniciarDesplazamiento(contenedor2Ref.current, "derecha")}
-          onMouseUp={detenerDesplazamiento}
-          onMouseLeave={detenerDesplazamiento}
-          onTouchStart={() => iniciarDesplazamiento(contenedor2Ref.current, "derecha")}
-          onTouchEnd={detenerDesplazamiento}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="fi-rs-angle-right right-[0.1vw] w-[3vw] z-10">
-            <path
-              d="M8.534,24l9.507-9.52a3.507,3.507,0,0,0,0-4.948L8.525,0,6.407,2.121,15.927,11.652a.5.5,0,0,1,0,.707L6.421,21.172Z"
-              className="fill-[purple]"
-            />
-          </svg>
-        </button>
-
-        {/* flecha derecha */}
-        <button
-          className="text-[2vw] absolute top-[17vw] left-[2vw]"
-          onMouseDown={() => iniciarDesplazamiento(contenedor2Ref.current, "izquierda")}
-          onMouseUp={detenerDesplazamiento}
-          onMouseLeave={detenerDesplazamiento}
-          onTouchStart={() => iniciarDesplazamiento(contenedor2Ref.current, "izquierda")}
-          onTouchEnd={detenerDesplazamiento}
-        >
-          <svg className="fi-rs-angle-right left-[0.1vw] w-[3vw] z-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path
-              d="M16.041,24,6.534,14.48a3.507,3.507,0,0,1,0-4.948L16.052,0,18.17,2.121,8.652,11.652a.5.5,0,0,0,0,.707l9.506,9.52Z"
-              className="fill-[purple]"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
-  );
-}
-
-import img1 from "../assets/img/imgComics.png";
-import img2 from "../assets/img/imgLirbos.png";
-import img3 from "../assets/img/imgManga.png";
-import { useAlert } from "../hook/useAlert";
-
-const Carrusel = () => {
-  const items = [{ img: img1 }, { img: img2 }, { img: img3 }];
-
-  return (
-    <Carousel className="h-auto">
-      {items.map((item, i) => (
-        <Paper key={i}>
-          <img src={item.img} className="h-[28vw] w-full" alt={`Imagen ${i + 1}`} />
-        </Paper>
-      ))}
-    </Carousel>
-  );
+const traerProductos = async (setProductos) => {
+  try {
+    const response = await axios.get("http://localhost:3400/api/productos");
+    setProductos(response.data);
+  } catch (error) {
+    console.error("Se produjo un error al traer los productos", error);
+  }
 };
 
-export default Carrusel;
+export function CatalogoPrueba() {
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    traerProductos(setProductos);
+  }, []);
+
+  return (
+    <div className="flex gap-[2vw] overflow-x-auto w-[80vw] py-[1vw]">
+      {productos.map((producto) => (
+        <div
+          key={producto._id}
+          className=" h-[30vw] relative flex flex-col rounded-[0.5vw] shadow-xl hover:outline hover:outline-offset-[0.3vw] outline-purple-800 hover:border-[0.3vw] bg-white border-purple-800 group transition-all ease-in-out duration-150"
+        >
+          {/* imagen */}
+          <div className="w-[15vw] h-[22vw] relative">
+            <img
+              className="w-full h-full rounded-t-lg group-hover:rounded-t-[0.2vw] transition-all ease-in-out duration-150 object-cover"
+              src={producto.imagen}
+              alt={producto.titulo}
+            />
+            <MasInfo
+              id={producto._id}
+              text={"Mas informacion"}
+              estilos={
+                " absolute bottom-[0.5vw] font-breeSerif left-[0.5vw] bg-[#8321d8] bg-opacity-85 text-white hover:text-white text-[0.8vw] rounded-md px-[0.4vw] py-[0.2vw] hover:bg-opacity-100 hover:text-[0.85vw] hover:translate-y-[0.05vw] transition-all ease-in-out duration-300"
+              }
+            />
+          </div>
+          {/* titulo y precio */}
+          <div className=" h-full relative pt-[0.5vw] pl-[1vw]">
+            <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">{producto.titulo}</div>
+            <CorazonFav key={producto._id} producto={producto} estilo={"text-[#5a189a] absolute right-[1vw] top-[0.8vw] text-[1.5vw]"} />
+
+            <p className="text-[1.6vw] text-[#4d2b6c]">Precio: ${producto.precio}</p>
+          </div>
+
+          {/* boton */}
+          <BotonComprar
+            producto={producto}
+            estilos={
+              "bg-[#7c23c9] absolute bottom-0 w-full rounded-b-lg group-hover:rounded-b-[0.2vw] transition-all ease-in-out duration-150 text-slate-100 hover:text-white hover:bg-[#6017a4] h-[2.3vw] text-[1.3vw] hover:text-[1.4vw]"
+            }
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const imagenes = [
+  {
+    id: 1,
+    imgUrl: "../assets/img/imgComics.png",
+  },
+  {
+    id: 2,
+    imgUrl: "../assets/img/imgLirbos.png",
+  },
+  {
+    id: 3,
+    imgUrl: "../assets/img/imgManga.png",
+  },
+];
+
+export function CarruselInicio() {
+  const listRef = useRef();
+  const [currentIndex, setcurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const listNode = listRef.current;
+    const imgNode = listNode.querySelectorAll("li > img")[currentIndex];
+
+    if (imgNode) {
+      imgNode.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [currentIndex]);
+
+  return (
+    <div className="w-full h-[30vw]">
+      <div className="relative h-full">
+        <div className="w-full h-full border-red-400 rounded-[20px] border-[3px] overflow-hidden">
+          <ul ref={listRef}>
+            {imagenes.map((item) => {
+              return (
+                <li key={item.id}>
+                  <img src={item.imgUrl} className="w-full h-[30vw]" alt="" />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function IconoCargando() {
   return (
