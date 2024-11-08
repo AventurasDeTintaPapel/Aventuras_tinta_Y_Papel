@@ -196,7 +196,17 @@ export default function ProductList() {
                       <p className="font-bold text-xl mb-2">Titulo: {product.title}</p>
                       <p className="text-gray-700 text-base">Descripcion: {product.description}</p>
                       <p className="text-gray-700 text-base">Tipo: {product.type}</p>
-                      <p className="text-gray-700 text-base">Contacto: {product.phone}</p>
+                      <p className="text-gray-700 text-base">
+  Contacto: 
+  <a 
+    href={`https://wa.me/${product.phone}`} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="text-blue-600 hover:underline"
+  >
+    {product.phone}
+  </a>
+</p>
                     </div>
                     <div className="px-6 pt-4 pb-2 flex justify-between items-center">
                       <span className="text-xl font-bold text-gray-900">Precio: ${product.price?.toFixed(2)}</span>
