@@ -11,6 +11,7 @@ export const createProduct = async (productData) => {
         'Content-Type': 'application/json',
         token:token, 
       },
+      credentials: 'include',
       body: JSON.stringify(productData),
     });
 
@@ -39,8 +40,9 @@ export const fetchProducts = async () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        token:token,
       },
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -64,7 +66,7 @@ export const fetchProducts = async () => {
 export const updateProduct = async (id, productData) => {
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch(`http://localhost:3400/api/publics/edit/`, {
+    const response = await fetch('http://localhost:3400/api/publics/edit/', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -89,11 +91,13 @@ export const deleteProduct = async (id) => {
   const token = localStorage.getItem('token'); // Obtén el token desde localStorage
   console.log(token)
   try {
-    const response = await fetch(`http://localhost:3400/api/publics/delete/`, {
+    const response = await fetch('http://localhost:3400/api/publics/delete/', {
       method: 'DELETE',
       headers: {
+        "Content-Type": "application/json",
         token:token, 
       },
+      credentials: 'include',
     });
 
     if (!response.ok) {

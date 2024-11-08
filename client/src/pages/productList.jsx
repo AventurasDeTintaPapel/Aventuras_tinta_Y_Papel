@@ -11,7 +11,7 @@ export default function ProductList() {
   const [error, setError] = useState(null);
   const [isHovered, setIsHovered] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [productData, setProductData] = useState({ title: "", description: "", price: "", phone: "", imagen: null });
+  const [productData, setProductData] = useState({ title: "", description: "", price: "", phone: "", type: "", imagen: null });
   const [selectedFile, setSelectedFile] = useState(null);
 
   const IMAGE_BASE_URL = "http://localhost:3400";
@@ -57,6 +57,7 @@ export default function ProductList() {
         description: productToEdit.description,
         price: productToEdit.price,
         phone: productToEdit.phone,
+        type: productToEdit.type,
         imagen: productToEdit.imagen || null,
       });
       setSelectedFile(null);
@@ -77,6 +78,7 @@ export default function ProductList() {
       formData.append("description", productData.description);
       formData.append("price", productData.price);
       formData.append("phone", productData.phone);
+      formData.append("type", productData.type);
 
       if (selectedFile) {
         formData.append("file", selectedFile);
@@ -95,7 +97,7 @@ export default function ProductList() {
       setProducts(updatedProducts);
 
       setEditingProduct(null);
-      setProductData({ title: "", description: "", price: "", phone: "", imagen: null });
+      setProductData({ title: "", description: "", price: "", phone: "", type: "", imagen: null });
       setSelectedFile(null);
     } catch (error) {
       console.error("Error saving edited product:", error);
@@ -104,8 +106,6 @@ export default function ProductList() {
 
   return (
     <>
-      <Header />
-      <Nav />
       <div className="container mx-auto px- py-8">
         <h1 className="text-3xl font-bold text-center mb-8">PRODUCTOS PARA INTERCAMBIAR</h1>
         {products.length === 0 ? (
@@ -150,6 +150,15 @@ export default function ProductList() {
                       />
                     </div>
                     <div className="flex flex-col mb-2">
+                      <label>Tipo</label>
+                      <input
+                        type="text"
+                        value={productData.type}
+                        onChange={(e) => setProductData({ ...productData, type: e.target.value })}
+                        className="border p-1 rounded"
+                      />
+                    </div>
+                    <div className="flex flex-col mb-2">
                       <label>Precio</label>
                       <input
                         type="number"
@@ -159,7 +168,7 @@ export default function ProductList() {
                       />
                     </div>
                     <div className="flex flex-col mb-2">
-                      <label>Teléfono</label>
+                      <label>Contacto</label>
                       <input
                         type="text"
                         value={productData.phone}
@@ -186,6 +195,7 @@ export default function ProductList() {
                     <div className="px-6 py-4 space-y-3">
                       <p className="font-bold text-xl mb-2">Titulo: {product.title}</p>
                       <p className="text-gray-700 text-base">Descripcion: {product.description}</p>
+                      <p className="text-gray-700 text-base">Tipo: {product.type}</p>
                       <p className="text-gray-700 text-base">Contacto: {product.phone}</p>
                     </div>
                     <div className="px-6 pt-4 pb-2 flex justify-between items-center">
@@ -206,7 +216,6 @@ export default function ProductList() {
           </div>
         )}
       </div>
-      <Footer />
     </>
   );
 }
