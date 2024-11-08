@@ -58,7 +58,7 @@ export const login = async (req, res) => {
     } else {
       const token = await generarJWT({ id: userFind.id });
       req.session.token = token;
-      ñ;
+  
       return res.status(200).json({
         exitoLogin: true,
         msg: "correct login",

@@ -18,6 +18,6 @@ publiRouter.post("/cargar", subirImagen.single("imagen"), createPublic);
 //update publics
 publiRouter.put("/edit", sessionVerified, updateValidation, editPublics);
 //get publics
-publiRouter.get("/obtener", sessionVerified, getAllpublics);
+publiRouter.get("/obtener", getAllpublics);
 //delete publics
 publiRouter.delete("/delete/", sessionVerified, deletPublic);

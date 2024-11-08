@@ -7,7 +7,7 @@ export const createPublic = async (req, res) => {
     const token = req.headers.token;
     console.log(token);
 
-    const { title, description, price, phone } = req.body;
+    const { title, description, price, phone, type } = req.body;
     let imagen = "";
 
     if (req.file) {
@@ -37,6 +37,7 @@ export const createPublic = async (req, res) => {
       price,
       imagen,
       phone,
+      type,
     });
 
     const result = await newPublic.save();
@@ -82,7 +83,7 @@ export const editPublics = async (req, res) => {
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
 
-    const { author, title, price, description } = req.body;
+    const { author, title, price, description, type } = req.body;
     console.log(author, title, price, description);
 
     const publicFind = await publics.findOne({ autor: idUser });
@@ -102,6 +103,7 @@ export const editPublics = async (req, res) => {
       title,
       price,
       description,
+      type,
     };
 
     const result = await publics.findByIdAndUpdate(id, { $set: updatedData }, { new: true });

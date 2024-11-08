@@ -24,14 +24,13 @@ const botResponses = {
     }
 };
 
-const getBotResponse = (message) => {
-    const lowerMsg = message.toLowerCase();
-    for (const [key, value] of Object.entries(botResponses)) {
-        if (lowerMsg.includes(key)) {
-            return { message: value.response, options: value.options };
-        }
+const getBotResponse = (selectedOption) => {
+    const lowerOption = selectedOption.toLowerCase();
+    if (botResponses[lowerOption]) {
+        const { response, options } = botResponses[lowerOption];
+        return { message: response, options };
     }
-    return { message: "Lo siento, no entiendo tu pregunta. ¿Podrías reformularla?", options: [] };
+    return { message: "Lo siento, no entiendo esa opción.", options: [] };
 };
 
 
