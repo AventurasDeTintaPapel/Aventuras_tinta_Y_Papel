@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const productos = new Schema(
+const Product = new Schema(
   {
     titulo: {
       type: String,
@@ -49,7 +49,6 @@ const productos = new Schema(
     },
     imagen: {
       type: String,
-      required: true,
     },
     comentarios: [
       {
@@ -88,4 +87,4 @@ const productos = new Schema(
     timestamps: true,
   }
 );
-export default model("productos", productos);
+export default model("productos", Product);

@@ -4,11 +4,7 @@ import AutoIncrementFactory from "mongoose-sequence";
 
 const AutoIncrement = AutoIncrementFactory(mongoose);
 const pedidos = new Schema({
-  numPedido: {
-    type: Number,
-    required: true,
-  },
-  productos: [
+  arrayProduct: [
     {
       producto: {
         type: Schema.Types.ObjectId,
@@ -33,7 +29,7 @@ const pedidos = new Schema({
   estado: {
     type: String,
     required: true,
-    default: "incompleto",
+    default: "pendiente",
   },
   fecha: { type: Date, default: Date.now },
 });

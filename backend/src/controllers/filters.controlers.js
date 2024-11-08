@@ -1,4 +1,4 @@
-import productos from "../models/productos.model.js";
+import Product from "../models/productos.model.js";
 
 export const autFilter = async (req, res) => {
   const { query, categoria, tipo } = req.query;
@@ -9,14 +9,7 @@ export const autFilter = async (req, res) => {
         $search: {
           text: {
             query: query,
-            path: [
-              "autor",
-              "titulo",
-              "descripcion",
-              "categoria",
-              "idioma",
-              "tipo",
-            ],
+            path: ["autor", "titulo", "descripcion", "categoria", "idioma", "tipo"],
             fuzzy: { maxEdits: 1 },
           },
         },
@@ -33,7 +26,7 @@ export const autFilter = async (req, res) => {
         $match: { tipo: tipo },
       });
     }
-    const result = await productos.aggregate(pipeline);
+    const result = await Product.aggregate(pipeline);
     if (result.length === 0) {
       return res.status(404).json({ msg: "No results found" });
     }

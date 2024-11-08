@@ -3,6 +3,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 import pedidos from "../models/pedidos.model.js";
 import productos from "../models/productos.model.js";
+import { validarJWT } from "../helpers/validadJWT.js";
 import mongoose from "mongoose";
 
 dotenv.config();
@@ -11,6 +12,7 @@ const port = process.env.PORT;
 
 export const createOrder = async (req, res) => {
   try {
+    const { result, total } = req.body;
     const token = req.headers.token;
     if (!token) {
       return res.status(401).json({
@@ -21,25 +23,15 @@ export const createOrder = async (req, res) => {
     const usuario = await validarJWT(token);
     const idUsuario = usuario._id;
 
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
-    // Buscar el pedido del usuario
-    const pedido = await pedidos.findOne({
-      usuario: new mongoose.Types.ObjectId(idUsuario),
-    });
-
-    if (!pedido) {
-      return res
-        .status(404)
-        .json({ msg: "No se encontró un pedido para este usuario." });
+    // Validar que `result` es un array antes de iterar
+    if (!Array.isArray(result) || result.length === 0) {
+      console.log("not products");
+      return res.status(400).json({ msg: "No hay productos en el pedido o el formato es incorrecto" });
     }
 
-    // Iterar sobre los productos del pedido
-    for (const items of pedido.productos) {
-      const productoId = items.producto;
+    // Iterar sobre los productos del pedido (result ya es el array de productos)
+    for (const items of result) {
+      const productoId = items._id;
       const cantidad = items.cantidad;
 
       // Buscar el producto por su ID
@@ -50,14 +42,15 @@ export const createOrder = async (req, res) => {
 
       // Verificar stock
       if (producto.stock < cantidad) {
-        throw new Error(
-          `Stock insuficiente para el producto: ${producto.nombre}`
-        );
+        throw new Error(`Stock insuficiente para el producto: ${producto.titulo}`);
       }
     }
 
+    const newOrder = new pedidos({ arrayProduct: result, totalFinal: total, usuario: idUsuario });
+    await newOrder.save();
+
     // Crear la orden de PayPal
-    const aMount = pedido.totalFinal;
+    const aMount = total;
     const order = {
       intent: "CAPTURE",
       purchase_units: [
@@ -93,23 +86,18 @@ export const createOrder = async (req, res) => {
     const accessToken = data.access_token;
 
     // Crear la orden de PayPal
-    const response = await axios.post(
-      `${PAYPAL_API}/v2/checkout/orders`,
-      order,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     // Devolver la respuesta al cliente
     res.json({
       msg: "Orden creada correctamente",
       orderId: response.data.id,
-      approvalUrl: response.data.links.find((link) => link.rel === "approve")
-        .href,
+      approvalUrl: response.data.links.find((link) => link.rel === "approve").href,
     });
   } catch (error) {
     console.error(error);
@@ -167,9 +155,7 @@ export const captOrder = async (req, res) => {
       }
       // Verificar si el producto tiene stock
       if (typeof producto.stock === "undefined") {
-        throw new Error(
-          `El producto con ID ${productoId} no tiene campo de stock`
-        );
+        throw new Error(`El producto con ID ${productoId} no tiene campo de stock`);
       }
       console.log("prod stock", producto.stock);
       const newStock = producto.stock - cantidad;

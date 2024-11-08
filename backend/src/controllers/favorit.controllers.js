@@ -54,12 +54,12 @@ export const getFavs = async (req, res) => {
     if (!token) {
       return res.status(401).json({ msg: "You must register to be able to perform this task" });
     }
-    const usuario = await validarJWT(token);
+    const user = await validarJWT(token);
     // Verificar si el token es válido
-    if (!usuario) {
+    if (!user) {
       return res.status(401).json({ msg: "Invalid Token" });
     }
-    const idUser = usuario._id;
+    const idUser = user._id;
 
     const result = await usuario.findById(idUser).populate("favorites.producto");
 
@@ -84,12 +84,12 @@ export const deleteFavs = async (req, res) => {
     if (!token) {
       return res.status(401).json({ msg: "You must register to be able to perform this task" });
     }
-    const usuario = await validarJWT(token);
+    const user = await validarJWT(token);
     // Verificar si el token es válido
-    if (!usuario) {
+    if (!user) {
       return res.status(401).json({ msg: "Invalid Token" });
     }
-    const idUser = usuario._id;
+    const idUser = user._id;
 
     const userFind = await usuario.findById(idUser);
     if (!userFind) {
