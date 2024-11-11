@@ -11,21 +11,23 @@ const port = process.env.PORT;
 
 export const createOrder = async (req, res) => {
   try {
-    const token = req.headers.token;
-    if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
-    }
+    // const token = req.headers.token;
+    // if (!token) {
+    //   return res.status(401).json({
+    //     msg: "Debe registrarse para realizar esa tarea",
+    //   });
+    // }
 
-    const usuario = await validarJWT(token);
-    const idUsuario = usuario._id;
+    // const usuario = await validarJWT(token);
+    // const idUsuario = usuario._id;
 
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
+    // if (!idUsuario) {
+    //   return res.status(401).json({
+    //     msg: "Token inválido",
+    //   });
+    // }
+    let precioFinal = 0;
+    const idUsuario = "66bb6e8f1a0e088b84ae0cc0";
     // Buscar el pedido del usuario
     const pedido = await pedidos.findOne({
       usuario: new mongoose.Types.ObjectId(idUsuario),
@@ -36,35 +38,40 @@ export const createOrder = async (req, res) => {
         .status(404)
         .json({ msg: "No se encontró un pedido para este usuario." });
     }
+    if (Array.isArray(pedido.productos)) {
+      // Iterar sobre los productos del pedido
+      for (const items of pedido.productos) {
+        const productoId = items.producto;
+        const cantidad = items.cantidad;
 
-    // Iterar sobre los productos del pedido
-    for (const items of pedido.productos) {
-      const productoId = items.producto;
-      const cantidad = items.cantidad;
-
-      // Buscar el producto por su ID
-      const producto = await productos.findById(productoId);
-      if (!producto) {
-        throw new Error(`Producto con ID ${productoId} no encontrado`);
+        // Buscar el producto por su ID
+        const producto = await productos.findById(productoId);
+        if (!producto) {
+          throw new Error(`Producto con ID ${productoId} no encontrado`);
+        }
+        precioFinal += cantidad * producto.precio;
+        console.log(precioFinal);
+        // Verificar stock
+        if (producto.stock < cantidad) {
+          throw new Error(
+            `Stock insuficiente para el producto: ${producto.nombre}`
+          );
+        }
       }
-
-      // Verificar stock
-      if (producto.stock < cantidad) {
-        throw new Error(
-          `Stock insuficiente para el producto: ${producto.nombre}`
-        );
-      }
+    } else {
+      console.log("is not array");
+      res.json({ msg: "not array" });
     }
 
     // Crear la orden de PayPal
-    const aMount = pedido.totalFinal;
+
     const order = {
       intent: "CAPTURE",
       purchase_units: [
         {
           amount: {
             currency_code: "USD",
-            value: aMount,
+            value: precioFinal,
           },
         },
       ],

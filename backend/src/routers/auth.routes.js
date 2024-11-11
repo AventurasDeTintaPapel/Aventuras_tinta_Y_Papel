@@ -1,9 +1,11 @@
 import { register, login } from "../controllers/auth.controllers.js";
 import { logout, session } from "../controllers/auth.sesion.controller.js";
 import { sessionVerified } from "../../middlewares/session.js";
-import { validarJWT } from "../helpers/validadJWT.js";
 import { Router } from "express";
-import { regisValidation, loginValidation } from "../validations/authValidations.js";
+import {
+  regisValidation,
+  loginValidation,
+} from "../validations/authValidations.js";
 import { applyValidations } from "../validations/applyValidations.js";
 
 export const authRouter = Router();
@@ -13,6 +15,5 @@ authRouter.post("/register", regisValidation, applyValidations, register);
 
 // router login user
 authRouter.post("/login", login);
-
 //router logout
-authRouter.post("/logout", validarJWT, sessionVerified, logout);
+authRouter.post("/logout", sessionVerified, logout);

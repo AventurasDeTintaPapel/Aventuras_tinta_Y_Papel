@@ -6,7 +6,6 @@ const AutoIncrement = AutoIncrementFactory(mongoose);
 const pedidos = new Schema({
   numPedido: {
     type: Number,
-    required: true,
   },
   productos: [
     {
@@ -26,10 +25,7 @@ const pedidos = new Schema({
     ref: "usuarios",
     required: true,
   },
-  totalFinal: {
-    type: Number,
-    required: true,
-  },
+
   estado: {
     type: String,
     required: true,

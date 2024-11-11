@@ -7,24 +7,25 @@ import { validarJWT } from "../helpers/validadJWT.js";
 // add item of the cart
 export const addCart = async (req, res) => {
   try {
-    const { totalFinal, productos } = req.body;
-    const token = req.headers.token;
+    const { productos } = req.body;
+    // const token = req.headers.token;
 
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
+    // if (!token) {
+    //   return res
+    //     .status(401)
+    //     .json({ msg: "You must register to be able to perform this task" });
+    // }
 
-    const user = await validarJWT(token);
-    if (!user) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
+    // const user = await validarJWT(token);
+    // if (!user) {
+    //   return res.status(401).json({ msg: "Invalid Token" });
+    // }
 
-    const idUsuario = user._id;
+    // const idUsuario = user._id;
+    const idUsuario = "6728bffd7d4911a899f7c2a7";
     const ObjectId = new mongoose.Types.ObjectId();
 
-    if (!idUsuario || !totalFinal || !productos || productos.length === 0) {
+    if (!idUsuario || !productos || productos.length === 0) {
       return res.status(400).json({ msg: "incomplete data" });
     }
 
@@ -37,7 +38,6 @@ export const addCart = async (req, res) => {
     }
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
-    let numPedido = cardFind ? cardFind.numPedido : 1;
 
     //create new card
     if (!cardFind || cardFind.estado == "pendiente") {
@@ -48,9 +48,7 @@ export const addCart = async (req, res) => {
             cantidad: cantidad,
           },
         ],
-        totalFinal,
         usuario: idUsuario,
-        numPedido,
       });
 
       await newPedido.save();
@@ -105,7 +103,7 @@ export const uptdaOrder = async (req, res) => {
 export const deletItem = async (req, res) => {
   try {
     const token = req.headers.token;
-
+    const { idProducto } = req.body;
     if (!token) {
       return res
         .status(401)
@@ -207,7 +205,35 @@ export const getOrder = async (req, res) => {
     return res.status(500).json({ msg: "Interval error sever" });
   }
 };
+//update amount of the product in the cart
+export const updaAmout = async (req, res) => {
+  try {
+    const { amount, idProduct } = req.body;
+    const idUsuario = "6728bffd7d4911a899f7c2a7";
+    const ObjectId = new mongoose.Types.ObjectId();
+    const cardFind = await pedidos.findOne({ usuario: idUsuario });
+    const prodFind = cardFind.productos.find(
+      (p) => p.producto && p.producto.toString() === idProduct
+    );
 
+    if (!prodFind) {
+      return res
+        .status(404)
+        .json({ msg: "Producto no encontrado en el carrito." });
+    } else {
+      // Actualizar la cantidad del producto encontrado
+      prodFind.cantidad = amount;
+
+      await cardFind.save();
+      return res
+        .status(200)
+        .json({ msg: "Cantidad actualizada con éxito", cardFind });
+    }
+  } catch (error) {
+    console.log("Internal server error", error);
+    res.status(500).json({ msg: "Internal server errir" });
+  }
+};
 //get all oders
 export const getAllOrders = async (req, res) => {
   try {
