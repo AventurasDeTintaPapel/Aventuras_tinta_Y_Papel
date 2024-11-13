@@ -12,11 +12,11 @@ import {
   Catalogo,
   Contactos,
   DetallesProductos,
+  FormPublic,
   Inicio,
   Login,
   MisFavoritos,
   Perfil,
-  ProductForm,
   ProductList,
   Registro,
   SupportChat,
@@ -41,7 +41,7 @@ const AppRouter = () => {
           {/* rutas con aside*/}
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/favoritos" element={<MisFavoritos />} />
-          <Route path="/intercambiar" element={<ProductForm />} />
+          <Route path="/intercambiar" element={<FormPublic />} />
 
           {/* Ruta para paypal */}
           <Route path="/carrito" element={<Carrito />}>

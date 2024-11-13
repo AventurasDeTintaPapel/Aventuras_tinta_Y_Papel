@@ -11,5 +11,5 @@ export const Carrito = lazy(() => import("./carritoPage"));
 export const DetallesProductos = lazy(() => import("./detallesProductPage"));
 // ramas naza
 export const SupportChat = lazy(() => import("./chatbot"));
-export const ProductForm = lazy(() => import("./productForm"));
+export const FormPublic = lazy(() => import("./formPublicPage"));
 export const ProductList = lazy(() => import("./productList"));

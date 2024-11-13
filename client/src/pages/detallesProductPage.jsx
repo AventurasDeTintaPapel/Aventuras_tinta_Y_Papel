@@ -62,7 +62,7 @@ export default function DetallesProductos() {
               <span className="font-poopins text-slate-800">Precio: </span>${producto.precio}
             </p>
             <div className="absolute bottom-[0.5vw] font-breeSerif rounded-[0.5vw] bg-[#250642] px-[2vw] py-[0.4vw]">
-              <BotonComprar producto={producto} estilos={"text-[1.5vw] font-medium left-[3vw] tracking-wide text-white"} />
+              <BotonComprar producto={producto} estilos={"text-[1.5vw] font-mediums tracking-wide text-white"} />
               <Volver />
             </div>
           </div>

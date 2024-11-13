@@ -4,7 +4,8 @@ import { IoCart } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import "@fontsource/montserrat/700.css";
 import { IconoCerrarSesion, IconoFvoritos, IconoMisCompras, IconoPerfil, IconoSoporteAlCliente } from "./icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // boton iniciar sesion
 function iniciarSeccion() {
@@ -203,6 +204,17 @@ function BotonBuscador() {
 
 // contenedor header
 export function Header({ colAndrow }) {
+  const [productos, setProductos] = useState([]);
+  const navigate = useNavigate();
+
+  const buscadorNavigate = async ({ productoBuscador }) => {
+    navigate("/catalogo");
+    const response = await axios.get(`http://localhost:3400/api/filters?query=${productoBuscador}`, {
+      credentials: "include",
+    });
+    setProductos(response.data);
+  };
+
   return (
     <header className={colAndrow}>
       <div
