@@ -47,6 +47,7 @@ export const createPublic = async (req, res) => {
     return res.status(201).json({ msg: "post uploaded" });
   } catch (error) {
     console.log(error);
+    console.log(error);
     return res.status(500).json({ msg: "Internal Server Error" });
   }
 };
@@ -54,12 +55,24 @@ export const createPublic = async (req, res) => {
 //get all publics or for id
 export const getAllpublics = async (req, res) => {
   try {
-    const { id } = req.body;
-    const getPublics = id === undefined ? await publics.find() : await publics.find({ autor: id });
+    const token = req.headers.token;
+    // if (!token) {
+    //   console.log("Token invuesto");
 
+    //   return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+    // }
+
+    const user = await validarJWT(token);
+    // if (!user) {
+    //   console.log("Token invuesto");
+
+    //   return res.status(401).json({ msg: "Token inválido" });
+    // }
+    const id = user.id;
+    const getPublics = !id ? await publics.find() : await publics.find({ autor: id });
     //not publics
     if (!getPublics) {
-      res.status(402).json({ msg: "no post" });
+      res.status(402).json({ msg: "no posts" });
     }
     return res.status(200).json({ getPublics });
   } catch (error) {
@@ -123,6 +136,7 @@ export const deletPublic = async (req, res) => {
   try {
     // const { idUser } = req.params;
     const token = req.headers.token;
+    const { id } = req.body;
 
     if (!token) {
       return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
@@ -134,11 +148,12 @@ export const deletPublic = async (req, res) => {
     }
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
-    const publicFind = await publics.findOne({ autor: idUser });
+    const publicFind = await publics.findOne({ autor: idUser, id: id });
 
     if (!publicFind) {
       res.status(402).json({ msg: "not post" });
     }
+    console.log(publicFind);
 
     if ((usuario.rol === "user") & (idUser != publicFind.autor)) {
       res.status(401).json({ msg: "You are not the author of this post" });

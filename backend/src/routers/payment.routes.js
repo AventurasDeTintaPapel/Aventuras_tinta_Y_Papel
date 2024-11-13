@@ -3,7 +3,7 @@ import { captOrder, createOrder } from "../controllers/payment.controllers.js";
 export const payrouter = Router();
 
 payrouter.get("/create-order", createOrder);
-payrouter.post("/create-order", createOrder);
+payrouter.post("/create-orderPost", createOrder);
 
 payrouter.get("/", (req, res) => {
   res.send("hello");
