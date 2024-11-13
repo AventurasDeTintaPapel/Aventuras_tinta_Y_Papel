@@ -61,10 +61,7 @@ const Product = new Schema(
         },
       },
     ],
-    proveedor: {
-      type: Schema.Types.ObjectId,
-      ref: "proveedores",
-    },
+   
     stars: {
       1: { type: Number, default: 0 },
       2: { type: Number, default: 0 },
