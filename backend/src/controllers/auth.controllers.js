@@ -9,14 +9,37 @@ export const register = async (req, res) => {
     req.body;
 
   try {
-    //validations
+    // Validations
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
       return res.status(400).json(errores);
     }
 
+    // Encrypt password
     const contrasenia = bcrypt.hashSync(password, 10);
     const userFind = await usuario.findOne({ email: email });
+
+    if (userFind != null) {
+      return res.status(302).json({ msg: "Email not available" });
+    }
+
+    // Check if the email is for admin and assign the role
+    const rol = email.toLowerCase() === "admin@aventuras.com" ? "admin" : "user";
+
+    // Create new user with the specified role
+    await new usuario({
+      nombreUsuario,
+      apellido,
+      fechaNacimiento,
+      email,
+      contrasenia,
+      nombre,
+      rol, // Save the role in the database
+    })
+      .save()
+      .then(() => {
+        res.status(200).json({ msg: "User registered successfully" });
+      });
 
     userFind === null
       ? res.satus(302).json({ msg: "email not available" })
@@ -33,11 +56,13 @@ export const register = async (req, res) => {
             res.status(200).json({ msg: "User registered successfully" });
           });
   } catch (error) {
-    console.log("Internal Server Error ", error);
+    console.log("Internal Server Error", error);
+    res.status(500).json({ msg: "Error while registering user" });
   }
 };
 
-//login with JWT
+
+// login with JWT
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -54,6 +79,8 @@ export const login = async (req, res) => {
     }
 
     const userFind = await usuario.findOne({ email });
+    if (!userFind) {
+      return res.status(400).json({ msg: "Incorrect email or password" });
     const correctPassword = bcrypt.compareSync(password, userFind.contrasenia);
 
     if (!userFind || !correctPassword) {
@@ -68,8 +95,27 @@ export const login = async (req, res) => {
         token,
       });
     }
+
+    const correctPassword = bcrypt.compareSync(password, userFind.contrasenia);
+    if (!correctPassword) {
+      return res.status(400).json({ msg: "Incorrect email or password" });
+    }
+
+    // Generar el token con el rol
+    const token = await generarJWT({ id: userFind.id, rol: userFind.rol });
+    
+    // Guardar el rol y el token en la sesión
+    req.session.token = token;
+    req.session.rol = userFind.rol; // Guardamos el rol del usuario en la sesión
+
+    return res.status(200).json({
+      exitoLogin: true,
+      msg: "Correct login",
+      token,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Internal Server Error", error });
   }
 };
+

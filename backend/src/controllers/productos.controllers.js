@@ -16,32 +16,10 @@ export const obtenerProducto = async (req, res) => {
 };
 export const cargarProducto = async (req, res) => {
   try {
-    const {
-      titulo,
-      autor,
-      descripcion,
-      numeroEdicion,
-      tipo,
-      idioma,
-      precio,
-      stock,
-      categoria,
-      idProvedor,
-    } = req.body;
+    const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, stock, categoria } = req.body;
 
     // Validación básica
-    if (
-      !titulo ||
-      !autor ||
-      !descripcion ||
-      !numeroEdicion ||
-      !tipo ||
-      !idioma ||
-      !precio ||
-      !stock ||
-      !categoria ||
-      !idProvedor
-    ) {
+    if (!titulo || !autor || !descripcion || !numeroEdicion || !tipo || !idioma || !precio || !stock || !categoria) {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });
     }
 
@@ -53,10 +31,6 @@ export const cargarProducto = async (req, res) => {
       return res.status(400).json({ msg: "La imagen es obligatoria" });
     }
 
-    const proveedor = proveedor.findById(idProvedor);
-    if (!proveedor) {
-      res.status(401).json({ msg: "el provedor no se encuentra registrado" });
-    }
 
     // Crear un nuevo producto
     const newProduct = new productos({
@@ -70,7 +44,6 @@ export const cargarProducto = async (req, res) => {
       stock,
       categoria,
       imagen,
-      proveedor: proveedor,
     });
 
     // Guardar el producto en la base de datos
@@ -107,7 +80,7 @@ export const editarProducto = async (req, res) => {
       tipo,
       idioma,
       precio,
-      cantidad,
+      stock,
       categoria,
     } = req.body;
     //productos editado
@@ -119,7 +92,7 @@ export const editarProducto = async (req, res) => {
       tipo,
       idioma,
       precio,
-      cantidad,
+      stock,
       categoria,
     };
 
