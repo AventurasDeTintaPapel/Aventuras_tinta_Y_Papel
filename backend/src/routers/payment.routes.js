@@ -5,6 +5,9 @@ export const payrouter = Router();
 payrouter.get("/create-order", createOrder);
 payrouter.post("/create-orderPost", createOrder);
 
+payrouter.post("/capture-order", captOrder);
+// payrouter.get("/capture-order", captOrder);
+
 payrouter.get("/", (req, res) => {
   res.send("hello");
 });

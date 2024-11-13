@@ -13,7 +13,9 @@ export const session = async (req, res) => {
     }
 
     if (!email || !password) {
-      return res.status(400).json({ msg: "Insufficient data for authentication" });
+      return res
+        .status(400)
+        .json({ msg: "Insufficient data for authentication" });
     }
 
     const userFind = await usuario.findOne({ email });

@@ -1,10 +1,13 @@
-import Product from "../models/productos.model.js";
+import productos from "../models/productos.model.js";
 
 import mongoose from "mongoose";
 export const obtenerProducto = async (req, res) => {
   try {
     const { id } = req.params;
-    const obtenerProducto = id === undefined ? await Product.find() : await Product.findOne({ _id: id });
+    const obtenerProducto =
+      id === undefined
+        ? await productos.find()
+        : await productos.findOne({ _id: id });
     res.json(obtenerProducto);
   } catch (error) {
     console.log(error);
@@ -13,10 +16,32 @@ export const obtenerProducto = async (req, res) => {
 };
 export const cargarProducto = async (req, res) => {
   try {
-    const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, stock, categoria, idProvedor } = req.body;
+    const {
+      titulo,
+      autor,
+      descripcion,
+      numeroEdicion,
+      tipo,
+      idioma,
+      precio,
+      stock,
+      categoria,
+      idProvedor,
+    } = req.body;
 
     // Validación básica
-    if (!titulo || !autor || !descripcion || !numeroEdicion || !tipo || !idioma || !precio || !stock || !categoria) {
+    if (
+      !titulo ||
+      !autor ||
+      !descripcion ||
+      !numeroEdicion ||
+      !tipo ||
+      !idioma ||
+      !precio ||
+      !stock ||
+      !categoria ||
+      !idProvedor
+    ) {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });
     }
 
@@ -34,7 +59,7 @@ export const cargarProducto = async (req, res) => {
     }
 
     // Crear un nuevo producto
-    const newProduct = new Product({
+    const newProduct = new productos({
       titulo,
       autor,
       descripcion,
@@ -60,7 +85,7 @@ export const eliminarProducto = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const resultado = await Product.findByIdAndDelete(id);
+    const resultado = await productos.findByIdAndDelete(id);
 
     if (resultado) {
       res.status(200).json({ msg: "Producto eliminado correctamente" });
@@ -74,7 +99,17 @@ export const eliminarProducto = async (req, res) => {
 };
 export const editarProducto = async (req, res) => {
   try {
-    const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, cantidad, categoria } = req.body;
+    const {
+      titulo,
+      autor,
+      descripcion,
+      numeroEdicion,
+      tipo,
+      idioma,
+      precio,
+      cantidad,
+      categoria,
+    } = req.body;
     //productos editado
     const productoEditado = {
       titulo,
@@ -89,7 +124,7 @@ export const editarProducto = async (req, res) => {
     };
 
     const { id } = req.params;
-    const resultado = await Product.findByIdAndUpdate(id, productoEditado, {
+    const resultado = await productos.findByIdAndUpdate(id, productoEditado, {
       new: true,
     });
     if (resultado) {

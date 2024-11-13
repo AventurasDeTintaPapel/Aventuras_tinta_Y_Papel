@@ -11,5 +11,4 @@ publiRouter.post("/cargar", subirImagen.single("imagen"), createPublic);
 publiRouter.put("/edit", sessionVerified, updateValidation, editPublics);
 //get publics
 publiRouter.get("/getPublication", getAllpublics);
-//delete publics
 publiRouter.delete("/deletePublication", sessionVerified, deletPublic);

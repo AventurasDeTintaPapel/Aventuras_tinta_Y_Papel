@@ -7,7 +7,7 @@ export const createPublic = async (req, res) => {
     const token = req.headers.token;
     console.log(token);
 
-    const { title, description, price, phone, type } = req.body;
+    const { title, description, price, type, phone } = req.body;
     let imagen = "";
 
     if (req.file) {
@@ -19,7 +19,9 @@ export const createPublic = async (req, res) => {
     if (!token) {
       console.log("Token invuesto");
 
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const user = await validarJWT(token);
@@ -36,8 +38,8 @@ export const createPublic = async (req, res) => {
       description,
       price,
       imagen,
-      phone,
       type,
+      phone,
     });
 
     const result = await newPublic.save();
@@ -55,9 +57,17 @@ export const createPublic = async (req, res) => {
 //get all publics or for id
 export const getAllpublics = async (req, res) => {
   try {
+<<<<<<< HEAD
     const token = req.headers.token;
     // if (!token) {
     //   console.log("Token invuesto");
+=======
+    const { id } = req.body;
+    const getPublics =
+      id === undefined
+        ? await publics.find()
+        : await publics.find({ autor: id });
+>>>>>>> 698a93a6cc287691e6ad38f8fd3d786f8fed97fd
 
     //   return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
     // }
@@ -86,7 +96,9 @@ export const editPublics = async (req, res) => {
     const token = req.headers.token;
 
     if (!token) {
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
@@ -96,7 +108,7 @@ export const editPublics = async (req, res) => {
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
 
-    const { author, title, price, description, type } = req.body;
+    const { author, title, price, description } = req.body;
     console.log(author, title, price, description);
 
     const publicFind = await publics.findOne({ autor: idUser });
@@ -116,10 +128,13 @@ export const editPublics = async (req, res) => {
       title,
       price,
       description,
-      type,
     };
 
-    const result = await publics.findByIdAndUpdate(id, { $set: updatedData }, { new: true });
+    const result = await publics.findByIdAndUpdate(
+      id,
+      { $set: updatedData },
+      { new: true }
+    );
 
     if (!result) {
       return res.status(304).json({ msg: "Post not updated" });
@@ -139,7 +154,9 @@ export const deletPublic = async (req, res) => {
     const { id } = req.body;
 
     if (!token) {
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);

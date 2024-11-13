@@ -3,7 +3,6 @@ import axios from "axios";
 import dotenv from "dotenv";
 import pedidos from "../models/pedidos.model.js";
 import productos from "../models/productos.model.js";
-import { validarJWT } from "../helpers/validadJWT.js";
 import mongoose from "mongoose";
 
 dotenv.config();
@@ -12,52 +11,67 @@ const port = process.env.PORT;
 
 export const createOrder = async (req, res) => {
   try {
-    const { result, total } = req.body;
-    const token = req.headers.token;
-    if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
+    // const token = req.headers.token;
+    // if (!token) {
+    //   return res.status(401).json({
+    //     msg: "Debe registrarse para realizar esa tarea",
+    //   });
+    // }
+
+    // const usuario = await validarJWT(token);
+    // const idUsuario = usuario._id;
+
+    // if (!idUsuario) {
+    //   return res.status(401).json({
+    //     msg: "Token inválido",
+    //   });
+    // }
+    let precioFinal = 0;
+    const idUsuario = "66bb6e8f1a0e088b84ae0cc0";
+    // Buscar el pedido del usuario
+    const pedido = await pedidos.findOne({
+      usuario: new mongoose.Types.ObjectId(idUsuario),
+    });
+
+    if (!pedido) {
+      return res
+        .status(404)
+        .json({ msg: "No se encontró un pedido para este usuario." });
     }
+    if (Array.isArray(pedido.productos)) {
+      // Iterar sobre los productos del pedido
+      for (const items of pedido.productos) {
+        const productoId = items.producto;
+        const cantidad = items.cantidad;
 
-    const usuario = await validarJWT(token);
-    const idUsuario = usuario._id;
-
-    // Validar que `result` es un array antes de iterar
-    if (!Array.isArray(result) || result.length === 0) {
-      console.log("not products");
-      return res.status(400).json({ msg: "No hay productos en el pedido o el formato es incorrecto" });
-    }
-
-    // Iterar sobre los productos del pedido (result ya es el array de productos)
-    for (const items of result) {
-      const productoId = items._id;
-      const cantidad = items.cantidad;
-
-      // Buscar el producto por su ID
-      const producto = await productos.findById(productoId);
-      if (!producto) {
-        throw new Error(`Producto con ID ${productoId} no encontrado`);
+        // Buscar el producto por su ID
+        const producto = await productos.findById(productoId);
+        if (!producto) {
+          throw new Error(`Producto con ID ${productoId} no encontrado`);
+        }
+        precioFinal += cantidad * producto.precio;
+        console.log(precioFinal);
+        // Verificar stock
+        if (producto.stock < cantidad) {
+          throw new Error(
+            `Stock insuficiente para el producto: ${producto.nombre}`
+          );
+        }
       }
-
-      // Verificar stock
-      if (producto.stock < cantidad) {
-        throw new Error(`Stock insuficiente para el producto: ${producto.titulo}`);
-      }
+    } else {
+      console.log("is not array");
+      res.json({ msg: "not array" });
     }
-
-    const newOrder = new pedidos({ arrayProduct: result, totalFinal: total, usuario: idUsuario });
-    await newOrder.save();
 
     // Crear la orden de PayPal
-    const aMount = total;
+
     const order = {
       intent: "CAPTURE",
       purchase_units: [
         {
           amount: {
             currency_code: "USD",
-            value: aMount,
+            value: precioFinal,
           },
         },
       ],
@@ -88,18 +102,23 @@ export const createOrder = async (req, res) => {
     const accessToken = data.access_token;
 
     // Crear la orden de PayPal
-    const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axios.post(
+      `${PAYPAL_API}/v2/checkout/orders`,
+      order,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     // Devolver la respuesta al cliente
     res.json({
       msg: "Orden creada correctamente",
       orderId: response.data.id,
-      approvalUrl: response.data.links.find((link) => link.rel === "approve").href,
+      approvalUrl: response.data.links.find((link) => link.rel === "approve")
+        .href,
     });
   } catch (error) {
     console.error(error);
@@ -157,7 +176,9 @@ export const captOrder = async (req, res) => {
       }
       // Verificar si el producto tiene stock
       if (typeof producto.stock === "undefined") {
-        throw new Error(`El producto con ID ${productoId} no tiene campo de stock`);
+        throw new Error(
+          `El producto con ID ${productoId} no tiene campo de stock`
+        );
       }
       console.log("prod stock", producto.stock);
       const newStock = producto.stock - cantidad;

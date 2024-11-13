@@ -2,15 +2,9 @@
 import express from "express";
 import cors from "cors";
 import session from "express-session";
-import path from "node:path";
+import path from "path";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { Server } from "socket.io";
-import { createServer } from 'node:http';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import socketEvents from './socket/socketEvents.js';
-import logger from 'morgan';
 import mongoose from "./database/db.js";
 
 //importacion de rutas
@@ -25,37 +19,30 @@ import { comentRouter } from "./routers/coment.routes.js";
 import { supRouter } from "./routers/supplier.routes.js";
 import { userRoutes } from "./routers/user.routes.js";
 import { emailRouter } from "./routers/email.routes.js";
-import { chatbot } from "./routers/chatbot.routes.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+const __dirname = path.resolve();
 //inicializacion de el servidor
 const app = express();
-const server = createServer(app);
 
-// Configuración de CORS
-const corsOptions = {
-    origin: 'http://localhost:5173',  // Cambia esto por la URL de tu frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//aplicacion de los middlewares
+app.use(
+  cors({
+    // Permitir solicitudes desde el front-end
+    origin: [
+      "http://localhost:5500",
+      "http://localhost:3000",
+      "http://localhost:5173",
+    ],
+
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-};
-
-app.use(cors(corsOptions)); // CORS para Express
-
-// Inicializa el servidor de Socket.IO
-const io = new Server(server, {
-    cors: corsOptions, // CORS para Socket.IO
-});
-// Aplicación de los middlewares
+  })
+);
 app.use(express.static("./public"));
 app.use(morgan("dev"));
 app.use(express.json());
 dotenv.config();
-app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, "public")));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 app.use(
   session({
     secret: "mi_secreto",
@@ -81,14 +68,10 @@ app.use("/api/publics", publiRouter);
 app.use("/api/supplier", supRouter);
 app.use("/api/user", userRoutes);
 app.use("/api/email", emailRouter);
-app.use('/api/soporte', chatbot);
-
-// Inicializa los eventos de Socket.IO
-socketEvents(io);
 
 //configuracion del puerto
 const port = process.env.PORT || 3400;
-server.listen(port, () => {
+app.listen(port, () => {
   console.log(
     `El servidor está funcionando en el puerto http://localhost:${port}`
   );
