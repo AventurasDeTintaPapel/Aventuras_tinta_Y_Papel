@@ -37,7 +37,7 @@ export default function Login() {
 
       // Redirecciones según el rol
       if (respuesta.role === "admin") {
-        window.location.href = "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
+        navigation("/admin");
       } else {
         navigation("/");
       }
