@@ -76,6 +76,7 @@ export const getAllpublics = async (req, res) => {
 export const editPublics = async (req, res) => {
   try {
     const token = req.headers.token;
+    const { idPublic } = req.body;
 
     if (!token) {
       return res
@@ -93,7 +94,7 @@ export const editPublics = async (req, res) => {
     const { author, title, price, description } = req.body;
     console.log(author, title, price, description);
 
-    const publicFind = await publics.findOne({ autor: idUser });
+    const publicFind = await publics.findOne({ idPublic });
 
     if (!publicFind) {
       return res.status(402).json({ msg: "Post not found" });
@@ -103,8 +104,6 @@ export const editPublics = async (req, res) => {
       res.status(401).json({ msg: "You are not the author of this post" });
     }
 
-    const id = publicFind._id;
-
     const updatedData = {
       author,
       title,
@@ -113,7 +112,7 @@ export const editPublics = async (req, res) => {
     };
 
     const result = await publics.findByIdAndUpdate(
-      id,
+      idPublic,
       { $set: updatedData },
       { new: true }
     );
@@ -133,6 +132,7 @@ export const deletPublic = async (req, res) => {
   try {
     // const { idUser } = req.params;
     const token = req.headers.token;
+    const { idPublic } = req.body;
 
     if (!token) {
       return res
@@ -146,7 +146,7 @@ export const deletPublic = async (req, res) => {
     }
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
-    const publicFind = await publics.findOne({ autor: idUser });
+    const publicFind = await publics.findOne({ idPublic });
 
     if (!publicFind) {
       res.status(402).json({ msg: "not post" });
@@ -155,8 +155,6 @@ export const deletPublic = async (req, res) => {
     if ((usuario.rol === "user") & (idUser != publicFind.autor)) {
       res.status(401).json({ msg: "You are not the author of this post" });
     }
-
-    const idPublic = publicFind._id;
 
     // Eliminamos el post usando el _id directamente
     const result = await publics.findByIdAndDelete(idPublic);

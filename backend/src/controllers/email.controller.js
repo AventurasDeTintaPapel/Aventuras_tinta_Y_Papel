@@ -1,15 +1,20 @@
 import nodemailer from "nodemailer";
 
-const myEmail = "axelleger2@gmail.com";
-
+const myEmail = "jaquibatienza@gmail.com";
+const emailPassword = "JAQueline2445";
 export const email = async (req, res) => {
   const { correo, mensaje, asunto } = req.body;
+
+  // Verificar que todos los campos estén presentes
+  if (!correo || !mensaje || !asunto) {
+    return res.status(400).json({ msg: "Todos los campos son obligatorios" });
+  }
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: myEmail,
-      pass: "Jhonimepeino123",
+      pass: emailPassword,
     },
   });
 
@@ -24,7 +29,9 @@ export const email = async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.json({ msg: "El correo se envió correctamente" });
   } catch (error) {
-    console.log("error", error);
-    res.status(500).json({ msg: "Error interno del servidor" });
+    console.log("Error al enviar correo:", error);
+    res
+      .status(500)
+      .json({ msg: "Error interno del servidor", error: error.message });
   }
 };

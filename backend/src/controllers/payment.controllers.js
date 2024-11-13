@@ -31,6 +31,11 @@ export const createOrder = async (req, res) => {
     // Buscar el pedido del usuario
     const pedido = await pedidos.findOne({
       usuario: new mongoose.Types.ObjectId(idUsuario),
+      estado: "incompleto",
+    });
+    const oldsOrder = await pedidos.find({
+      usuario: new mongoose.Types.ObjectId(idUsuario),
+      $or: [{ estado: "completado" }, { estado: "entregado" }],
     });
 
     if (!pedido) {
@@ -38,29 +43,29 @@ export const createOrder = async (req, res) => {
         .status(404)
         .json({ msg: "No se encontró un pedido para este usuario." });
     }
-    if (Array.isArray(pedido.productos)) {
-      // Iterar sobre los productos del pedido
-      for (const items of pedido.productos) {
-        const productoId = items.producto;
-        const cantidad = items.cantidad;
 
-        // Buscar el producto por su ID
-        const producto = await productos.findById(productoId);
-        if (!producto) {
-          throw new Error(`Producto con ID ${productoId} no encontrado`);
-        }
-        precioFinal += cantidad * producto.precio;
-        console.log(precioFinal);
-        // Verificar stock
-        if (producto.stock < cantidad) {
-          throw new Error(
-            `Stock insuficiente para el producto: ${producto.nombre}`
-          );
-        }
+    // Iterar sobre los productos del pedido
+    for (const items of pedido.productos) {
+      const productoId = items.producto;
+      const cantidad = items.cantidad;
+
+      // Buscar el producto por su ID
+      const producto = await productos.findById(productoId);
+      if (!producto) {
+        throw new Error(`Producto con ID ${productoId} no encontrado`);
       }
-    } else {
-      console.log("is not array");
-      res.json({ msg: "not array" });
+      precioFinal += cantidad * producto.precio;
+      console.log(precioFinal);
+
+      // Verificar stock
+      if (producto.stock < cantidad) {
+        throw new Error(
+          `Stock insuficiente para el producto: ${producto.nombre}`
+        );
+      }
+    }
+    if (precioFinal > 100.0 || oldsOrder.length > 10) {
+      precioFinal += precioFinal * (15 / 100);
     }
 
     // Crear la orden de PayPal
@@ -125,9 +130,7 @@ export const createOrder = async (req, res) => {
 };
 //funcion para capturar las ordenes
 export const captOrder = async (req, res) => {
-  //!token obtenido de paypal
   const { token: paypalToken } = req.query; // Renombrar para evitar conflicto de nombres
-  //!sesion de mongodb
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -186,7 +189,7 @@ export const captOrder = async (req, res) => {
     }
 
     // Actualizar el estado del pedido a "pendiente"
-    pedido.estado = "pendiente";
+    pedido.estado = "completado";
     await pedido.save({ session });
 
     // Finalizar la transacción

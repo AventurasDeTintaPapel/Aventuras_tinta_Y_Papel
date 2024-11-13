@@ -29,7 +29,7 @@ const pedidos = new Schema({
   estado: {
     type: String,
     required: true,
-    default: "incompleto",
+    default: "pendiente",
   },
   fecha: { type: Date, default: Date.now },
 });

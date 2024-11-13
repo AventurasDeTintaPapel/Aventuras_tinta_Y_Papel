@@ -80,7 +80,6 @@ export const addCart = async (req, res) => {
 export const uptdaOrder = async (req, res) => {
   try {
     const { id, state } = req.body;
-    const estado = state;
     const resultado = await pedidos.findByIdAndUpdate(
       id,
       { estado: state },
