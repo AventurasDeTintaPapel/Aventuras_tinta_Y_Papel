@@ -1,17 +1,27 @@
 import { Router } from "express";
-import { addCart, uptdaOrder, deletItem, deletOrder, getOrder, getAllOrders } from "../controllers/pedidos.controllers.js";
+import {
+  addCart,
+  uptdaOrder,
+  deletItem,
+  updaAmout,
+  deletOrder,
+  getOrder,
+  getAllOrders,
+} from "../controllers/pedidos.controllers.js";
 import { sessionVerified, rolAdmVerified } from "../../middlewares/session.js";
 
 export const order = Router();
 
 //add product to cart
-order.post("/addPedido", addCart);
+order.post("/create", addCart);
 //update order
-order.put("/", sessionVerified, uptdaOrder);
+order.put("/update", uptdaOrder);
+//update amout of the product in the card
+order.put("/", updaAmout);
 //delete order
-order.delete("/", sessionVerified, deletOrder);
+order.delete("/", deletOrder);
 //delete item of the order
-order.delete("elemento/:id", sessionVerified, deletItem);
+order.delete("element/:id", deletItem);
 //get order for id user
 order.get("/", sessionVerified, getOrder);
 //get all orders

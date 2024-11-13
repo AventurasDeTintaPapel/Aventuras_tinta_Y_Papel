@@ -4,7 +4,10 @@ import AutoIncrementFactory from "mongoose-sequence";
 
 const AutoIncrement = AutoIncrementFactory(mongoose);
 const pedidos = new Schema({
-  arrayProduct: [
+  numPedido: {
+    type: Number,
+  },
+  productos: [
     {
       producto: {
         type: Schema.Types.ObjectId,
@@ -22,10 +25,7 @@ const pedidos = new Schema({
     ref: "usuarios",
     required: true,
   },
-  totalFinal: {
-    type: Number,
-    required: true,
-  },
+
   estado: {
     type: String,
     required: true,

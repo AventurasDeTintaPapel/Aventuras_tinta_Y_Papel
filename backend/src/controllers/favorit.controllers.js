@@ -8,10 +8,13 @@ export const addToFav = async (req, res) => {
   try {
     const { idProduct } = req.body;
     const token = req.headers.token;
-
+    console.log(token);
     // Verificar si el token está presente
     if (!token) {
-      return res.status(401).json({ msg: "You must register to be able to perform this task" });
+      console.log("You must register to be able to perform this task");
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
     const user = await validarJWT(token);
@@ -42,7 +45,9 @@ export const addToFav = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Ocurrió un error al agregar el producto a favoritos" });
+    return res
+      .status(500)
+      .json({ error: "Ocurrió un error al agregar el producto a favoritos" });
   }
 };
 
@@ -52,7 +57,9 @@ export const getFavs = async (req, res) => {
     const token = req.headers.token;
     // Verificar si el token está presente
     if (!token) {
-      return res.status(401).json({ msg: "You must register to be able to perform this task" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
     const user = await validarJWT(token);
     // Verificar si el token es válido
@@ -61,7 +68,9 @@ export const getFavs = async (req, res) => {
     }
     const idUser = user._id;
 
-    const result = await usuario.findById(idUser).populate("favorites.producto");
+    const result = await usuario
+      .findById(idUser)
+      .populate("favorites.producto");
 
     if (!result) {
       return res.status(404).json({ msg: "User not find" });
@@ -82,32 +91,41 @@ export const deleteFavs = async (req, res) => {
     const token = req.headers.token;
     // Verificar si el token está presente
     if (!token) {
-      return res.status(401).json({ msg: "You must register to be able to perform this task" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
-    const user = await validarJWT(token);
+    const usuario = await validarJWT(token);
     // Verificar si el token es válido
-    if (!user) {
+    if (!usuario) {
       return res.status(401).json({ msg: "Invalid Token" });
     }
-    const idUser = user._id;
+    const idUser = usuario._id;
 
     const userFind = await usuario.findById(idUser);
     if (!userFind) {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    const prodFind = userFind.favorites.find((fav) => fav.producto && fav.producto.toString() === idProduct);
+    const prodFind = userFind.favorites.find(
+      (fav) => fav.producto && fav.producto.toString() === idProduct
+    );
 
     if (!prodFind) {
       return res.status(404).json({ msg: "The product is not in favorites" });
     }
 
-    const result = await usuario.updateOne({ _id: idUser }, { $pull: { favorites: { producto: prodFind.producto } } });
+    const result = await usuario.updateOne(
+      { _id: idUser },
+      { $pull: { favorites: { producto: prodFind.producto } } }
+    );
 
     if (result) {
       return res.status(200).json({ msg: "Deleted product from favorites" });
     } else {
-      return res.status(400).json({ msg: "Error removing product from favorites" });
+      return res
+        .status(400)
+        .json({ msg: "Error removing product from favorites" });
     }
   } catch (err) {
     console.error("Internal server error:", err);

@@ -5,7 +5,8 @@ import { validationResult } from "express-validator";
 
 // register
 export const register = async (req, res) => {
-  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre } = req.body;
+  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre } =
+    req.body;
 
   try {
     // Validations
@@ -40,6 +41,20 @@ export const register = async (req, res) => {
         res.status(200).json({ msg: "User registered successfully" });
       });
 
+    userFind === null
+      ? res.satus(302).json({ msg: "email not available" })
+      : await new usuario({
+          nombreUsuario,
+          apellido,
+          fechaNacimiento,
+          email,
+          contrasenia,
+          nombre,
+        })
+          .save()
+          .then(() => {
+            res.status(200).json({ msg: "User registered successfully" });
+          });
   } catch (error) {
     console.log("Internal Server Error", error);
     res.status(500).json({ msg: "Error while registering user" });
@@ -58,12 +73,27 @@ export const login = async (req, res) => {
     }
 
     if (!email || !password) {
-      return res.status(400).json({ msg: "Insufficient data for authentication" });
+      return res
+        .status(400)
+        .json({ msg: "Insufficient data for authentication" });
     }
 
     const userFind = await usuario.findOne({ email });
     if (!userFind) {
       return res.status(400).json({ msg: "Incorrect email or password" });
+    const correctPassword = bcrypt.compareSync(password, userFind.contrasenia);
+
+    if (!userFind || !correctPassword) {
+      return res.status(400).json({ msg: " incorrect email or password " });
+    } else {
+      const token = await generarJWT({ id: userFind.id });
+      req.session.token = token;
+      console.log(token);
+      return res.status(200).json({
+        exitoLogin: true,
+        msg: "correct login",
+        token,
+      });
     }
 
     const correctPassword = bcrypt.compareSync(password, userFind.contrasenia);

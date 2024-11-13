@@ -7,7 +7,7 @@ export const createPublic = async (req, res) => {
     const token = req.headers.token;
     console.log(token);
 
-    const { title, description, price, phone, type } = req.body;
+    const { title, description, price, type, phone } = req.body;
     let imagen = "";
 
     if (req.file) {
@@ -19,7 +19,9 @@ export const createPublic = async (req, res) => {
     if (!token) {
       console.log("Token invuesto");
 
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const user = await validarJWT(token);
@@ -36,8 +38,8 @@ export const createPublic = async (req, res) => {
       description,
       price,
       imagen,
-      phone,
       type,
+      phone,
     });
 
     const result = await newPublic.save();
@@ -55,7 +57,9 @@ export const createPublic = async (req, res) => {
 export const getAllpublics = async (req, res) => {
   try {
     const { id } = req.body;
-    const getPublics = id === undefined ? await publics.find() : await publics.find({ autor: id });
+    const getPublics = !id
+      ? await publics.find()
+      : await publics.find({ autor: id });
 
     //not publics
     if (!getPublics) {
@@ -71,9 +75,12 @@ export const getAllpublics = async (req, res) => {
 export const editPublics = async (req, res) => {
   try {
     const token = req.headers.token;
+    const { idPublic } = req.body;
 
     if (!token) {
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
@@ -83,10 +90,10 @@ export const editPublics = async (req, res) => {
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
 
-    const { author, title, price, description, type } = req.body;
+    const { author, title, price, description } = req.body;
     console.log(author, title, price, description);
 
-    const publicFind = await publics.findOne({ autor: idUser });
+    const publicFind = await publics.findOne({ idPublic });
 
     if (!publicFind) {
       return res.status(402).json({ msg: "Post not found" });
@@ -96,17 +103,18 @@ export const editPublics = async (req, res) => {
       res.status(401).json({ msg: "You are not the author of this post" });
     }
 
-    const id = publicFind._id;
-
     const updatedData = {
       author,
       title,
       price,
       description,
-      type,
     };
 
-    const result = await publics.findByIdAndUpdate(id, { $set: updatedData }, { new: true });
+    const result = await publics.findByIdAndUpdate(
+      idPublic,
+      { $set: updatedData },
+      { new: true }
+    );
 
     if (!result) {
       return res.status(304).json({ msg: "Post not updated" });
@@ -123,9 +131,12 @@ export const deletPublic = async (req, res) => {
   try {
     // const { idUser } = req.params;
     const token = req.headers.token;
+    const { idPublic } = req.body;
 
     if (!token) {
-      return res.status(401).json({ msg: "Debe registrarse para realizar esa tarea" });
+      return res
+        .status(401)
+        .json({ msg: "Debe registrarse para realizar esa tarea" });
     }
 
     const usuario = await validarJWT(token);
@@ -134,7 +145,7 @@ export const deletPublic = async (req, res) => {
     }
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
-    const publicFind = await publics.findOne({ autor: idUser });
+    const publicFind = await publics.findOne({ idPublic });
 
     if (!publicFind) {
       res.status(402).json({ msg: "not post" });
@@ -143,8 +154,6 @@ export const deletPublic = async (req, res) => {
     if ((usuario.rol === "user") & (idUser != publicFind.autor)) {
       res.status(401).json({ msg: "You are not the author of this post" });
     }
-
-    const idPublic = publicFind._id;
 
     // Eliminamos el post usando el _id directamente
     const result = await publics.findByIdAndDelete(idPublic);

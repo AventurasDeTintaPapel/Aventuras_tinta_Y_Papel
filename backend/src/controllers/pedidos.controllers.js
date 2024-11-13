@@ -1,106 +1,85 @@
 import pedidos from "../models/pedidos.model.js";
 import mongoose from "mongoose";
 import usuario from "../models/usuarios.model.js";
-import Product from "../models/productos.model.js";
+import producto from "../models/productos.model.js";
 import { validarJWT } from "../helpers/validadJWT.js";
 
 // add item of the cart
 export const addCart = async (req, res) => {
-  // try {
-  //   const { totalFinal, productos } = req.body;
-  //   const token = req.headers.token;
+  try {
+    const { productos } = req.body;
+    const token = req.headers.token;
 
-  //   if (!token) {
-  //     return res.status(401).json({ msg: "You must register to be able to perform this task" });
-  //   }
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
+    }
 
-  //   const user = await validarJWT(token);
-  //   if (!user) {
-  //     return res.status(401).json({ msg: "Invalid Token" });
-  //   }
+    const user = await validarJWT(token);
+    if (!user) {
+      return res.status(401).json({ msg: "Invalid Token" });
+    }
 
-  //   const idUsuario = user._id;
-  //   const ObjectId = new mongoose.Types.ObjectId();
+    const idUsuario = user._id;
+    
+    const ObjectId = new mongoose.Types.ObjectId();
 
-  //   if (!idUsuario || !productos || productos.length === 0) {
-  //     console.log("data incompleto");
-  //     return res.status(400).json({ msg: "incomplete data" });
-  //   }
+    if (!idUsuario || !productos || productos.length === 0) {
+      return res.status(400).json({ msg: "incomplete data" });
+    }
 
-  //   // Calcular el totalFinal si no se envía en la solicitud
-  //   let total = 0;
-  //   const productosConPrecio = [];
+    // Extraer el primer producto del array
+    const { idProducto, cantidad = 1 } = productos[0];
 
-  //   // Procesamos cada producto y calculamos el total
-  //   for (const producto of productos) {
-  //     const { idProducto, cantidad = 1 } = producto;
+    const obtProducto = await producto.findById(idProducto);
+    if (!obtProducto) {
+      return res.status(404).json({ msg: "product not find" });
+    }
 
-  //     const obtProducto = await Product.findById(idProducto);
-  //     if (!obtProducto) {
-  //       return res.status(404).json({ msg: "Product not found" });
-  //     }
+    const cardFind = await pedidos.findOne({ usuario: idUsuario });
 
-  //     // Calcular el total por producto (cantidad * precio)
-  //     total += obtProducto.precio * cantidad;
+    //create new card
+    if (!cardFind || cardFind.estado == "pendiente") {
+      const newPedido = new pedidos({
+        productos: [
+          {
+            producto: idProducto,
+            cantidad: cantidad,
+          },
+        ],
+        usuario: idUsuario,
+      });
 
-  //     // Guardar el producto con su cantidad para más tarde
-  //     productosConPrecio.push({
-  //       producto: idProducto,
-  //       cantidad,
-  //     });
-  //   }
+      await newPedido.save();
+      return res.json(newPedido);
+    } else {
+      const prodFind = cardFind.productos.find(
+        (p) => p.producto && p.producto.toString() === idProducto
+      );
 
-  //   // Si no se proporciona totalFinal, usamos el calculado
-  //   const totalFinalCalculado = totalFinal || total;
+      if (prodFind) {
+        prodFind.cantidad += cantidad;
+      } else {
+        cardFind.productos.push({
+          producto: idProducto,
+          cantidad: cantidad,
+        });
+      }
 
-  //   const cardFind = await pedidos.findOne({ usuario: idUsuario });
-  //   let numPedido = cardFind ? cardFind.numPedido : 1;
-
-  //   // Crear un nuevo pedido
-  //   if (!cardFind || cardFind.estado === "pendiente") {
-  //     const newPedido = new pedidos({
-  //       productos: productosConPrecio,
-  //       totalFinal: totalFinalCalculado,
-  //       usuario: idUsuario,
-  //       numPedido,
-  //     });
-
-  //     await newPedido.save();
-  //     return res.json(newPedido);
-  //   } else {
-  //     // Si ya existe un carrito, actualizamos los productos
-  //     productosConPrecio.forEach(({ producto, cantidad }) => {
-  //       const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === producto);
-
-  //       if (prodFind) {
-  //         prodFind.cantidad += cantidad;
-  //       } else {
-  //         cardFind.productos.push({
-  //           producto,
-  //           cantidad,
-  //         });
-  //       }
-  //     });
-
-  //     // Actualizar el totalFinal si es necesario
-  //     cardFind.totalFinal = totalFinalCalculado;
-  //     await cardFind.save();
-  //     return res.json(cardFind);
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  //   return res.status(500).json({ msg: "Internal server error" });
-  // }
-  const { result, total } = req.body;
-  res.status(200).json(result);
-  console.log(result, total);
+      await cardFind.save();
+      return res.json(cardFind);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Internal server error" });
+  }
 };
 
 //update orders
 export const uptdaOrder = async (req, res) => {
   try {
     const { id, state } = req.body;
-    const estado = state;
     const resultado = await pedidos.findByIdAndUpdate(
       id,
       { estado: state },
@@ -123,9 +102,11 @@ export const uptdaOrder = async (req, res) => {
 export const deletItem = async (req, res) => {
   try {
     const token = req.headers.token;
-
+    const { idProducto } = req.body;
     if (!token) {
-      return res.status(401).json({ msg: "You must register to be able to perform this task" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
     const user = await validarJWT(token);
@@ -136,7 +117,10 @@ export const deletItem = async (req, res) => {
     const idUsuario = user._id;
     const ObjectId = new mongoose.Types.ObjectId();
 
-    const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: new ObjectId(idProducto) } } });
+    const result = await pedidos.updateOne(
+      { usuario: idUsuario },
+      { $pull: { productos: { producto: new ObjectId(idProducto) } } }
+    );
 
     if (!result.modifiedCount) {
       return res.status(404).json({ msg: "Product not find" });
@@ -162,7 +146,9 @@ export const deletOrder = async (req, res) => {
     const token = req.headers.token;
 
     if (!token) {
-      return res.status(401).json({ msg: "You must register to be able to perform this task" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
     const user = await validarJWT(token);
@@ -191,7 +177,9 @@ export const getOrder = async (req, res) => {
     const token = req.headers.token;
 
     if (!token) {
-      return res.status(401).json({ msg: "You must register to be able to perform this task" });
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
     const user = await validarJWT(token);
@@ -202,7 +190,9 @@ export const getOrder = async (req, res) => {
     const idUsuario = user._id;
     const ObjectId = new mongoose.Types.ObjectId();
     // Buscar el pedido y poblar los productos
-    const result = await pedidos.findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) }).populate("productos.producto");
+    const result = await pedidos
+      .findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) })
+      .populate("productos.producto");
 
     if (!result) {
       return res.status(404).json({ msg: "order not find" });
@@ -214,7 +204,35 @@ export const getOrder = async (req, res) => {
     return res.status(500).json({ msg: "Interval error sever" });
   }
 };
+//update amount of the product in the cart
+export const updaAmout = async (req, res) => {
+  try {
+    const { amount, idProduct } = req.body;
+    const idUsuario = "6728bffd7d4911a899f7c2a7";
+    const ObjectId = new mongoose.Types.ObjectId();
+    const cardFind = await pedidos.findOne({ usuario: idUsuario });
+    const prodFind = cardFind.productos.find(
+      (p) => p.producto && p.producto.toString() === idProduct
+    );
 
+    if (!prodFind) {
+      return res
+        .status(404)
+        .json({ msg: "Producto no encontrado en el carrito." });
+    } else {
+      // Actualizar la cantidad del producto encontrado
+      prodFind.cantidad = amount;
+
+      await cardFind.save();
+      return res
+        .status(200)
+        .json({ msg: "Cantidad actualizada con éxito", cardFind });
+    }
+  } catch (error) {
+    console.log("Internal server error", error);
+    res.status(500).json({ msg: "Internal server errir" });
+  }
+};
 //get all oders
 export const getAllOrders = async (req, res) => {
   try {
