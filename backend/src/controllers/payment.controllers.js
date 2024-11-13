@@ -89,6 +89,8 @@ export const createOrder = async (req, res) => {
       },
     };
 
+
+    
     // Obtener el access token de PayPal
     const params = new URLSearchParams();
     params.append("grant_type", "client_credentials");
