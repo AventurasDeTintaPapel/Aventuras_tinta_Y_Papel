@@ -8,21 +8,21 @@ import { validarJWT } from "../helpers/validadJWT.js";
 export const addCart = async (req, res) => {
   try {
     const { productos } = req.body;
-    // const token = req.headers.token;
+    const token = req.headers.token;
 
-    // if (!token) {
-    //   return res
-    //     .status(401)
-    //     .json({ msg: "You must register to be able to perform this task" });
-    // }
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
+    }
 
-    // const user = await validarJWT(token);
-    // if (!user) {
-    //   return res.status(401).json({ msg: "Invalid Token" });
-    // }
+    const user = await validarJWT(token);
+    if (!user) {
+      return res.status(401).json({ msg: "Invalid Token" });
+    }
 
-    // const idUsuario = user._id;
-    const idUsuario = "6728bffd7d4911a899f7c2a7";
+    const idUsuario = user._id;
+    
     const ObjectId = new mongoose.Types.ObjectId();
 
     if (!idUsuario || !productos || productos.length === 0) {

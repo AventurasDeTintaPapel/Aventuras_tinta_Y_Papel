@@ -57,10 +57,9 @@ export const createPublic = async (req, res) => {
 export const getAllpublics = async (req, res) => {
   try {
     const { id } = req.body;
-    const getPublics =
-      id === undefined
-        ? await publics.find()
-        : await publics.find({ autor: id });
+    const getPublics = !id
+      ? await publics.find()
+      : await publics.find({ autor: id });
 
     //not publics
     if (!getPublics) {
