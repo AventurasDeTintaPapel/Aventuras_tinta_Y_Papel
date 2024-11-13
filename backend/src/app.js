@@ -5,12 +5,18 @@ import session from "express-session";
 import path from "path";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import socketEvents from "./socket/socketEvents.js";
+import logger from "morgan";
 import mongoose from "./database/db.js";
+import { Server } from "socket.io";
+import { createServer } from "node:http";
 
 //importacion de rutas
 import { authRouter } from "./routers/auth.routes.js";
 import { order } from "./routers/pedido.routes.js";
 import { producRouter } from "./routers/productos.routes.js";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 import { publiRouter } from "./routers/public.routes.js";
 import { favoritos } from "./routers/fav.routes.js";
 import { filRoutes } from "./routers/filter.routes.js";
@@ -20,7 +26,11 @@ import { supRouter } from "./routers/supplier.routes.js";
 import { userRoutes } from "./routers/user.routes.js";
 import { emailRouter } from "./routers/email.routes.js";
 
-const __dirname = path.resolve();
+import { chatbot } from "./routers/chatbot.routes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 //inicializacion de el servidor
 const app = express();
 
@@ -68,6 +78,9 @@ app.use("/api/publics", publiRouter);
 app.use("/api/supplier", supRouter);
 app.use("/api/user", userRoutes);
 app.use("/api/email", emailRouter);
+
+//soker server
+socketEvents(io);
 
 //configuracion del puerto
 const port = process.env.PORT || 3400;
