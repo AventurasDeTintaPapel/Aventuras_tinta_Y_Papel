@@ -55,6 +55,7 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error", error });
   }
 };
+//account Recovery
 export const accountRecovery = async (req, res) => {
   const { email } = req.body;
   try {
@@ -92,5 +93,28 @@ export const accountRecovery = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Error interno del servidor", error });
+  }
+};
+//get user
+export const getUser = async (req, res) => {
+  try {
+    const token = req.headers.token;
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to perform this task" });
+    }
+    const usuario = await validarJWT(token);
+
+    !usuario
+      ? res.status(401).json({ msg: "invalid token" })
+      : (idUser = usuario._id);
+
+    const result = usuario.findById(idUser);
+
+    res.status(201).json({ msg: "user", result });
+  } catch (error) {
+    console.log("internal server error", error);
+    res.status(500).json({ msg: "internal server error", error });
   }
 };
