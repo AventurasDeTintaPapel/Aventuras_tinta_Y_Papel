@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { PlusCircle, Edit2, Trash2 } from "lucide-react";
-import { AdminProductForm } from "./AdminProductForm";
+import { AdminProductForm } from "../components/AdminProductForm";
 
-const AdminPanel = () => {
+export function AdminPanel() {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -11,7 +11,7 @@ const AdminPanel = () => {
     fetchProducts();
   }, []);
 
-  const IMAGE_BASE_URL = "http://localhost:3400"; // Cambiar esta URL si es necesario
+  const IMAGE_BASE_URL = "http://localhost:3400";
 
   // Fetch products from the server
   const fetchProducts = async () => {
@@ -149,6 +149,4 @@ const AdminPanel = () => {
       </div>
     </div>
   );
-};
-
-export default AdminPanel;
+}

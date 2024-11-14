@@ -11,7 +11,7 @@ export function AdminProductForm({ onSave, onCancel, initialData }) {
     precio: initialData?.precio || "",
     stock: initialData?.stock || "",
     categoria: initialData?.categoria || "",
-    imagen: null, // Iniciar como null, ya que se gestionará como un archivo
+    imagen: null,
   });
 
   useEffect(() => {

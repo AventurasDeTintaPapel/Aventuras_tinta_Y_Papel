@@ -8,6 +8,7 @@ import "@fontsource/baloo-2/700.css";
 import { Suspense } from "react";
 import Layout from "./layout";
 import {
+  AdminPanel,
   Carrito,
   Catalogo,
   Contactos,
@@ -21,6 +22,7 @@ import {
   Registro,
   SupportChat,
 } from "../pages";
+// importacion para que ande paypal
 import PayPalPayment from "../components/PaypalComponent.JSX";
 
 const AppRouter = () => {
@@ -36,6 +38,8 @@ const AppRouter = () => {
             <Route path="/soporte" element={<SupportChat />} />
             <Route path="/detalles/:id" element={<DetallesProductos />} />
             <Route path="/listado" element={<ProductList />} />
+            {/* Rutas admin */}
+            <Route path="/adminPanel" element={<AdminPanel />} />
           </Route>
 
           {/* rutas con aside*/}
