@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "@fontsource/bree-serif";
 
 import { botonVolver, renderAside } from "../components/AsideCatalogo";
@@ -9,9 +9,11 @@ import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { BotonComprar } from "../components/objetosVariasdos";
 import { useAlert } from "../hook/useAlert";
+import { AsidePrueba } from "../components/pruebaAsideCatalogo";
 
 export default function Catalogo() {
-  const { Product, isFiltered, fetchProductos } = useFetchProductos();
+  const { Product } = useFetchProductos();
+  const [filteredProducts, setFilteredProducts] = useState(Product);
 
   // retorna el ASIDE Y MAIN
   return (
@@ -21,8 +23,7 @@ export default function Catalogo() {
       <aside className=" col-start-1 row-start-3 w-[20vw] mb-[2vw]">
         <div className="flex flex-col w-full shadow-asideProductos rounded-br-[1vw] gap-[0.5vw] justify-center items-center pb-[1vw]">
           <p className="bg-[#f8f5fa] text-[#4a395a] pl-[1vw] w-full py-[0.4vw] font-breeSerif text-[2vw]">Filtros:</p>
-          {renderAside(fetchProductos)}
-          {botonVolver(isFiltered)}
+          <AsidePrueba setFilteredProducts={setFilteredProducts} />
         </div>
       </aside>
 
