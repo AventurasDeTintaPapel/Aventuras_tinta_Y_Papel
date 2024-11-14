@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+
 
 export default function SupportChat() {
   const [messages, setMessages] = useState([]);
