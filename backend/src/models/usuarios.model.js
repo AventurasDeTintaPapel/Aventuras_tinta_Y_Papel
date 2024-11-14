@@ -12,6 +12,11 @@ const usuario = new Schema(
       required: true,
       trim: true,
     },
+    phone: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
     fechaNacimiento: {
       type: String,
       required: true,
@@ -36,7 +41,6 @@ const usuario = new Schema(
     },
     rol: {
       type: String,
-      default: "user",
       enum: ["user", "admin"],
     },
     favorites: [

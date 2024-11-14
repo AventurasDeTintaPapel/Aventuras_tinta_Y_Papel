@@ -66,6 +66,14 @@ app.use(
     },
   })
 );
+const server = createServer(app);
+// Configuración de CORS
+const corsOptions = {
+  origin: "http://localhost:5173", // Cambia esto por la URL de tu frontend
+  methods: ["GET", "POST"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 //rutas
 app.use("/api/auth", authRouter);
 app.use("/api/pedidos", order);
@@ -78,6 +86,10 @@ app.use("/api/publics", publiRouter);
 app.use("/api/supplier", supRouter);
 app.use("/api/user", userRoutes);
 app.use("/api/email", emailRouter);
+
+const io = new Server(server, {
+  cors: corsOptions, // CORS para Socket.IO
+});
 
 //soker server
 socketEvents(io);

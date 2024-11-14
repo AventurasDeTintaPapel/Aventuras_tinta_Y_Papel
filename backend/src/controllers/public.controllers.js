@@ -8,13 +8,6 @@ export const createPublic = async (req, res) => {
     console.log(token);
 
     const { title, description, price, type, phone } = req.body;
-    let imagen = "";
-
-    if (req.file) {
-      imagen = "/uploads/" + req.file.filename;
-    } else {
-      return res.status(400).json({ msg: "the image is required" });
-    }
 
     if (!token) {
       console.log("Token invuesto");
@@ -32,14 +25,16 @@ export const createPublic = async (req, res) => {
     }
 
     const idUser = user._id;
+    const img = await cloudinary.uploader.upload(req.file.path);
+    fs.unlinkSync(req.file.path);
+
     const newPublic = new publics({
       title,
       autor: idUser,
       description,
       price,
-      imagen,
+      imagen: img.secure_url,
       type,
-      phone,
     });
 
     const result = await newPublic.save();
@@ -90,24 +85,25 @@ export const editPublics = async (req, res) => {
     const idUser = usuario._id;
     const ObjectId = mongoose.Types.ObjectId;
 
-    const { author, title, price, description } = req.body;
-    console.log(author, title, price, description);
+    const { title, price, description } = req.body;
+    console.log(title, price, description);
 
     const publicFind = await publics.findOne({ idPublic });
 
     if (!publicFind) {
       return res.status(402).json({ msg: "Post not found" });
     }
-
+    const img = await cloudinary.uploader.upload(req.file.path);
+    fs.unlinkSync(req.file.path);
     if ((usuario.rol === "user") & (idUser != publicFind.autor)) {
       res.status(401).json({ msg: "You are not the author of this post" });
     }
 
     const updatedData = {
-      author,
       title,
       price,
       description,
+      imagen: img.secure_url,
     };
 
     const result = await publics.findByIdAndUpdate(

@@ -5,8 +5,15 @@ import { validationResult } from "express-validator";
 
 // register
 export const register = async (req, res) => {
-  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre } =
-    req.body;
+  const {
+    nombreUsuario,
+    apellido,
+    fechaNacimiento,
+    email,
+    password,
+    phone,
+    nombre,
+  } = req.body;
 
   try {
     // Validations
@@ -24,7 +31,8 @@ export const register = async (req, res) => {
     }
 
     // Check if the email is for admin and assign the role
-    const rol = email.toLowerCase() === "admin@aventuras.com" ? "admin" : "user";
+    const rol =
+      email.toLowerCase() === "admin@aventuras.com" ? "admin" : "user";
 
     // Create new user with the specified role
     await new usuario({
@@ -34,7 +42,8 @@ export const register = async (req, res) => {
       email,
       contrasenia,
       nombre,
-      rol, // Save the role in the database
+      phone,
+      rol,
     })
       .save()
       .then(() => {
@@ -61,7 +70,6 @@ export const register = async (req, res) => {
   }
 };
 
-
 // login with JWT
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -81,32 +89,20 @@ export const login = async (req, res) => {
     const userFind = await usuario.findOne({ email });
     if (!userFind) {
       return res.status(400).json({ msg: "Incorrect email or password" });
-    const correctPassword = bcrypt.compareSync(password, userFind.contrasenia);
-
-    if (!userFind || !correctPassword) {
-      return res.status(400).json({ msg: " incorrect email or password " });
-    } else {
-      const token = await generarJWT({ id: userFind.id });
-      req.session.token = token;
-      console.log(token);
-      return res.status(200).json({
-        exitoLogin: true,
-        msg: "correct login",
-        token,
-      });
     }
 
     const correctPassword = bcrypt.compareSync(password, userFind.contrasenia);
+
     if (!correctPassword) {
       return res.status(400).json({ msg: "Incorrect email or password" });
     }
 
     // Generar el token con el rol
     const token = await generarJWT({ id: userFind.id, rol: userFind.rol });
-    
+
     // Guardar el rol y el token en la sesión
     req.session.token = token;
-    req.session.rol = userFind.rol; // Guardamos el rol del usuario en la sesión
+    req.session.rol = userFind.rol;
 
     return res.status(200).json({
       exitoLogin: true,
@@ -118,4 +114,3 @@ export const login = async (req, res) => {
     return res.status(500).json({ msg: "Internal Server Error", error });
   }
 };
-

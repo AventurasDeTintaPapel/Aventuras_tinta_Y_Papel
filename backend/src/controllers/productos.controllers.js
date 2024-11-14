@@ -1,6 +1,65 @@
 import productos from "../models/productos.model.js";
-
+import cloudinary from "../config.js";
 import mongoose from "mongoose";
+import fs from "fs";
+
+export const cargarProducto = async (req, res) => {
+  try {
+    const {
+      titulo,
+      autor,
+      descripcion,
+      numeroEdicion,
+      tipo,
+      idioma,
+      precio,
+      stock,
+      categoria,
+    } = req.body;
+
+    // Validación básica
+    if (
+      !titulo ||
+      !autor ||
+      !descripcion ||
+      !numeroEdicion ||
+      !tipo ||
+      !idioma ||
+      !precio ||
+      !stock ||
+      !categoria
+    ) {
+      return res.status(400).json({ msg: "Todos los campos son obligatorios" });
+    }
+
+    const img = await cloudinary.uploader.upload(req.file.path);
+    fs.unlinkSync(req.file.path);
+
+    // Crear un nuevo producto
+    const newProduct = new productos({
+      titulo,
+      autor,
+      descripcion,
+      numeroEdicion,
+      tipo,
+      idioma,
+      precio,
+      stock,
+      categoria,
+      imagen: img.secure_url,
+    });
+
+    // Guardar el producto en la base de datos
+    const result = await newProduct.save();
+    return res
+      .status(200)
+      .json({ msg: "Producto guardado correctamente", result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Error al guardar el producto" });
+  }
+};
+
 export const obtenerProducto = async (req, res) => {
   try {
     const { id } = req.params;
@@ -14,46 +73,7 @@ export const obtenerProducto = async (req, res) => {
     return res.status(500).json({ msg: "error interno del servidor" });
   }
 };
-export const cargarProducto = async (req, res) => {
-  try {
-    const { titulo, autor, descripcion, numeroEdicion, tipo, idioma, precio, stock, categoria } = req.body;
 
-    // Validación básica
-    if (!titulo || !autor || !descripcion || !numeroEdicion || !tipo || !idioma || !precio || !stock || !categoria) {
-      return res.status(400).json({ msg: "Todos los campos son obligatorios" });
-    }
-
-    // Verificar si se subió una imagen
-    let imagen = "";
-    if (req.file) {
-      imagen = "/uploads/" + req.file.filename;
-    } else {
-      return res.status(400).json({ msg: "La imagen es obligatoria" });
-    }
-
-
-    // Crear un nuevo producto
-    const newProduct = new productos({
-      titulo,
-      autor,
-      descripcion,
-      numeroEdicion,
-      tipo,
-      idioma,
-      precio,
-      stock,
-      categoria,
-      imagen,
-    });
-
-    // Guardar el producto en la base de datos
-    await newProduct.save();
-    return res.status(200).json({ msg: "Producto guardado correctamente" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ msg: "Error al guardar el producto" });
-  }
-};
 export const eliminarProducto = async (req, res) => {
   try {
     const { id } = req.params;
@@ -83,6 +103,9 @@ export const editarProducto = async (req, res) => {
       stock,
       categoria,
     } = req.body;
+    const img = await cloudinary.uploader.upload(req.file.path);
+    fs.unlinkSync(req.file.path);
+
     //productos editado
     const productoEditado = {
       titulo,
@@ -94,6 +117,7 @@ export const editarProducto = async (req, res) => {
       precio,
       stock,
       categoria,
+      imagen: img.secure_url,
     };
 
     const { id } = req.params;
