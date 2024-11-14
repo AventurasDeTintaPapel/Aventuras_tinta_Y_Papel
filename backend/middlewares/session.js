@@ -17,7 +17,7 @@ export const sessionVerified = (req, res, next) => {
 //Check that the role is admin
 export const rolAdmVerified = (req, res, next) => {
   if (req.session.rol !== "admin") {
-    return res.status(403).json({
+    return res.status(401).json({
       success: false,
       message: "Access denied: requires administrator privileges",
     });

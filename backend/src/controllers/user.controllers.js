@@ -1,5 +1,7 @@
 import usuario from "../models/usuarios.model.js";
-
+import generarContrasena from "../helpers/generatePass.js";
+import bcrypt from "bcrypt";
+import passwordEmail from "./email.controller.js";
 //update users
 export const updatUser = async (req, res) => {
   const { username, password, email } = req.body;
@@ -16,7 +18,8 @@ export const updatUser = async (req, res) => {
     !usuario
       ? res.status(401).json({ msg: "invalid token" })
       : (idUser = usuario._id);
-    const userUpdate = { username, password, email };
+    const contrasenia = bcrypt.hashSync(password, 10);
+    const userUpdate = { username, contrasenia, email };
 
     const result = usuario.findByIdAndUpdate(idUser, userUpdate, { new: true });
     !result
@@ -50,5 +53,44 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     console.log("Internal Server Error ", error);
     res.status(500).json({ msg: "Internal Server Error", error });
+  }
+};
+export const accountRecovery = async (req, res) => {
+  const { email } = req.body;
+  try {
+    // Buscar el usuario por correo electrónico
+    const userFind = await usuario.findOne({ email: email });
+
+    if (!userFind) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const idUser = userFind._id;
+    const newPassword = generarContrasena(); // Generar nueva contraseña
+    console.log(newPassword);
+
+    // Hash de la nueva contraseña
+    const contrasenia = bcrypt.hashSync(newPassword, 10);
+
+    // Actualizar la contraseña en la base de datos
+    const result = await usuario.findByIdAndUpdate(
+      idUser,
+      { contrasenia: contrasenia }, // Asegúrate de que el campo sea 'password'
+      { new: true }
+    );
+
+    if (!result) {
+      return res.status(404).json({ msg: "Error al actualizar la contraseña" });
+    }
+
+    // Enviar la nueva contraseña por correo electrónico
+    await passwordEmail(newPassword, email);
+
+    res
+      .status(200)
+      .json({ msg: "La nueva contraseña ha sido enviada", result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Error interno del servidor", error });
   }
 };
