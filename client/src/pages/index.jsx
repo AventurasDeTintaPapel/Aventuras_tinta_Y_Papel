@@ -13,5 +13,3 @@ export const DetallesProductos = lazy(() => import("./detallesProductPage"));
 export const SupportChat = lazy(() => import("./chatbot"));
 export const FormPublic = lazy(() => import("./formPublicPage"));
 export const ProductList = lazy(() => import("./productList"));
-
-export const AdminPanel = lazy(() => import("./productList"));

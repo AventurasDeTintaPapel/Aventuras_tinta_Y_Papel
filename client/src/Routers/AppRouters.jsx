@@ -22,8 +22,6 @@ import {
   SupportChat,
 } from "../pages";
 import PayPalPayment from "../components/PaypalComponent.JSX";
-import AdminPanel from "../pages/AdminPanel";
-import ProtectedRoute from "./ProtectedRoute";
 
 const AppRouter = () => {
   return (
@@ -45,8 +43,6 @@ const AppRouter = () => {
           <Route path="/favoritos" element={<MisFavoritos />} />
           <Route path="/intercambiar" element={<FormPublic />} />
 
-          <Route path="/intercambiar" element={<ProductForm />} />
-          <Route path="/admin" element={<AdminPanel /> } />
           {/* Ruta para paypal */}
           <Route path="/carrito" element={<Carrito />}>
             <Route path="/carrito" element={<PayPalPayment />} />
