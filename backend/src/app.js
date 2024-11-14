@@ -96,7 +96,7 @@ socketEvents(io);
 
 //configuracion del puerto
 const port = process.env.PORT || 3400;
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(
     `El servidor está funcionando en el puerto http://localhost:${port}`
   );
