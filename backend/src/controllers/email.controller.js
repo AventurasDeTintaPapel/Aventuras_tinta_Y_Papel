@@ -1,37 +1,40 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+import dotenv from "dotenv";
+dotenv.config();
+const codigoRes = process.env.RESEND;
+const myEmail = process.env.EMAIL;
+const resend = new Resend(codigoRes);
 
-const myEmail = "jaquibatienza@gmail.com";
-const emailPassword = "JAQueline2445";
-export const email = async (req, res) => {
-  const { correo, mensaje, asunto } = req.body;
+export const emails = async (req, res) => {
+  const { email, body, asunto } = req.body;
 
-  // Verificar que todos los campos estén presentes
-  if (!correo || !mensaje || !asunto) {
-    return res.status(400).json({ msg: "Todos los campos son obligatorios" });
-  }
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: myEmail,
-      pass: emailPassword,
-    },
+  const { data, error } = await resend.emails.send({
+    from: "Acme <onboarding@resend.dev>",
+    to: [myEmail],
+    subject: asunto,
+    html: `<p>De: ${email}</p><p>${body}</p>`, // Incluye el remitente original en el contenido del correo
   });
 
-  const mailOptions = {
-    from: correo,
-    to: myEmail,
-    subject: asunto,
-    text: mensaje,
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    res.json({ msg: "El correo se envió correctamente" });
-  } catch (error) {
-    console.log("Error al enviar correo:", error);
-    res
-      .status(500)
-      .json({ msg: "Error interno del servidor", error: error.message });
+  if (error) {
+    console.error({ error });
+    return res.status(500).json({ error: "Error al enviar el correo" });
   }
+
+  console.log({ data });
+  res.status(200).json({ message: "Correo enviado con éxito" });
 };
+async function passwordEmail(newPassword, email) {
+  const { data, error } = await resend.emails.send({
+    from: "Acme <onboarding@resend.dev>",
+    to: [email],
+    subject: "Reset password",
+    html: `<strong>La nueva contraseña es ${newPassword}</strong>`,
+  });
+
+  if (error) {
+    return console.error({ error });
+  }
+
+  console.log({ data });
+}
+export default passwordEmail;
