@@ -9,12 +9,11 @@ export const PrivateRoutes = () => {
     return <p>Loading...</p>
   }
 
-
-  if (usuario.rol !== "admin") {
-
-    // Si el usuario no tiene rol de admin, redirige al login o a otra ruta
-    return <Navigate to="/login" replace />;
+  if (!usuario) {
+    // Si no hay usuario, redirige al login
+    return <Navigate to="/login" />;
   }
+
 
   // Si pasa todas las validaciones, muestra las rutas protegidas
   return <Outlet />;

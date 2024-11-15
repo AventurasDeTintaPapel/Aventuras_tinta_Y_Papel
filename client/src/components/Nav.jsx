@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import { useSession } from "../context/SessionProvider";
 
 export function Nav({ colAndrow }) {
   function IntercambioMenu() {
+    // const { usuario } = useSession()
     const [menu, setMenu] = useState(false);
     const [estilo, setEstilo] = useState({});
     const [estiloFlecha, setEstiloFlecha] = useState({});
@@ -41,6 +43,16 @@ export function Nav({ colAndrow }) {
           >
             Ver produtos
           </Link>
+          
+            {/* usuario.rol === "admin" && (
+              <Link
+              to={"/adminPanel"}
+              className=" h-[3vw] flex pl-[1vw] items-center hover:bg-purple-800 hover:text-[1.6vw] transition-all ease-in-out duration-300"
+            >
+              Ver admin panel
+            </Link>
+            ) */}
+            
         </div>
       </div>
     );

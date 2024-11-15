@@ -40,9 +40,7 @@ const AppRouter = () => {
             <Route path="/detalles/:id" element={<DetallesProductos />} />
             <Route path="/listado" element={<ProductList />} />
             {/* Rutas admin */}
-            
-              <Route path="/adminPanel" element={<AdminPanel />} />
-            
+            <Route path="/adminPanel" element={<AdminPanel />} />
           </Route>
 
           {/* rutas con aside*/}
