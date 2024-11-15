@@ -5,7 +5,7 @@ import { validationResult } from "express-validator";
 
 // register
 export const register = async (req, res) => {
-  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre } = req.body;
+  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre, phone } = req.body;
 
   try {
     // Validations
@@ -34,11 +34,9 @@ export const register = async (req, res) => {
       contrasenia,
       nombre,
       rol, // Save the role in the database
-    })
-      .save()
-      .then(() => {
-        res.status(200).json({ msg: "User registered successfully" });
-      });
+      phone 
+    }).save()
+    res.status(200).json({ msg: "User registered successfully" });
 
   } catch (error) {
     console.log("Internal Server Error", error);
@@ -78,11 +76,14 @@ export const login = async (req, res) => {
     req.session.token = token;
     req.session.rol = userFind.rol; // Guardamos el rol del usuario en la sesión
 
-    return res.status(200).json({
-      exitoLogin: true,
-      msg: "Correct login",
-      token,
-    });
+    return res
+      .cookie("token", token, { httpOnly: true, secure: true })
+      .status(200)
+      .json({
+        exitoLogin: true,
+        msg: "Correct login",
+        token,
+      });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Internal Server Error", error });

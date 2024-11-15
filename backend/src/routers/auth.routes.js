@@ -17,3 +17,7 @@ authRouter.post("/register", regisValidation, applyValidations, register);
 authRouter.post("/login", login);
 //router logout
 authRouter.post("/logout", sessionVerified, logout);
+
+authRouter.get("/me", sessionVerified, (req, res) => {
+  res.json(req.usuario);
+});
