@@ -216,14 +216,24 @@ export function Header({ colAndrow }) {
 
   const buscadorNavigate = async () => {
     try {
-      if (productoBuscador.trim() === "") return;
+      if (!productoBuscador.trim()) return;
+
       navigate(`/catalogo?query=${productoBuscador}`);
+
+      // Realiza la consulta
       const response = await axios.get(`http://localhost:3400/api/filters?query=${productoBuscador}`, {
         credentials: "include",
       });
+
+      // Actualiza el estado de productos con los datos recibidos
       setProductos(response.data);
     } catch (error) {
-      console.log("Error en al traer los porductos:", error);
+      console.log("Error al traer los productos:", error);
+    }
+
+    if (!productos || productos.length === 0) {
+      console.log("No hay el producto que está buscando");
+      return;
     }
   };
 

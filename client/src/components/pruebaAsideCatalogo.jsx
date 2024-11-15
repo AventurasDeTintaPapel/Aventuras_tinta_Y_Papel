@@ -1,33 +1,45 @@
-import React, { useState } from "react";
-import { useFetchProductos } from "../hook/useFetchProductos";
+import React from "react";
+import { useFilters } from "../hook/useFetchProductos";
 
-export function AsidePrueba({ setFilteredProducts }) {
-  const { productos } = useFetchProductos();
-  const [filters, setFilters] = useState({
-    categoria: "all",
-  });
+export function AsidePrueba({}) {
+  const { setFilters } = useFilters();
 
-  const filterProducts = () => {
-    // Aplica los filtros sobre los productos
-    return productos.filter((producto) => {
-      return filters.categoria === "all" || producto.categoria === filters.categoria;
-    });
+  // // Cambiar categoria
+  // const handleCategoryClick = (categoria) => {
+  //   setFilters((prevFilters) => ({
+  //     ...prevFilters,
+  //     categoria,
+  //   }));
+  // };
+
+  // Cambiar tipo
+  const handleTypeClick = (tipo) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters, // Mantiene las demás propiedades de filters
+      tipo, // Solo actualiza la propiedad tipo
+    }));
+    console.log(tipo);
   };
-
-  const handleFilterChange = ({ categoria }) => {
-    setFilters({ categoria });
-    setFilteredProducts(filterProducts());
-  };
-
-  const filteredProducts = filterProducts();
 
   return (
-    <>
-      <button onClick={() => handleFilterChange("all")}>Todos</button>
-      <button onClick={() => handleFilterChange("terror")}>Terror</button>
-      <button onClick={() => handleFilterChange("romance")}>Romance</button>
-      <button onClick={() => handleFilterChange("juvenil")}>Juvenil</button>
-      <button onClick={() => handleFilterChange("thriller")}>Thriller</button>
-    </>
+    <div className="flex flex-col">
+      <div className="flex flex-col">
+        <p>Productos:</p>
+        <button onClick={() => handleTypeClick("all")}>Todos</button>
+        <button onClick={() => handleTypeClick("libro")}>Libros</button>
+        <button onClick={() => handleTypeClick("mangas")}>Mangas</button>
+        <button onClick={() => handleTypeClick("comics")}>Comics</button>
+        <button onClick={() => handleTypeClick("mercancia")}>Mercancia</button>
+      </div>
+      {/* <div className="flex flex-col">
+        <p>Filtros:</p>
+        <button onClick={() => handleCategoryClick("all")}>Todos</button>
+        <button onClick={() => handleCategoryClick("terror")}>Terror</button>
+        <button onClick={() => handleCategoryClick("triller")}>Triller</button>
+        <button onClick={() => handleCategoryClick("super heroes")}>Super Heroes</button>
+        <button onClick={() => handleCategoryClick("ciencia ficcion")}>Ciencia Ficcion</button>
+        <button onClick={() => handleCategoryClick("accion")}>Accion</button>
+      </div> */}
+    </div>
   );
 }
