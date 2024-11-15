@@ -12,6 +12,5 @@ export const DetallesProductos = lazy(() => import("./detallesProductPage"));
 // ramas naza
 export const SupportChat = lazy(() => import("./chatbot"));
 export const FormPublic = lazy(() => import("./formPublicPage"));
-export const ProductList = lazy(() => import("./productList"));
-export const AdminProductForm = lazy(() => import("../components/AdminProductForm"));
+export const ProductList = lazy(() => import("./listProducts"));
 export const AdminPanel = lazy(() => import("./AdminPanel"));
