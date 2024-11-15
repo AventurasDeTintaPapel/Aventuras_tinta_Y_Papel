@@ -1,184 +1,264 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";   
+import { Save, X } from 'lucide-react';
 
-export function AdminProductForm({ onSave, onCancel, initialData }) {
-  const [product, setProduct] = useState({
-    titulo: initialData?.titulo || "",
-    autor: initialData?.autor || "",
-    descripcion: initialData?.descripcion || "",
-    numeroEdicion: initialData?.numeroEdicion || "",
-    tipo: initialData?.tipo || "",
-    idioma: initialData?.idioma || "",
-    precio: initialData?.precio || "",
-    stock: initialData?.stock || "",
-    categoria: initialData?.categoria || "",
-    imagen: null,
+const AdminProductForm = ({ productId, onFormSubmit, onCancel }) => {
+  const [formData, setFormData] = useState({
+    titulo: "",
+    autor: "",
+    descripcion: "",
+    numeroEdicion: "",
+    tipo: "",
+    idioma: "",
+    precio: "",
+    stock: "",
+    categoria: "",
+    imagen: null, 
   });
 
   useEffect(() => {
-    if (initialData && initialData.imagen) {
-      setProduct((prevState) => ({
-        ...prevState,
-        imagen: initialData.imagen,
-      }));
+    if (productId) {
+      fetch(`http://localhost:3400/api/productos/${productId}`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((product) => {
+          setFormData({
+            titulo: product.titulo,
+            autor: product.autor,
+            descripcion: product.descripcion,
+            numeroEdicion: product.numeroEdicion,
+            tipo: product.tipo,
+            idioma: product.idioma,
+            precio: product.precio,
+            stock: product.stock,
+            categoria: product.categoria,
+            imagen: product.imagen,
+          });
+        })
+        .catch((error) => console.error("Error fetching product:", error));
     }
-  }, [initialData]);
+  }, [productId]);
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    if (type === "file") {
-      setProduct({ ...product, imagen: files[0] });
-    } else {
-      setProduct({ ...product, [name]: value });
-    }
+  const handleFileChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      imagen: e.target.files[0],
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(product);
+
+    const dataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      dataToSend.append(key, formData[key]);
+    });
+
+    const url = productId ? `http://localhost:3400/api/productos/editar/${productId}` : "http://localhost:3400/api/productos/cargar";
+    const method = productId ? "PUT" : "POST";
+
+    fetch(url, {
+      method,
+      body: dataToSend,
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(productId ? "Producto actualizado correctamente" : "Producto cargado correctamente");
+        onFormSubmit(); // Llamar función para actualizar lista de productos
+      })
+      .catch((error) => console.error("Error submitting product:", error));
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      titulo: "",
+      autor: "",
+      descripcion: "",
+      numeroEdicion: "",
+      tipo: "",
+      idioma: "",
+      precio: "",
+      stock: "",
+      categoria: "",
+      imagen: null,
+    });
+
+    onCancel();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">{initialData ? "Editar Producto" : "Agregar Producto"}</h2>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <h2 className="text-2xl font-bold text-indigo-800 mb-6">
+        {productId ? 'Editar Producto' : 'Agregar Producto'}
+      </h2>
+      
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <label htmlFor="titulo" className="block text-sm font-medium text-gray-700">Titulo</label>
+          <input
+            type="text"
+            id="titulo"
+            name="titulo"
+            value={formData.titulo}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
 
-      <div className="mb-4">
-        <input
-          type="text"
-          name="titulo"
-          placeholder="Titulo"
-          value={product.titulo}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
+        <div>
+          <label htmlFor="autor" className="block text-sm font-medium text-gray-700">Autor</label>
+          <input
+            type="text"
+            id="autor"
+            name="autor"
+            value={formData.autor}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700">Descripcion</label>
+          <textarea
+            id="descripcion"
+            name="descripcion"
+            value={formData.descripcion}
+            onChange={handleChange}
+            required
+            rows={4}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="numeroEdicion" className="block text-sm font-medium text-gray-700">Numero de edicion</label>
+          <input
+            type="text"
+            id="numeroEdicion"
+            name="numeroEdicion"
+            value={formData.numeroEdicion}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+
+        <div> 
+  <label htmlFor="tipo" className="block text-sm font-medium text-gray-700">Tipo</label>
+  <select
+    id="tipo"
+    name="tipo"
+    value={formData.tipo}
+    onChange={handleChange}
+    required
+    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+  >
+    <option value="">Seleccione una opción</option>
+    <option value="libro">Libro</option>
+    <option value="manga">Manga</option>
+    <option value="comic">Cómic</option>
+    <option value="mercancia">Mercancía</option>
+  </select>
+</div>
+
+        <div>
+          <label htmlFor="idioma" className="block text-sm font-medium text-gray-700">Idioma</label>
+          <input
+            type="text"
+            id="idioma"
+            name="idioma"
+            value={formData.idioma}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="precio" className="block text-sm font-medium text-gray-700">Precio</label>
+          <input
+            type="number"
+            id="precio"
+            name="precio"
+            value={formData.precio}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="stock" className="block text-sm font-medium text-gray-700">Stock</label>
+          <input
+            type="number"
+            id="stock"
+            name="stock"
+            value={formData.stock}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="categoria" className="block text-sm font-medium text-gray-700">Categoria</label>
+          <input
+            type="text"
+            id="categoria"
+            name="categoria"
+            value={formData.categoria}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label htmlFor="imagen" className="block text-sm font-medium text-gray-700">Imagen</label>
+          <input
+            type="file"
+            id="imagen"
+            name="imagen"
+            onChange={handleFileChange}
+            className="mt-1 block w-full text-sm text-gray-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-indigo-50 file:text-indigo-700
+              hover:file:bg-indigo-100"
+          />
+        </div>
       </div>
 
-      <div className="mb-4">
-        <input
-          type="text"
-          name="autor"
-          placeholder="Autor"
-          value={product.autor}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="mb-4">
-        <textarea
-          type="text"
-          name="descripcion"
-          placeholder="Descripcion"
-          value={product.descripcion}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
-        />
-      </div>
-
-      <div className="mb-4">
-        <input
-          type="number"
-          name="numeroEdicion"
-          placeholder="Numero de edicion"
-          value={product.numeroEdicion}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="mb-4">
-        <input
-          type="text"
-          name="tipo"
-          placeholder="Tipo"
-          value={product.tipo}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="mb-4">
-        <input
-          type="text"
-          name="idioma"
-          placeholder="Idioma"
-          value={product.idioma}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="mb-4">
-        <input
-          type="number"
-          name="precio"
-          placeholder="Precio"
-          value={product.precio}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="mb-4">
-        <input
-          type="number"
-          name="stock"
-          placeholder="Stock"
-          value={product.stock}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="mb-4">
-        <input
-          type="text"
-          name="categoria"
-          placeholder="Categoria"
-          value={product.categoria}
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="mb-6">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imagen">
-          Imagen:
-        </label>
-        <input
-          type="file"
-          id="imagen"
-          name="imagen"
-          onChange={handleChange}
-          required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-
-      <div className="flex items-center justify-between">
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Guardar
-        </button>
+      <div className="flex justify-end space-x-4 mt-8">
         <button
           type="button"
-          onClick={onCancel}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={handleCancel}
+          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center"
         >
-          Cancelar
+          <X className="mr-2 h-5 w-5" /> Cancel
+        </button>
+        <button
+          type="submit"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center"
+        >
+          <Save className="mr-2 h-5 w-5" /> {productId ? 'Update' : 'Save'}
         </button>
       </div>
     </form>
   );
-}
+};
+
+export default AdminProductForm;

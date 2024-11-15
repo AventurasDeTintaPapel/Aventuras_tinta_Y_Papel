@@ -1,152 +1,140 @@
-import React, { useState, useEffect } from "react";
-import { PlusCircle, Edit2, Trash2 } from "lucide-react";
-import { AdminProductForm } from "../components/AdminProductForm";
+import React, { useState, useEffect } from "react";  
+import { PlusCircle, Edit2, Trash2 } from 'lucide-react';
+import AdminProductForm from "../components/AdminProductForm";
 
-export function AdminPanel() {
-  const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
+const AdminPanel = () => {
+  const [productos, setProductos] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   useEffect(() => {
-    fetchProducts();
+    // Cargar lista de productos al montar el componente
+    fetch("http://localhost:3400/api/productos", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => setProductos(data))
+      .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  const IMAGE_BASE_URL = "http://localhost:3400";
-
-  // Fetch products from the server
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("http://localhost:3400/api/productos");
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
-  // Delete a product
-  const handleDelete = async (id) => {
-    try {
-      await fetch(`http://localhost:3400/api/productos/eliminar/${id}`, {
+  const handleDelete = (id) => {
+    if (window.confirm("¿Estás seguro de que quieres eliminar este producto?")) {
+      fetch(`http://localhost:3400/api/productos/eliminar/${id}`, {
         method: "DELETE",
-      });
-      fetchProducts(); // Refresh the product list
-    } catch (error) {
-      console.error("Error deleting product:", error);
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.msg);
+          setProductos(productos.filter((producto) => producto._id !== id));
+        })
+        .catch((error) => console.error("Error deleting product:", error));
     }
   };
 
-  // Set product for editing
-  const handleEdit = (product) => {
-    setSelectedProduct(product);
-    setIsEditing(true);
+  const handleEdit = (id) => {
+    setSelectedProductId(id);
+    setIsFormVisible(true);
   };
 
-  // Open the form to add a new product
-  const handleAdd = () => {
-    setSelectedProduct(null);
-    setIsEditing(true);
+  const handleAddProduct = () => {
+    setSelectedProductId(null);
+    setIsFormVisible(true);
   };
 
-  // Save new or edited product
-  const handleSave = async (product) => {
-    const formData = new FormData();
-    Object.keys(product).forEach((key) => {
-      if (key === "imagen") {
-        formData.append(key, product.imagen);
-      } else {
-        formData.append(key, product[key]);
-      }
-    });
+  const handleFormSubmit = () => {
+    // Vuelve a cargar los productos después de agregar/editar
+    fetch("http://localhost:3400/api/productos", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => setProductos(data))
+      .catch((error) => console.error("Error fetching products:", error));
+    setIsFormVisible(false);
+    setSelectedProductId(null); // Limpiar el id seleccionado
+  };
 
-    try {
-      if (selectedProduct) {
-        // Update the selected product
-        await fetch(`http://localhost:3400/api/productos/editar/${selectedProduct._id}`, {
-          method: "PUT",
-          body: formData,
-        });
-      } else {
-        // Create a new product
-        await fetch("http://localhost:3400/api/productos/cargar", {
-          method: "POST",
-          body: formData,
-        });
-      }
-      setIsEditing(false); // Close the form
-      fetchProducts(); // Refresh the product list
-    } catch (error) {
-      console.error("Error saving product:", error);
-    }
+  const handleCancel = () => {
+    setIsFormVisible(false); // Oculta el formulario sin realizar cambios
+    setSelectedProductId(null); // Limpiar el id seleccionado
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 flex flex-col items-center justify-start py-4 px-2">
-      <div className="w-full max-w-full px-2">
-        <h1 className="text-4xl font-extrabold text-indigo-800 mb-4 text-center">Panel de Administrador</h1>
-        <button
-          onClick={handleAdd}
-          className="mb-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center justify-center w-full sm:w-auto"
-        >
-          <PlusCircle className="mr-2 h-5 w-5" />
-          Agregar un nuevo producto
-        </button>
-        {isEditing ? (
-          <div className="bg-white rounded-lg shadow-xl p-6 mb-6 w-full">
-            <AdminProductForm onSave={handleSave} onCancel={() => setIsEditing(false)} initialData={selectedProduct} />
-          </div>
-        ) : (
-          <div className="bg-white shadow-xl rounded-lg overflow-hidden w-full">
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-indigo-600">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Imagen</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Titulo</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Autor</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Tipo</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Precio</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Stock</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {products.map((product) => (
-                    <tr key={product._id} className="hover:bg-indigo-50 transition duration-150 ease-in-out">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        <img
-                          className="w-16 h-16 object-cover"
-                          src={product.imagen ? `${IMAGE_BASE_URL}${product.imagen}` : "/placeholder.svg?height=300&width=300"}
-                          alt={product.titulo}
-                        />
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.titulo}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.autor}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.tipo}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.precio}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.stock}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button
-                          onClick={() => handleEdit(product)}
-                          className="text-indigo-600 hover:text-indigo-900 mr-4 transition duration-150 ease-in-out"
-                        >
-                          <Edit2 className="h-5 w-5" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(product._id)}
-                          className="text-red-600 hover:text-red-900 transition duration-150 ease-in-out"
-                        >
-                          <Trash2 className="h-5 w-5" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200 p-8">
+      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <div className="p-8">
+          <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Panel de Administrador</h1>
+          <button 
+            onClick={handleAddProduct}
+            className="mb-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out flex items-center"
+          >
+            <PlusCircle className="mr-2 h-5 w-5" />
+            Agregar un nuevo producto
+          </button>
+
+          {isFormVisible && (
+            <div className="mb-8 p-6 bg-gray-50 rounded-lg shadow-inner">
+              <AdminProductForm
+                productId={selectedProductId}
+                onFormSubmit={handleFormSubmit}
+                onCancel={handleCancel} // Pasa la función handleCancel aquí
+              />
+              
             </div>
+          )}
+
+          <h2 className="text-2xl font-bold mb-6 text-gray-700">Productos</h2>
+          <div className="overflow-x-auto bg-white rounded-lg shadow">
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Imagen</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {productos.map((producto) => (
+                  <tr key={producto._id} className="hover:bg-gray-50 transition duration-150 ease-in-out">
+                    {producto.imagen && (
+              <img 
+                src={producto.imagen} 
+                alt={producto.titulo} 
+                className="w-16 h-16 object-cover rounded-full mr-4"
+              />
+            )}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{producto.titulo}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{producto.tipo}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${producto.precio.toFixed(2)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{producto.stock}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button 
+                        onClick={() => handleEdit(producto._id)}
+                        className="text-indigo-600 hover:text-indigo-900 mr-4 transition duration-150 ease-in-out"
+                      >
+                        <Edit2 className="h-5 w-5" />
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(producto._id)}
+                        className="text-red-600 hover:text-red-900 transition duration-150 ease-in-out"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default AdminPanel;

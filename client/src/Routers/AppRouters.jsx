@@ -6,6 +6,7 @@ import "@fontsource/poppins/700.css";
 import "@fontsource/bree-serif";
 import "@fontsource/baloo-2/700.css";
 import { Suspense } from "react";
+import { PrivateRoutes } from "../components/PrivateRoutes";
 import Layout from "./layout";
 import {
   AdminPanel,
@@ -39,7 +40,9 @@ const AppRouter = () => {
             <Route path="/detalles/:id" element={<DetallesProductos />} />
             <Route path="/listado" element={<ProductList />} />
             {/* Rutas admin */}
-            <Route path="/adminPanel" element={<AdminPanel />} />
+            
+              <Route path="/adminPanel" element={<AdminPanel />} />
+            
           </Route>
 
           {/* rutas con aside*/}
