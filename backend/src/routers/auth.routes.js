@@ -21,6 +21,14 @@ authRouter.post("/register", regisValidation, applyValidations, register);
 // router login user
 authRouter.post("/login", login);
 //router logout
+<<<<<<< HEAD
 authRouter.post("/logout", logout);
 //router get user
 authRouter.get("/user", validateJwt, getMeCtrl);
+=======
+authRouter.post("/logout", sessionVerified, logout);
+
+authRouter.get("/me", sessionVerified, (req, res) => {
+  res.json(req.usuario);
+});
+>>>>>>> b7a44cab564b86eec19a53984b05bf899d5ac6fe

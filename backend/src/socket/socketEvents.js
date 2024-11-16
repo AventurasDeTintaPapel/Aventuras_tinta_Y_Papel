@@ -50,7 +50,7 @@ const socketEvents = (io) => {
 const sendOptions = (socket) => {
     socket.emit('options', {
         question: 'Elige una opción:',
-        options: ['Métodos de pago', 'Envíos', 'Devoluciones', 'Productos agotados']
+        options: ['Métodos de pago', 'Envíos', 'Devoluciones', 'Productos agotados', 'Otros']
     });
 };
 
@@ -59,12 +59,16 @@ const handleOptionSelection = (selectedOption) => {
     switch (selectedOption) {
         case 'Métodos de pago':
             return 'Aceptamos tarjetas de crédito, débito, PayPal y transferencias bancarias.';
+            case '¿Cuáles son los horarios de atención al cliente?':
+            return 'Podes ingresar y comprar en nuestra tienda online las 24hs del dia.';
         case 'Envíos':
-            return 'Hacemos envíos a todas las provincias de Argentina.';
+            return 'Hacemos envíos a todas las localidades de Formosa.';
         case 'Devoluciones':
             return 'Puedes devolver tu producto dentro de los primeros 14 días.';
-        case 'Productos agotados':
-            return 'Puedes suscribirte para recibir una notificación cuando el producto esté disponible.';
+            case '¿Tienen un catálogo actualizado?':
+                return 'Si, nuestro catálogo se mantiene actualizado siempre';
+            case 'Otros':
+            return 'Si tienes alguna otra pregunta, ingresa al siguiente link para una atencion mas personalizada: https://wa.me/3704266289.';
         default:
             return 'Lo siento, no entiendo esa opción.';
     }
