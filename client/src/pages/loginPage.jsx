@@ -11,14 +11,13 @@ export default function Login() {
   // Función para iniciar sesión
   const login = async (e) => {
     e.preventDefault();
-
     const peticion = await fetch("http://localhost:3400/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: {
         "Content-type": "application/json",
       },
-      withCredentials: true,
+      credentials: "include", // Esto es lo correcto para enviar cookies
     });
     console.log("Petición realizada:", peticion);
 
@@ -38,12 +37,10 @@ export default function Login() {
       console.log(respuesta);
       // Redirecciones según el rol
       if (respuesta.role === "admin") {
-<<<<<<< HEAD
         window.location.href =
           "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
-=======
+
         navigation("/admin");
->>>>>>> aaa54854b21dcc9f86c230bcc666742a1ed0d8b0
       } else {
         navigation("/");
       }

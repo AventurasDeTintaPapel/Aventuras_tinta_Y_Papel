@@ -39,24 +39,42 @@ export const CorazonFav = ({ producto, estilo }) => {
 
     try {
       if (isFavorite) {
-        // Eliminar de favoritos
-        await axios.delete("http://localhost:3400/api/favoritos/delete", {
-          withCredentials: true, // Enviar cookies con la solicitud
-          data: { idProduct: producto._id }, // Enviar el ID del producto a eliminar
-        });
-        setFavorites((prev) =>
-          prev.filter((fav) => fav.producto._id !== producto._id)
-        );
-        console.log("se elimino con exito");
+        try {
+          // Eliminar de favoritos
+          await axios.delete("http://localhost:3400/api/favoritos/delete", {
+            withCredentials: true, // Enviar cookies con la solicitud
+            data: { idProduct: producto._id }, // Enviar el ID del producto a eliminar
+          });
+
+          setFavorites((prev) =>
+            prev.filter((fav) => fav.producto._id !== producto._id)
+          );
+          setIsFavorite(false); // Cambiar el estado local
+          console.log("El producto fue eliminado de favoritos exitosamente.");
+        } catch (error) {
+          console.error("Error al eliminar de favoritos:", error);
+        }
       } else {
-        // Agregar a favoritos
-        await axios.post("http://localhost:3400/api/favoritos/addFav", {
-          withCredentials: true,
-          idProduct: producto._id,
-        });
-        mostrarAlerta("Se agrego correctamente a carrito");
-        setFavorites((prev) => [...prev, { producto }]);
+        try {
+          // Agregar a favoritos
+          const response = await axios.post(
+            "http://localhost:3400/api/favoritos/addFav",
+            { idProduct: producto._id },
+            { withCredentials: true } // Enviar cookies con la solicitud
+          );
+
+          if (response.status === 201) {
+            mostrarAlerta("Se agregó correctamente a favoritos");
+            setFavorites((prev) => [...prev, { producto }]);
+            setIsFavorite(true); // Cambiar el estado local
+          } else {
+            console.error("No se pudo agregar el producto a favoritos.");
+          }
+        } catch (error) {
+          console.error("Error al agregar a favoritos:", error);
+        }
       }
+
       setIsFavorite(!isFavorite);
     } catch (error) {
       console.error("Error updating favorites:", error);
