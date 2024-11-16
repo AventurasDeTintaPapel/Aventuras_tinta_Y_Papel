@@ -7,8 +7,9 @@ import { validarJWT } from "../helpers/validadJWT.js";
 // add item of the cart
 export const addCart = async (req, res) => {
   try {
-    const { productos } = req.body;
+    const { idProducto, cantidad } = req.body;
     const token = req.headers.token;
+    console.log(token);
 
     if (!token) {
       return res
@@ -18,29 +19,27 @@ export const addCart = async (req, res) => {
 
     const user = await validarJWT(token);
     if (!user) {
+      console.log("not token in bakcend");
       return res.status(401).json({ msg: "Invalid Token" });
     }
 
     const idUsuario = user._id;
-    
-    const ObjectId = new mongoose.Types.ObjectId();
 
-    if (!idUsuario || !productos || productos.length === 0) {
-      return res.status(400).json({ msg: "incomplete data" });
-    }
-
-    // Extraer el primer producto del array
-    const { idProducto, cantidad = 1 } = productos[0];
-
+    console.log(idProducto);
     const obtProducto = await producto.findById(idProducto);
     if (!obtProducto) {
+      console.log("product not find");
       return res.status(404).json({ msg: "product not find" });
     }
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
 
     //create new card
-    if (!cardFind || cardFind.estado == "pendiente") {
+    if (
+      !cardFind ||
+      cardFind.estado == "completo" ||
+      cardFind.stado == "entregado"
+    ) {
       const newPedido = new pedidos({
         productos: [
           {
@@ -175,7 +174,7 @@ export const deletOrder = async (req, res) => {
 export const getOrder = async (req, res) => {
   try {
     const token = req.headers.token;
-
+    console.log(token);
     if (!token) {
       return res
         .status(401)

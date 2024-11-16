@@ -1,4 +1,5 @@
 //dependencias
+import  cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 import session from "express-session";
@@ -66,6 +67,7 @@ app.use(
     },
   })
 );
+app.use(cookieParser());
 const server = createServer(app);
 // Configuración de CORS
 const corsOptions = {

@@ -59,11 +59,9 @@ export const register = async (req, res) => {
           email,
           contrasenia,
           nombre,
-        })
-          .save()
-          .then(() => {
-            res.status(200).json({ msg: "User registered successfully" });
-          });
+        }).save();
+
+    res.status(200).json({ msg: "User registered successfully" });
   } catch (error) {
     console.log("Internal Server Error", error);
     res.status(500).json({ msg: "Error while registering user" });
@@ -96,21 +94,38 @@ export const login = async (req, res) => {
     if (!correctPassword) {
       return res.status(400).json({ msg: "Incorrect email or password" });
     }
-
-    // Generar el token con el rol
-    const token = await generarJWT({ id: userFind.id, rol: userFind.rol });
-
-    // Guardar el rol y el token en la sesión
+    const token = await generarJWT(userFind._id);
     req.session.token = token;
-    req.session.rol = userFind.rol;
 
-    return res.status(200).json({
-      exitoLogin: true,
-      msg: "Correct login",
-      token,
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: 3600000, // 1 hora
     });
+    console.log(res.cookie);
+    console.log(token, userFind);
+    res.status(200).json({ token, userFind });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Internal Server Error", error });
   }
+};
+export const getMeCtrl = (req, res) => {
+  try {
+    res.status(200).json(req.user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+//logout controller
+export const logout = async (req, res) => {
+  console.log(req.session);
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: "error closing session" });
+    }
+    res.clearCookie("connect.sid");
+
+    return res.json({ message: "Session closed successfully" });
+  });
 };

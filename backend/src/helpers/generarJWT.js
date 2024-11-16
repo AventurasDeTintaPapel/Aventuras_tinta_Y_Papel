@@ -1,16 +1,21 @@
 import jwt from "jsonwebtoken";
-const { sign } = jwt;
 
-export const generarJWT = (id) => {
+const JWT_SECRET = "mysecret"; // Centraliza la clave secreta
+
+export const generarJWT = (userId) => {
   return new Promise((resolve, reject) => {
-    sign(
-      id,
-      "mysecret",
-      {
-        expiresIn: 1700 * 1700,
-      },
-      (err, token) => {
-        err ? reject(err) : resolve(token);
+    const payload = { userId };
+    jwt.sign(
+      payload,
+      JWT_SECRET,
+      { expiresIn: "4h" }, // Expira en 4 horas
+      (error, token) => {
+        if (error) {
+          console.error(error);
+          reject("No se pudo generar el token");
+        } else {
+          resolve(token);
+        }
       }
     );
   });

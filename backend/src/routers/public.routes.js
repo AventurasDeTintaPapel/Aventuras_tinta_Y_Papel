@@ -4,7 +4,7 @@ import {
   getAllpublics,
   deletPublic,
 } from "../controllers/public.controllers.js";
-import { sessionVerified } from "../../middlewares/session.js";
+import { validateJwt } from "../../middlewares/session.js";
 import {
   publicValidation,
   updateValidation,
@@ -16,7 +16,7 @@ export const publiRouter = Router();
 //ruta para cargar los productos
 publiRouter.post(
   "/cargar",
-  sessionVerified,
+  validateJwt,
   subirImagen.single("imagen"),
   createPublic
 );
@@ -24,7 +24,7 @@ publiRouter.post(
 //update publics
 publiRouter.put(
   "/edit",
-  sessionVerified,
+  validateJwt,
   updateValidation,
   subirImagen.single("imagen"),
   editPublics
@@ -34,4 +34,4 @@ publiRouter.put(
 publiRouter.get("/getPublication", getAllpublics);
 
 // delte publics
-publiRouter.delete("/deletePublication", sessionVerified, deletPublic);
+publiRouter.delete("/deletePublication", validateJwt, deletPublic);

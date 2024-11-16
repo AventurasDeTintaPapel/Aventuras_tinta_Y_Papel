@@ -1,6 +1,11 @@
-import { register, login } from "../controllers/auth.controllers.js";
-import { logout, session } from "../controllers/auth.sesion.controller.js";
-import { sessionVerified } from "../../middlewares/session.js";
+import {
+  register,
+  login,
+  logout,
+  getMeCtrl,
+} from "../controllers/auth.controllers.js";
+
+import { validateJwt } from "../../middlewares/session.js";
 import { Router } from "express";
 import {
   regisValidation,
@@ -16,4 +21,6 @@ authRouter.post("/register", regisValidation, applyValidations, register);
 // router login user
 authRouter.post("/login", login);
 //router logout
-authRouter.post("/logout", sessionVerified, logout);
+authRouter.post("/logout", logout);
+//router get user
+authRouter.get("/user", validateJwt, getMeCtrl);

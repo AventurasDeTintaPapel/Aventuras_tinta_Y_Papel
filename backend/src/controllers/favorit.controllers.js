@@ -7,24 +7,8 @@ import mongoose from "mongoose";
 export const addToFav = async (req, res) => {
   try {
     const { idProduct } = req.body;
-    const token = req.headers.token;
-    console.log(token);
-    // Verificar si el token está presente
-    if (!token) {
-      console.log("You must register to be able to perform this task");
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
 
-    const user = await validarJWT(token);
-    // Verificar si el token es válido
-    if (!user) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-
-    const userId = user._id;
-    console.log(userId);
+    const userId = req.user._id;
 
     // Buscar el usuario
     const userFind = await usuario.findById(userId);
@@ -54,22 +38,10 @@ export const addToFav = async (req, res) => {
 // get favorites por ID
 export const getFavs = async (req, res) => {
   try {
-    const token = req.headers.token;
-    // Verificar si el token está presente
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
-    const user = await validarJWT(token);
-    // Verificar si el token es válido
-    if (!user) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-    const idUser = user._id;
-
+    const userId = req.user._id;
+    console.log(userId)
     const result = await usuario
-      .findById(idUser)
+      .findById(userId)
       .populate("favorites.producto");
 
     if (!result) {
@@ -88,21 +60,9 @@ export const getFavs = async (req, res) => {
 export const deleteFavs = async (req, res) => {
   const { idProduct } = req.body;
   try {
-    const token = req.headers.token;
-    // Verificar si el token está presente
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
-    const usuario = await validarJWT(token);
-    // Verificar si el token es válido
-    if (!usuario) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-    const idUser = usuario._id;
+    const userId = req.user._id;
 
-    const userFind = await usuario.findById(idUser);
+    const userFind = await usuario.findById(userId);
     if (!userFind) {
       return res.status(404).json({ msg: "User not found" });
     }
