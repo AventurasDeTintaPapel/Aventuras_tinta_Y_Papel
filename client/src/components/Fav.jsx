@@ -11,21 +11,22 @@ export const CorazonFav = ({ producto, estilo }) => {
 
   useEffect(() => {
     const fetchFavorites = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await axios.get("http://localhost:3400/api/favoritos/getFav", {
-            headers: { token },
-            credentials: "include",
-          });
-          const favoritesData = response.data.favorites;
-          setFavorites(favoritesData);
-          // Verificación local
-          const isFavorite = favoritesData.some((fav) => fav.producto._id === producto._id);
-          setIsFavorite(isFavorite);
-        } catch (error) {
-          console.error("Error fetching favorites:", error);
-        }
+      try {
+        const response = await axios.get(
+          "http://localhost:3400/api/favoritos/getFav",
+          {
+            withCredentials: true, // Enviar cookies con la solicitud
+          }
+        );
+        const favoritesData = response.data.favorites;
+        setFavorites(favoritesData);
+        // Verificación local
+        const isFavorite = favoritesData.some(
+          (fav) => fav.producto._id === producto._id
+        );
+        setIsFavorite(isFavorite);
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
       }
     };
 
@@ -40,24 +41,19 @@ export const CorazonFav = ({ producto, estilo }) => {
       if (isFavorite) {
         // Eliminar de favoritos
         await axios.delete("http://localhost:3400/api/favoritos/delete", {
-          headers: { token },
-          credentials: "include",
-          data: { idProduct: producto._id },
+          withCredentials: true, // Enviar cookies con la solicitud
+          data: { idProduct: producto._id }, // Enviar el ID del producto a eliminar
         });
-        setFavorites((prev) => prev.filter((fav) => fav.producto._id !== producto._id));
+        setFavorites((prev) =>
+          prev.filter((fav) => fav.producto._id !== producto._id)
+        );
         console.log("se elimino con exito");
       } else {
         // Agregar a favoritos
-        await axios.post(
-          "http://localhost:3400/api/favoritos/addFav",
-          {
-            idProduct: producto._id,
-          },
-          {
-            headers: { token },
-            credentials: "include",
-          }
-        );
+        await axios.post("http://localhost:3400/api/favoritos/addFav", {
+          withCredentials: true,
+          idProduct: producto._id,
+        });
         mostrarAlerta("Se agrego correctamente a carrito");
         setFavorites((prev) => [...prev, { producto }]);
       }
@@ -71,7 +67,9 @@ export const CorazonFav = ({ producto, estilo }) => {
     <div>
       {Alerta}
       <div className={estilo}>
-        <button onClick={handleFavoriteToggle}>{isFavorite ? <FaHeart /> : <FaRegHeart />}</button>
+        <button onClick={handleFavoriteToggle}>
+          {isFavorite ? <FaHeart /> : <FaRegHeart />}
+        </button>
       </div>
     </div>
   );

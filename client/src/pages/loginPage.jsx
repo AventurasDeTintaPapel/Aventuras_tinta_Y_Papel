@@ -18,7 +18,7 @@ export default function Login() {
       headers: {
         "Content-type": "application/json",
       },
-      credentials: "include",
+      withCredentials: true,
     });
     console.log("Petición realizada:", peticion);
 
@@ -33,11 +33,13 @@ export default function Login() {
 
       // Seteamos el token en el localStorage.
       localStorage.setItem("token", respuesta.token);
-      localStorage.setItem("role", respuesta.role);
 
+      localStorage.setItem("role", respuesta.role);
+      console.log(respuesta);
       // Redirecciones según el rol
       if (respuesta.role === "admin") {
-        window.location.href = "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
+        window.location.href =
+          "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
       } else {
         navigation("/");
       }
@@ -48,7 +50,11 @@ export default function Login() {
     <>
       <div className=" w-full h-[100vh] bg-black opacity-45 z-10 absolute"></div>
 
-      <img className="absolute z-0 w-[98%] h-[100vh] left-[1vw]" src={imglogin} alt="" />
+      <img
+        className="absolute z-0 w-[98%] h-[100vh] left-[1vw]"
+        src={imglogin}
+        alt=""
+      />
 
       <div className="w-full h-[100vh] flex items-center justify-center">
         <form
@@ -61,7 +67,10 @@ export default function Login() {
 
           <div className="space-y-[1vw] pb-[2vw] ">
             <div className="">
-              <label htmlFor="usuario" className="text-[1.5vw] font-semibold ml-[0.2vw]">
+              <label
+                htmlFor="usuario"
+                className="text-[1.5vw] font-semibold ml-[0.2vw]"
+              >
                 Email:
               </label>
               <input
@@ -75,7 +84,10 @@ export default function Login() {
             </div>
 
             <div className="">
-              <label htmlFor="contraseña" className="text-[1.5vw] font-semibold ml-[0.2vw]">
+              <label
+                htmlFor="contraseña"
+                className="text-[1.5vw] font-semibold ml-[0.2vw]"
+              >
                 Contraseña:
               </label>
               <input
@@ -99,7 +111,10 @@ export default function Login() {
           <div className="space-y-[0.2vw] mt-[1vw]">
             <div>
               <span className="text-[1.3vw]">¿No tienes cuenta? </span>
-              <a className="text-emerald-500  text-[1.1vw]" href="http://localhost:5173/registro">
+              <a
+                className="text-emerald-500  text-[1.1vw]"
+                href="http://localhost:5173/registro"
+              >
                 Regístrate
               </a>
             </div>

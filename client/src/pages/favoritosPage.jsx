@@ -16,10 +16,12 @@ export default function MisFavoritos() {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3400/api/favoritos/getFav", {
-          headers: { token },
-        });
+        const response = await axios.get(
+          "http://localhost:3400/api/favoritos/getFav",
+          {
+            withCredentials: true, // Enviar cookies con la solicitud
+          }
+        );
 
         const favoritesData = response.data.favorites; // Acceder a los favoritos desde la respuesta
         setFavorites(favoritesData); // Almacenar los favoritos en el estado
@@ -43,7 +45,10 @@ export default function MisFavoritos() {
           {favorites.length > 0 ? (
             favorites.map((fav) => (
               // tarjetas
-              <div key={fav.producto._id} className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[45vw] h-[17vw] p-[0.6vw]">
+              <div
+                key={fav.producto._id}
+                className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[45vw] h-[17vw] p-[0.6vw]"
+              >
                 <CorazonFav
                   key={fav.producto._id}
                   producto={fav.producto}
@@ -53,14 +58,21 @@ export default function MisFavoritos() {
                 />
                 {/* imagen */}
                 <div className="w-[13.7vw] h-full">
-                  <img src={fav.producto.imagen} className="w-full h-full object-cover rounded-bl-[1vw] rounded-[0.6vw]" alt="" />
+                  <img
+                    src={fav.producto.imagen}
+                    className="w-full h-full object-cover rounded-bl-[1vw] rounded-[0.6vw]"
+                    alt=""
+                  />
                 </div>
                 {/* info */}
                 <div className="w-full flex flex-col justify-between pl-[1.5vw] py-[0.2vw] ">
                   <div>
                     {/* titulo */}
                     <div className="w-[25vw]">
-                      <p className="truncate text-[#5F3F73] text-[2.5vw]"> {fav.producto.titulo}</p>
+                      <p className="truncate text-[#5F3F73] text-[2.5vw]">
+                        {" "}
+                        {fav.producto.titulo}
+                      </p>
                     </div>
 
                     <div className=" w-[20vw]">
