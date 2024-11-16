@@ -9,42 +9,47 @@ import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 
 export default function MisFavoritos() {
-  const [favorites, setFavorites] = useState([]); // Estado para almacenar los favoritos
-  const [loading, setLoading] = useState(true); // Estado para manejar la carga
+  const [favorites, setFavorites] = useState([]); // Estado para favoritos
+  const [loading, setLoading] = useState(true); // Estado para manejar carga
   const [error, setError] = useState(null); // Estado para manejar errores
 
+  // Efecto para obtener los favoritos
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
+        setLoading(true); // Iniciar la carga
         const response = await axios.get(
           "http://localhost:3400/api/favoritos/getFav",
           {
             withCredentials: true, // Enviar cookies con la solicitud
           }
         );
-
-        const favoritesData = response.data.favorites; // Acceder a los favoritos desde la respuesta
-        setFavorites(favoritesData); // Almacenar los favoritos en el estado
-      } catch (error) {
-        setError(error); // Guardar el error en caso de que ocurra
+        setFavorites(response.data.favorites || []); // Actualizar favoritos
+      } catch (err) {
+        setError(err.response?.data?.msg || "Error al cargar favoritos");
       } finally {
-        setLoading(false); // Cambiar el estado de loading a false
+        setLoading(false); // Terminar la carga
       }
     };
 
-    fetchFavorites(); // Llamar a la función para realizar la solicitud
+    fetchFavorites();
   }, []);
 
+  // Renderizado principal
   return (
     <div className="grid grid-rows-[auto_auto_1fr_auto]">
       <Header colAndrow={"row-start-1"} />
       <Nav colAndrow={"row-start-2"} />
       <main className="row-start-3">
-        {/* contenedor tarjetas */}
+        {/* Contenedor tarjetas */}
         <div className="grid grid-cols-2 gap-y-[2vw] justify-items-center py-[2vw] h-full">
-          {favorites.length > 0 ? (
+          {loading ? (
+            <p className="text-center text-[2vw] text-gray-600">Cargando favoritos...</p>
+          ) : error ? (
+            <p className="text-center text-[2vw] text-red-600">{error}</p>
+          ) : favorites.length > 0 ? (
             favorites.map((fav) => (
-              // tarjetas
+              // Tarjetas
               <div
                 key={fav.producto._id}
                 className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[45vw] h-[17vw] p-[0.6vw]"
@@ -56,35 +61,33 @@ export default function MisFavoritos() {
                     "text-[#5a189a] hover:text-[2.5vw] transition-all ease-in-out duration-300 hover:translate-x-[0.2vw] hover:translate-y-[-0.2vw] absolute right-[2vw] top-[1.8vw] text-[2vw]"
                   }
                 />
-                {/* imagen */}
+                {/* Imagen */}
                 <div className="w-[13.7vw] h-full">
                   <img
                     src={fav.producto.imagen}
                     className="w-full h-full object-cover rounded-bl-[1vw] rounded-[0.6vw]"
-                    alt=""
+                    alt={fav.producto.titulo || "Imagen del producto"}
                   />
                 </div>
-                {/* info */}
-                <div className="w-full flex flex-col justify-between pl-[1.5vw] py-[0.2vw] ">
+                {/* Información */}
+                <div className="w-full flex flex-col justify-between pl-[1.5vw] py-[0.2vw]">
                   <div>
-                    {/* titulo */}
+                    {/* Título */}
                     <div className="w-[25vw]">
                       <p className="truncate text-[#5F3F73] text-[2.5vw]">
-                        {" "}
-                        {fav.producto.titulo}
+                        {fav.producto.titulo || "Título desconocido"}
                       </p>
                     </div>
-
-                    <div className=" w-[20vw]">
-                      {/* autor */}
+                    <div className="w-[20vw]">
+                      {/* Autor */}
                       <p className="text-[1.8vw] text-[#7D608F] truncate">
                         <span className="text-[#5F3F73]">Autor: </span>
-                        {fav.producto.autor}
+                        {fav.producto.autor || "Desconocido"}
                       </p>
-                      {/* precio */}
+                      {/* Precio */}
                       <p className="text-[1.8vw] text-[#7D608F]">
                         <span className="text-[#5F3F73]">Precio: </span>
-                        {fav.producto.precio}
+                        {fav.producto.precio ? `$${fav.producto.precio}` : "No disponible"}
                       </p>
                     </div>
                   </div>
@@ -96,7 +99,7 @@ export default function MisFavoritos() {
                       text={"Detalles"}
                       id={fav.producto._id}
                       estilos={
-                        "absolute border-[0.15vw] border-[#977aa6]  px-[1.5vw] py-[0.2vw] right-[10.5vw] rounded-[0.6vw] text-[#977aa6]  text-[1.3vw] hover:text-[1.4vw] hover:translate-x-[0.1vw] hover:translate-y-[-0.1vw] transition-all ease-in-out duration-200"
+                        "absolute border-[0.15vw] border-[#977aa6] px-[1.5vw] py-[0.2vw] right-[10.5vw] rounded-[0.6vw] text-[#977aa6] text-[1.3vw] hover:text-[1.4vw] hover:translate-x-[0.1vw] hover:translate-y-[-0.1vw] transition-all ease-in-out duration-200"
                       }
                     />
                   </div>
@@ -104,7 +107,7 @@ export default function MisFavoritos() {
               </div>
             ))
           ) : (
-            <p>No tiene favoritos</p>
+            <p className="text-center text-[2vw] text-gray-600">No tiene favoritos</p>
           )}
         </div>
       </main>

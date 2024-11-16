@@ -50,14 +50,20 @@ export default function ProductForm() {
     try {
       const response = await fetch("http://localhost:3400/api/publics/cargar", {
         method: "POST",
-        headers: { token: token },
         body: submitData,
         credentials: "include",
       });
       if (response.ok) {
         const result = await response.json();
         mostrarAlerta("Se subio correctamente su producto");
-        setFormData({ title: "", description: "", phone: "", price: "", type: "venta", imagen: null });
+        setFormData({
+          title: "",
+          description: "",
+          phone: "",
+          price: "",
+          type: "venta",
+          imagen: null,
+        });
         setImagePreview(null);
 
         setTimeout(() => {
@@ -82,9 +88,14 @@ export default function ProductForm() {
       <Header colAndrow={"col-span-2 row-start-1"} />
       <Nav colAndrow={"col-span-2 row-start-2"} />
       <aside className="col-start-1 row-start-3">
-        <p className="font-poopins text-[2vw] pt-[1vw] text-[#3f2d51] pl-[1vw]">Añadir producto</p>
+        <p className="font-poopins text-[2vw] pt-[1vw] text-[#3f2d51] pl-[1vw]">
+          Añadir producto
+        </p>
         <div className="p-[1vw]">
-          <form onSubmit={handleSubmit} className="bg-[#ead8fc] p-[1vw] w-[25vw] space-y-[1vw]  text-[#3f2d51]">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-[#ead8fc] p-[1vw] w-[25vw] space-y-[1vw]  text-[#3f2d51]"
+          >
             <div className="font-baloo space-y-[0.5vw]">
               {/* Título */}
               <div>
@@ -183,7 +194,10 @@ export default function ProductForm() {
                     className="absolute top-0 left-0 w-[11vw] h-full cursor-pointer opacity-0"
                     required
                   />
-                  <button type="button" className="bg-[#dfc3fb] py-[0.5vw] px-[1vw] rounded text-[1.2vw]">
+                  <button
+                    type="button"
+                    className="bg-[#dfc3fb] py-[0.5vw] px-[1vw] rounded text-[1.2vw]"
+                  >
                     Seleccionar Imagen
                   </button>
                 </div>
@@ -192,12 +206,20 @@ export default function ProductForm() {
               {/* Vista previa de la imagen */}
               {imagePreview && (
                 <div>
-                  <img src={imagePreview} alt="Vista previa de la imagen" className="w-[20vw] h-[30vw]" />
+                  <img
+                    src={imagePreview}
+                    alt="Vista previa de la imagen"
+                    className="w-[20vw] h-[30vw]"
+                  />
                 </div>
               )}
             </div>
 
-            <button className="bg-[#cbade9]  text-[1.4vw] w-full rounded py-[1vw] font-poopins tracking-wide" type="submit" disabled={isSubmitting}>
+            <button
+              className="bg-[#cbade9]  text-[1.4vw] w-full rounded py-[1vw] font-poopins tracking-wide"
+              type="submit"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Añadiendo producto" : "Añadir producto"}
             </button>
           </form>
