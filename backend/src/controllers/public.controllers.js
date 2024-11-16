@@ -1,38 +1,23 @@
 import mongoose from "mongoose";
 import publics from "../models/public.models.js";
 import { validarJWT } from "../helpers/validadJWT.js";
+import cloudinary from "../../src/config.js";
+import fs from "fs";
 // Create public
 export const createPublic = async (req, res) => {
   try {
-    const token = req.headers.token;
-    console.log(token);
+    const userId = req.user._id;
+    const { title, description, price, phone, type } = req.body;
 
-    const { title, description, price, type, phone } = req.body;
-
-    if (!token) {
-      console.log("Token invuesto");
-
-      return res
-        .status(401)
-        .json({ msg: "Debe registrarse para realizar esa tarea" });
-    }
-
-    const user = await validarJWT(token);
-    if (!user) {
-      console.log("Token invuesto");
-
-      return res.status(401).json({ msg: "Token inválido" });
-    }
-
-    const idUser = user._id;
     const img = await cloudinary.uploader.upload(req.file.path);
     fs.unlinkSync(req.file.path);
 
     const newPublic = new publics({
       title,
-      autor: idUser,
+      autor: userId,
       description,
       price,
+      phone,
       imagen: img.secure_url,
       type,
     });

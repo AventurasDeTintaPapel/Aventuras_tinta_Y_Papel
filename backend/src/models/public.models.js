@@ -29,10 +29,6 @@ const publics = new Schema(
       type: String,
       required: true,
     },
-    phone:{
-      type: Number,
-      required: true,
-    },
     coments: [
       {
         body: {

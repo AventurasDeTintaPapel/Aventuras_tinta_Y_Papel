@@ -110,13 +110,14 @@ export const getMeCtrl = async (req, res) => {
 };
 //logout controller
 export const logout = async (req, res) => {
-  console.log(req.session);
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: "error closing session" });
     }
-    res.clearCookie("connect.sid");
+    res.clearCookie("connect.sid", { path: "/" });
+    res.clearCookie("authToken", { path: "/" });
 
+    console.log("session closed");
     return res.json({ message: "Session closed successfully" });
   });
 };
