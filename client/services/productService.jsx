@@ -1,89 +1,53 @@
-import axios from "axios";
-import { useState } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
+import Cookies from "js-cookie"; // Importar la librería de cookies
 
-const API_URL = "http://localhost:3400/api/publics"; // URL del backend
+const SessionContext = createContext({
+  usuario: null,
+  loading: true,
+});
 
-// Función para crear un producto
-export const createProduct = async (productData) => {
-  const token = localStorage.getItem("token"); // Obtén el token desde localStorage
-  console.log(token);
-  try {
-    const response = await fetch("http://localhost:3400/api/publics/cargar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        token: token,
-      },
-      credentials: "include",
-      body: JSON.stringify(productData),
-    });
+export const SessionProvider = ({ children }) => {
+  const [usuario, setUsuario] = useState(null); // null: sin sesión
+  const [loading, setLoading] = useState(true); // Estado de carga inicial
 
-    const data = await response.json();
-    if (response.status === 401) {
-      console.error("No tienes autorización para realizar esta acción.");
-    } else {
-      console.log(data);
-    }
-  } catch (error) {
-    console.error("Error al crear el producto:", error);
-  }
-};
-
-// Función para obtener productos
-export const fetchProducts = async () => {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    console.error("No token found, please login.");
-    return null;
-  }
-
-  try {
-    const response = await fetch("http://localhost:3400/api/publics/obtener", {
+  useEffect(() => {
+    // Llamada para obtener el usuario actual
+    fetch("http://localhost:3400/api/auth/user", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "Content-type": "application/json",
       },
       credentials: "include",
-    });
+    })
+      .then((respuesta) => {
+        if (!respuesta.ok) {
+          throw new Error("No se pudo obtener la sesión");
+        }
+        return respuesta.json();
+      })
+      .then((data) => {
+        const usuarioRecibido = data.usuario || null;
+        setUsuario(usuarioRecibido); // Establecer el usuario
+        // Si hay usuario, lo guardamos en las cookies (expira en 7 días)
+        if (usuarioRecibido) {
+          Cookies.set("usuario", JSON.stringify(usuarioRecibido), {
+            expires: 7,
+          });
+        } else {
+          Cookies.remove("usuario"); // Si no hay usuario, eliminamos la cookie
+        }
+      })
+      .catch((error) => {
+        console.log("Error al obtener la sesión:", error);
+        setUsuario(null); // Sin sesión en caso de error
+        Cookies.remove("usuario"); // Eliminar la cookie si hay error
+      })
+      .finally(() => {
+        setLoading(false); // Termina el estado de carga
+      });
+  }, []);
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Error status:", response.status);
-      console.error("Error details:", errorData);
-      throw new Error("Network response was not ok");
-    }
-
-    const data = await response.json();
-    console.log("API Response:", data); // <-- Verifica la estructura de los datos
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    throw error;
-  }
+  return <SessionContext.Provider value={{ usuario, setUsuario, loading }}>{children}</SessionContext.Provider>;
 };
 
-// Función para actualizar un producto
-export const updateProduct = async (id, productData) => {
-  const token = localStorage.getItem("token");
-  try {
-    const response = await fetch("http://localhost:3400/api/publics/edit/", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        token: token,
-      },
-      body: JSON.stringify(productData),
-    });
-
-    const data = await response.json();
-    if (response.status === 401) {
-      console.error("No tienes autorización para realizar esta acción.");
-    } else {
-      console.log(data);
-    }
-  } catch (error) {
-    console.error("Error al actualizar el producto:", error);
-  }
-};
+export const useSession = () => useContext(SessionContext);

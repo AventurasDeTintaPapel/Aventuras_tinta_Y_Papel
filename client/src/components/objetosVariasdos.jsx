@@ -10,30 +10,20 @@ export function BotonComprar({ producto, estilos }) {
   const { Alerta, mostrarAlerta } = useAlert();
 
   const agregarProductoAlCarrito = async () => {
-    // try {
-    //   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    //   carrito.push(producto);
-    //   localStorage.setItem("carrito", JSON.stringify(carrito));
-    //   mostrarAlerta("Se agrego correctamente a carrito");
-    // } catch (error) {
-    //   mostrarAlerta("No se pudo agregar el producto a carrito");
-    // }
     const cantidad = 1;
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("El usuario no está autenticado.");
-      return;
-    }
-    console.log(producto._id);
+    // const token = localStorage.getItem("token");
+    // if (!token) {
+    //   console.error("El usuario no está autenticado.");
+    //   return;
+    // }
     try {
       const response = await fetch("http://localhost:3400/api/pedidos/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          token: token,
         },
         body: JSON.stringify({
-          idProducto: producto._id,
+          idProducto: producto,
           cantidad,
         }),
       });
@@ -52,7 +42,7 @@ export function BotonComprar({ producto, estilos }) {
   return (
     <>
       <button onClick={agregarProductoAlCarrito} className={estilos}>
-        Enviar al Carrito
+        Enivar a carrito
       </button>
       {Alerta}
     </>
@@ -99,20 +89,10 @@ export function CatalogoPrueba() {
           </div>
           {/* titulo y precio */}
           <div className=" h-full relative pt-[0.5vw] pl-[1vw]">
-            <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">
-              {producto.titulo}
-            </div>
-            <CorazonFav
-              key={producto._id}
-              producto={producto}
-              estilo={
-                "text-[#5a189a] absolute right-[1vw] top-[0.8vw] text-[1.5vw]"
-              }
-            />
+            <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">{producto.titulo}</div>
+            <CorazonFav key={producto._id} producto={producto} estilo={"text-[#5a189a] absolute right-[1vw] top-[0.8vw] text-[1.5vw]"} />
 
-            <p className="text-[1.6vw] text-[#4d2b6c]">
-              Precio: ${producto.precio}
-            </p>
+            <p className="text-[1.6vw] text-[#4d2b6c]">Precio: ${producto.precio}</p>
           </div>
 
           {/* boton */}
@@ -179,12 +159,7 @@ export function CarruselInicio() {
 
 export function IconoCargando() {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
       <circle cx={12} cy={2} r={0} fill="currentColor">
         <animate
           attributeName="r"
@@ -196,13 +171,7 @@ export function IconoCargando() {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle
-        cx={12}
-        cy={2}
-        r={0}
-        fill="currentColor"
-        transform="rotate(45 12 12)"
-      >
+      <circle cx={12} cy={2} r={0} fill="currentColor" transform="rotate(45 12 12)">
         <animate
           attributeName="r"
           begin="0.125s"
@@ -213,13 +182,7 @@ export function IconoCargando() {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle
-        cx={12}
-        cy={2}
-        r={0}
-        fill="currentColor"
-        transform="rotate(90 12 12)"
-      >
+      <circle cx={12} cy={2} r={0} fill="currentColor" transform="rotate(90 12 12)">
         <animate
           attributeName="r"
           begin="0.25s"
@@ -230,13 +193,7 @@ export function IconoCargando() {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle
-        cx={12}
-        cy={2}
-        r={0}
-        fill="currentColor"
-        transform="rotate(135 12 12)"
-      >
+      <circle cx={12} cy={2} r={0} fill="currentColor" transform="rotate(135 12 12)">
         <animate
           attributeName="r"
           begin="0.375s"
@@ -247,13 +204,7 @@ export function IconoCargando() {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle
-        cx={12}
-        cy={2}
-        r={0}
-        fill="currentColor"
-        transform="rotate(180 12 12)"
-      >
+      <circle cx={12} cy={2} r={0} fill="currentColor" transform="rotate(180 12 12)">
         <animate
           attributeName="r"
           begin="0.5s"
@@ -264,13 +215,7 @@ export function IconoCargando() {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle
-        cx={12}
-        cy={2}
-        r={0}
-        fill="currentColor"
-        transform="rotate(225 12 12)"
-      >
+      <circle cx={12} cy={2} r={0} fill="currentColor" transform="rotate(225 12 12)">
         <animate
           attributeName="r"
           begin="0.625s"
@@ -281,13 +226,7 @@ export function IconoCargando() {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle
-        cx={12}
-        cy={2}
-        r={0}
-        fill="currentColor"
-        transform="rotate(270 12 12)"
-      >
+      <circle cx={12} cy={2} r={0} fill="currentColor" transform="rotate(270 12 12)">
         <animate
           attributeName="r"
           begin="0.75s"
@@ -298,13 +237,7 @@ export function IconoCargando() {
           values="0;2;0;0"
         ></animate>
       </circle>
-      <circle
-        cx={12}
-        cy={2}
-        r={0}
-        fill="currentColor"
-        transform="rotate(315 12 12)"
-      >
+      <circle cx={12} cy={2} r={0} fill="currentColor" transform="rotate(315 12 12)">
         <animate
           attributeName="r"
           begin="0.875s"

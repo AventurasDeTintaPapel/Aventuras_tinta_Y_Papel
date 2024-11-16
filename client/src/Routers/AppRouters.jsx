@@ -31,19 +31,19 @@ const AppRouter = () => {
     <Suspense fallback={<p>Cargando página ...</p>}>
       <BrowserRouter>
         <Routes>
-          {/* Rutas que usan el Layout */}
+          {/* Rutas que sin aside */}
           <Route element={<Layout />}>
-            <Route path="/contactos" element={<Contactos />} />
             <Route path="/" element={<Inicio />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/soporte" element={<SupportChat />} />
             <Route path="/detalles/:id" element={<DetallesProductos />} />
-            <Route path="/listado" element={<ProductList />} />
             {/* Rutas admin */}
             <Route path="/adminPanel" element={<AdminPanel />} />
           </Route>
-
+          {/* prueba de header */}
+          <Route path="/contactos" element={<Contactos />} />
           {/* rutas con aside*/}
+          <Route path="/listado" element={<ProductList />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/favoritos" element={<MisFavoritos />} />
           <Route path="/intercambiar" element={<FormPublic />} />

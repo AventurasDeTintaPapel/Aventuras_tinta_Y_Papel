@@ -7,7 +7,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 
 import "@fontsource/montserrat/700.css";
 
-export function Footer({ colAndrow }) {
+export function FooterPrueba({ colAndrow }) {
   return (
     <footer className={` ${colAndrow} `}>
       <div className="bg-purple-900 text-purple-100">

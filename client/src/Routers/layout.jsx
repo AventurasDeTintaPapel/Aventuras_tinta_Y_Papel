@@ -6,13 +6,13 @@ import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
-    <div className="grid grid-cols-[25%_75%] grid-rows-[auto_auto_1fr_auto] h-screen">
-      <Header colAndrow={"col-span-2 row-start-1"} />
-      <Nav colAndrow={"col-span-2 row-start-2"} />
-      <div className="row-start-3 col-span-2">
+    <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
+      <Header colAndrow={"row-start-1"} />
+      <Nav colAndrow={" row-start-2"} />
+      <div className="row-start-3 ">
         <Outlet />
       </div>
-      <Footer colAndrow={"col-span-2 row-start-4"} />
+      <Footer colAndrow={"row-start-4"} />
     </div>
   );
 }

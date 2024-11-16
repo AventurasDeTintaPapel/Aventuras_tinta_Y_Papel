@@ -7,7 +7,6 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { BotonComprar } from "../components/objetosVariasdos";
-import { useAlert } from "../hook/useAlert";
 
 export default function Catalogo() {
   const { Product, setFilters, loading, error } = useFetchProductos();
