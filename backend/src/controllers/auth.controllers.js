@@ -5,7 +5,15 @@ import { validationResult } from "express-validator";
 
 // register
 export const register = async (req, res) => {
-  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre, phone } = req.body;
+  const {
+    nombreUsuario,
+    apellido,
+    fechaNacimiento,
+    email,
+    password,
+    nombre,
+    phone,
+  } = req.body;
 
   try {
     // Validations
@@ -23,7 +31,8 @@ export const register = async (req, res) => {
     }
 
     // Check if the email is for admin and assign the role
-    const rol = email.toLowerCase() === "admin@aventuras.com" ? "admin" : "user";
+    const rol =
+      email.toLowerCase() === "admin@aventuras.com" ? "admin" : "user";
 
     // Create new user with the specified role
     await new usuario({
@@ -34,31 +43,14 @@ export const register = async (req, res) => {
       contrasenia,
       nombre,
       rol, // Save the role in the database
-      phone 
-    }).save()
+      phone,
+    }).save();
     res.status(200).json({ msg: "User registered successfully" });
-
-<<<<<<< HEAD
-    userFind === null
-      ? res.satus(302).json({ msg: "email not available" })
-      : await new usuario({
-          nombreUsuario,
-          apellido,
-          fechaNacimiento,
-          email,
-          contrasenia,
-          nombre,
-        }).save();
-
-    res.status(200).json({ msg: "User registered successfully" });
-=======
->>>>>>> b7a44cab564b86eec19a53984b05bf899d5ac6fe
   } catch (error) {
     console.log("Internal Server Error", error);
     res.status(500).json({ msg: "Error while registering user" });
   }
 };
-
 
 // login with JWT
 export const login = async (req, res) => {
@@ -71,7 +63,9 @@ export const login = async (req, res) => {
     }
 
     if (!email || !password) {
-      return res.status(400).json({ msg: "Insufficient data for authentication" });
+      return res
+        .status(400)
+        .json({ msg: "Insufficient data for authentication" });
     }
 
     const userFind = await usuario.findOne({ email });
@@ -83,7 +77,7 @@ export const login = async (req, res) => {
     if (!correctPassword) {
       return res.status(400).json({ msg: "Incorrect email or password" });
     }
-<<<<<<< HEAD
+
     const token = await generarJWT(userFind._id);
     req.session.token = token;
 
@@ -94,16 +88,6 @@ export const login = async (req, res) => {
     });
     console.log(res.cookie);
     console.log(token, userFind);
-    res.status(200).json({ token, userFind });
-=======
-
-    // Generar el token con el rol
-    const token = await generarJWT({ id: userFind.id, rol: userFind.rol });
-    
-    // Guardar el rol y el token en la sesión
-    req.session.token = token;
-    req.session.rol = userFind.rol; // Guardamos el rol del usuario en la sesión
-
     return res
       .cookie("token", token, { httpOnly: true, secure: true })
       .status(200)
@@ -112,14 +96,12 @@ export const login = async (req, res) => {
         msg: "Correct login",
         token,
       });
->>>>>>> b7a44cab564b86eec19a53984b05bf899d5ac6fe
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Internal Server Error", error });
   }
 };
-<<<<<<< HEAD
-export const getMeCtrl = (req, res) => {
+export const getMeCtrl = async (req, res) => {
   try {
     res.status(200).json(req.user);
   } catch (error) {
@@ -138,6 +120,3 @@ export const logout = async (req, res) => {
     return res.json({ message: "Session closed successfully" });
   });
 };
-=======
-
->>>>>>> b7a44cab564b86eec19a53984b05bf899d5ac6fe
