@@ -1,5 +1,6 @@
 import React from "react";
 import { CarruselInicio, CatalogoPrueba } from "../components/objetosVariasdos";
+import imgComics from "../assets/img/imgComics.png";
 
 function Separador({ texto }) {
   return <p className="text-white text-[2.5vw] font-semibold text-center bg-gradient-to-r from-blue-950 to-fuchsia-400 w-full">{texto}</p>;
@@ -9,7 +10,10 @@ export default function Inicio() {
   return (
     <main className="font-baloo">
       {/* carrusel */}
-      <CarruselInicio />
+      {/* <CarruselInicio /> */}
+      <div className="w-full h-[30vw]">
+        <img className="w-full h-full" src={imgComics} alt="" />
+      </div>
 
       <div className="flex flex-col items-center gap-[2vw] my-[2vw]">
         {/* separador */}

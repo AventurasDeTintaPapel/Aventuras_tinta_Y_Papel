@@ -8,6 +8,7 @@ export default function Registro() {
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [email, setEmail] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   // Funcion para registrarse
@@ -24,6 +25,7 @@ export default function Registro() {
         nombreUsuario,
         email,
         fechaNacimiento,
+        phone,
         password,
       }),
       headers: {
@@ -126,6 +128,20 @@ export default function Registro() {
                 placeholder="Roberto_E"
               />
             </div>
+            <div>
+  <label htmlFor="phone" className="text-[1.3vw] ml-[0.4vw] font-semibold">
+    Contacto
+  </label>
+  <input
+    className="h-[2.5vw] rounded-[0.3vw] p-[0.7vw] text-[1.5vw] w-full"
+    required
+    id="phone"
+    type="number"
+    value={phone}
+    onChange={(e) => setPhone(e.target.value)}
+    placeholder="123456789"
+  />
+</div>
             <div>
               <label htmlFor="contraseña" className="text-[1.3vw] ml-[0.4vw] font-semibold">
                 Contraseña

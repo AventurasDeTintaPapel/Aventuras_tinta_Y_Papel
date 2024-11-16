@@ -4,7 +4,8 @@ import { IoCart } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import "@fontsource/montserrat/700.css";
 import { IconoCerrarSesion, IconoFvoritos, IconoMisCompras, IconoPerfil, IconoSoporteAlCliente } from "./icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // boton iniciar sesion
 function iniciarSeccion() {
@@ -155,7 +156,7 @@ function BotonesSessionOnn() {
   );
 }
 
-function BotonBuscador() {
+function BotonBuscador({ setProductoBuscador, buscadorNavigate }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
   const [estiloBoton, setEstiloBoton] = useState({});
 
@@ -186,7 +187,13 @@ function BotonBuscador() {
         <input
           className=" rounded-l-full bg-gradient-to-r from-white to-purple-300 text-[1.1vw] text-purple-950 font-bold pl-[1vw] w-full h-[100%]"
           type="text"
-          placeholder="Search product"
+          onChange={(e) => setProductoBuscador(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              buscadorNavigate();
+            }
+          }}
+          placeholder="Buscar producto..."
         />
       </div>
 
@@ -203,6 +210,33 @@ function BotonBuscador() {
 
 // contenedor header
 export function Header({ colAndrow }) {
+  const [productos, setProductos] = useState([]);
+  const [productoBuscador, setProductoBuscador] = useState("");
+  const navigate = useNavigate();
+
+  const buscadorNavigate = async () => {
+    try {
+      if (!productoBuscador.trim()) return;
+
+      navigate(`/catalogo?query=${productoBuscador}`);
+
+      // Realiza la consulta
+      const response = await axios.get(`http://localhost:3400/api/filters?query=${productoBuscador}`, {
+        credentials: "include",
+      });
+
+      // Actualiza el estado de productos con los datos recibidos
+      setProductos(response.data);
+    } catch (error) {
+      console.log("Error al traer los productos:", error);
+    }
+
+    if (!productos || productos.length === 0) {
+      console.log("No hay el producto que está buscando");
+      return;
+    }
+  };
+
   return (
     <header className={colAndrow}>
       <div
@@ -216,7 +250,7 @@ export function Header({ colAndrow }) {
 
         <div className=" justify-center flex items-center gap-[1.5vw] br">
           {/* buscador */}
-          <BotonBuscador />
+          <BotonBuscador setProductoBuscador={setProductoBuscador} buscadorNavigate={buscadorNavigate} />
           <BotonPerfil />
           <a
             href="http://localhost:5173/carrito"

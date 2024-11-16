@@ -6,21 +6,24 @@ import "@fontsource/poppins/700.css";
 import "@fontsource/bree-serif";
 import "@fontsource/baloo-2/700.css";
 import { Suspense } from "react";
+import { PrivateRoutes } from "../components/PrivateRoutes";
 import Layout from "./layout";
 import {
+  AdminPanel,
   Carrito,
   Catalogo,
   Contactos,
   DetallesProductos,
+  FormPublic,
   Inicio,
   Login,
   MisFavoritos,
   Perfil,
-  ProductForm,
   ProductList,
   Registro,
   SupportChat,
 } from "../pages";
+// importacion para que ande paypal
 import PayPalPayment from "../components/PaypalComponent.JSX";
 
 const AppRouter = () => {
@@ -36,12 +39,14 @@ const AppRouter = () => {
             <Route path="/soporte" element={<SupportChat />} />
             <Route path="/detalles/:id" element={<DetallesProductos />} />
             <Route path="/listado" element={<ProductList />} />
+            {/* Rutas admin */}
+            <Route path="/adminPanel" element={<AdminPanel />} />
           </Route>
 
           {/* rutas con aside*/}
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/favoritos" element={<MisFavoritos />} />
-          <Route path="/intercambiar" element={<ProductForm />} />
+          <Route path="/intercambiar" element={<FormPublic />} />
 
           {/* Ruta para paypal */}
           <Route path="/carrito" element={<Carrito />}>

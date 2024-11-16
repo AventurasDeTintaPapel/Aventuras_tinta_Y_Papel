@@ -12,7 +12,7 @@ const initialOptions = {
 function App() {
   return (
     <PayPalScriptProvider options={initialOptions}>
-      <AppRouter />;
+      <AppRouter />
     </PayPalScriptProvider>
   );
 }
