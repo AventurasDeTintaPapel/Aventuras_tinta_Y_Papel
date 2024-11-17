@@ -82,7 +82,7 @@ export const login = async (req, res) => {
     req.session.token = token;
 
     res.cookie("authToken", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: false,
       maxAge: 3600000, // 1 hora
     });
@@ -95,9 +95,15 @@ export const login = async (req, res) => {
         exitoLogin: true,
         msg: "Correct login",
         token,
+        usuario: {
+          id: userFind._id,
+          email: userFind.email,
+          rol: userFind.rol,
+          nombre: userFind.nombre,
+        },
       });
   } catch (error) {
-    console.log(error);
+    console.log("este es el error", error);
     return res.status(500).json({ msg: "Internal Server Error", error });
   }
 };

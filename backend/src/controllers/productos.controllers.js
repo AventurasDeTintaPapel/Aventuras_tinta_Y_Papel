@@ -57,7 +57,7 @@ export const cargarProducto = async (req, res) => {
   } catch (error) {
     
     return res.status(500).json({ msg: "Error al guardar el producto" });
-    console.log(error);
+    console.log("este es el error:",error);
   }
 };
 
