@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 export default function Carrito() {
@@ -96,25 +95,41 @@ export default function Carrito() {
     return <button onClick={EditarProducto}>Menos</button>;
   }
 
+  console.log(carrito.productos);
+
   return (
-    <div>
-      <h2>Carrito</h2>
-      <p>Estado del pedido: {carrito.estado}</p>
-      <p>Pedido #: {carrito.numPedido}</p>
-      <ul>
+    <div className="space-y-4">
+      <div className="">
+        <h2>Carrito</h2>
+        <p>Estado del pedido: {carrito.estado}</p>
+        <p>Pedidos:{carrito.numPedido}</p>
+      </div>
+      <div className="space-y-3">
         {carrito.productos && carrito.productos.length > 0 ? (
           carrito.productos.map((producto) => (
-            <li key={producto._id}>
-              Producto: Cantidad: {producto.cantidad} - Precio: {producto.producto ? producto.producto.precio : "N/A"}
+            <div key={producto._id} className="bg-red-200">
+              {producto.producto ? (
+                <div>
+                  <p>Idioma:{producto.producto.idioma}</p>
+                  <img src="" alt="" />
+                  <p>Cantidad: {producto.cantidad} </p>
+                  <p>Precio:{producto.producto.precio}</p>
+
+                  <div className="space-x-3">
+                    <MasUnproducto idProduct={producto._id} cantidad={producto.cantidad} />
+                    <MenosUnproducto idProduct={producto._id} cantidad={producto.cantidad} />
+                  </div>
+                </div>
+              ) : (
+                <p>Fallos al traer informacion del productos</p>
+              )}
               <ButtonDelete productoId={producto._id} />
-              <MasUnproducto idProduct={producto._id} cantidad={producto.cantidad} />
-              <MenosUnproducto idProduct={producto._id} cantidad={producto.cantidad} />
-            </li>
+            </div>
           ))
         ) : (
           <li>No hay productos en el carrito.</li>
         )}
-      </ul>
+      </div>
     </div>
   );
 }

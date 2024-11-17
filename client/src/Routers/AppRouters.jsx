@@ -9,7 +9,10 @@ import { Suspense } from "react";
 import { PrivateRoutes } from "../components/PrivateRoutes";
 import Layout from "./layout";
 import {
+  AdminInicio,
   AdminPanel,
+  AdminPedidos,
+  AdminProveedores,
   Carrito,
   Catalogo,
   Contactos,
@@ -25,23 +28,32 @@ import {
 } from "../pages";
 // importacion para que ande paypal
 import PayPalPayment from "../components/PaypalComponent.JSX";
+import LayoutAdmin from "./layoutAdmin";
 
 const AppRouter = () => {
   return (
     <Suspense fallback={<p>Cargando página ...</p>}>
       <BrowserRouter>
         <Routes>
-          {/* Rutas que sin aside */}
+          {/* Rutas sin aside */}
           <Route element={<Layout />}>
             <Route path="/" element={<Inicio />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/soporte" element={<SupportChat />} />
             <Route path="/detalles/:id" element={<DetallesProductos />} />
-            {/* Rutas admin */}
-            <Route path="/adminPanel" element={<AdminPanel />} />
           </Route>
+
+          {/* rutas para admin */}
+          <Route element={<LayoutAdmin />}>
+            <Route path="/inicioAdmin" element={<AdminInicio />} />
+            <Route path="/adminPanel" element={<AdminPanel />} />
+            <Route path="/adminProveedores" element={<AdminProveedores />} />
+            <Route path="/adminPedidos" element={<AdminPedidos />} />
+          </Route>
+
           {/* prueba de header */}
           <Route path="/contactos" element={<Contactos />} />
+
           {/* rutas con aside*/}
           <Route path="/listado" element={<ProductList />} />
           <Route path="/catalogo" element={<Catalogo />} />
