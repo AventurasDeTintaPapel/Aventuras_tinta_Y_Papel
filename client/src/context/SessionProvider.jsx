@@ -1,53 +1,67 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
-import Cookies from "js-cookie"; // Importar la librería de cookies
 
+// Crear un contexto para la sesión
 const SessionContext = createContext({
-  usuario: null,
   loading: true,
+  usuario: null,
+  setUsuario: () => {},
 });
 
 export const SessionProvider = ({ children }) => {
-  const [usuario, setUsuario] = useState(null); // null: sin sesión
-  const [loading, setLoading] = useState(true); // Estado de carga inicial
+  const [usuario, setUsuario] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Función para obtener el token desde las cookies
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  };
+
+  // Obtener el token de las cookies
+  const token = getCookie("authToken"); // Se asume que el token está guardado en las cookies
 
   useEffect(() => {
-    // Llamada para obtener el usuario actual
-    fetch("http://localhost:3400/api/auth/user", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-      credentials: "include", // Esto es lo correcto para enviar cookies
-    })
-      .then((respuesta) => {
-        if (!respuesta.ok) {
-          throw new Error("No se pudo obtener la sesión");
-        }
-        return respuesta.json();
+    // Si existe un token en las cookies, intentamos obtener la información del usuario desde el backend
+    if (token) {
+      fetch("http://localhost:3400/api/auth/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: token, // Enviar el token en la cabecera
+        },
+        credentials: "include", // Esto permite enviar cookies de forma automática
       })
-      .then((data) => {
-        const usuarioRecibido = data.usuario || null;
-        setUsuario(usuarioRecibido); // Establecer el usuario
-        // Si hay usuario, lo guardamos en las cookies (expira en 7 días)
-        if (usuarioRecibido) {
-          Cookies.set("usuario", JSON.stringify(usuarioRecibido), {
-            expires: 7,
-          });
-        } else {
-          Cookies.remove("usuario"); // Si no hay usuario, eliminamos la cookie
-        }
-      })
-      .catch((error) => {
-        console.log("Error al obtener la sesión:", error);
-        setUsuario(null); // Sin sesión en caso de error
-        Cookies.remove("usuario"); // Eliminar la cookie si hay error
-      })
-      .finally(() => {
-        setLoading(false); // Termina el estado de carga
-      });
-  }, []);
+        .then((respuesta) => {
+          if (!respuesta.ok) {
+            throw new Error("No se pudo obtener la información del usuario");
+          }
+          return respuesta.json();
+        })
+        .then((data) => {
+        console.log("soy yo", data);
+          // Si la respuesta contiene datos del usuario, los establecemos
+          setUsuario(data);
+        })
+        .catch((error) => {
+          console.log("Error al obtener la sesión:", error);
+          setUsuario(null); // Si hay error, establecemos el usuario como null
+        })
+        .finally(() => {
+          setLoading(false); // Cambiar el estado de carga cuando termine la solicitud
+        });
+    } else {
+      setLoading(false); // Si no hay token, ya no hace falta hacer la solicitud
+    }
+  }, [token]); // Solo vuelve a ejecutarse si el token cambia
 
-  return <SessionContext.Provider value={{ usuario, setUsuario, loading }}>{children}</SessionContext.Provider>;
+  return (
+    <SessionContext.Provider value={{ usuario, setUsuario, loading }}>
+      {children}
+    </SessionContext.Provider>
+  );
 };
 
+// Custom hook para acceder a la sesión
 export const useSession = () => useContext(SessionContext);

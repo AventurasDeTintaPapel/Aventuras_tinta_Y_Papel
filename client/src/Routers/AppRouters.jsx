@@ -8,6 +8,7 @@ import "@fontsource/baloo-2/700.css";
 import { Suspense } from "react";
 import { PrivateRoutes } from "../components/PrivateRoutes";
 import Layout from "./layout";
+import { SessionProvider } from "../context/SessionProvider";
 import {
   AdminInicio,
   AdminPanel,
@@ -32,6 +33,7 @@ import LayoutAdmin from "./layoutAdmin";
 
 const AppRouter = () => {
   return (
+    <SessionProvider>
     <Suspense fallback={<p>Cargando página ...</p>}>
       <BrowserRouter>
         <Routes>
@@ -44,7 +46,8 @@ const AppRouter = () => {
           </Route>
 
           {/* rutas para admin */}
-          <Route element={<LayoutAdmin />}>
+        
+          <Route element={<PrivateRoutes><LayoutAdmin /></PrivateRoutes>}>
             <Route path="/inicioAdmin" element={<AdminInicio />} />
             <Route path="/adminPanel" element={<AdminPanel />} />
             <Route path="/adminProveedores" element={<AdminProveedores />} />
@@ -71,6 +74,7 @@ const AppRouter = () => {
         </Routes>
       </BrowserRouter>
     </Suspense>
+    </SessionProvider>
   );
 };
 
