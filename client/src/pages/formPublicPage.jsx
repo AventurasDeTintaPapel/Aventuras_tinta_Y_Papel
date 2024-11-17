@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "../hook/useAlert";
 import { Header } from "../components/Header";
@@ -15,10 +15,41 @@ export default function ProductForm() {
     imagen: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState({ type: "", content: "" });
-  const { Alerta, mostrarAlerta } = useAlert();
   const [imagePreview, setImagePreview] = useState(null);
+  const [userPosts, setUserPosts] = useState([]); // Para guardar las publicaciones del usuario
+  const [editingPostId, setEditingPostId] = useState(null); // ID del producto en edición
+
+  const { Alerta, mostrarAlerta } = useAlert();
   const navigate = useNavigate();
+
+  // Obtener publicaciones del usuario
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3400/api/publics/myPublics",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        console.log(response);
+        if (response.ok) {
+          const result = await response.json();
+          setUserPosts(result.getPublics); // Guardar las publicaciones
+        } else {
+          console.error(
+            "Error al obtener publicaciones:",
+            await response.json()
+          );
+        }
+      } catch (error) {
+        console.error("Error en la solicitud de publicaciones:", error);
+      }
+    };
+
+    fetchUserPosts();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -47,15 +78,29 @@ export default function ProductForm() {
     });
 
     const token = localStorage.getItem("token");
+    const url = editingPostId
+      ? `http://localhost:3400/api/publics/edit/${editingPostId}`
+      : "http://localhost:3400/api/publics/cargar";
+    const method = editingPostId ? "PUT" : "POST";
+
     try {
-      const response = await fetch("http://localhost:3400/api/publics/cargar", {
-        method: "POST",
+      const response = await fetch(url, {
+        method,
         body: submitData,
         credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
       if (response.ok) {
         const result = await response.json();
-        mostrarAlerta("Se subio correctamente su producto");
+        mostrarAlerta(
+          editingPostId
+            ? "Producto actualizado correctamente"
+            : "Producto subido correctamente"
+        );
+
         setFormData({
           title: "",
           description: "",
@@ -65,16 +110,17 @@ export default function ProductForm() {
           imagen: null,
         });
         setImagePreview(null);
-
-        setTimeout(() => {
-          navigate("/listado");
-        }, 2000);
-
-        if (!result) {
-          console.log("Los resultados enviados están mal");
-        }
+        setEditingPostId(null);
+        setUserPosts((prevPosts) =>
+          editingPostId
+            ? prevPosts.map((post) =>
+                post._id === editingPostId ? result.updatedPost : post
+              )
+            : [...prevPosts, result]
+        );
+        navigate("/listado");
       } else {
-        const error = await response.json();
+        console.error("Error al procesar el producto:", await response.json());
       }
     } catch (error) {
       console.error("Error durante la solicitud:", error);
@@ -83,23 +129,72 @@ export default function ProductForm() {
     }
   };
 
+  //funcion para editar las publicaciones
+  const handleEdit = (id) => {
+    const post = userPosts.find((post) => post._id === id);
+    if (post) {
+      setFormData({
+        title: post.title,
+        description: post.description,
+        phone: post.phone,
+        price: post.price,
+        type: post.type,
+        imagen: null,
+      });
+      setImagePreview(post.imagen);
+      setEditingPostId(id);
+    }
+  };
+  // Función para eliminar publicación
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+      // Modificación: Enviar el id en el body de la solicitud DELETE
+      const response = await fetch("http://localhost:3400/api/publics/delete", {
+        method: "DELETE",
+        credentials: "include",
+        body: JSON.stringify({ idPublic: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        mostrarAlerta("Publicación eliminada correctamente");
+        // Actualizamos el estado para eliminar la publicación localmente
+        setUserPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== id)
+        );
+      } else {
+        console.error(
+          "Error al eliminar la publicación:",
+          await response.json()
+        );
+      }
+    } catch (error) {
+      console.error("Error durante la eliminación:", error);
+    }
+  };
+
   return (
     <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"col-span-2 row-start-1"} />
       <Nav colAndrow={"col-span-2 row-start-2"} />
       <aside className="col-start-1 row-start-3">
+        {/* Formulario de añadir producto */}
         <p className="font-poopins text-[2vw] pt-[1vw] text-[#3f2d51] pl-[1vw]">
           Añadir producto
         </p>
         <div className="p-[1vw]">
           <form
             onSubmit={handleSubmit}
-            className="bg-[#ead8fc] p-[1vw] w-[25vw] space-y-[1vw]  text-[#3f2d51]"
+            className="bg-[#ead8fc] p-[1vw] w-[25vw] space-y-[1vw] text-[#3f2d51]"
           >
             <div className="font-baloo space-y-[0.5vw]">
               {/* Título */}
               <div>
-                <label className=" text-[1.2vw]" htmlFor="title">
+                <label className="text-[1.2vw]" htmlFor="title">
                   Título:
                 </label>
                 <input
@@ -116,7 +211,7 @@ export default function ProductForm() {
 
               {/* Descripción */}
               <div>
-                <label className=" text-[1.2vw]" htmlFor="description">
+                <label className="text-[1.2vw]" htmlFor="description">
                   Descripción:
                 </label>
                 <textarea
@@ -132,7 +227,7 @@ export default function ProductForm() {
 
               {/* Contacto */}
               <div>
-                <label className=" text-[1.2vw]" htmlFor="phone">
+                <label className="text-[1.2vw]" htmlFor="phone">
                   Contacto:
                 </label>
                 <input
@@ -149,7 +244,7 @@ export default function ProductForm() {
 
               {/* Tipo */}
               <div>
-                <label className=" text-[1.2vw]" htmlFor="type">
+                <label className="text-[1.2vw]" htmlFor="type">
                   Tipo:
                 </label>
                 <select
@@ -167,7 +262,7 @@ export default function ProductForm() {
 
               {/* Precio */}
               <div>
-                <label className=" text-[1.2vw]" htmlFor="price">
+                <label className="text-[1.2vw]" htmlFor="price">
                   Precio:
                 </label>
                 <input
@@ -192,7 +287,6 @@ export default function ProductForm() {
                     name="imagen"
                     onChange={handleChange}
                     className="absolute top-0 left-0 w-[11vw] h-full cursor-pointer opacity-0"
-                    required
                   />
                   <button
                     type="button"
@@ -215,19 +309,58 @@ export default function ProductForm() {
               )}
             </div>
 
-            <button
-              className="bg-[#cbade9]  text-[1.4vw] w-full rounded py-[1vw] font-poopins tracking-wide"
-              type="submit"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Añadiendo producto" : "Añadir producto"}
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting
+                ? "Procesando..."
+                : editingPostId
+                ? "Actualizar Producto"
+                : "Añadir Producto"}
             </button>
           </form>
         </div>
       </aside>
-      {Alerta}
 
-      <main className="col-start-2 row-start-3 bg-purple-100"></main>
+      <main className="col-start-2 row-start-3 overflow-auto max-h-[70vh]">
+        {/* Sección de publicaciones del usuario */}
+        <p className="font-poopins text-[2vw] pt-[1vw] text-[#3f2d51] pl-[1vw]">
+          Mis Publicaciones
+        </p>
+        <div className="grid grid-cols-4 pb-[2vw]  space-y">
+          {userPosts.map((post) => (
+            <div
+              key={post._id}
+              className="bg-[#ead8fc] p-[1vw] rounded-md shadow-md space-y-[1vw] m-3"
+            >
+              <img
+                src={post.imagen}
+                alt={post.title}
+                className="w-60 h-48 object-cover"
+              />
+              <p className="font-baloo text-[#3f2d51] text-[1.5vw]">
+                {post.title}
+              </p>
+              <p className="text-[1.2vw]">{post.precio}</p>
+              <p className="text-[1.2vw]">{post.description}</p>
+
+              <div className="flex justify-between">
+                <button
+                  onClick={() => handleEdit(post._id)}
+                  className="bg-[#cbade9] py-[0.5vw] px-[1vw] rounded"
+                >
+                  Editar
+                </button>
+                <button
+                  onClick={() => handleDelete(post._id)} // Pasamos el id de la publicación a handleDelete
+                  className="bg-[#ff4d4d] py-[0.5vw] px-[1vw] rounded"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+
       <Footer colAndrow={"col-span-2 row-start-4"} />
     </div>
   );

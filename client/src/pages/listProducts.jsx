@@ -6,25 +6,6 @@ import axios from "axios";
 export default function ProductList() {
   const [publicaciones, setPublicaciones] = useState([]);
 
-  // const elimnarPublicacion = async (idPublicacion) => {
-  //   const token = localStorage.getItem("token");
-  //   try {
-  //     const response = await axios.delete("http://localhost:3400/api/publics/deletePublication", {
-  //       headers: {
-  //         token: token,
-  //         "Content-Type": "application/json",
-  //       },
-  //       credentials: "include",
-  //       data: {
-  //         id: idPublicacion,
-  //       },
-  //     });
-  //     console.log("Se elimino correctamente la publicacion");
-  //   } catch (error) {
-  //     console.error("error al elimnar la publicacion", error);
-  //   }
-  // };
-
   const token = localStorage.getItem("token");
   useEffect(() => {
     axios
@@ -34,7 +15,9 @@ export default function ProductList() {
       .then((response) => {
         setPublicaciones(response.data.getPublics);
       })
-      .catch((error) => console.error("Error al obtener publicaciones:", error));
+      .catch((error) =>
+        console.error("Error al obtener publicaciones:", error)
+      );
   }, []);
 
   return (
