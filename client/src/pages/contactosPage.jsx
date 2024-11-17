@@ -58,7 +58,7 @@ export default function Contactos() {
     <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
       <HeaderPruebas colAndrow={"row-start-1"} />
       <NavPrueba colAndrow={"row-start-2"} />
-      <main className="row-start-3 grid grid-rows-2 bg-red-200">
+      <main className="row-start-3 grid grid-rows-2 ">
         {/* <div>
        
         <p>Contáctanos</p>

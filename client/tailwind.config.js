@@ -5,7 +5,7 @@ export default {
     extend: {
       animation: {
         "spin-slow": "spin 3s linear infinite",
-        "spin-slow2": "spin 4s linear infinite", // Hace que gire más lento (3s)
+        "spin-slow2": "spin 4s linear infinite",
       },
       spacing: {
         "72.8vw": "72.8vw",
@@ -21,8 +21,7 @@ export default {
         "custom-color": "rgb(227, 220, 227)", // Color personalizado
       },
       screens: {
-        xlprimario: "769px",
-        xlsecundario: "2000px",
+        celuGrande: "551px",
       },
       boxShadow: {
         asideProductos: "0.1vw 0.1vw 0.8vw #a69aaa",

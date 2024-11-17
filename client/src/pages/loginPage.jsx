@@ -37,12 +37,8 @@ export default function Login() {
       console.log(respuesta);
       // Redirecciones según el rol
       if (respuesta.role === "admin") {
-<<<<<<< HEAD
-=======
-        window.location.href =
-          "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
+        window.location.href = "http://127.0.0.1:5500/client/inicio/inicioAdmin.html";
 
->>>>>>> 62e385e5822b761e02aa020029cadc77d03be253
         navigation("/admin");
       } else {
         navigation("/");

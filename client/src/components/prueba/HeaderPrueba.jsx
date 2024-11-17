@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FaUser } from "react-icons/fa";
-import { IoCart } from "react-icons/io5";
+
+import { FaShoppingCart } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
-import { IconoCerrarSesion, IconoFvoritos, IconoMisCompras, IconoPerfil, IconoSoporteAlCliente } from "../icons";
+import { FaUserCircle } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa6";
+import { IoBag } from "react-icons/io5";
+import { FaHeadset } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { IoMenu } from "react-icons/io5";
@@ -34,10 +37,14 @@ function IniciarSeccion() {
 }
 
 // boton adaptable
-function ResponsiveComponent({ colAndrow }) {
+function HeaderMobilPc({ colAndrow }) {
   const [productos, setProductos] = useState([]);
   const [productoBuscador, setProductoBuscador] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 551);
+  const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
+
+  // funcion para el buscador
   const buscadorNavigate = async () => {
     try {
       if (!productoBuscador.trim()) return;
@@ -60,21 +67,16 @@ function ResponsiveComponent({ colAndrow }) {
       return;
     }
   };
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 430);
-  const [menu, setMenu] = useState(false);
-  const [perfilOnn, setPerfilOnn] = useState(false);
 
+  // funcion para desplegar el menu
   const handleClickMneu = () => {
     setMenu(!menu);
   };
 
-  const handleClickPerfil = () => {
-    setPerfilOnn(!perfilOnn);
-  };
-
+  // escucha cuando la pagina cambia de taamaño para poder cambiar el diseño
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 430);
+      setIsMobile(window.innerWidth < 551);
     };
 
     window.addEventListener("resize", handleResize);
@@ -84,39 +86,13 @@ function ResponsiveComponent({ colAndrow }) {
   return (
     <div>
       {isMobile ? (
-        <header className={` ${colAndrow}`}>
-          <div className="grid grid-rows-[auto_auto]  bg-gradient-to-r from-[#5A189A] via-[#7B2CBF] to-[#5A189A]">
-            {/* header principal */}
-
-            <div className="flex justify-between items-center pr-2">
-              {/* Imagen */}
-              <div className="contenedorImg w-28 h-auto">
-                <img className="w-full h-full object-cover" src="../../src/assets/img/logo1-1.png" alt="Logo" />
-              </div>
-
-              {/* botones */}
-              <div className="flex gap-2 bg-gray-500">
-                <a
-                  href="http://localhost:5173/carrito"
-                  className=" cursor-pointer flex items-center relative justify-center w-[2.5vw] h-[2.5vw] hover:text-[#22075e] text-white rounded-full hover:bg-[#f0e6ef] transition-all ease-in-out duration-500"
-                >
-                  <IoCart className="text-[1.6vw] mr-[0.1vw]" />
-                </a>
-
-                <IniciarSeccion />
-                <button onClick={handleClickMneu}>
-                  <IoMenu className="text-white text-xl" />
-                </button>
-              </div>
-            </div>
-            <div className={` ${menu ? "max-h-max opacity-100 mx-1  my-1" : " max-h-0 opacity-0 pointer-events-none"} bg-white `}>
-              <div className="flex flex-col ">
-                <BotonPerfil />
-                <BotonBuscador setProductoBuscador={setProductoBuscador} buscadorNavigate={buscadorNavigate} />
-              </div>
-            </div>
-          </div>
-        </header>
+        <HeaderMovil
+          colAndrow={colAndrow}
+          menu={menu}
+          handleClickMneu={handleClickMneu}
+          setProductoBuscador={setProductoBuscador}
+          buscadorNavigate={buscadorNavigate}
+        />
       ) : (
         <div>Escritorio: Diseño más completo</div>
       )}
@@ -124,57 +100,94 @@ function ResponsiveComponent({ colAndrow }) {
   );
 }
 
-// boton desplegable con informacion que puede acceder el usario
-function BotonPerfil() {
+// header para movil
+function HeaderMovil({ menu, colAndrow, handleClickMneu, setProductoBuscador, buscadorNavigate }) {
   return (
-    <button className="gap-1 text-slate-700 flex p-1 text-[12px] font-baloo items-center">
-      <span>Informacion de usuarios</span>
-      <span className="">
-        <IoIosArrowDown />
-      </span>
-    </button>
+    <header className={` ${colAndrow}`}>
+      <div className="grid grid-rows-[auto_auto]  bg-gradient-to-r from-[#5A189A] via-[#7B2CBF] to-[#5A189A]">
+        {/* header principal */}
+
+        <div className="flex justify-between items-center pr-2">
+          {/* Imagen */}
+          <div className="contenedorImg w-28 h-auto">
+            <img className="w-full h-full object-cover" src="../../src/assets/img/logo1-1.png" alt="Logo" />
+          </div>
+
+          {/* botones */}
+          <div className="flex gap-2">
+            <IniciarSeccion />
+            <button onClick={handleClickMneu}>
+              <IoMenu className="text-white text-xl" />
+            </button>
+          </div>
+        </div>
+        <div className={` ${menu ? "max-h-max opacity-100 mx-1  my-1" : " max-h-0 opacity-0 pointer-events-none"} bg-white `}>
+          <div className="flex flex-col ">
+            <BotonInfoUser />
+            <BotonBuscador setProductoBuscador={setProductoBuscador} buscadorNavigate={buscadorNavigate} />
+          </div>
+        </div>
+      </div>
+    </header>
   );
+}
 
-  // <>
-  //   <Link
-  //     to={"/perfil"}
-  //     className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950 transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200"
-  //   >
-  //     <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Perfil</span>
-  //     <IconoPerfil />
-  //   </Link>
+// boton desplegable con informacion que puede acceder el usario
+function BotonInfoUser() {
+  const [perfilOnn, setPerfilOnn] = useState(false);
 
-  //   <div className="transition-all ease-in-out group duration-300 border-b-[0.1vw] border-purple-200">
-  //     <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/favoritos">
-  //       <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Favoritos</span>
-  //       <IconoFvoritos />
-  //     </a>
-  //   </div>
+  const handleClickPerfil = () => {
+    setPerfilOnn(!perfilOnn);
+  };
 
-  //   <div className="transition-all ease-in-out duration-300 group border-b-[0.1vw] border-purple-200">
-  //     <a className="flex items-center h-[3.8vw] pr-[1vw] gap-[0.6vw] justify-end text-purple-950" href="http://localhost:5173/carrito">
-  //       <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.5vw]">Mis compras</span>
-  //       <IconoMisCompras />
-  //     </a>
-  //   </div>
+  return (
+    <>
+      <button onClick={handleClickPerfil} className="gap-1 text-slate-700 flex p-1 text-[12px] font-baloo items-center">
+        <span>Informacion de usuarios</span>
+        <IoIosArrowDown />
+      </button>
+      <div
+        className={` ${
+          perfilOnn ? "opacity-100 max-h-max translate-y-0" : "max-h-0 opacity-0 pointer-events-none -translate-y-2"
+        }  text-[11px] font-baloo text-slate-700`}
+      >
+        <Link to={"/perfil"} className="flex gap-2 border-t border-slate-200 items-center pl-3 py-1">
+          <FaUserCircle />
+          <span className="">Perfil</span>
+        </Link>
 
-  //   <div className="transition-all ease-in-out duration-300 rounded-b-[0.5vw] border-b-[0.1vw] border-purple-200 group ">
-  //     <a className="flex items-center h-[3.8vw] gap-[0.8vw] pr-[1vw] justify-end text-purple-950" href="http://localhost:5173/soporte">
-  //       <span className="text-[1.3vw] transition-all duration-300 ease-in-out group-hover:text-[1.4vw]">Soporte al Cliente</span>
-  //       <IconoSoporteAlCliente />
-  //     </a>
-  //   </div>
-  // </>
+        <Link to={"/carrito"} className="flex gap-2 border-t border-slate-200 items-center pl-3 py-1">
+          <FaShoppingCart />
+          <span className="">Carrito</span>
+        </Link>
+
+        <Link to={"/favoritos"} className="flex gap-2 border-t border-slate-200 items-center pl-3 py-1">
+          <FaHeart />
+          <span className="">Favoritos</span>
+        </Link>
+
+        <Link to={"/carrito"} className="flex gap-2 border-t border-slate-200 items-center pl-3 py-1">
+          <IoBag />
+          <span className="">Mis compras</span>
+        </Link>
+
+        <Link to={"/soporte"} className="flex gap-2 border-t border-slate-200 items-center pl-3 py-1">
+          <FaHeadset />
+          <span className="">Soporte al Cliente</span>
+        </Link>
+      </div>
+    </>
+  );
 }
 
 function BotonBuscador({ setProductoBuscador, buscadorNavigate }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
   const [estiloBoton, setEstiloBoton] = useState({});
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 430);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 551);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 430);
+      setIsMobile(window.innerWidth < 551);
     };
 
     window.addEventListener("resize", handleResize);
@@ -200,7 +213,7 @@ function BotonBuscador({ setProductoBuscador, buscadorNavigate }) {
 
   return isMobile ? (
     <div className="font-baloo text-[11px] border-t border-slate-300">
-      <input className="w-full pl-1 py-1" placeholder="Buscador ..." type="text" name="" id="" />
+      <input className="w-full pl-1 py-1" placeholder="Buscador . . ." type="text" name="" id="" />
     </div>
   ) : (
     <div className="relative">
@@ -235,5 +248,5 @@ function BotonBuscador({ setProductoBuscador, buscadorNavigate }) {
 
 // contenedor header
 export function HeaderPruebas({ colAndrow }) {
-  return <ResponsiveComponent />;
+  return <HeaderMobilPc />;
 }

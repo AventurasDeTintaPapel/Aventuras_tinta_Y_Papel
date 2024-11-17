@@ -37,9 +37,9 @@ export default function Carrito() {
   function ButtonDelete({ productoId }) {
     const eliminarProductoCart = async () => {
       try {
-        console.log(productoId);
+        console.log("Producto ID:", productoId);
 
-        const response = await fetch("http://localhost:3400/api/pedidos/deleteOne", {
+        const response = await fetch("http://localhost:3400/api/pedidos/element", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -58,6 +58,44 @@ export default function Carrito() {
     return <button onClick={eliminarProductoCart}>Elimnar</button>;
   }
 
+  function MasUnproducto({ idProduct, cantidad }) {
+    const amount = cantidad + 1;
+    const EditarProducto = async () => {
+      const response = await fetch("http://localhost:3400/api/pedidos/", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount, idProduct }),
+      });
+
+      if (!response.ok) {
+        console.log("Error al traer los productos");
+      }
+    };
+
+    return <button onClick={EditarProducto}>Mas</button>;
+  }
+
+  function MenosUnproducto({ idProduct, cantidad }) {
+    const amount = cantidad - 1;
+    const EditarProducto = async () => {
+      const response = await fetch("http://localhost:3400/api/pedidos/", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount, idProduct }),
+      });
+
+      if (!response.ok) {
+        console.log("Error al traer los productos");
+      }
+    };
+
+    return <button onClick={EditarProducto}>Menos</button>;
+  }
+
   return (
     <div>
       <h2>Carrito</h2>
@@ -69,6 +107,8 @@ export default function Carrito() {
             <li key={producto._id}>
               Producto: Cantidad: {producto.cantidad} - Precio: {producto.producto ? producto.producto.precio : "N/A"}
               <ButtonDelete productoId={producto._id} />
+              <MasUnproducto idProduct={producto._id} cantidad={producto.cantidad} />
+              <MenosUnproducto idProduct={producto._id} cantidad={producto.cantidad} />
             </li>
           ))
         ) : (
