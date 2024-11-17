@@ -123,22 +123,28 @@ function CerrarSesion() {
     try {
       // Hacer la solicitud POST al endpoint de cierre de sesión
       const response = await axios.post(
-        "http://localhost:3400/api/auth/logout",
+        "http://localhost:3400/api/auth/logout", 
+        {}, 
         {
           withCredentials: true, // Incluir cookies en la solicitud
         }
       );
       console.log(response);
-      // Limpiar el almacenamiento local y redirigir al usuario
-      localStorage.clear();
+
+      // Verificar si la cookie 'authToken' existe y eliminarla
+      document.cookie = "authToken=; Max-Age=0; path=/"; // Eliminar la cookie 'authToken'
+
+      // Si usas más cookies relacionadas, eliminarlas también:
+      // document.cookie = "otherCookie=; Max-Age=0; path=/";
+
+      // Redirigir al usuario o recargar la página
       window.location.reload(); // Recargar la página
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
-      alert(
-        "Hubo un problema al cerrar la sesión. Por favor, inténtelo de nuevo."
-      );
+      alert("Hubo un problema al cerrar la sesión. Por favor, inténtelo de nuevo.");
     }
   };
+
 
   return (
     <button

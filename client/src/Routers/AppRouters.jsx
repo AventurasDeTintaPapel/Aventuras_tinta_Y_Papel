@@ -1,5 +1,4 @@
 import React from "react";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@fontsource/boogaloo";
 import "@fontsource/poppins/700.css";
@@ -8,6 +7,7 @@ import "@fontsource/baloo-2/700.css";
 import { Suspense } from "react";
 import { PrivateRoutes } from "../components/PrivateRoutes";
 import Layout from "./layout";
+import { ProtectedRoutes } from "../components/ProtectedRoutes";
 import { SessionProvider } from "../context/SessionProvider";
 import {
   AdminInicio,
@@ -47,11 +47,13 @@ const AppRouter = () => {
 
           {/* rutas para admin */}
         
-          <Route element={<PrivateRoutes><LayoutAdmin /></PrivateRoutes>}>
+          <Route element={<LayoutAdmin />}>
+          
             <Route path="/inicioAdmin" element={<AdminInicio />} />
-            <Route path="/adminPanel" element={<AdminPanel />} />
+            <Route path="/adminPanel" element={<PrivateRoutes><AdminPanel /></PrivateRoutes >} />
             <Route path="/adminProveedores" element={<AdminProveedores />} />
             <Route path="/adminPedidos" element={<AdminPedidos />} />
+
           </Route>
 
           {/* prueba de header */}

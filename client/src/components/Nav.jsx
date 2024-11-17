@@ -44,14 +44,14 @@ export function Nav({ colAndrow }) {
             Ver produtos
           </Link>
 
-          {/* usuario.rol === "admin" && (
+          {/* {usuario.rol === "admin" && (
               <Link
               to={"/adminPanel"}
               className=" h-[3vw] flex pl-[1vw] items-center hover:bg-purple-800 hover:text-[1.6vw] transition-all ease-in-out duration-300"
             >
               Ver admin panel
             </Link>
-            ) */}
+            ) } */}
         </div>
       </div>
     );
