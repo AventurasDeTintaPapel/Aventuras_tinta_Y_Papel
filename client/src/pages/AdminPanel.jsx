@@ -3,6 +3,7 @@ import { PlusCircle, Edit2, Trash2 } from "lucide-react";
 import AdminProductForm from "../components/AdminProductForm";
 
 const AdminPanel = () => {
+  console.log("AdminPanel cargado");
   const [productos, setProductos] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
