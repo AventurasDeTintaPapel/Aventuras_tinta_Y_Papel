@@ -45,17 +45,14 @@ export default function Carrito() {
   function ButtonDelete({ productoId }) {
     const eliminarProductoCart = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3400/api/pedidos/element",
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ idProduct: productoId }),
-          }
-        );
+        const response = await fetch("http://localhost:3400/api/pedidos/element", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ idProduct: productoId }),
+        });
         console.log(productoId);
         if (!response.ok) {
           console.log("Error del servidor al eliminar producto.");
@@ -66,10 +63,7 @@ export default function Carrito() {
     };
 
     return (
-      <button
-        onClick={eliminarProductoCart}
-        className="bg-red-200 w-[2vw] h-[3.5vw] flex justify-center items-center rounded text-red-800"
-      >
+      <button onClick={eliminarProductoCart} className="bg-red-200 w-[2vw] h-[3.5vw] flex justify-center items-center rounded text-red-800">
         Eliminar
       </button>
     );
@@ -97,15 +91,9 @@ export default function Carrito() {
       <button
         disabled={desactivar}
         onClick={EditarProducto}
-        className={`${
-          desactivar ? "bg-slate-200" : "bg-green-200"
-        } w-[2vw] h-[3.5vw] flex justify-center items-center rounded`}
+        className={`${desactivar ? "bg-slate-200" : "bg-green-200"} w-[2vw] h-[3.5vw] flex justify-center items-center rounded`}
       >
-        <SlArrowRight
-          className={`${
-            desactivar ? "text-slate-600" : "text-green-800"
-          } text-[1.4vw]`}
-        />
+        <SlArrowRight className={`${desactivar ? "text-slate-600" : "text-green-800"} text-[1.4vw]`} />
       </button>
     );
   }
@@ -132,15 +120,9 @@ export default function Carrito() {
       <button
         disabled={desactivar}
         onClick={EditarProducto}
-        className={`${
-          desactivar ? "bg-slate-200" : "bg-red-200"
-        } w-[2vw] h-[3.5vw] flex justify-center items-center rounded`}
+        className={`${desactivar ? "bg-slate-200" : "bg-red-200"} w-[2vw] h-[3.5vw] flex justify-center items-center rounded`}
       >
-        <SlArrowLeft
-          className={`${
-            desactivar ? "text-slate-600" : "text-red-800"
-          } text-[1.4vw]`}
-        />
+        <SlArrowLeft className={`${desactivar ? "text-slate-600" : "text-red-800"} text-[1.4vw]`} />
       </button>
     );
   }
@@ -158,50 +140,28 @@ export default function Carrito() {
             <h2>Carrito</h2>
           </div>
           <div className="justify-items-center py-[2vw] space-y-[2vw]">
-            {carrito.productos &&
-            carrito.productos.length === 0 &&
-            (carrito.estado === "completado" ||
-              carrito.estado === "entregado") ? (
+            {carrito.productos && carrito.productos.length === 0 && (carrito.estado === "completado" || carrito.estado === "entregado") ? (
               <p>El carrito está vacío</p>
             ) : (
               carrito.productos.map((producto) => (
-                <div
-                  key={producto._id}
-                  className="bg-white shadow-md rounded-[1vw] grid w-[60vw] grid-cols-[20%_80%] p-[1vw]"
-                >
+                <div key={producto._id} className="bg-white shadow-md rounded-[1vw] grid w-[60vw] grid-cols-[20%_80%] p-[1vw]">
                   {producto.producto ? (
                     <div>
                       <div className="w-full h-[18vw]">
-                        <img
-                          className="w-full h-full rounded-[0.8vw] object-cover"
-                          src={producto.producto.imagen}
-                          alt=""
-                        />
+                        <img className="w-full h-full rounded-[0.8vw] object-cover" src={producto.producto.imagen} alt="" />
                       </div>
                       <div className="relative w-full rounded-r-[0.8vw]">
                         <div className="pl-[1vw] space-y-[0.5vw]">
-                          <p className="truncate text-[1.8vw] font-medium">
-                            {producto.producto.titulo}
-                          </p>
+                          <p className="truncate text-[1.8vw] font-medium">{producto.producto.titulo}</p>
                           <p className="text-[1.3vw]">
-                            <span className="text-slate-800 font-medium">
-                              Autor:{" "}
-                            </span>
+                            <span className="text-slate-800 font-medium">Autor: </span>
                             {producto.producto.autor}
                           </p>
                           <p className="text-[1.3vw]">
-                            <span className="text-slate-800 font-medium">
-                              Precio individual:{" "}
-                            </span>
-                            ${producto.producto.precio}
+                            <span className="text-slate-800 font-medium">Precio individual: </span>${producto.producto.precio}
                           </p>
                           <p className="text-[1.3vw]">
-                            <span className="text-slate-800 font-medium">
-                              Total:{" "}
-                            </span>
-                            $
-                            {producto.producto.precio *
-                              producto.producto.cantidad}
+                            <span className="text-slate-800 font-medium">Total: </span>${producto.producto.precio * producto.producto.cantidad}
                           </p>
                           <div className="flex gap-[1vw] border-[0.2vw] py-[0.3vw] px-[0.3vw] rounded-[0.5vw] absolute right-0 bottom-0">
                             <MenosUnproducto
@@ -209,15 +169,11 @@ export default function Carrito() {
                               cantidad={producto.cantidad}
                               desactivar={producto.cantidad <= 1} // Desactivar si cantidad <= 1
                             />
-                            <p className="flex text-[1.7vw] items-center">
-                              Cantidad: {producto.cantidad}
-                            </p>
+                            <p className="flex text-[1.7vw] items-center">Cantidad: {producto.cantidad}</p>
                             <MasUnproducto
                               idProduct={producto._id}
                               cantidad={producto.cantidad}
-                              desactivar={
-                                producto.cantidad >= producto.producto.stock
-                              } // Desactivar si cantidad >= stock
+                              desactivar={producto.cantidad >= producto.producto.stock} // Desactivar si cantidad >= stock
                             />
                           </div>
                         </div>

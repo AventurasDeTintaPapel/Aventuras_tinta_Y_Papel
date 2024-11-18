@@ -1,3 +1,17 @@
 URL PARA TRAER USARIOS :http://localhost:3400/api/user/getUser
 
 URL PARA BUSCADOR: http://localhost:3400/api/filters?query=muerte
+
+URL TREAER PEDIDOS :http://localhost:3400/api/pedidos/orders
+
+URLTARER PROVEEDORES: http://localhost:3400/api/supplier
+
+// esto hace que la duracion solo se aplique al activar y no al volver 
+<button className="transition bg-red-600 duration-0 hover:duration-200 hover:scale-150">algo</button>
+
+//esto se usa para cuando queres poner lindo la fecha
+ {new Date(pedido.fecha).toLocaleDateString("es-ES", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
