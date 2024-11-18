@@ -30,7 +30,7 @@ export const SessionProvider = ({ children }) => {
         setUsuario(usuarioRecibido); // Establecer el usuario
         // Si hay usuario, lo guardamos en las cookies (expira en 7 días)
         if (usuarioRecibido) {
-          Cookies.set("usuario", JSON.stringify(usuarioRecibido), {
+          Cookies.set("authToken", JSON.stringify(usuarioRecibido), {
             expires: 7,
           });
         } else {
@@ -47,7 +47,11 @@ export const SessionProvider = ({ children }) => {
       });
   }, []);
 
-  return <SessionContext.Provider value={{ usuario, setUsuario, loading }}>{children}</SessionContext.Provider>;
+  return (
+    <SessionContext.Provider value={{ usuario, setUsuario, loading }}>
+      {children}
+    </SessionContext.Provider>
+  );
 };
 
 export const useSession = () => useContext(SessionContext);
