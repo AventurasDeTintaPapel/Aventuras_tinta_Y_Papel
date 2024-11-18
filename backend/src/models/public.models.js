@@ -20,6 +20,10 @@ const publics = new Schema(
       type: Number,
       trim: true,
     },
+    phone: {
+      type: Number,
+      trim: true,
+    },
     type: {
       type: String,
       required: true,
