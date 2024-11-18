@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useSession } from "../context/SessionProvider";
 
-export const PrivateRoutes = () => {
+export const ProtectedRoutes = () => {
   const { loading, usuario } = useSession(); // Obtiene usuario y estado de carga
 
   if (loading) {

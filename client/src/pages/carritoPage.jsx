@@ -145,6 +145,8 @@ export default function Carrito() {
     );
   }
 
+  console.log(carrito.productos);
+
   return (
     <div className="grid grid-cols-[70%_30%] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"row-start-1 col-span-2"} />
@@ -234,7 +236,6 @@ export default function Carrito() {
       </main>
 
       <Footer colAndrow={"row-start-4 col-span-2"} />
-
     </div>
   );
 }
