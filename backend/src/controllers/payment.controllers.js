@@ -3,6 +3,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 import pedidos from "../models/pedidos.model.js";
 import productos from "../models/productos.model.js";
+import { validarJWT } from "../helpers/validadJWT.js";
 import mongoose from "mongoose";
 
 dotenv.config();
@@ -11,30 +12,13 @@ const port = process.env.PORT;
 
 export const createOrder = async (req, res) => {
   try {
-    const token = req.headers.token;
-    if (!token) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
-    }
-
-    const usuario = await validarJWT(token);
-    const idUsuario = usuario._id;
-
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
+    const idUsuario = req.user._id; // Obtener el id del usuario autenticado
     let precioFinal = 0;
-    // Buscar el pedido del usuario
+
+    // Buscar el pedido incompleto del usuario
     const pedido = await pedidos.findOne({
       usuario: new mongoose.Types.ObjectId(idUsuario),
       estado: "incompleto",
-    });
-    const oldsOrder = await pedidos.find({
-      usuario: new mongoose.Types.ObjectId(idUsuario),
-      $or: [{ estado: "completado" }, { estado: "entregado" }],
     });
 
     if (!pedido) {
@@ -43,7 +27,13 @@ export const createOrder = async (req, res) => {
         .json({ msg: "No se encontró un pedido para este usuario." });
     }
 
-    // Iterar sobre los productos del pedido
+    // Buscar pedidos anteriores completados o entregados para aplicar descuento adicional si es necesario
+    const oldsOrder = await pedidos.find({
+      usuario: new mongoose.Types.ObjectId(idUsuario),
+      $or: [{ estado: "completado" }, { estado: "entregado" }],
+    });
+
+    // Iterar sobre los productos del pedido y calcular el precio final
     for (const items of pedido.productos) {
       const productoId = items.producto;
       const cantidad = items.cantidad;
@@ -53,10 +43,11 @@ export const createOrder = async (req, res) => {
       if (!producto) {
         throw new Error(`Producto con ID ${productoId} no encontrado`);
       }
-      precioFinal += cantidad * producto.precio;
-      console.log(precioFinal);
 
-      // Verificar stock
+      // Calcular el precio final
+      precioFinal += cantidad * producto.precio;
+
+      // Verificar stock disponible
       if (producto.stock < cantidad) {
         throw new Error(
           `Stock insuficiente para el producto: ${producto.nombre}`
@@ -64,18 +55,17 @@ export const createOrder = async (req, res) => {
       }
     }
     if (precioFinal > 100.0 || oldsOrder.length > 10) {
-      precioFinal += precioFinal * (15 / 100);
+      precioFinal += precioFinal * 0.15;
     }
 
     // Crear la orden de PayPal
-
     const order = {
       intent: "CAPTURE",
       purchase_units: [
         {
           amount: {
             currency_code: "USD",
-            value: precioFinal,
+            value: precioFinal.toFixed(2), // Asegurarse que el precio final tiene 2 decimales
           },
         },
       ],
@@ -83,8 +73,8 @@ export const createOrder = async (req, res) => {
         brand_name: "Nueva Tienda",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
-        return_url: `http://localhost:${port}/capture-order`,
-        cancel_url: `http://localhost:${port}/cancel-order`,
+        return_url: `http://localhost:${port}/api/capture-order`,
+        cancel_url: `http://localhost:${port}/api/cancel-order`,
       },
     };
 
@@ -115,7 +105,6 @@ export const createOrder = async (req, res) => {
       }
     );
 
-    // Devolver la respuesta al cliente
     res.json({
       msg: "Orden creada correctamente",
       orderId: response.data.id,
@@ -129,32 +118,38 @@ export const createOrder = async (req, res) => {
 };
 //funcion para capturar las ordenes
 export const captOrder = async (req, res) => {
-  const { token: paypalToken } = req.query; // Renombrar para evitar conflicto de nombres
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
+  const { paypalToken } = req.body;
   try {
-    const userToken = req.headers.token; // Renombrar para evitar conflicto de nombres
-    if (!userToken) {
-      return res.status(401).json({
-        msg: "Debe registrarse para realizar esa tarea",
-      });
+    const token = req.headers.token;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ msg: "You must register to be able to perform this task" });
     }
 
-    const usuario = await validarJWT(userToken);
+    const usuario = await validarJWT(token);
+    if (!usuario) {
+      return res.status(401).json({ msg: "Invalid Token" });
+    }
+
     const idUsuario = usuario._id;
-
-    if (!idUsuario) {
-      return res.status(401).json({
-        msg: "Token inválido",
-      });
-    }
-    // Buscar el pedido del usuario
-    const pedido = await pedidos
-      .findOne({
-        usuario: new mongoose.Types.ObjectId(idUsuario),
-      })
-      .session(session);
+    const ObjectId = new mongoose.Types.ObjectId();
+    // Capturar el pago con PayPal
+    const response = await axios.post(
+      `${PAYPAL_API}/v2/checkout/orders/${paypalToken}/capture`,
+      {},
+      {
+        auth: {
+          username: PAYPAL_API_CLIENT,
+          password: PAYPAL_API_KEY,
+        },
+      }
+    );
+    console.log(response.data);
+    const pedido = await pedidos.findOne({
+      usuario: new mongoose.Types.ObjectId(idUsuario),
+    });
 
     if (!pedido) {
       throw new Error("Pedido no encontrado");
@@ -188,30 +183,10 @@ export const captOrder = async (req, res) => {
 
     // Actualizar el estado del pedido a "pendiente"
     pedido.estado = "completado";
-    await pedido.save({ session });
+    pedido.save();
 
-    // Finalizar la transacción
-    await session.commitTransaction();
-    session.endSession();
-
-    // Capturar el pago con PayPal
-    const response = await axios.post(
-      `${PAYPAL_API}/v2/checkout/orders/${paypalToken}/capture`,
-      {},
-      {
-        auth: {
-          username: PAYPAL_API_CLIENT,
-          password: PAYPAL_API_KEY,
-        },
-      }
-    );
-    console.log(response.data);
-    return res.send("Pedido pagado correctamente");
+    return res.status(200).json({ msg: "Pedido pagado correctamente" });
   } catch (error) {
-    // En caso de error, deshacer la transacción
-    await session.abortTransaction();
-    session.endSession();
-
     console.error("Error al procesar el pedido:", error.message);
 
     // Manejar error de PayPal si existe

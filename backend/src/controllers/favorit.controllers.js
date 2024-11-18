@@ -26,9 +26,9 @@ export const addToFav = async (req, res) => {
       producto: product,
     });
     await userFind.save(result);
-    res.status(201).json(result);
+    res.status(200).json(result);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res
       .status(500)
       .json({ error: "Ocurrió un error al agregar el producto a favoritos" });
@@ -76,7 +76,7 @@ export const deleteFavs = async (req, res) => {
     }
 
     const result = await usuario.updateOne(
-      { _id: userId },
+      { _id: idUser },
       { $pull: { favorites: { producto: prodFind.producto } } }
     );
 

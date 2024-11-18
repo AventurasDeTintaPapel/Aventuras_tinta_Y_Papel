@@ -7,17 +7,8 @@ export const updatUser = async (req, res) => {
   const { username, password, email } = req.body;
 
   try {
-    const token = req.headers.token;
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to perform this task" });
-    }
-    const usuario = await validarJWT(token);
+    const userId = req.user._id;
 
-    !usuario
-      ? res.status(401).json({ msg: "invalid token" })
-      : (idUser = usuario._id);
     const contrasenia = bcrypt.hashSync(password, 10);
     const userUpdate = { username, contrasenia, email };
 
@@ -33,17 +24,8 @@ export const updatUser = async (req, res) => {
 //delete user
 export const deleteUser = async (req, res) => {
   try {
-    const token = req.headers.token;
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to perform this task" });
-    }
-    const usuario = await validarJWT(token);
+    const userId = req.user._id;
 
-    !usuario
-      ? res.status(401).json({ msg: "invalid token" })
-      : (idUser = usuario._id);
     const userUpdate = { username, password, email };
 
     const result = usuario.findByIdAndUpdate(idUser, userUpdate, { new: true });

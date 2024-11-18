@@ -3,7 +3,8 @@ import productos from "../models/productos.model.js";
 //add start of the product
 
 export const addStar = async (req, res) => {
-  const { idProduct, rating, userId } = req.body;
+  const { idProduct, rating } = req.body;
+  const userId = req.user._id;
 
   // Validación del valor de rating
   if (![1, 2, 3, 4, 5].includes(rating)) {

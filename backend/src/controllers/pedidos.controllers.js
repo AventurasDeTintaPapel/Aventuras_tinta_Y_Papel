@@ -3,29 +3,14 @@ import mongoose from "mongoose";
 import usuario from "../models/usuarios.model.js";
 import producto from "../models/productos.model.js";
 import { validarJWT } from "../helpers/validadJWT.js";
+import { ObjectId } from "mongoose";
 
 // add item of the cart
 export const addCart = async (req, res) => {
   try {
     const { idProducto, cantidad } = req.body;
-    const token = req.headers.token;
-    console.log(token);
 
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
-
-    const user = await validarJWT(token);
-    if (!user) {
-      console.log("not token in bakcend");
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-
-    const idUsuario = user._id;
-
-    console.log(idProducto);
+    const idUsuario = "6703f3330a1290cd786d458c";
     const obtProducto = await producto.findById(idProducto);
     if (!obtProducto) {
       console.log("product not find");
@@ -79,6 +64,7 @@ export const addCart = async (req, res) => {
 export const uptdaOrder = async (req, res) => {
   try {
     const { id, state } = req.body;
+
     const resultado = await pedidos.findByIdAndUpdate(
       id,
       { estado: state },
@@ -100,29 +86,19 @@ export const uptdaOrder = async (req, res) => {
 //delete items of the cart
 export const deletItem = async (req, res) => {
   try {
-    const token = req.headers.token;
     const { idProducto } = req.body;
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
+    const idUsuario = "6703f3330a1290cd786d458c";
 
-    const user = await validarJWT(token);
-    if (!user) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
+    // Importar ObjectId de mongoose correctamente
 
-    const idUsuario = user._id;
-    const ObjectId = new mongoose.Types.ObjectId();
-
+    // Usar ObjectId para convertir idProducto en un ObjectId de MongoDB
     const result = await pedidos.updateOne(
       { usuario: idUsuario },
-      { $pull: { productos: { producto: new ObjectId(idProducto) } } }
+      { $pull: { productos: { producto: idProducto } } }
     );
 
     if (!result.modifiedCount) {
-      return res.status(404).json({ msg: "Product not find" });
+      return res.status(404).json({ msg: "Product not found" });
     }
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
@@ -132,30 +108,18 @@ export const deletItem = async (req, res) => {
       return res.status(200).json({ msg: "Delete order" });
     }
 
-    return res.status(200).json({ msg: "the product was eliminated " });
+    return res.status(200).json({ msg: "The product was eliminated" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Interval server error" });
+    return res.status(500).json({ msg: "Internal server error" });
   }
 };
 
 // delete order
 export const deletOrder = async (req, res) => {
   try {
-    const token = req.headers.token;
+    const idUsuario = "6703f3330a1290cd786d458c";
 
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
-
-    const user = await validarJWT(token);
-    if (!user) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-
-    const idUsuario = user._id;
     const ObjectId = new mongoose.Types.ObjectId();
     const result = await pedidos.findOneAndDelete({ usuario: idUsuario });
 
@@ -173,20 +137,8 @@ export const deletOrder = async (req, res) => {
 // get order for user id
 export const getOrder = async (req, res) => {
   try {
-    const token = req.headers.token;
-    console.log(token);
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
+    const idUsuario = "6703f3330a1290cd786d458c";
 
-    const user = await validarJWT(token);
-    if (!user) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-
-    const idUsuario = user._id;
     const ObjectId = new mongoose.Types.ObjectId();
     // Buscar el pedido y poblar los productos
     const result = await pedidos

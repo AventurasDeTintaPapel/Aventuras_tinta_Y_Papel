@@ -8,22 +8,7 @@ const { ObjectId } = mongoose;
 export const creatcoment = async (req, res) => {
   try {
     const { idProducto, body } = req.body;
-    const token = req.headers.token;
-
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
-
-    const usuario = await validarJWT(token);
-    if (!usuario) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-
-    const idUsuario = usuario._id;
-    const ObjectId = new mongoose.Types.ObjectId();
-
+    const idUsuario = req.user._id;
     // Encuentra el usuario y el producto
     const usuarioEncontrado = await Usuario.findById(idUsuario);
     const prodFind = await Producto.findById(idProducto);

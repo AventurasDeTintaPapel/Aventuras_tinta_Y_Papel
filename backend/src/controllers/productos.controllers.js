@@ -55,9 +55,8 @@ export const cargarProducto = async (req, res) => {
       .status(200)
       .json({ msg: "Producto guardado correctamente", result });
   } catch (error) {
-    
+    console.log(error);
     return res.status(500).json({ msg: "Error al guardar el producto" });
-    console.log("este es el error:",error);
   }
 };
 
@@ -104,8 +103,12 @@ export const editarProducto = async (req, res) => {
       stock,
       categoria,
     } = req.body;
-    const img = await cloudinary.uploader.upload(req.file.path);
-    fs.unlinkSync(req.file.path);
+    let imgUrl = publicFind.imagen;
+    if (req.file && req.file.path) {
+      const img = await cloudinary.uploader.upload(req.file.path);
+      fs.unlinkSync(req.file.path);
+      imgUrl = img.secure_url; // Actualiza la URL de la imagen
+    }
 
     //productos editado
     const productoEditado = {
@@ -118,7 +121,7 @@ export const editarProducto = async (req, res) => {
       precio,
       stock,
       categoria,
-      imagen: img.secure_url,
+      imagen: imgUrl,
     };
 
     const { id } = req.params;
