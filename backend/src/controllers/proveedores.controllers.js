@@ -67,7 +67,8 @@ export const deleSupplier = async (req, res) => {
 //get all supplier
 export const getAllSupplier = async (req, res) => {
   try {
-    const result = supplier.find();
+    const result = await supplier.find();
+    console.log(result);
     !result
       ? res.status(404).json({ msg: "supplier not find" })
       : res.status(200).json({ msg: "suppliers", result });
