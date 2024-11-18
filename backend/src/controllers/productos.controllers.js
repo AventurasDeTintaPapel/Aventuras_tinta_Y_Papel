@@ -92,6 +92,7 @@ export const eliminarProducto = async (req, res) => {
 };
 export const editarProducto = async (req, res) => {
   try {
+    const { id } = req.params;
     const {
       titulo,
       autor,
@@ -103,7 +104,8 @@ export const editarProducto = async (req, res) => {
       stock,
       categoria,
     } = req.body;
-    let imgUrl = publicFind.imagen;
+    const prodFind = productos.findById(id);
+    let imgUrl = prodFind.imagen;
     if (req.file && req.file.path) {
       const img = await cloudinary.uploader.upload(req.file.path);
       fs.unlinkSync(req.file.path);
@@ -124,7 +126,6 @@ export const editarProducto = async (req, res) => {
       imagen: imgUrl,
     };
 
-    const { id } = req.params;
     const resultado = await productos.findByIdAndUpdate(id, productoEditado, {
       new: true,
     });

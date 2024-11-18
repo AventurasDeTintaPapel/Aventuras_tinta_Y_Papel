@@ -68,7 +68,7 @@ const handleOptionSelection = (selectedOption) => {
             case '¿Tienen un catálogo actualizado?':
                 return 'Si, nuestro catálogo se mantiene actualizado siempre';
             case 'Otros':
-            return 'Si tienes alguna otra pregunta, ingresa al siguiente link para una atencion mas personalizada: https://wa.me/3704266289.';
+            return 'Si tienes alguna otra pregunta, ingresa al siguiente link para una atencion mas personalizada: https://wa.me/3704266289';
         default:
             return 'Lo siento, no entiendo esa opción.';
     }
