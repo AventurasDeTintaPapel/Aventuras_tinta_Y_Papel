@@ -13,34 +13,67 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// boton iniciar sesion
-function iniciarSeccion() {
-  const token = localStorage.getItem("token");
-  const seccion = document.getElementById("seccion");
-
-  if (seccion) {
-    if (!token) {
-      seccion.innerHTML = `
-      <a href="http://localhost:5173/login">
-      <button  class=" text-center rounded-[0.3vw] px-[0.5vw] h-[2.5vw] font-medium text-white
-        text-[1.1vw] transition-all duration-500 ease-in-out hover:text-[#240046] hover:bg-[#f0e6ef]">
-                    Iniciar Sesión
-                    </button>
-                    </a>
-            `;
-    } else {
-      CerrarSesion();
-    }
-  }
-}
-
 const MyButton = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); // Inicializa el hook de navegación
+
   useEffect(() => {
-    iniciarSeccion(); // Llama a la función al cargar el componente
+    // Verificar si hay token en localStorage
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token); // Actualizar estado basado en la existencia del token
   }, []);
 
-  return <div id="seccion"></div>;
+  const handleCerrarSesion = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(
+        "http://localhost:3400/api/auth/logout",
+        {},
+        { withCredentials: true } // Incluir cookies
+      );
+
+      // Eliminar token y cookies relacionadas
+      localStorage.removeItem("token");
+      document.cookie = "authToken=; Max-Age=0; path=/";
+
+      // Actualizar estado
+      setIsLoggedIn(false);
+
+      // Redirigir al usuario a la página de inicio
+      navigate("/"); // Redirige a la página de inicio
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      alert("Hubo un problema al cerrar la sesión. Por favor, inténtelo de nuevo.");
+    }
+  };
+
+  // Render basado en el estado
+  return (
+    <div id="seccion">
+      {isLoggedIn ? (
+        <button
+          onClick={handleCerrarSesion}
+          className="group flex items-center gap-[0.6vw] text-white-600 h-[3.8vw] w-full justify-end pr-[1vw]"
+        >
+          <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">
+            Cerrar Sesión
+          </span>
+          <IconoCerrarSesion />
+        </button>
+      ) : (
+        <a href="http://localhost:5173/login">
+          <button
+            className="text-center rounded-[0.3vw] px-[0.5vw] h-[2.5vw] font-medium text-white
+            text-[1.1vw] transition-all duration-500 ease-in-out hover:text-[#240046] hover:bg-[#f0e6ef]"
+          >
+            Iniciar Sesión
+          </button>
+        </a>
+      )}
+    </div>
+  );
 };
+
 
 // boton perfil
 function BotonPerfil() {
@@ -108,54 +141,11 @@ function BotonPerfil() {
         ) : (
           <>
             <BotonesSessionOnn />
-            <CerrarSesion />
+            <handleCerrarSesion />
           </>
         )}
       </div>
     </div>
-  );
-}
-
-// boton cerrar sesion
-function CerrarSesion() {
-  const handleCerrarSesion = async (e) => {
-    e.preventDefault();
-    try {
-      // Hacer la solicitud POST al endpoint de cierre de sesión
-      const response = await axios.post(
-        "http://localhost:3400/api/auth/logout", 
-        {}, 
-        {
-          withCredentials: true, // Incluir cookies en la solicitud
-        }
-      );
-      console.log(response);
-
-      // Verificar si la cookie 'authToken' existe y eliminarla
-      document.cookie = "authToken=; Max-Age=0; path=/"; // Eliminar la cookie 'authToken'
-
-      // Si usas más cookies relacionadas, eliminarlas también:
-      // document.cookie = "otherCookie=; Max-Age=0; path=/";
-
-      // Redirigir al usuario o recargar la página
-      window.location.reload(); // Recargar la página
-    } catch (error) {
-      console.error("Error al cerrar sesión:", error);
-      alert("Hubo un problema al cerrar la sesión. Por favor, inténtelo de nuevo.");
-    }
-  };
-
-
-  return (
-    <button
-      onClick={handleCerrarSesion}
-      className="group flex items-center gap-[0.6vw] text-red-600 h-[3.8vw] w-full justify-end pr-[1vw]"
-    >
-      <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">
-        Cerrar Sesion
-      </span>
-      <IconoCerrarSesion />
-    </button>
   );
 }
 
