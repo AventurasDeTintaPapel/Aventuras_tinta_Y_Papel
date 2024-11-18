@@ -9,7 +9,7 @@ import axios from "axios";
 
 const MyButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // Inicializa el hook de navegación
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Verificar si hay token en localStorage
@@ -43,21 +43,16 @@ const MyButton = () => {
 
   // Render basado en el estado
   return (
-    <div id="seccion">
+    <div className="text-white">
       {isLoggedIn ? (
-        <button
-          onClick={handleCerrarSesion}
-          className="group flex items-center gap-[0.6vw] text-white-600 h-[3.8vw] w-full justify-end pr-[1vw]"
-        >
-          <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">
-            Cerrar Sesión
-          </span>
+        <button onClick={handleCerrarSesion} className="group flex items-center gap-[0.6vw] text-white-600 h-[3.8vw] w-full justify-end pr-[1vw]">
+          <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">Cerrar Sesión</span>
           <IconoCerrarSesion />
         </button>
       ) : (
         <a href="http://localhost:5173/login">
           <button
-            className="text-center rounded-[0.3vw] px-[0.5vw] h-[2.5vw] font-medium text-white
+            className="text-center rounded-[0.3vw] px-[0.5vw] h-[2.5vw] font-medium
             text-[1.1vw] transition-all duration-500 ease-in-out hover:text-[#240046] hover:bg-[#f0e6ef]"
           >
             Iniciar Sesión
@@ -67,7 +62,6 @@ const MyButton = () => {
     </div>
   );
 };
-
 
 // boton perfil
 function BotonPerfil() {
@@ -124,14 +118,7 @@ function BotonPerfil() {
           mostrarSeccion ? "opacity-100 max-h-[20vw]" : "opacity-0 max-h-0 pointer-events-none"
         } transition-all ease-in-out duration-300 text-[1.5vw] absolute z-50 shadow-xl bg-[#f0e6ef] rounded-tl-[0.5vw] rounded-b-[0.5vw] w-[18vw] right-[0vw]`}
       >
-        {!token ? (
-          <BotonesSessionOnn />
-        ) : (
-          <>
-            <BotonesSessionOnn />
-            <handleCerrarSesion />
-          </>
-        )}
+        <BotonesSessionOnn />
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export default function AdminInicio() {
   return (
     <div className="">
       {/* secciones */}
-      <div className="sticky top-0 w-full bg-slate-300 text-slate-800 font-poopins text-[1.1vw] py-[1vw] px-[1vw] font-bold tracking-wider  space-x-3 z-40">
+      <div className="sticky top-0 w-full bg-white shadow text-slate-800 font-poopins text-[1.1vw] py-[1vw] px-[1vw] font-bold tracking-wider  space-x-3 z-40">
         <a href="#comentarios" className="border-2 rounded px-[2vw] py-[0.3vw] border-slate-800">
           Comentarios
         </a>
@@ -48,7 +48,7 @@ export default function AdminInicio() {
               filtroPorductos.map((producto, index) => (
                 // tarjetas de comentarios
                 <div className="font-poopins border-b border-slate-300" key={index}>
-                  <div className="flex gap-[0.5vw] bg-slate-100 text-[1.5vw] px-[1vw] py-[0.5vw] font-poopins font-bold">
+                  <div className="flex gap-[0.5vw] bg-slate-100 text-[1.2vw] px-[1vw] py-[0.5vw] font-poopins font-bold">
                     <p className="underline">Titulo:</p>
                     {producto.titulo}
                   </div>
@@ -86,7 +86,7 @@ export default function AdminInicio() {
           <div className="grid grid-cols-2 gap-[1.5vw] px-4 py-2">
             {productos.slice(-4).map((producto, index) => (
               // tarjetas
-              <div key={index} className="h-[25vw] bg-slate-50 shadow-md space-x-[1vw] p-2 grid grid-cols-[32%_68%] rounded w-full overflow-hidden ">
+              <div key={index} className="h-[20vw] bg-slate-50 shadow-md space-x-[1vw] p-2 grid grid-cols-[26%_74%] rounded w-full overflow-hidden ">
                 {/* imagen */}
                 <div className="col-start-1">
                   <img className="w-full h-full rounded-sm object-cover" src={producto.imagen} alt={producto.titulo} />
@@ -94,22 +94,22 @@ export default function AdminInicio() {
                 {/* titulo y precio */}
                 <div className="col-start-2 space-y-2 font-poopins relative">
                   {/* titulo */}
-                  <div className="truncate w-[28vw] font-bold text-[2vw]">{producto.titulo}</div>
+                  <div className="truncate w-[28vw] font-bold text-[1.8vw]">{producto.titulo}</div>
 
-                  <div className="space-y-1">
+                  <div className="space-y-[0.5vw]">
                     {/* precio */}
-                    <p className="text-[1.5vw]">
+                    <p className="text-[1.2vw]">
                       <span className="font-semibold">Precio: </span> ${producto.precio}
                     </p>
-                    <p className="text-[1.5vw] ">
+                    <p className="text-[1.2vw] ">
                       <span className="font-semibold">Cantidad: </span>
                       {producto.stock}
                     </p>
-                    <p className="text-[1.5vw] ">
+                    <p className="text-[1.2vw] ">
                       <span className="font-semibold">Tipo: </span>
                       {producto.tipo}
                     </p>
-                    <p className="text-[1.5vw] ">
+                    <p className="text-[1.2vw] ">
                       <span className="font-semibold">Categoria: </span> {producto.categoria}
                     </p>
                   </div>
@@ -117,7 +117,7 @@ export default function AdminInicio() {
                   <MasInfo
                     id={producto._id}
                     estilos={
-                      "font-bold text-[1.7vw] bg-slate-200 text-slate-800 rounded px-[1.2vw] py-[0.5vw] absolute bottom-[0.5vw] left-[0.5vw] hover:scale-105 transition ease-in-out duration-200"
+                      "font-bold text-[1.3vw] bg-slate-200 text-slate-800 rounded px-[1.2vw] py-[0.5vw] absolute bottom-[0.5vw] left-[0.5vw] hover:scale-105 transition ease-in-out duration-200"
                     }
                     text={"Mas informacion"}
                   />

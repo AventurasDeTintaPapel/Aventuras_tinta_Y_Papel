@@ -22,19 +22,40 @@ export default function AdminProveedores() {
   }, []);
 
   return (
-    <div className="">
+    <div className="font-poopins">
+      <p
+        className="bg-red-400 text-[1.7vw] font-bold py-[0.5vw]
+      px-[1vw]"
+      >
+        PROVEEDORES
+      </p>
       {loading && <p>Cargando proveedores. . . </p>}
       {/* contenedor */}
-      <div className="">
+      <div className=" grid grid-cols-2 gap-[1vw] py-[1vw] justify-items-center">
         {proveedores.length > 0 ? (
           proveedores.map((proveedor, index) => (
             // tarjeta
-            <div className="" key={index}>
-              <p>{proveedor.name}</p>
-              <p>{proveedor.company}</p>
-              <p>{proveedor.email}</p>
-              <p>{proveedor.address}</p>
-              <p>{proveedor.phone}</p>
+            <div className=" bg-red-600 w-[70%] space-y-[0.5vw] px-[1vw] py-[0.5vw]" key={index}>
+              <p className="text-[1.2vw] bg-green-300">
+                <span className="font-semibold">Nombre del proveedor: </span>
+                {proveedor.name}
+              </p>
+              <p className="text-[1.2vw] bg-green-300">
+                <span className="font-semibold">Compañia del proveedor: </span>
+                {proveedor.company}
+              </p>
+              <p className="text-[1.2vw] bg-green-300">
+                <span className="font-semibold">Email del proveedor: </span>
+                {proveedor.email}
+              </p>
+              <p className="text-[1.2vw] bg-green-300">
+                <span className="font-semibold">Ciudad del proveedor: </span>
+                {proveedor.address}
+              </p>
+              <p className="text-[1.2vw] bg-green-300">
+                <span className="font-semibold">Contacto del proveedor: </span>
+                {proveedor.phone}
+              </p>
             </div>
           ))
         ) : (

@@ -36,48 +36,53 @@ import LayoutAdmin from "./layoutAdmin";
 const AppRouter = () => {
   return (
     <SessionProvider>
-    <Suspense fallback={<p>Cargando página ...</p>}>
-      <BrowserRouter>
-        <Routes>
-          {/* Rutas sin aside */}
-          <Route element={<Layout />}>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/perfil" element={<Perfil />} />
-            <Route path="/soporte" element={<SupportChat />} />
-            <Route path="/detalles/:id" element={<DetallesProductos />} />
-          </Route>
+      <Suspense fallback={<p>Cargando página ...</p>}>
+        <BrowserRouter>
+          <Routes>
+            {/* Rutas sin aside */}
+            <Route element={<Layout />}>
+              <Route path="/" element={<Inicio />} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/soporte" element={<SupportChat />} />
+              <Route path="/detalles/:id" element={<DetallesProductos />} />
+            </Route>
 
-          {/* rutas para admin */}
-        
-          <Route element={<LayoutAdmin />}>
-          
-            <Route path="/inicioAdmin" element={<AdminInicio />} />
-            <Route path="/adminPanel" element={<PrivateRoutes><AdminPanel /></PrivateRoutes >} />
-            <Route path="/adminProveedores" element={<AdminProveedores />} />
-            <Route path="/adminPedidos" element={<AdminPedidos />} />
+            {/* rutas para admin */}
 
-          </Route>
+            <Route element={<LayoutAdmin />}>
+              <Route path="/inicioAdmin" element={<AdminInicio />} />
+              <Route
+                path="/adminPanel"
+                element={
+                  <PrivateRoutes>
+                    <AdminPanel />
+                  </PrivateRoutes>
+                }
+              />
+              <Route path="/adminProveedores" element={<AdminProveedores />} />
+              <Route path="/adminPedidos" element={<AdminPedidos />} />
+              <Route path="/listado" element={<ProductList />} />
+            </Route>
 
-          {/* prueba de header */}
-          <Route path="/contactos" element={<Contactos />} />
+            {/* prueba de header */}
+            <Route path="/contactos" element={<Contactos />} />
 
-          {/* rutas con aside*/}
-          <Route path="/listado" element={<ProductList />} />
-          <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/favoritos" element={<MisFavoritos />} />
-          <Route path="/intercambiar" element={<FormPublic />} />
+            {/* rutas con aside*/}
+            <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="/favoritos" element={<MisFavoritos />} />
+            <Route path="/intercambiar" element={<FormPublic />} />
 
-          {/* Ruta para paypal */}
-          <Route path="/carrito" element={<Carrito />}>
-            <Route path="/carrito" element={<PayPalPayment />} />
-          </Route>
+            {/* Ruta para paypal */}
+            <Route path="/carrito" element={<Carrito />}>
+              <Route path="/carrito" element={<PayPalPayment />} />
+            </Route>
 
-          {/* Rutas sin header,nav o footer */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/registro" element={<Registro />} />
-        </Routes>
-      </BrowserRouter>
-    </Suspense>
+            {/* Rutas sin header,nav o footer */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Registro />} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
     </SessionProvider>
   );
 };
