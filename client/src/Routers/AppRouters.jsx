@@ -3,6 +3,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@fontsource/boogaloo";
 import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
 import "@fontsource/bree-serif";
 import "@fontsource/baloo-2/700.css";
 import { Suspense } from "react";

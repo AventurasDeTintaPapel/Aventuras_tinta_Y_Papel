@@ -50,14 +50,18 @@ export const useFetchProductos = () => {
 };
 
 export const useTraerProductosNormal = () => {
+  const [Loading, setLoading] = useState(false);
   const [productos, setProductos] = useState([]);
 
   const trearproductos = async () => {
+    setLoading(true);
     try {
       const response = await axios.get("http://localhost:3400/api/productos");
       setProductos(response.data);
     } catch (error) {
       console.error("Error al en el fetch de trear productos sin filtros", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,5 +69,5 @@ export const useTraerProductosNormal = () => {
     trearproductos();
   }, []);
 
-  return { productos };
+  return { Loading, productos };
 };

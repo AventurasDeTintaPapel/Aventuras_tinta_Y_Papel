@@ -105,7 +105,7 @@ export default function Carrito() {
         <p>Pedidos:{carrito.numPedido}</p>
       </div>
       <div className="space-y-3">
-        {carrito.productos && carrito.productos.length > 0 ? (
+        {carrito.productos.length > 0 ? (
           carrito.productos.map((producto) => (
             <div key={producto._id} className="bg-red-200">
               {producto.producto ? (
@@ -127,7 +127,7 @@ export default function Carrito() {
             </div>
           ))
         ) : (
-          <li>No hay productos en el carrito.</li>
+          <p>No hay productos en el carrito.</p>
         )}
       </div>
     </div>
