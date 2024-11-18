@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 export default function AdminProveedores() {
   const [proveedores, setProveedores] = useState([]);
+  const [buscarProveedor, serBuscarProve] = useState("");
   const [loading, setLoadin] = useState(false);
 
   const traerProveedores = async () => {
@@ -17,18 +18,18 @@ export default function AdminProveedores() {
     }
   };
 
+  const filterProveedores = proveedores.filter((proveedor) => proveedor.toLowerCase().include(buscarProveedor.toLocaleLowerCase()));
+
   useEffect(() => {
     traerProveedores();
   }, []);
 
   return (
     <div className="font-poopins">
-      <p
-        className="bg-red-400 text-[1.7vw] font-bold py-[0.5vw]
-      px-[1vw]"
-      >
-        PROVEEDORES
-      </p>
+      <div className="bg-white shadow items-center gap-[1vw] sticky top-0 flex py-[0.5vw] px-[1vw]">
+        <p className="text-[1.8vw] font-bold">PROVEEDORES</p>
+        <input className="border text-[1.2vw] border-slate-400 rounded w-full px-[1vw] py-[0.5vw]" type="text" placeholder="Buscar proveedor . . ." />
+      </div>
       {loading && <p>Cargando proveedores. . . </p>}
       {/* contenedor */}
       <div className=" grid grid-cols-2 gap-[1vw] py-[1vw] justify-items-center">

@@ -6,7 +6,7 @@ export default function AdminInicio() {
   const { productos, Loading } = useTraerProductosNormal();
   const [buscarProducto, setBuscarPorducto] = useState("");
 
-  const filtroPorductos = productos.filter(
+  const filtroProductos = productos.filter(
     (producto) =>
       producto.titulo.toLowerCase().includes(buscarProducto.toLowerCase()) || producto.tipo.toLowerCase().includes(buscarProducto.toLowerCase())
   );
@@ -44,8 +44,8 @@ export default function AdminInicio() {
         ) : (
           // contenedor de comentarios
           <div className="flex flex-col w-full rounded gap-[1vw] px-[2vw] py-[1vw] overflow-y-auto h-[30vw]">
-            {filtroPorductos.length > 0 ? (
-              filtroPorductos.map((producto, index) => (
+            {filtroProductos.length > 0 ? (
+              filtroProductos.map((producto, index) => (
                 // tarjetas de comentarios
                 <div className="font-poopins border-b border-slate-300" key={index}>
                   <div className="flex gap-[0.5vw] bg-slate-100 text-[1.2vw] px-[1vw] py-[0.5vw] font-poopins font-bold">
