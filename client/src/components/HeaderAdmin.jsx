@@ -16,9 +16,11 @@ const MyButton = () => {
   const handleCerrarSesion = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3400/api/auth/logout", {}, { withCredentials: true });
-
-      console.log(response.data.message);
+      await axios.post(
+        "http://localhost:3400/api/auth/logout",
+        {},
+        { withCredentials: true } // Incluir cookies
+      );
 
       // Eliminar token y cookies relacionadas
       localStorage.removeItem("token");
@@ -37,19 +39,16 @@ const MyButton = () => {
 
   // Render basado en el estado
   return (
-    <div className="font-poopins text-[1vw]">
+    <div className="font-poopins">
       {isLoggedIn ? (
         <button
           onClick={handleCerrarSesion}
-          className=" tracking-wider font-bold px-[1vw] py-[0.4vw] rounded border-[0.14vw] text-white border-white hover:scale-105 transition ease-in-out duration-200"
+          className=" tracking-wider font-bold px-[1vw] py-[0.4vw] rounded border-[0.14vw] text-[1vw] text-white border-white hover:scale-105 transition ease-in-out duration-200"
         >
           Cerrar Sesión
         </button>
       ) : (
-        <Link
-          to={"/login"}
-          className=" tracking-wider text-[#3b096b] font-bold px-[1vw] py-[0.4vw] rounded bg-white hover:scale-105 transition ease-in-out duration-200"
-        >
+        <Link to={"/login"} className="tracking-wider text-[#3b096b] font-bold px-[1vw] py-[0.4vw] rounded text-[1vw] bg-white ">
           Iniciar Sesión
         </Link>
       )}
