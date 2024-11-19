@@ -69,8 +69,8 @@ export default function SupportChat() {
     };
 
     return (
-        <div className="w-full h-screen flex flex-col max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="bg-purple-500 text-white p-4 flex justify-center items-center">
+        <div className="w-full h-screen flex flex-col max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-8">
+            <div className="bg-purple-700 text-white p-4 flex justify-center items-center font-poppins">
                 <h2 className="text-2xl font-bold">Soporte al cliente</h2>
             </div>
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -82,8 +82,8 @@ export default function SupportChat() {
                         <div
                             className={`max-w-[70%] ${
                                 msg.user === 'Usuario'
-                                    ? 'bg-blue-100 text-blue-800'
-                                    : 'bg-gray-100 text-gray-800'
+                                    ? 'bg-purple-100 text-purple-800'
+                                    : 'bg-gray-100 text-black-800'
                             } rounded-lg p-3`}
                         >
                             {renderMessage(msg.text)}
@@ -95,12 +95,12 @@ export default function SupportChat() {
 
             {options.length > 0 && (
                 <div className="px-4 pb-4 space-y-2">
-                    <p className="text-sm font-medium text-gray-700">Selecciona una opción:</p>
+                    <p className="text-sm font-medium text-black-700">Selecciona una opción:</p>
                     <div className="flex flex-wrap gap-2 justify-center">
                         {options.map((option, index) => (
                             <button
                                 key={index}
-                                className="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-200"
+                                className="bg-purple-100 hover:bg-purple-200 text-purple-800 font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-200"
                                 onClick={() => {
                                     // Aquí se agrega el mensaje seleccionado por el usuario
                                     setMessages((prev) => [

@@ -1,98 +1,105 @@
-import React from "react";
-import { HeaderPruebas } from "../components/prueba/HeaderPrueba";
-import { NavPrueba } from "../components/prueba/NavPrueba";
-import { FooterPrueba } from "../components/prueba/FooterPrueba";
+'use client'
 
-// input del formulario de contactos
-function LabelInput({ nombreCampo, relacionId, onChange }) {
+import React, { useState } from 'react'
+
+function LabelInput({ nombreCampo, relacionId, type = 'text', onChange }) {
   return (
-    <div className="relative mb-[1.3vw]">
+    <div className="relative mb-4">
       <input
-        type="text"
+        type={type}
         id={relacionId}
         onChange={onChange}
         required
-        className="peer rounded-md block w-full h-[3.6vw]
-        border-b-2
-        pl-[0.5vw]
-      border-violet-900
-      bg-white
-        bg-opacity-70
-
-      text-purple-900
-
-        focus:outline-none"
-        placeholder=""
+        className="peer w-full rounded-md border-b-2 border-violet-900 bg-white bg-opacity-70 p-2 text-purple-900 placeholder-transparent focus:outline-none focus:ring-2 focus:ring-violet-600"
+        placeholder={nombreCampo}
       />
       <label
         htmlFor={relacionId}
-        className="absolute left-[-1.2vw] top-[-2.2vw] 
-        scale-75 
-        text-[1.7vw]
-        transform
-        transition-all duration-200 ease-in-out 
-
-        peer-placeholder-shown:top-[0.5vw]
-        peer-focus:-top-[2.2vw] 
-        "
+        className="absolute left-0 -top-5 text-sm text-purple-900 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-purple-900"
       >
         {nombreCampo}
       </label>
     </div>
-  );
+  )
 }
 
-// p de info contactos
 function P_infocontactos({ textSpan, textInfo }) {
   return (
-    <p className="font-medium list-item ml-[1.5vw] text-[1.2vw] text-purple-900">
-      <span className="font-bold">{textSpan}</span>
-      {textInfo}
+    <p className="mb-2 list-item text-sm text-purple-900">
+      <span className="font-bold">{textSpan}</span> {textInfo}
     </p>
-  );
+  )
 }
 
-// main en general de contactos
 export default function Contactos() {
+  const [formData, setFormData] = useState({
+    nombre: '',
+    email: '',
+    mensaje: '',
+  })
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('Formulario enviado:', formData)
+    // Aquí normalmente enviarías los datos al servidor
+  }
+
   return (
+    <main className="min-h-screen bg-gradient-to-br from-purple-100 to-violet-200 py-8 flex items-center justify-center">
+      <div className="container mx-auto grid gap-8 px-4 md:grid-cols-2">
+        <div className="space-y-6">
+          <div>
+            <h1 className="mb-4 text-3xl font-bold text-purple-900">Contáctanos</h1>
+            <p className="text-base text-purple-800">
+              <span className="font-semibold">Si necesitas información</span> sobre cualquiera de nuestros productos o
+              si estás teniendo algún inconveniente con la compra o con la página, rellena nuestro formulario y nos
+              pondremos en contacto lo antes posible.
+            </p>
+            <p className="mt-2 text-base font-semibold text-purple-800">¡Muchas Gracias!</p>
+          </div>
 
-      <main className="grid grid-cols-2 justify-items-center">
-        <div>
-       
-        <p>Contáctanos</p>
-
-      
-        <p>
-          <span>Si necesitas información</span> sobre cualquiera de nuestros productos o si estás teniendo algún inconveniente con la compra o con la
-          página, rellena nuestro formulario y nos pondremos en contacto lo antes posible.
-          <br />
-          <span>¡Muchas Gracias!</span>
-        </p>
-
-       
-        <div>
-          <p>Datos de Contacto:</p>
-
-          <P_infocontactos textInfo={"Av. 25 de mayo 385 - Argentina-Formosa"} textSpan={"Sede central:"} />
-          <P_infocontactos textInfo={" +54 370 4568974"} textSpan={"Teléfono:"} />
-          <P_infocontactos textInfo={" info@aventuras.com.ar"} textSpan={"Email:"} />
-        </div>
-      </div> 
-
-         <form>
-        <p>INGRESE SU DUDA O QUEJA:</p>
-
-        <LabelInput nombreCampo={"Nombre y apellido:"} relacionId={"nombre"} />
-        <LabelInput nombreCampo={"Correo Electronico:"} relacionId={"email"} />
-
-        <div>
-          <label htmlFor="mensaje">Mensaje:</label>
-          <textarea id="mensaje" placeholder="Ingresa lo que nos quiera transmitir" rows="3" required></textarea>
+          <div className="rounded-lg bg-white bg-opacity-50 p-4 shadow-md">
+            <h2 className="mb-3 text-xl font-bold text-purple-900">Datos de Contacto:</h2>
+            <ul className="list-inside list-disc space-y-1">
+              <P_infocontactos textSpan="Sede central:" textInfo="Av. 25 de mayo 385 - Argentina-Formosa" />
+              <P_infocontactos textSpan="Teléfono:" textInfo="+54 370 4568974" />
+              <P_infocontactos textSpan="Email:" textInfo="info@aventuras.com.ar" />
+            </ul>
+          </div>
         </div>
 
-        <button type="submit">Enviar</button>
-      </form>
-      </main>
- 
-  );
+        <form onSubmit={handleSubmit} className="rounded-lg bg-white bg-opacity-70 p-6 shadow-lg">
+          <h2 className="mb-4 text-2xl font-bold text-purple-900">INGRESE SU DUDA O QUEJA:</h2>
+
+          <LabelInput nombreCampo="Nombre y apellido:" relacionId="nombre" onChange={handleChange} />
+          <LabelInput nombreCampo="Correo Electrónico:" relacionId="email" type="email" onChange={handleChange} />
+
+          <div className="mb-4">
+            <label htmlFor="mensaje" className="mb-2 block text-sm font-medium text-purple-900">
+              Mensaje:
+            </label>
+            <textarea
+              id="mensaje"
+              rows={4}
+              required
+              onChange={handleChange}
+              className="w-full rounded-md border-2 border-violet-900 bg-white bg-opacity-70 p-2 text-purple-900 placeholder-gray-500 focus:border-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-600"
+              placeholder="Ingresa lo que nos quiera transmitir"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-md bg-violet-600 py-2 px-4 text-white transition duration-300 ease-in-out hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+          >
+            Enviar
+          </button>
+        </form>
+      </div>
+    </main>
+  )
 }
