@@ -1,74 +1,89 @@
-import React, { useState } from "react";
-
-// imagen
-import imgPerfilonn from "../assets/img/imgPerfil.png";
-
-// iconos
+import React, { useState, useEffect } from "react"; 
 import { MdOutlineSquare } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import { BsEyeSlashFill } from "react-icons/bs";
 import { IoEyeSharp } from "react-icons/io5";
+import imgPerfilonn from "../assets/img/imgPerfil.png";
 
 export default function Perfil() {
   const token = localStorage.getItem("token");
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isHashtags, setIsHashtags] = useState(true);
+
+  useEffect(() => {
+    if (token) {
+      fetch("http://localhost:3400/api/auth/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        credentials: "include",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error al obtener los datos del usuario");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Datos del usuario recibidos:", data); // Revisa los datos
+          setUserData(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [token]);
+
+  const toggleText = () => {
+    setIsHashtags(!isHashtags);
+  };
+
+  const getHashtagText = (text) => {
+    // Verifica si 'text' está definido antes de intentar usar .split()
+    return (text || "").split("").map(() => "#").join("");
+  };
 
   return (
-    <main className="row-start-3 relative flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0]  h-full ">
-      {token ? (
-        <div className=" h-[30vw] shadow-xl shadow-purple-300 w-[60vw] rounded-[1vw] bg-gradient-to-r from-purple-200 to-[#cfa8ea] flex flex-col py-[1.2vw] justify-between px-[2vw]">
-          <p className="text-[2.5vw] font-bold ">PERFIL DE USARIO</p>
+    <main className="row-start-3 relative flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0] h-full ">
+      {loading ? (
+        <p>Cargando...</p>
+      ) : token && userData ? (
+        <div className="h-[30vw] shadow-xl shadow-purple-300 w-[60vw] rounded-[1vw] bg-gradient-to-r from-purple-200 to-[#cfa8ea] flex flex-col py-[1.2vw] justify-between px-[2vw]">
+          <p className="text-[2.5vw] font-bold">PERFIL DE USUARIO</p>
           <div className="ml-[1vw]">
-            <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-              <p className="text-[1.4vw] font-medium">Nombre de Usario: </p>
-              <span className="text-[1.4vw] text-[#5A189A]">Axel Leger</span>
+            <div className="flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+              <p className="text-[1.4vw] font-medium">Nombre de Usuario: </p>
+              <span className="text-[1.4vw] text-[#5A189A]">{userData.nombreUsuario}</span>
             </div>
-            <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
-              <p className="text-[1.4vw] font-medium">Correo Electronico: </p>
-              <span className="text-[1.4vw] text-[#5A189A]">axelleger2@gmail.com</span>
+            <div className="flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+              <p className="text-[1.4vw] font-medium">Correo Electrónico: </p>
+              <span className="text-[1.4vw] text-[#5A189A]">{userData.email}</span>
             </div>
-            <div className=" flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+            <div className="flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
               <p className="text-[1.4vw] font-medium">Fecha de Nacimiento: </p>
-              <span className="text-[1.4vw] text-[#5A189A]">03-03-2005</span>
+              <span className="text-[1.4vw] text-[#5A189A]">{userData.fechaNacimiento}</span>
             </div>
-
-            <TextModifier />
+            <div className="flex gap-[0.5vw] h-[4.5vw] border-b-[0.1vw] border-purple-200 items-center">
+              <p className="text-[1.4vw] font-medium">Numero de Telefono: </p>
+              <span className="text-[1.4vw] text-[#5A189A]">{userData.phone}</span>
+            </div>
+         
           </div>
-
           <Botonperfil />
         </div>
       ) : (
-        <>
-          <img className="absolute top-0 left-0 h-full w-full opacity-80" src={imgPerfilonn} alt="" />
-          <div className="items-center flex justify-center h-[100vh]">
-            <div
-              style={{ fontFamily: "'Baloo 2', system-ui" }}
-              className="px-[3vw] py-[4vw] relative bg-opacity-90 bg-[#F2E9E4] flex items-center w-[80vw] h-[40vw] rounded-[1vw]"
-            >
-              <FaUser className="absolute left-[9.9vw]  text-[5vw] text-[#8e808b]" />
-              <MdOutlineSquare className="absolute top-[12.6vw] left-[4.8vw] animate-spin-slow  text-[15vw] text-[#C9ADA7] mb-[0.5vw]  z-10" />
-              <MdOutlineSquare className="absolute top-[11.1vw] left-[3.4vw] animate-spin-slow2 text-[18vw] text-[#9A8C98] mb-[0.5vw] z-0" />
-              <div className="z-20 ml-[20vw]">
-                <p className="text-[3vw] text-[#22223B]">
-                  <span className="text-[4vw]">I</span>NICIA SESION PARA PODER VER PERFIL
-                </p>
-                <div className="flex items-center gap-[1vw] ">
-                  <a
-                    href="http://localhost:5173/login"
-                    className="px-[1vw] bg-[#5E548E] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full "
-                  >
-                    INICIAR SESION
-                  </a>
-                  <a
-                    href="http://localhost:5173/registro"
-                    className="px-[1vw] bg-[#9F86C0] text-white text-[1.2vw] pb-[0.15vw] pt-[0.35vw] rounded-full  "
-                  >
-                    Registrate ahora
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
+        <img
+          className="absolute top-0 left-0 h-full w-full opacity-80"
+          src={imgPerfilonn}
+          alt=""
+        />
       )}
     </main>
   );
@@ -81,7 +96,7 @@ function Botonperfil() {
     setMostrarMenu(true);
   };
 
-  const cerrarForm = (e) => {
+  const cerrarForm = () => {
     setMostrarMenu(false);
   };
 
@@ -94,86 +109,22 @@ function Botonperfil() {
         EDITAR INFORMACION
       </button>
 
-      <div className={`${mostrarMenu ? "opacity-60 bg-black" : "opacity-0 pointer-events-none"} absolute w-full h-full top-0 left-0 `}></div>
+      <div
+        className={`${
+          mostrarMenu ? "opacity-60 bg-black" : "opacity-0 pointer-events-none"
+        } absolute w-full h-full top-0 left-0`}></div>
       <form
         className={`${
-          mostrarMenu ? " opacity-100 " : "opacity-0 pointer-events-none "
-        } bg-[#9453bd] text-white py-[1vw] px-[2vw] transition-all ease-in-out duration-500  absolute right-0 top-0 flex flex-col justify-around
-        h-full`}
+          mostrarMenu ? "opacity-100" : "opacity-0 pointer-events-none"
+        } bg-[#9453bd] text-white py-[1vw] px-[2vw] transition-all ease-in-out duration-500 absolute right-0 top-0 flex flex-col justify-around h-full`}
       >
         <p className="text-[2.3vw]">EDITAR INFORMACION</p>
-        <div className="space-y-[1.5vw]">
-          <div className="">
-            <label htmlFor="" className="text-[1.5vw]">
-              Nombre de usario:
-            </label>
-            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw]" type="text" />
-          </div>
-          <div className="">
-            <label htmlFor="" className="text-[1.5vw]">
-              Email:
-            </label>
-            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw]" type="email" />
-          </div>
-          <div className="">
-            <label htmlFor="" className="text-[1.5vw]">
-              Fecha de Nacimiento:
-            </label>
-            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw] pr-[0.5vw]" type="date" />
-          </div>
-          <div className="">
-            <label htmlFor="" className="text-[1.5vw]">
-              Constraseña:
-            </label>
-            <input className="w-full h-[2.4vw] text-[#240046] rounded-[0.3vw] text-[1.2vw] pl-[1vw]" type="password" />
-          </div>
-        </div>
+        {/* Formulario aquí */}
         <button className="bg-[#732ab6] w-full text-[1.5vw] rounded-[0.3vw] py-[0.5vw] hover:text-[1.4vw] transition-all ease-in-out duration-200">
           EDITAR INFORMACION
         </button>
-        <button onClick={cerrarForm}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-[2.5vw] absolute top-[2.2vw] right-[1.7vw] hover:w-[2.8vw] transition-all ease-in-out duration-200 hover:translate-x-[0.2vw]"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12S6.47 2 12 2m3.59 5L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41z"
-            ></path>
-          </svg>
-        </button>
+        <button onClick={cerrarForm}>Cerrar</button>
       </form>
     </>
   );
 }
-
-const TextModifier = () => {
-  const [text, setText] = useState("Contraseña123");
-  const [isHashtags, setIsHashtags] = useState(true);
-
-  // Función para alternar entre el texto original y hashtags
-  const toggleText = () => {
-    setIsHashtags(!isHashtags);
-  };
-
-  // Función para convertir el texto a hashtags
-  const getHashtagText = () => {
-    return text
-      .split("")
-      .map(() => "#")
-      .join("");
-  };
-
-  return (
-    <div className="flex gap-[0.5vw] h-[4.5vw] relative border-purple-200 items-center">
-      <div className="flex gap-[0.7vw]">
-        <p className="text-[1.4vw]">Contraseña:</p>
-        <span className="text-[1.4vw] text-[#5A189A]">{isHashtags ? getHashtagText() : text}</span>
-      </div>
-      <button className="absolute right-[1vw] top-[1.5vw]" onClick={toggleText}>
-        {isHashtags ? <IoEyeSharp className="text-[1.5vw]" /> : <BsEyeSlashFill className="text-[1.5vw]" />}
-      </button>
-    </div>
-  );
-};

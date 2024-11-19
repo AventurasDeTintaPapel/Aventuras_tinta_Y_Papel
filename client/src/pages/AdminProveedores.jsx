@@ -271,10 +271,8 @@ export default function AdminProveedores() {
     }
   };
 
-  const filtroProductos = proveedores.filter(
-    (producto) =>
-      producto.name.toLowerCase().includes(buscarProveedor.toLowerCase()) || producto.company.toLowerCase().includes(buscarProveedor.toLowerCase())
-  );
+  const filtroProductos = proveedores.length > 0 && proveedores.filter((proveedor) => proveedor.name.toLowerCase().includes(buscarProveedor.toLowerCase()) || proveedor.company.toLowerCase().includes(buscarProveedor.toLowerCase()));
+  
 
   useEffect(() => {
     traerProveedores();

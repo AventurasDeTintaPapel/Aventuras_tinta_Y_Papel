@@ -16,7 +16,7 @@ const MyButton = () => {
   const handleCerrarSesion = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3400/api/logout", {}, { withCredentials: true });
+      const response = await axios.post("http://localhost:3400/api/auth/logout", {}, { withCredentials: true });
 
       console.log(response.data.message);
 
