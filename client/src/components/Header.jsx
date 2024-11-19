@@ -6,16 +6,12 @@ import "@fontsource/montserrat/700.css";
 import { IconoCerrarSesion, IconoFvoritos, IconoMisCompras, IconoPerfil, IconoSoporteAlCliente } from "./icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSession } from "../context/SessionProvider";
 
 const MyButton = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Verificar si hay token en localStorage
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token); // Actualizar estado basado en la existencia del token
-  }, []);
+  const { usuario, setUsuario } = useSession(); // Obtener el usuario y setUsuario desde el contexto
+  const [refresh, setRefresh] = useState(false); // Estado para forzar un re-render
 
   const handleCerrarSesion = async (e) => {
     e.preventDefault();
@@ -30,35 +26,39 @@ const MyButton = () => {
       localStorage.removeItem("token");
       document.cookie = "authToken=; Max-Age=0; path=/";
 
-      // Actualizar estado
-      setIsLoggedIn(false);
+      // Limpiar usuario en el contexto global
+      setUsuario(null);
+
+      // Forzar re-render del componente
+      setRefresh((prev) => !prev);
 
       // Redirigir al usuario a la página de inicio
-      navigate("/"); // Redirige a la página de inicio
+      navigate("/");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
       alert("Hubo un problema al cerrar la sesión. Por favor, inténtelo de nuevo.");
     }
   };
 
-  // Render basado en el estado
+  // Renderizado basado en si el usuario está logueado o no
   return (
     <div className="font-poopins">
-      {isLoggedIn ? (
+      {usuario ? (
         <button
           onClick={handleCerrarSesion}
-          className=" tracking-wider font-bold px-[1vw] py-[0.4vw] rounded border-[0.14vw] text-[1vw] text-white border-white hover:scale-105 transition ease-in-out duration-200"
+          className="tracking-wider font-bold px-[1vw] py-[0.4vw] rounded border-[0.14vw] text-[1vw] text-white border-white hover:scale-105 transition ease-in-out duration-200"
         >
           Cerrar Sesión
         </button>
       ) : (
-        <Link to={"/login"} className="tracking-wider text-[#3b096b] font-bold px-[1vw] py-[0.4vw] rounded text-[1vw] bg-white ">
+        <Link to={"/login"} className="tracking-wider text-[#3b096b] font-bold px-[1vw] py-[0.4vw] rounded text-[1vw] bg-white">
           Iniciar Sesión
         </Link>
       )}
     </div>
   );
 };
+
 
 // boton perfil
 function BotonPerfil() {
@@ -213,6 +213,7 @@ function BotonBuscador({ setProductoBuscador, buscadorNavigate }) {
 export function Header({ colAndrow }) {
   const [productos, setProductos] = useState([]);
   const [productoBuscador, setProductoBuscador] = useState("");
+  const { usuario, logout } = useSession();
   const navigate = useNavigate();
 
   const buscadorNavigate = async () => {
@@ -248,6 +249,7 @@ export function Header({ colAndrow }) {
         <div className="contenedorImg w-[15vw] h-[6vw]">
           <img className="w-full h-full object-cover" src="../../src/assets/img/logo1-1.png" alt="Logo" />
         </div>
+     
 
         <div className=" justify-center flex items-center gap-[1.5vw] br">
           {/* buscador */}

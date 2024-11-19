@@ -25,10 +25,8 @@ export const SessionProvider = ({ children }) => {
       }
 
       const data = await respuesta.json();
-      console.log("Información del usuario obtenida:", data);
-
-      // Establecer los datos del usuario en el estado
-      setUsuario(data);
+      console.log("datos del usuario:", data);
+      setUsuario(data); // Actualiza el estado global con los datos del usuario
     } catch (error) {
       console.log("Error al obtener la sesión:", error);
       setUsuario(null); // Establecer usuario como null si falla la solicitud
@@ -37,12 +35,20 @@ export const SessionProvider = ({ children }) => {
     }
   };
 
+  // Este `useEffect` se ejecuta solo cuando el componente se monta para verificar el estado de la sesión.
   useEffect(() => {
     fetchUsuario();
-  }, []); // Ejecutar solo una vez al montar el componente
+  }, []); // Solo se ejecuta una vez al montar el componente
+
+  // Función para cerrar sesión, se actualizará el estado global y eliminará cookies.
+  const logout = () => {
+    setUsuario(null); // Limpiar el usuario en el contexto
+    localStorage.removeItem("token"); // Eliminar token de localStorage
+    document.cookie = "authToken=; Max-Age=0; path=/"; // Eliminar cookie
+  };
 
   return (
-    <SessionContext.Provider value={{ usuario, setUsuario, loading }}>
+    <SessionContext.Provider value={{ usuario, setUsuario, loading, logout }}>
       {children}
     </SessionContext.Provider>
   );

@@ -55,11 +55,9 @@ function P_infocontactos({ textSpan, textInfo }) {
 // main en general de contactos
 export default function Contactos() {
   return (
-    <div className="grid grid-rows-[auto_auto_1fr_auto] h-screen">
-      <HeaderPruebas colAndrow={"row-start-1"} />
-      <NavPrueba colAndrow={"row-start-2"} />
-      <main className="row-start-3 grid grid-rows-2 ">
-        {/* <div>
+
+      <main className="grid grid-cols-2 justify-items-center">
+        <div>
        
         <p>Contáctanos</p>
 
@@ -79,9 +77,9 @@ export default function Contactos() {
           <P_infocontactos textInfo={" +54 370 4568974"} textSpan={"Teléfono:"} />
           <P_infocontactos textInfo={" info@aventuras.com.ar"} textSpan={"Email:"} />
         </div>
-      </div> */}
+      </div> 
 
-        {/* <form>
+         <form>
         <p>INGRESE SU DUDA O QUEJA:</p>
 
         <LabelInput nombreCampo={"Nombre y apellido:"} relacionId={"nombre"} />
@@ -93,9 +91,8 @@ export default function Contactos() {
         </div>
 
         <button type="submit">Enviar</button>
-      </form> */}
+      </form>
       </main>
-      <FooterPrueba colAndrow={"row-start-4"} />
-    </div>
+ 
   );
 }

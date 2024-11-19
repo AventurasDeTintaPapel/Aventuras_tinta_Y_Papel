@@ -47,6 +47,7 @@ const AppRouter = () => {
               <Route path="/soporte" element={<SupportChat />} />
               <Route path="/detalles/:id" element={<DetallesProductos />} />
               <Route path="/listado" element={<ProductList />} />
+              <Route path="/contactos" element={<Contactos />} />
             </Route>
 
             {/* rutas para admin */}
@@ -66,7 +67,7 @@ const AppRouter = () => {
             </Route>
 
             {/* prueba de header */}
-            <Route path="/contactos" element={<Contactos />} />
+            
 
             {/* rutas con aside*/}
             <Route path="/catalogo" element={<Catalogo />} />
