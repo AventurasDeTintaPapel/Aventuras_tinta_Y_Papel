@@ -15,6 +15,7 @@ import {
   AdminInicio,
   AdminPanel,
   AdminPedidos,
+  AdminProductos,
   AdminProveedores,
   Carrito,
   Catalogo,
@@ -49,9 +50,9 @@ const AppRouter = () => {
             </Route>
 
             {/* rutas para admin */}
-
             <Route element={<LayoutAdmin />}>
               <Route path="/inicioAdmin" element={<AdminInicio />} />
+              <Route path="/productosAdmin" element={<AdminProductos />} />
               <Route
                 path="/adminPanel"
                 element={

@@ -18,6 +18,6 @@ export const ProductList = lazy(() => import("./listProducts"));
 export const AdminPanel = lazy(() => import("./AdminPanel"));
 
 export const AdminInicio = lazy(() => import("./AdminInicio"));
-
+export const AdminProductos = lazy(() => import("./AdminProductos"));
 export const AdminProveedores = lazy(() => import("./AdminProveedores"));
 export const AdminPedidos = lazy(() => import("./AdminPedidos"));

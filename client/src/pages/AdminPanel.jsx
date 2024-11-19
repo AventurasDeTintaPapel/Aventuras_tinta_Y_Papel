@@ -20,9 +20,7 @@ const AdminPanel = () => {
   }, []);
 
   const handleDelete = (id) => {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar este producto?")
-    ) {
+    if (window.confirm("¿Estás seguro de que quieres eliminar este producto?")) {
       fetch(`http://localhost:3400/api/productos/eliminar/${id}`, {
         method: "DELETE",
         credentials: "include",
@@ -68,9 +66,7 @@ const AdminPanel = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200 p-8">
       <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
         <div className="p-8">
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-6">
-            Panel de Administrador
-          </h1>
+          <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Panel de Administrador</h1>
           <button
             onClick={handleAddProduct}
             className="mb-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out flex items-center"
@@ -94,51 +90,24 @@ const AdminPanel = () => {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Imagen
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Título
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Tipo
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Precio
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Stock
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Acciones
-                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Imagen</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {productos.map((producto) => (
-                  <tr
-                    key={producto._id}
-                    className="hover:bg-gray-50 transition duration-150 ease-in-out"
-                  >
-                    {producto.imagen && (
-                      <img
-                        src={producto.imagen}
-                        alt={producto.titulo}
-                        className="w-36 h-36 object-cover  mr-4"
-                      />
-                    )}
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {producto.titulo}
+                  <tr key={producto._id} className="hover:bg-gray-50 transition duration-150 ease-in-out">
+                    <td className="px-12 py-4 whitespace-nowrap">
+                      {producto.imagen && <img src={producto.imagen} alt={producto.titulo} className="w-36 h-36 object-cover  mr-4" />}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {producto.tipo}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      ${producto.precio.toFixed(2)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {producto.stock}
-                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{producto.titulo}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{producto.tipo}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${producto.precio.toFixed(2)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{producto.stock}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <button
                         onClick={() => handleEdit(producto._id)}

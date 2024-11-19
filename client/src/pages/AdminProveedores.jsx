@@ -29,13 +29,34 @@ function ButonElimarProveedor({ idProveedor, setProveedores, traerProveedores })
   );
 }
 
-function ButtonEditarProvedor({ idProveedor, setProveedores }) {
+function ButtonEditarProvedor({ idProveedor, traerProveedores, nameProps, companiaProps, emailProps, addresProps, phoneProps }) {
   const [formAgregar, setFormAgregar] = useState(false);
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState(nameProps);
+  const [company, setCompany] = useState(companiaProps);
+  const [email, setEmail] = useState(emailProps);
+  const [address, setAddress] = useState(addresProps);
+  const [phone, setPhone] = useState(phoneProps);
+  const { Alerta, mostrarAlerta } = useAlert();
+
+  const editarProveedor = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:3400/api/supplier/edit/${idProveedor}`, {
+        name,
+        company,
+        email,
+        address,
+        phone,
+      });
+
+      console.log("Usuario Editado:", response.data);
+      await traerProveedores();
+      setFormAgregar(false);
+      mostrarAlerta("Se edito con exito el proveedor");
+    } catch (error) {
+      console.error("Error al traer porveedores", error);
+    }
+  };
 
   const handleClicForm = () => {
     setFormAgregar(!formAgregar);
@@ -49,6 +70,7 @@ function ButtonEditarProvedor({ idProveedor, setProveedores }) {
       >
         Editar
       </button>
+      {Alerta}
       <div
         className={`${
           formAgregar
@@ -56,7 +78,7 @@ function ButtonEditarProvedor({ idProveedor, setProveedores }) {
             : "opacity-0 left-[-80vw] absolute pointer-events-none"
         }`}
       >
-        <form onSubmit={""} className="bg-white p-5 relative rounded">
+        <form onSubmit={editarProveedor} className="bg-white p-5 relative rounded">
           <button
             onClick={() => setFormAgregar(false)}
             className="absolute right-[1.5vw] top-[1.4vw] hover:scale-105 transition ease-in-out duration-200 text-red-600 text-[2vw]"
@@ -69,7 +91,7 @@ function ButtonEditarProvedor({ idProveedor, setProveedores }) {
             <div>
               <label className="font-semibold">Nombre:</label>
               <input
-                className="w-full border border-slate-300 px-[1vw] py-[0.3vw]"
+                className="w-full border border-slate-300 px-[1vw] py-[0.4vw]"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -80,7 +102,7 @@ function ButtonEditarProvedor({ idProveedor, setProveedores }) {
             <div>
               <label className="font-semibold">Compañía:</label>
               <input
-                className="w-full border border-slate-300 px-[1vw] py-[0.3vw]"
+                className="w-full border border-slate-300 px-[1vw] py-[0.4vw]"
                 type="text"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
@@ -91,7 +113,7 @@ function ButtonEditarProvedor({ idProveedor, setProveedores }) {
             <div>
               <label className="font-semibold">Email:</label>
               <input
-                className="w-full border border-slate-300 px-[1vw] py-[0.3vw]"
+                className="w-full border border-slate-300 px-[1vw] py-[0.4vw]"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -102,7 +124,7 @@ function ButtonEditarProvedor({ idProveedor, setProveedores }) {
             <div>
               <label className="font-semibold">Dirección:</label>
               <input
-                className="w-full border border-slate-300 px-[1vw] py-[0.3vw]"
+                className="w-full border border-slate-300 px-[1vw] py-[0.4vw]"
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
@@ -113,7 +135,7 @@ function ButtonEditarProvedor({ idProveedor, setProveedores }) {
             <div>
               <label className="font-semibold">Teléfono:</label>
               <input
-                className="w-full border border-slate-300 px-[1vw] py-[0.3vw]"
+                className="w-full border border-slate-300 px-[1vw] py-[0.4vw]"
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -138,7 +160,8 @@ function AgregarProveedores({ traerProveedores }) {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
-  const agragarProveedor = async () => {
+  const agragarProveedor = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:3400/api/supplier/create", {
         name,
@@ -157,7 +180,6 @@ function AgregarProveedores({ traerProveedores }) {
       setFormAgregar(false);
 
       await traerProveedores();
-      mostrarAlerta("Proveedor creado con exito");
     } catch (error) {
       console.error("Error al enviar el formulario", error);
     }
@@ -271,8 +293,13 @@ export default function AdminProveedores() {
     }
   };
 
-  const filtroProductos = proveedores.length > 0 && proveedores.filter((proveedor) => proveedor.name.toLowerCase().includes(buscarProveedor.toLowerCase()) || proveedor.company.toLowerCase().includes(buscarProveedor.toLowerCase()));
-  
+  const filtroProductos =
+    proveedores.length > 0 &&
+    proveedores.filter(
+      (proveedor) =>
+        proveedor.name.toLowerCase().includes(buscarProveedor.toLowerCase()) ||
+        proveedor.company.toLowerCase().includes(buscarProveedor.toLowerCase())
+    );
 
   useEffect(() => {
     traerProveedores();
@@ -292,36 +319,44 @@ export default function AdminProveedores() {
       </div>
       {loading && <p>Cargando proveedores. . . </p>}
       {/* contenedor */}
-      <div className="space-y-[1.5vw] py-[2vw] justify-items-center">
+      <div className=" gap-[2vw] px-[2vw] grid grid-cols-2 py-[2vw] justify-items-center">
         {filtroProductos.length > 0 ? (
           filtroProductos.map((proveedor, index) => (
             // tarjeta
-            <div key={index} className="w-[55vw]">
+            <div key={index} className="w-full">
               <div className="grid grid-rows-[1fr_auto] shadow-md">
                 <div className="bg-slate-200 py-[0.5vw] flex justify-end gap-[1vw] px-[1vw] rounded-t">
-                  <ButtonEditarProvedor />
+                  <ButtonEditarProvedor
+                    idProveedor={proveedor._id}
+                    traerProveedores={traerProveedores}
+                    nameProps={proveedor.name}
+                    companiaProps={proveedor.company}
+                    emailProps={proveedor.email}
+                    addresProps={proveedor.address}
+                    phoneProps={proveedor.phone}
+                  />
                   <ButonElimarProveedor traerProveedores={traerProveedores} idProveedor={proveedor._id} setProveedores={setProveedores} />
                 </div>
                 <div className="rounded-b px-[1vw] py-[0.5vw]">
                   <p className="text-[1.2vw] border-b border-slate-300 pl-[0.5vw] py-[0.2vw]">
                     <span className="font-semibold">Nombre del proveedor: </span>
-                    {proveedor.name}
+                    {proveedor.name || "Nombre no encontrado"}
                   </p>
                   <p className="text-[1.2vw] border-b border-slate-300 pl-[0.5vw] py-[0.2vw]">
                     <span className="font-semibold">Compañía del proveedor: </span>
-                    {proveedor.company}
+                    {proveedor.company || "Compañia no encontrado"}
                   </p>
                   <p className="text-[1.2vw] border-b border-slate-300 pl-[0.5vw] py-[0.2vw]">
                     <span className="font-semibold">Email del proveedor: </span>
-                    {proveedor.email}
+                    {proveedor.email || "Email no encontrado"}
                   </p>
                   <p className="text-[1.2vw] border-b border-slate-300 pl-[0.5vw] py-[0.2vw]">
-                    <span className="font-semibold">Contacto del proveedor: </span>
-                    {proveedor.phone}
+                    <span className="font-semibold">Telefono del proveedor: </span>
+                    {proveedor.phone || "Telefono no encontrado"}
                   </p>
                   <p className="text-[1.2vw] pt-[0.2vw] pl-[0.5vw]">
                     <span className="font-semibold">Dirección del proveedor: </span>
-                    {proveedor.address}
+                    {proveedor.address || "Direccion no encontrado"}
                   </p>
                 </div>
               </div>
