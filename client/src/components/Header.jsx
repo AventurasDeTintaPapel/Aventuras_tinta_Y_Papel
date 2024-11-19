@@ -43,21 +43,18 @@ const MyButton = () => {
 
   // Render basado en el estado
   return (
-    <div className="text-white">
+    <div className="font-poopins">
       {isLoggedIn ? (
-        <button onClick={handleCerrarSesion} className="group flex items-center gap-[0.6vw] text-white-600 h-[3.8vw] w-full justify-end pr-[1vw]">
-          <span className="transition-all duration-300 ease-in-out text-[1.3vw] group-hover:text-[1.5vw]">Cerrar Sesión</span>
-          <IconoCerrarSesion />
+        <button
+          onClick={handleCerrarSesion}
+          className=" tracking-wider font-bold px-[1vw] py-[0.4vw] rounded border-[0.14vw] text-[1vw] text-white border-white hover:scale-105 transition ease-in-out duration-200"
+        >
+          Cerrar Sesión
         </button>
       ) : (
-        <a href="http://localhost:5173/login">
-          <button
-            className="text-center rounded-[0.3vw] px-[0.5vw] h-[2.5vw] font-medium
-            text-[1.1vw] transition-all duration-500 ease-in-out hover:text-[#240046] hover:bg-[#f0e6ef]"
-          >
-            Iniciar Sesión
-          </button>
-        </a>
+        <Link to={"/login"} className="tracking-wider text-[#3b096b] font-bold px-[1vw] py-[0.4vw] rounded text-[1vw] bg-white ">
+          Iniciar Sesión
+        </Link>
       )}
     </div>
   );
