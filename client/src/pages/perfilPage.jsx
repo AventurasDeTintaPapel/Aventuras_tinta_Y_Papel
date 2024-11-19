@@ -9,9 +9,9 @@ export default function Perfil() {
   const token = localStorage.getItem("token");
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isHashtags, setIsHashtags] = useState(true);
 
-  useEffect(() => {
+  // Función para obtener los datos del usuario
+  const fetchUserData = () => {
     if (token) {
       fetch("http://localhost:3400/api/auth/user", {
         method: "GET",
@@ -28,7 +28,7 @@ export default function Perfil() {
           return response.json();
         })
         .then((data) => {
-          console.log("Datos del usuario recibidos:", data); // Revisa los datos
+          console.log("Datos del usuario recibidos:", data);
           setUserData(data);
           setLoading(false);
         })
@@ -39,16 +39,20 @@ export default function Perfil() {
     } else {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    // Llama la función al montar el componente
+    fetchUserData();
+
+    // Configura un intervalo para recargar automáticamente cada 5 segundos (5000 ms)
+    const intervalId = setInterval(() => {
+      fetchUserData();
+    }, 2000);
+
+    // Limpia el intervalo al desmontar el componente
+    return () => clearInterval(intervalId);
   }, [token]);
-
-  const toggleText = () => {
-    setIsHashtags(!isHashtags);
-  };
-
-  const getHashtagText = (text) => {
-    // Verifica si 'text' está definido antes de intentar usar .split()
-    return (text || "").split("").map(() => "#").join("");
-  };
 
   return (
     <main className="row-start-3 relative flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0] h-full ">
@@ -89,15 +93,104 @@ export default function Perfil() {
   );
 }
 
+
 function Botonperfil() {
   const [mostrarMenu, setMostrarMenu] = useState(false);
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
 
-  const manejarClick = () => {
-    setMostrarMenu(true);
+  // Estados para manejar los datos del usuario
+  const [nombreUsuario, setnombreUsuario] = useState("");
+  const [email, setEmail] = useState("");
+  const [fechaNacimiento, setfechaNacimiento] = useState("");
+  const [phone, setPhone] = useState("");
+
+  // Función para cargar los datos del perfil desde el servidor
+  const cargarDatosPerfil = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No se encontró el token de autenticación.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3400/api/auth/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al cargar los datos del usuario.");
+      }
+
+      const data = await response.json();
+      setnombreUsuario(data.nombreUsuario || "");
+      setEmail(data.email || "");
+      setfechaNacimiento(data.fechaNacimiento || "");
+      setPhone(data.phone || "");
+    } catch (error) {
+      console.error("Error al cargar el perfil:", error);
+    }
   };
 
+  // Abrir el formulario de edición y cargar los datos actuales
+  const manejarClick = async () => {
+    setMostrarMenu(true);
+    await cargarDatosPerfil();
+  };
+
+  // Cerrar el formulario
   const cerrarForm = () => {
     setMostrarMenu(false);
+  };
+
+  // Confirmar la alerta
+  const confirmarAlerta = async () => {
+    setMostrarAlerta(false);
+    await cargarDatosPerfil(); // Recargar datos actualizados después de la alerta
+    setMostrarMenu(false); // Cierra el formulario
+  };
+
+  // Función para manejar el envío del formulario
+  const manejarEnvio = async (event) => {
+    event.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No se encontró el token de autenticación.");
+      return;
+    }
+
+    const datosUsuario = {
+      nombreUsuario,
+      email,
+      fechaNacimiento,
+      phone,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3400/api/user/update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        credentials: "include",
+        body: JSON.stringify(datosUsuario),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar la información del usuario.");
+      }
+
+      console.log("Usuario actualizado correctamente.");
+      setMostrarAlerta(true); // Mostrar alerta de éxito
+    } catch (error) {
+      console.error("Error al actualizar el perfil:", error);
+    }
   };
 
   return (
@@ -109,22 +202,90 @@ function Botonperfil() {
         EDITAR INFORMACION
       </button>
 
-      <div
-        className={`${
-          mostrarMenu ? "opacity-60 bg-black" : "opacity-0 pointer-events-none"
-        } absolute w-full h-full top-0 left-0`}></div>
-      <form
-        className={`${
-          mostrarMenu ? "opacity-100" : "opacity-0 pointer-events-none"
-        } bg-[#9453bd] text-white py-[1vw] px-[2vw] transition-all ease-in-out duration-500 absolute right-0 top-0 flex flex-col justify-around h-full`}
-      >
-        <p className="text-[2.3vw]">EDITAR INFORMACION</p>
-        {/* Formulario aquí */}
-        <button className="bg-[#732ab6] w-full text-[1.5vw] rounded-[0.3vw] py-[0.5vw] hover:text-[1.4vw] transition-all ease-in-out duration-200">
-          EDITAR INFORMACION
-        </button>
-        <button onClick={cerrarForm}>Cerrar</button>
-      </form>
+      {mostrarMenu && (
+        <>
+          <div className="opacity-60 bg-black absolute w-full h-full top-0 left-0"></div>
+
+          <form
+            onSubmit={manejarEnvio}
+            className="bg-[#9453bd] text-black py-[1vw] px-[2vw] transition-all ease-in-out duration-500 absolute right-0 top-0 flex flex-col justify-around h-full"
+          >
+            <p className="text-[2.3vw]">EDITAR INFORMACION</p>
+
+            <label htmlFor="nombreUsuario">Nombre de Usuario:</label>
+            <input
+              type="text"
+              id="nombreUsuario"
+              value={nombreUsuario}
+              onChange={(e) => setnombreUsuario(e.target.value)}
+              className="text-[1.2vw] py-[0.3vw] mb-[1vw] rounded-[0.3vw]"
+            />
+
+            <label htmlFor="email">Correo Electrónico:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="text-[1.2vw] py-[0.3vw] mb-[1vw] rounded-[0.3vw]"
+            />
+
+            <label htmlFor="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input
+              type="date"
+              id="fechaNacimiento"
+              value={fechaNacimiento}
+              onChange={(e) => setfechaNacimiento(e.target.value)}
+              className="text-[1.2vw] py-[0.3vw] mb-[1vw] rounded-[0.3vw]"
+            />
+
+            <label htmlFor="phone">Número de Teléfono:</label>
+            <input
+              type="text"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="text-[1.2vw] py-[0.3vw] mb-[1vw] rounded-[0.3vw]"
+            />
+
+            <button
+              type="submit"
+              className="bg-[#732ab6] w-full text-[1.5vw] rounded-[0.3vw] py-[0.5vw] hover:text-[1.4vw] transition-all ease-in-out duration-200"
+            >
+              GUARDAR CAMBIOS
+            </button>
+
+            <button
+              onClick={cerrarForm}
+              className="text-[1.5vw] mt-[1vw]"
+              type="button"
+            >
+              Cerrar
+            </button>
+          </form>
+        </>
+      )}
+
+      {mostrarAlerta && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <p className="text-xl mb-4">Perfil actualizado correctamente</p>
+            <button
+              onClick={confirmarAlerta}
+              className="bg-[#53187e] text-white rounded py-2 px-4 hover:bg-[#732ab6]"
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
+
+
+
+
+
+
+
