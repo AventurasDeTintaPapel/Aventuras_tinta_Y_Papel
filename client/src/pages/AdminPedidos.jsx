@@ -24,19 +24,31 @@ export default function AdminPedidos() {
   function ActualizarEstado({ idPedido, estadoPedido }) {
     const handleChange = async (event) => {
       const nuevoEstado = event.target.value;
+      const token = localStorage.getItem('authToken'); // Asegúrate de que el token esté en localStorage o donde lo almacenes.
+  
       try {
-        const response = await axios.put("http://localhost:3400/api/pedidos/update", {
-          id: idPedido,
-          state: nuevoEstado,
-        });
-
+        const response = await axios.put(
+          "http://localhost:3400/api/pedidos/update", 
+          {
+            id: idPedido,
+            state: nuevoEstado,
+          },
+          {
+            headers: {
+              token: token, // Enviar el token en la cabecera Authorization
+            },
+            withCredentials: true,
+          }
+        );
+  
+        // Aquí llamas a tu función traerPedidos para actualizar la vista
         await traerPedidos();
         console.log("Estado actualizado:", response.data);
       } catch (error) {
-        console.error("Error al actualizar estado:", error);
+        console.error("Error al actualizar estado:", error.response || error.message);
       }
     };
-
+  
     return (
       <select className="text-[1.2vw] pl-[0.5vw]" value={estadoPedido} onChange={handleChange} name="estado" id="estado">
         <option className="" value="">
@@ -51,7 +63,6 @@ export default function AdminPedidos() {
       </select>
     );
   }
-
   const filters = pedidos.filter((pedido) => pedido.estado !== "incompleto");
 
   useEffect(() => {
