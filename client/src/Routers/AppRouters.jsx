@@ -13,6 +13,7 @@ import { ProtectedRoutes } from "../components/ProtectedRoutes";
 import { SessionProvider } from "../context/SessionProvider";
 import {
   AdminInicio,
+  AdminMasInfo,
   AdminPanel,
   AdminPedidos,
   AdminProductos,
@@ -53,6 +54,7 @@ const AppRouter = () => {
             <Route element={<LayoutAdmin />}>
               <Route path="/inicioAdmin" element={<AdminInicio />} />
               <Route path="/productosAdmin" element={<AdminProductos />} />
+              <Route path="/masInfoProductosAdmin/:id" element={<AdminMasInfo />} />
               <Route
                 path="/adminPanel"
                 element={
