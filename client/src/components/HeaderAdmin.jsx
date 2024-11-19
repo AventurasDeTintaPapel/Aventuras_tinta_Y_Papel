@@ -54,7 +54,7 @@ const MyButton = () => {
       )}
     </div>
   );
-};
+}
 
 // contenedor header
 export function HeaderAdmin({ colAndrow }) {

@@ -9,9 +9,14 @@ import axios from "axios";
 import { useSession } from "../context/SessionProvider";
 
 const MyButton = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const { usuario, setUsuario } = useSession(); // Obtener el usuario y setUsuario desde el contexto
-  const [refresh, setRefresh] = useState(false); // Estado para forzar un re-render
+
+  useEffect(() => {
+    // Verificar si hay token en localStorage
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token); // Actualizar estado basado en la existencia del token
+  }, []);
 
   const handleCerrarSesion = async (e) => {
     e.preventDefault();
@@ -26,38 +31,35 @@ const MyButton = () => {
       localStorage.removeItem("token");
       document.cookie = "authToken=; Max-Age=0; path=/";
 
-      // Limpiar usuario en el contexto global
-      setUsuario(null);
-
-      // Forzar re-render del componente
-      setRefresh((prev) => !prev);
+      // Actualizar estado
+      setIsLoggedIn(false);
 
       // Redirigir al usuario a la página de inicio
-      navigate("/");
+      navigate("/"); // Redirige a la página de inicio
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
       alert("Hubo un problema al cerrar la sesión. Por favor, inténtelo de nuevo.");
     }
   };
 
-  // Renderizado basado en si el usuario está logueado o no
+  // Render basado en el estado
   return (
     <div className="font-poopins">
-      {usuario ? (
+      {isLoggedIn ? (
         <button
           onClick={handleCerrarSesion}
-          className="tracking-wider font-bold px-[1vw] py-[0.4vw] rounded border-[0.14vw] text-[1vw] text-white border-white hover:scale-105 transition ease-in-out duration-200"
+          className=" tracking-wider font-bold px-[1vw] py-[0.4vw] rounded border-[0.14vw] text-[1vw] text-white border-white hover:scale-105 transition ease-in-out duration-200"
         >
           Cerrar Sesión
         </button>
       ) : (
-        <Link to={"/login"} className="tracking-wider text-[#3b096b] font-bold px-[1vw] py-[0.4vw] rounded text-[1vw] bg-white">
+        <Link to={"/login"} className="tracking-wider text-[#3b096b] font-bold px-[1vw] py-[0.4vw] rounded text-[1vw] bg-white ">
           Iniciar Sesión
         </Link>
       )}
     </div>
   );
-};
+}
 
 
 // boton perfil
