@@ -6,6 +6,7 @@ import "@fontsource/montserrat/700.css";
 import { IconoCerrarSesion, IconoFvoritos, IconoMisCompras, IconoPerfil, IconoSoporteAlCliente } from "./icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSession } from "../context/SessionProvider";
 
 const MyButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,7 +59,8 @@ const MyButton = () => {
       )}
     </div>
   );
-};
+}
+
 
 // boton perfil
 function BotonPerfil() {
@@ -213,6 +215,7 @@ function BotonBuscador({ setProductoBuscador, buscadorNavigate }) {
 export function Header({ colAndrow }) {
   const [productos, setProductos] = useState([]);
   const [productoBuscador, setProductoBuscador] = useState("");
+  const { usuario, logout } = useSession();
   const navigate = useNavigate();
 
   const buscadorNavigate = async () => {
@@ -248,6 +251,7 @@ export function Header({ colAndrow }) {
         <div className="contenedorImg w-[15vw] h-[6vw]">
           <img className="w-full h-full object-cover" src="../../src/assets/img/logo1-1.png" alt="Logo" />
         </div>
+     
 
         <div className=" justify-center flex items-center gap-[1.5vw] br">
           {/* buscador */}

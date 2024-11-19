@@ -23,7 +23,7 @@ export default function Login() {
       });
 
       const data = await response.json();
-
+      console.log("soy yo", data);
       if (!response.ok) {
         // Manejo de error
         alert(data.msg || "Error al iniciar sesión");
@@ -31,20 +31,20 @@ export default function Login() {
       }
 
       // Guardar token en localStorage
-      localStorage.setItem("token", data.token);
+    localStorage.setItem("token", data.token);
 
-      // Acceder al rol correctamente desde el objeto usuario
-      const rol = data.usuario?.rol;
-      console.log("Rol del usuario:", rol);
+    // Acceder al rol correctamente desde el objeto usuario
+    const rol = data.usuario?.rol;
+    console.log("Rol del usuario:", rol);
 
-      // Validar y redirigir según el rol
-      if (rol === "admin") {
-        console.log("Redirigiendo al panel de admin...");
-        navigate("/adminPanel");
-      } else {
-        console.log("Redirigiendo al inicio...");
-        navigate("/");
-      }
+    // Validar y redirigir según el rol
+    if (rol === "admin") {
+      console.log("Redirigiendo al panel de admin...");
+      navigate("/adminPanel");
+    } else {
+      console.log("Redirigiendo al inicio...");
+      navigate("/");
+    }
     } catch (error) {
       console.log("Error al iniciar sesión:", error);
       alert("Hubo un problema. Por favor, inténtalo de nuevo.");
@@ -55,10 +55,10 @@ export default function Login() {
     <>
       {/* Fondo semitransparente y decorativo */}
       <div className="w-full h-[100vh] bg-black opacity-45 z-10 absolute"></div>
-
+  
       {/* Imagen de fondo */}
       <img className="absolute z-0 w-[98%] h-[100vh] left-[1vw]" src={imglogin} alt="Imagen de login" />
-
+  
       {/* Contenedor principal */}
       <div className="w-full h-[100vh] flex items-center justify-center">
         <form
@@ -69,7 +69,7 @@ export default function Login() {
         >
           {/* Título */}
           <p className="text-[2.5vw] text-center font-bold">INGRESAR</p>
-
+  
           {/* Campos del formulario */}
           <div className="space-y-[1vw] pb-[2vw]">
             {/* Campo Email */}
@@ -87,7 +87,7 @@ export default function Login() {
                 required
               />
             </div>
-
+  
             {/* Campo Contraseña */}
             <div>
               <label htmlFor="password" className="text-[1.5vw] font-semibold ml-[0.2vw]">
@@ -104,7 +104,7 @@ export default function Login() {
               />
             </div>
           </div>
-
+  
           {/* Botón de enviar */}
           <button
             type="submit"
@@ -112,12 +112,15 @@ export default function Login() {
           >
             Entrar
           </button>
-
+  
           {/* Opciones adicionales */}
           <div className="space-y-[0.2vw] mt-[1vw]">
             <div>
               <span className="text-[1.3vw]">¿No tienes cuenta? </span>
-              <a className="text-emerald-500 text-[1.1vw]" href="http://localhost:5173/registro">
+              <a
+                className="text-emerald-500 text-[1.1vw]"
+                href="http://localhost:5173/registro"
+              >
                 Regístrate
               </a>
             </div>
@@ -132,4 +135,4 @@ export default function Login() {
       </div>
     </>
   );
-}
+}  
