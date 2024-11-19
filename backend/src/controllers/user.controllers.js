@@ -1,26 +1,102 @@
-import usuario from "../models/usuarios.model.js";
-import generarContrasena from "../helpers/generatePass.js";
-import bcrypt from "bcrypt";
-import passwordEmail from "./email.controller.js";
-//update users
-export const updatUser = async (req, res) => {
-  const { username, password, email } = req.body;
+import { validationResult } from 'express-validator'; 
+import bcrypt from 'bcryptjs';
+import usuario from '../models/usuarios.model.js'; // Asegúrate de que la ruta sea la correcta
+import jwt from "jsonwebtoken";
+import mongoose from 'mongoose';  // Importar mongoose para manejar ObjectId si es necesario
+
+const JWT_SECRET = "mysecret";
+
+// Función para verificar el JWT y decodificar la información
+const verificarJWT = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1] || req.cookies.authToken;
+  console.log("token:", token);
+  
+  if (!token) {
+    return res.status(401).json({ msg: "No token provided, authorization denied." });
+  }
 
   try {
-    const userId = req.user._id;
-
-    const contrasenia = bcrypt.hashSync(password, 10);
-    const userUpdate = { username, contrasenia, email };
-
-    const result = usuario.findByIdAndUpdate(idUser, userUpdate, { new: true });
-    !result
-      ? res.status(404).json({ msg: "error updating user" })
-      : res.status(201).json({ msg: "user update" });
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded; // Guardar el usuario decodificado en el objeto de la solicitud
+    next(); // Continuar con el siguiente middleware
   } catch (error) {
-    console.log("Internal Server Error ", error);
-    res.status(500).json({ msg: "Internal Server Error", error });
+    return res.status(401).json({ msg: "Token is not valid." });
   }
 };
+
+// Función para generar un nuevo JWT
+const generarJWT = (userId) => {
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' });
+};
+
+// Controlador para actualizar la información del usuario logueado
+export const actualizarUsuario = async (req, res) => {
+  const { userId } = req.user; // Obtener el userId directamente desde el objeto req.user, que ya fue decodificado por el middleware
+
+  // Validar los datos de entrada
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    return res.status(400).json(errores);
+  }
+
+  const { nombre, email, contrasenia } = req.body;
+
+  try {
+    // Verificar que el userId sea un ObjectId de MongoDB válido
+    const userObjectId = new mongoose.Types.ObjectId(userId); // Crear el ObjectId correctamente
+
+    // Buscar al usuario por ID
+    const userFind = await usuario.findById(userObjectId); // Asegúrate de que el userId esté convertido a ObjectId
+    console.log("usuario encontrado:", userFind);
+
+    if (!userFind) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    // Verificar si se debe actualizar la contraseña
+    let updatedPassword = userFind.contrasenia;
+
+    if (contrasenia) {
+      updatedPassword = bcrypt.hashSync(contrasenia, 10); // Hash de la nueva contraseña
+    }
+
+    // Actualizar la información del usuario
+    const updatedUser = await usuario.findByIdAndUpdate(
+      userObjectId, // Usar el ObjectId convertido
+      {
+        $set: {
+          nombre: nombre || userFind.nombre,
+          email: email || userFind.email,
+          contrasenia: updatedPassword,
+        },
+      },
+      { new: true }
+    );
+
+    // Generar un nuevo token después de la actualización (si es necesario)
+    const tokenNuevo = generarJWT(updatedUser._id); // Usar la función generada previamente
+
+    // Enviar la respuesta con el token actualizado y la información del usuario
+    return res.status(200).json({
+      msg: "User updated successfully",
+      token: tokenNuevo,
+      usuario: {
+        id: updatedUser._id,
+        email: updatedUser.email,
+        rol: updatedUser.rol,
+        nombre: updatedUser.nombre,
+      },
+    });
+  } catch (error) {
+    console.log("Error updating user", error);
+    return res.status(500).json({ msg: "Internal Server Error", error });
+  }
+};
+
+
+
+
+
 //delete user
 export const deleteUser = async (req, res) => {
   try {

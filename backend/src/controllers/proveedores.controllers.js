@@ -41,9 +41,7 @@ export const updateSupplier = async (req, res) => {
       new: true,
     });
 
-    return !result
-      ? res.status(404).json({ msg: "Supplier not found" })
-      : res.status(200).json({ msg: "Supplier updated", supplier: result });
+    return !result ? res.status(404).json({ msg: "Supplier not found" }) : res.status(200).json({ msg: "Supplier updated", supplier: result });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "interval server error" });
@@ -55,9 +53,7 @@ export const deleSupplier = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await supplier.findByIdAndDelete(id);
-    !result
-      ? res.status(301).json({ msg: "error deleting supplier" })
-      : res.status(200).json({ msg: "supplier delete " });
+    !result ? res.status(301).json({ msg: "error deleting supplier" }) : res.status(200).json({ msg: "supplier delete " });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "interval server error" });
@@ -68,10 +64,7 @@ export const deleSupplier = async (req, res) => {
 export const getAllSupplier = async (req, res) => {
   try {
     const result = await supplier.find();
-    console.log(result);
-    !result
-      ? res.status(404).json({ msg: "supplier not find" })
-      : res.status(200).json({ msg: "suppliers", result });
+    !result ? res.status(404).json({ msg: "supplier not find" }) : res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "interval server error" });

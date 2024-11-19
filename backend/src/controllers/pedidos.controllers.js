@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import usuario from "../models/usuarios.model.js";
 import producto from "../models/productos.model.js";
 import { validarJWT } from "../helpers/validadJWT.js";
-import { ObjectId } from "mongoose";
 
 // add item of the cart
 export const addCart = async (req, res) => {
@@ -20,11 +19,7 @@ export const addCart = async (req, res) => {
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
 
     //create new card
-    if (
-      !cardFind ||
-      cardFind.estado == "completo" ||
-      cardFind.stado == "entregado"
-    ) {
+    if (!cardFind || cardFind.estado == "completo" || cardFind.stado == "entregado") {
       const newPedido = new pedidos({
         productos: [
           {
@@ -38,9 +33,7 @@ export const addCart = async (req, res) => {
       await newPedido.save();
       return res.json(newPedido);
     } else {
-      const prodFind = cardFind.productos.find(
-        (p) => p.producto && p.producto.toString() === idProducto
-      );
+      const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === idProducto);
 
       if (prodFind) {
         prodFind.cantidad += cantidad;
@@ -92,10 +85,7 @@ export const deletItem = async (req, res) => {
     // Importar ObjectId de mongoose correctamente
 
     // Usar ObjectId para convertir idProducto en un ObjectId de MongoDB
-    const result = await pedidos.updateOne(
-      { usuario: idUsuario },
-      { $pull: { productos: { producto: idProducto } } }
-    );
+    const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: idProducto } } });
 
     if (!result.modifiedCount) {
       return res.status(404).json({ msg: "Product not found" });
@@ -141,9 +131,7 @@ export const getOrder = async (req, res) => {
 
     const ObjectId = new mongoose.Types.ObjectId();
     // Buscar el pedido y poblar los productos
-    const result = await pedidos
-      .findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) })
-      .populate("productos.producto");
+    const result = await pedidos.findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) }).populate("productos.producto");
 
     if (!result) {
       return res.status(404).json({ msg: "order not find" });
@@ -155,6 +143,7 @@ export const getOrder = async (req, res) => {
     return res.status(500).json({ msg: "Interval error sever" });
   }
 };
+
 //update amount of the product in the cart
 export const updaAmout = async (req, res) => {
   try {
@@ -162,38 +151,33 @@ export const updaAmout = async (req, res) => {
     const idUsuario = "6728bffd7d4911a899f7c2a7";
     const ObjectId = new mongoose.Types.ObjectId();
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
-    const prodFind = cardFind.productos.find(
-      (p) => p.producto && p.producto.toString() === idProduct
-    );
+    const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === idProduct);
 
     if (!prodFind) {
-      return res
-        .status(404)
-        .json({ msg: "Producto no encontrado en el carrito." });
+      return res.status(404).json({ msg: "Producto no encontrado en el carrito." });
     } else {
       // Actualizar la cantidad del producto encontrado
       prodFind.cantidad = amount;
 
       await cardFind.save();
-      return res
-        .status(200)
-        .json({ msg: "Cantidad actualizada con éxito", cardFind });
+      return res.status(200).json({ msg: "Cantidad actualizada con éxito", cardFind });
     }
   } catch (error) {
     console.log("Internal server error", error);
     res.status(500).json({ msg: "Internal server errir" });
   }
 };
+
 //get all oders
 export const getAllOrders = async (req, res) => {
   try {
-    const result = await pedidos.find();
-
+    const result = await pedidos.find().populate("productos.producto");
     if (result.length === 0) {
-      res.status(204).json({ msg: "There are no orders" });
+      res.status(404).json({ msg: "There are no orders" });
     }
+    res.status(200).json(result);
   } catch (error) {
     console.log("server error", error);
     return res.status(500).json({ msg: "interval error server" });
   }
-};
+}
