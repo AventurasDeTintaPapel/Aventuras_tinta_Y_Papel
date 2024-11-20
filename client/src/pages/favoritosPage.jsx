@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
 import axios from "axios";
 import "@fontsource/boogaloo";
 import "@fontsource/bree-serif";
@@ -21,8 +21,8 @@ export default function MisFavoritos() {
         const response = await axios("http://localhost:3400/api/favoritos/getFav", {
           withCredentials: true,
         });
-        setFavorites(response.data);
-        console.log("Se trajo favortios con exito:", response.data);
+        setFavorites(response.data); // Establecer los favoritos en el estado
+        console.log("Se trajo favoritos con exito:", response.data);
       } catch (err) {
         setError(err.response?.data?.msg || "Error al cargar favoritos");
       } finally {
@@ -47,11 +47,10 @@ export default function MisFavoritos() {
             <p className="text-center text-[2vw] text-red-600">{error}</p>
           ) : favorites.length > 0 ? (
             favorites.map((fav) => (
-              // Tarjetas
               <div key={fav.producto._id} className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[45vw] h-[17vw] p-[0.6vw]">
                 <CorazonFav
-                  key={fav.producto._id}
-                  producto={fav.producto}
+                  key={favorites.producto._id}
+                  producto={favorites.producto}
                   estilo={
                     "text-[#5a189a] hover:text-[2.5vw] transition-all ease-in-out duration-300 hover:translate-x-[0.2vw] hover:translate-y-[-0.2vw] absolute right-[2vw] top-[1.8vw] text-[2vw]"
                   }
@@ -59,9 +58,9 @@ export default function MisFavoritos() {
                 {/* Imagen */}
                 <div className="w-[13.7vw] h-full">
                   <img
-                    src={fav.producto.imagen}
+                    src={favorites.producto.imagen} // Verifica si la propiedad imagen está bien definida
                     className="w-full h-full object-cover rounded-bl-[1vw] rounded-[0.6vw]"
-                    alt={fav.producto.titulo || "Imagen del producto"}
+                    alt={favorites.producto.titulo || "Imagen del producto"}
                   />
                 </div>
                 {/* Información */}

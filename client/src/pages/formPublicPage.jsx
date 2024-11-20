@@ -150,7 +150,7 @@ export default function ProductForm() {
     const token = localStorage.getItem("token");
     try {
       // Modificación: Enviar el id en el body de la solicitud DELETE
-      const response = await fetch("http://localhost:3400/api/publics/delete", {
+      const response = await fetch("http://localhost:3400/api/publics/deletePublication", {
         method: "DELETE",
         credentials: "include",
         body: JSON.stringify({ idPublic: id }),
@@ -177,28 +177,28 @@ export default function ProductForm() {
     }
   };
 
-  return (
+  return ( 
     <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"col-span-2 row-start-1"} />
       <Nav colAndrow={"col-span-2 row-start-2"} />
       <aside className="col-start-1 row-start-3">
         {/* Formulario de añadir producto */}
-        <p className="font-poopins text-[2vw] pt-[1vw] text-[#3f2d51] pl-[1vw]">
+        <p className="font-poopins text-[2vw] pt-[2vw] text-[#3f2d51] pl-[1vw]">
           Añadir producto
         </p>
-        <div className="p-[1vw]">
+        <div className="p-[2vw]">
           <form
             onSubmit={handleSubmit}
-            className="bg-[#ead8fc] p-[1vw] w-[25vw] space-y-[1vw] text-[#3f2d51]"
+            className="bg-[#ead8fc] p-[2vw] w-[30vw] space-y-[1.5vw] text-[#3f2d51] rounded-md"
           >
-            <div className="font-baloo space-y-[0.5vw]">
+            <div className="font-baloo space-y-[1vw]">
               {/* Título */}
               <div>
-                <label className="text-[1.2vw]" htmlFor="title">
+                <label className="text-[1.4vw]" htmlFor="title">
                   Título:
                 </label>
                 <input
-                  className="w-full h-[2vw] text-[1.1vw] px-[0.5vw] rounded"
+                  className="w-full h-[2.5vw] text-[1.2vw] px-[0.7vw] rounded"
                   type="text"
                   id="title"
                   name="title"
@@ -208,14 +208,14 @@ export default function ProductForm() {
                   placeholder="Ingrese el título del producto"
                 />
               </div>
-
+  
               {/* Descripción */}
               <div>
-                <label className="text-[1.2vw]" htmlFor="description">
+                <label className="text-[1.4vw]" htmlFor="description">
                   Descripción:
                 </label>
                 <textarea
-                  className="w-full h-[3vw] text-[1.1vw] px-[0.5vw] rounded"
+                  className="w-full h-[4vw] text-[1.2vw] px-[0.7vw] rounded"
                   id="description"
                   name="description"
                   value={formData.description}
@@ -224,14 +224,14 @@ export default function ProductForm() {
                   placeholder="Ingrese la descripción del producto"
                 />
               </div>
-
+  
               {/* Contacto */}
               <div>
-                <label className="text-[1.2vw]" htmlFor="phone">
+                <label className="text-[1.4vw]" htmlFor="phone">
                   Contacto:
                 </label>
                 <input
-                  className="w-full h-[2vw] text-[1.1vw] px-[0.5vw] rounded"
+                  className="w-full h-[2.5vw] text-[1.2vw] px-[0.7vw] rounded"
                   type="text"
                   id="phone"
                   name="phone"
@@ -241,16 +241,16 @@ export default function ProductForm() {
                   placeholder="Ingrese su número de contacto"
                 />
               </div>
-
+  
               {/* Tipo */}
               <div>
-                <label className="text-[1.2vw]" htmlFor="type">
+                <label className="text-[1.4vw]" htmlFor="type">
                   Tipo:
                 </label>
                 <select
                   id="type"
                   name="type"
-                  className="w-full h-[2vw] text-[1.1vw] px-[0.5vw] rounded"
+                  className="w-full h-[2.5vw] text-[1.2vw] px-[0.7vw] rounded"
                   value={formData.type}
                   onChange={handleChange}
                   required
@@ -259,14 +259,14 @@ export default function ProductForm() {
                   <option value="intercambio">Intercambio</option>
                 </select>
               </div>
-
+  
               {/* Precio */}
               <div>
-                <label className="text-[1.2vw]" htmlFor="price">
+                <label className="text-[1.4vw]" htmlFor="price">
                   Precio:
                 </label>
                 <input
-                  className="w-full h-[2vw] text-[1.1vw] px-[0.5vw] rounded"
+                  className="w-full h-[2.5vw] text-[1.2vw] px-[0.7vw] rounded"
                   type="text"
                   id="price"
                   name="price"
@@ -277,7 +277,7 @@ export default function ProductForm() {
                   placeholder="Ingrese el precio del producto"
                 />
               </div>
-
+  
               {/* Campo de Imagen */}
               <div className="pt-[1vw]">
                 <div className="relative">
@@ -286,30 +286,30 @@ export default function ProductForm() {
                     id="imagen"
                     name="imagen"
                     onChange={handleChange}
-                    className="absolute top-0 left-0 w-[11vw] h-full cursor-pointer opacity-0"
+                    className="absolute top-0 left-0 w-[15vw] h-full cursor-pointer opacity-0"
                   />
                   <button
                     type="button"
-                    className="bg-[#dfc3fb] py-[0.5vw] px-[1vw] rounded text-[1.2vw]"
+                    className="bg-[#dfc3fb] py-[0.7vw] px-[1.2vw] rounded text-[1.4vw]"
                   >
                     Seleccionar Imagen
                   </button>
                 </div>
               </div>
-
+  
               {/* Vista previa de la imagen */}
               {imagePreview && (
                 <div>
                   <img
                     src={imagePreview}
                     alt="Vista previa de la imagen"
-                    className="w-[20vw] h-[30vw]"
+                    className="w-[25vw] h-[35vw] object-cover rounded-md"
                   />
                 </div>
               )}
             </div>
-
-            <button type="submit" disabled={isSubmitting}>
+  
+            <button type="submit" disabled={isSubmitting} className="w-full py-[0.8vw] bg-[#cbade9] rounded text-[1.4vw]">
               {isSubmitting
                 ? "Procesando..."
                 : editingPostId
@@ -319,39 +319,39 @@ export default function ProductForm() {
           </form>
         </div>
       </aside>
-
+  
       <main className="col-start-2 row-start-3 overflow-auto max-h-[70vh]">
         {/* Sección de publicaciones del usuario */}
-        <p className="font-poopins text-[2vw] pt-[1vw] text-[#3f2d51] pl-[1vw]">
+        <p className="font-poopins text-[2vw] pt-[2vw] text-[#3f2d51] pl-[1vw]">
           Mis Publicaciones
         </p>
-        <div className="grid grid-cols-4 pb-[2vw]  space-y">
+        <div className="grid grid-cols-3 gap-[2vw]">
           {userPosts.map((post) => (
             <div
               key={post._id}
-              className="bg-[#ead8fc] p-[1vw] rounded-md shadow-md space-y-[1vw] m-3"
+              className="bg-[#ead8fc] p-[2vw] rounded-md shadow-md space-y-[1.5vw] m-3"
             >
               <img
                 src={post.imagen}
                 alt={post.title}
-                className="w-60 h-48 object-cover"
+                className="w-full h-[18vw] object-cover rounded-md"
               />
-              <p className="font-baloo text-[#3f2d51] text-[1.5vw]">
+              <p className="font-baloo text-[#3f2d51] text-[1.6vw]">
                 {post.title}
               </p>
-              <p className="text-[1.2vw]">{post.precio}</p>
-              <p className="text-[1.2vw]">{post.description}</p>
-
+              <p className="text-[1.4vw]">{post.precio}</p>
+              <p className="text-[1.4vw]">{post.description}</p>
+  
               <div className="flex justify-between">
                 <button
                   onClick={() => handleEdit(post._id)}
-                  className="bg-[#cbade9] py-[0.5vw] px-[1vw] rounded"
+                  className="bg-[#cbade9] py-[0.7vw] px-[1.2vw] rounded text-[1.4vw]"
                 >
                   Editar
                 </button>
                 <button
                   onClick={() => handleDelete(post._id)} // Pasamos el id de la publicación a handleDelete
-                  className="bg-[#ff4d4d] py-[0.5vw] px-[1vw] rounded"
+                  className="bg-[#ff4d4d] py-[0.7vw] px-[1.2vw] rounded text-[1.4vw]"
                 >
                   Eliminar
                 </button>
@@ -360,8 +360,8 @@ export default function ProductForm() {
           ))}
         </div>
       </main>
-
+  
       <Footer colAndrow={"col-span-2 row-start-4"} />
     </div>
-  );
-}
+  );  
+}  

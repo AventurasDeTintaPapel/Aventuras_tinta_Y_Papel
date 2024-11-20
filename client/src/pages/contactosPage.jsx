@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from 'react'
 
 function LabelInput({ nombreCampo, relacionId, type = 'text', onChange }) {
@@ -33,24 +31,55 @@ function P_infocontactos({ textSpan, textInfo }) {
 
 export default function Contactos() {
   const [formData, setFormData] = useState({
-    nombre: '',
     email: '',
-    mensaje: '',
+    body: '',
+    asunto: '',
   })
+
+  const [showAlert, setShowAlert] = useState(false); // Estado para mostrar la alerta
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Formulario enviado:', formData)
-    // Aquí normalmente enviarías los datos al servidor
-  }
+    console.log('Formulario enviado:', formData);
+
+    try {
+      const response = await fetch('http://localhost:3400/api/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          body: formData.body,
+          asunto: formData.asunto,
+        }),
+        credentials: 'include',
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        // Si el correo se envió correctamente, mostrar la alerta
+        setShowAlert(true);
+      } else {
+        alert('Hubo un error al enviar el correo');
+      }
+    } catch (error) {
+      alert('Hubo un error al procesar tu solicitud');
+    }
+  };
 
   return (
+
     <main className="min-h-screen bg-gradient-to-br from-purple-100 to-violet-200 py-8 flex items-center justify-center">
       <div className="container mx-auto grid gap-8 px-4 md:grid-cols-2">
+        
         <div className="space-y-6">
           <div>
             <h1 className="mb-4 text-3xl font-bold text-purple-900">Contáctanos</h1>
@@ -73,10 +102,29 @@ export default function Contactos() {
         </div>
 
         <form onSubmit={handleSubmit} className="rounded-lg bg-white bg-opacity-70 p-6 shadow-lg">
-          <h2 className="mb-4 text-2xl font-bold text-purple-900">INGRESE SU DUDA O QUEJA:</h2>
+          <h2 className="mb-4 text-2xl font-bold text-purple-900">INGRESE SU DUDA, QUEJA O SUGERENCIA:</h2>
 
-          <LabelInput nombreCampo="Nombre y apellido:" relacionId="nombre" onChange={handleChange} />
+          
           <LabelInput nombreCampo="Correo Electrónico:" relacionId="email" type="email" onChange={handleChange} />
+          <div className="relative mb-4">
+  <label
+    htmlFor="asunto"
+    className="absolute left-0 -top-5 text-sm text-purple-900 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-purple-900"
+  >
+    Asunto:
+  </label>
+  <select
+    id="asunto"
+    onChange={handleChange}
+    required
+    className="peer w-full rounded-md border-b-2 border-violet-900 bg-white bg-opacity-70 p-2 text-purple-900 placeholder-transparent focus:outline-none focus:ring-2 focus:ring-violet-600"
+  >
+    <option value="" disabled selected>Seleccione una opción</option>
+    <option value="duda">Duda</option>
+    <option value="queja">Queja</option>
+    <option value="sugerencia">Sugerencia</option>
+  </select>
+</div>
 
           <div className="mb-4">
             <label htmlFor="mensaje" className="mb-2 block text-sm font-medium text-purple-900">
@@ -100,6 +148,25 @@ export default function Contactos() {
           </button>
         </form>
       </div>
+          {/* Alerta personalizada */}
+      {showAlert && (
+        <div
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-3/4 max-w-md p-4 bg-purple-600 text-white rounded-lg shadow-lg flex items-center justify-between"
+        >
+          <p className="text-sm">
+            Correo enviado con éxito, nos pondremos en contacto lo antes posible.
+          </p>
+          <button
+            onClick={() => {
+              setShowAlert(false); // Cerrar la alerta
+              window.location.reload(); // Recargar la página
+            }}
+            className="ml-4 bg-violet-700 text-white rounded-md px-4 py-2 hover:bg-violet-800 focus:outline-none"
+          >
+            Aceptar
+          </button>
+        </div>
+      )}
     </main>
   )
 }
