@@ -39,11 +39,7 @@ const app = express();
 app.use(
   cors({
     // Permitir solicitudes desde el front-end
-    origin: [
-      "http://localhost:5500",
-      "http://localhost:3000",
-      "http://localhost:5173",
-    ],
+    origin: ["http://localhost:5500", "http://localhost:3000", "http://localhost:5173"],
 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -71,7 +67,7 @@ app.use(cookieParser());
 const server = createServer(app);
 // Configuración de CORS
 const corsOptions = {
-  origin: "http://localhost:5173", // Cambia esto por la URL de tu frontend
+  origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 };
@@ -99,7 +95,5 @@ socketEvents(io);
 //configuracion del puerto
 const port = process.env.PORT || 3400;
 server.listen(port, () => {
-  console.log(
-    `El servidor está funcionando en el puerto http://localhost:${port}`
-  );
+  console.log(`El servidor está funcionando en el puerto http://localhost:${port}`);
 });

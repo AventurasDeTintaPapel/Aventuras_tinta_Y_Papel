@@ -9,7 +9,7 @@ export const addCart = async (req, res) => {
   try {
     const { idProducto, cantidad } = req.body;
 
-    const idUsuario = "6703f3330a1290cd786d458c";
+    const idUsuario = req.user._id;
     const obtProducto = await producto.findById(idProducto);
     if (!obtProducto) {
       console.log("product not find");
@@ -80,35 +80,31 @@ export const uptdaOrder = async (req, res) => {
 export const deletItem = async (req, res) => {
   try {
     const { idProducto } = req.body;
-    const idUsuario = "6703f3330a1290cd786d458c";
-
-    // Importar ObjectId de mongoose correctamente
-
-    // Usar ObjectId para convertir idProducto en un ObjectId de MongoDB
-    const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: idProducto } } });
-
-    if (!result.modifiedCount) {
-      return res.status(404).json({ msg: "Product not found" });
-    }
+    console.log(idProducto);
+    const idUsuario = req.user._id;
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
 
-    if (cardFind.productos.length === 0) {
-      await pedidos.findOneAndDelete({ usuario: idUsuario });
-      return res.status(200).json({ msg: "Delete order" });
+    if (cardFind.estado === "incompleto") {
+      const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: idProducto } } });
+
+      console.log(result);
+      if (result.modifiedCount > 0) {
+        return res.status(200).json({ msg: "The product was eliminated" });
+      }
     }
 
-    return res.status(200).json({ msg: "The product was eliminated" });
+    return res.status(404).json({ msg: "Product not found" });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ msg: "Internal server error" });
+    console.error(error);
+    return res.status(500).json({ msg: "Internal Server Error" });
   }
 };
 
 // delete order
 export const deletOrder = async (req, res) => {
   try {
-    const idUsuario = "6703f3330a1290cd786d458c";
+    const idUsuario = req.user._id;
 
     const ObjectId = new mongoose.Types.ObjectId();
     const result = await pedidos.findOneAndDelete({ usuario: idUsuario });
@@ -127,8 +123,7 @@ export const deletOrder = async (req, res) => {
 // get order for user id
 export const getOrder = async (req, res) => {
   try {
-    const idUsuario = "6703f3330a1290cd786d458c";
-
+    const idUsuario = req.user._id;
     const ObjectId = new mongoose.Types.ObjectId();
     // Buscar el pedido y poblar los productos
     const result = await pedidos.findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) }).populate("productos.producto");
@@ -148,9 +143,12 @@ export const getOrder = async (req, res) => {
 export const updaAmout = async (req, res) => {
   try {
     const { amount, idProduct } = req.body;
-    const idUsuario = "6728bffd7d4911a899f7c2a7";
+    const idUsuario = req.user._id;
+
     const ObjectId = new mongoose.Types.ObjectId();
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
+    console.log(cardFind);
+    console.log(idProduct);
     const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === idProduct);
 
     if (!prodFind) {
@@ -180,4 +178,4 @@ export const getAllOrders = async (req, res) => {
     console.log("server error", error);
     return res.status(500).json({ msg: "interval error server" });
   }
-}
+};

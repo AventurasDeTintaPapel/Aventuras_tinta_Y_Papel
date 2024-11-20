@@ -37,9 +37,7 @@ export const createPublic = async (req, res) => {
 export const getAllpublics = async (req, res) => {
   try {
     const { id } = req.body;
-    const getPublics = !id
-      ? await publics.find()
-      : await publics.find({ _id: id });
+    const getPublics = !id ? await publics.find() : await publics.find({ _id: id });
 
     //not publics
     if (!getPublics) {
@@ -50,6 +48,7 @@ export const getAllpublics = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error", error });
   }
 };
+
 export const myPublics = async (req, res) => {
   console.log(req.user._id);
   const userId = req.user._id;
@@ -95,11 +94,7 @@ export const editPublics = async (req, res) => {
       imagen: imgUrl,
     };
 
-    const result = await publics.findByIdAndUpdate(
-      idPublic,
-      { $set: updatedData },
-      { new: true }
-    );
+    const result = await publics.findByIdAndUpdate(idPublic, { $set: updatedData }, { new: true });
 
     if (!result) {
       return res.status(304).json({ msg: "Post not updated" });

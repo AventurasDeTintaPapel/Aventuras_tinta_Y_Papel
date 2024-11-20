@@ -7,16 +7,16 @@ export const updatUser = async (req, res) => {
   const { username, password, email } = req.body;
 
   try {
-  const idUser = req.user._id
-  let contrasenia = req.user.contrasenia
-     if (password) {
-  contrasenia = bcrypt.hashSync(password, 10);
+    const idUser = req.user._id;
+    let contrasenia = req.user.contrasenia;
+    if (password) {
+      contrasenia = bcrypt.hashSync(password, 10);
     }
     const userUpdate = { username, contrasenia, email };
-    
-    const result =await usuario.findByIdAndUpdate(idUser, userUpdate, { new: true });
-  
-       res.status(201).json({ msg: "user update",result });
+
+    const result = await usuario.findByIdAndUpdate(idUser, userUpdate, { new: true });
+
+    res.status(201).json({ msg: "user update", result });
   } catch (error) {
     console.log("Internal Server Error ", error);
     res.status(500).json({ msg: "Internal Server Error", error });
@@ -25,14 +25,12 @@ export const updatUser = async (req, res) => {
 //delete user
 export const deleteUser = async (req, res) => {
   try {
-        const idUser = req.user._id
-     
+    const idUser = req.user._id;
+
     const userUpdate = { username, password, email };
 
     const result = usuario.findByIdAndUpdate(idUser, userUpdate, { new: true });
-    !result
-      ? res.status(404).json({ msg: "error deleting user" })
-      : res.status(201).json({ msg: "user delete" });
+    !result ? res.status(404).json({ msg: "error deleting user" }) : res.status(201).json({ msg: "user delete" });
   } catch (error) {
     console.log("Internal Server Error ", error);
     res.status(500).json({ msg: "Internal Server Error", error });
@@ -70,18 +68,17 @@ export const accountRecovery = async (req, res) => {
     // Enviar la nueva contraseña por correo electrónico
     await passwordEmail(newPassword, email);
 
-    res
-      .status(200)
-      .json({ msg: "La nueva contraseña ha sido enviada", result });
+    res.status(200).json({ msg: "La nueva contraseña ha sido enviada", result });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Error interno del servidor", error });
   }
 };
+
 //get user
 export const getUser = async (req, res) => {
   try {
-    const idUser = req.user._id
+    const idUser = req.user._id;
     const result = usuario.findById(idUser);
 
     res.status(201).json({ msg: "user", result });
