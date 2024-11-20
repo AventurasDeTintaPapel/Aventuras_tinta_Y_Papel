@@ -9,7 +9,7 @@ export const addCart = async (req, res) => {
   try {
     const { idProducto, cantidad } = req.body;
 
-    const idUsuario = "6703f3330a1290cd786d458c";
+    const idUsuario = req.user._id;
     const obtProducto = await producto.findById(idProducto);
     if (!obtProducto) {
       console.log("product not find");
@@ -80,7 +80,7 @@ export const uptdaOrder = async (req, res) => {
 export const deletItem = async (req, res) => {
   try {
     const { idProducto } = req.body;
-    const idUsuario = "6703f3330a1290cd786d458c";
+    const idUsuario = req.user._id;
 
     // Importar ObjectId de mongoose correctamente
 
@@ -108,7 +108,7 @@ export const deletItem = async (req, res) => {
 // delete order
 export const deletOrder = async (req, res) => {
   try {
-    const idUsuario = "6703f3330a1290cd786d458c";
+    const idUsuario = req.user._id;
 
     const ObjectId = new mongoose.Types.ObjectId();
     const result = await pedidos.findOneAndDelete({ usuario: idUsuario });
@@ -127,7 +127,7 @@ export const deletOrder = async (req, res) => {
 // get order for user id
 export const getOrder = async (req, res) => {
   try {
-    const idUsuario = "6703f3330a1290cd786d458c";
+    const idUsuario = req.user._id;
 
     const ObjectId = new mongoose.Types.ObjectId();
     // Buscar el pedido y poblar los productos
@@ -148,7 +148,7 @@ export const getOrder = async (req, res) => {
 export const updaAmout = async (req, res) => {
   try {
     const { amount, idProduct } = req.body;
-    const idUsuario = "6728bffd7d4911a899f7c2a7";
+    const idUsuario = req.user._id;
     const ObjectId = new mongoose.Types.ObjectId();
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
     const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === idProduct);
