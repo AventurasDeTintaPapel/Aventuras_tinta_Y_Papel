@@ -42,110 +42,115 @@ export default function Carrito() {
     return <div>Cargando...</div>;
   }
 
-  function EliminarProducto({ idProducto }) {
-    const handleEliminarProducto = async () => {
-      try {
-        const response = await fetch("http://localhost:3400/api/pedidos/element", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ idProducto }),
-        });
+  // function EliminarProducto({ idProducto }) {
+  //   const handleEliminarProducto = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:3400/api/pedidos/element", {
+  //         method: "DELETE",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         credentials: "include",
+  //         body: JSON.stringify({ idProducto }),
+  //       });
 
-        const data = await response.json();
-        fetchCarrito();
-      } catch (error) {
-        console.error("Error al eliminar producto", error);
-      }
-    };
+  //       const data = await response.json();
+  //       fetchCarrito();
+  //     } catch (error) {
+  //       console.error("Error al eliminar producto", error);
+  //     }
+  //   };
 
-    return (
-      <button
-        onClick={handleEliminarProducto}
-        className=" absolute right-[0.8vw] top-[0.5vw] text-[1.2vw] rounded border border-red-600 text-red-700 hover:scale-105 transition ease-in-out duration-200 px-[0.5vw]"
-      >
-        Eliminar
-      </button>
-    );
-  }
+  //   const pedidosIncompletos = carrito.filter((pedido) => {
+  //     return pedido.estado === "incompletado";
+  //   });
+  //   console.log(pedidosIncompletos);
 
-  function MasUnproducto({ idProduct, cantidad, desactivar }) {
-    const amount = cantidad + 1;
+  //   return (
+  //     <button
+  //       onClick={handleEliminarProducto}
+  //       className=" absolute right-[0.8vw] top-[0.5vw] text-[1.2vw] rounded border border-red-600 text-red-700 hover:scale-105 transition ease-in-out duration-200 px-[0.5vw]"
+  //     >
+  //       Eliminar
+  //     </button>
+  //   );
+  // }
 
-    const EditarProducto = async () => {
-      const response = await fetch("http://localhost:3400/api/pedidos/", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ amount, idProduct }),
-      });
+  // function MasUnproducto({ idProduct, cantidad, desactivar }) {
+  //   const amount = cantidad + 1;
 
-      if (!response.ok) {
-        console.log("Error al actualizar la cantidad del producto.");
-      }
+  //   const EditarProducto = async () => {
+  //     const response = await fetch("http://localhost:3400/api/pedidos/", {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       credentials: "include",
+  //       body: JSON.stringify({ amount, idProduct }),
+  //     });
 
-      fetchCarrito();
-    };
+  //     if (!response.ok) {
+  //       console.log("Error al actualizar la cantidad del producto.");
+  //     }
 
-    return (
-      <button
-        disabled={desactivar}
-        onClick={EditarProducto}
-        className={`${desactivar ? "bg-slate-200" : "bg-green-200"} w-[1.2vw] h-[2vw] flex justify-center items-center rounded`}
-      >
-        <SlArrowRight className={`${desactivar ? "text-slate-600" : "text-green-800"} text-[1.4vw]`} />
-      </button>
-    );
-  }
+  //     fetchCarrito();
+  //   };
 
-  function MenosUnproducto({ idProduct, cantidad, desactivar }) {
-    const amount = cantidad - 1;
+  //   return (
+  //     <button
+  //       disabled={desactivar}
+  //       onClick={EditarProducto}
+  //       className={`${desactivar ? "bg-slate-200" : "bg-green-200"} w-[1.2vw] h-[2vw] flex justify-center items-center rounded`}
+  //     >
+  //       <SlArrowRight className={`${desactivar ? "text-slate-600" : "text-green-800"} text-[1.4vw]`} />
+  //     </button>
+  //   );
+  // }
 
-    const EditarProducto = async () => {
-      const response = await fetch("http://localhost:3400/api/pedidos/", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ amount, idProduct }),
-      });
+  // function MenosUnproducto({ idProduct, cantidad, desactivar }) {
+  //   const amount = cantidad - 1;
 
-      if (!response.ok) {
-        console.log("Error al actualizar la cantidad del producto.");
-      }
+  //   const EditarProducto = async () => {
+  //     const response = await fetch("http://localhost:3400/api/pedidos/", {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       credentials: "include",
+  //       body: JSON.stringify({ amount, idProduct }),
+  //     });
 
-      fetchCarrito();
-    };
+  //     if (!response.ok) {
+  //       console.log("Error al actualizar la cantidad del producto.");
+  //     }
 
-    return (
-      <button
-        disabled={desactivar}
-        onClick={EditarProducto}
-        className={`${desactivar ? "bg-slate-200" : "bg-red-200"} w-[1.2vw] h-[2vw] flex justify-center items-center rounded`}
-      >
-        <SlArrowLeft className={`${desactivar ? "text-slate-600" : "text-red-800"} text-[1.4vw]`} />
-      </button>
-    );
-  }
+  //     fetchCarrito();
+  //   };
 
-  const SumaProductos = ({ productos }) => {
-    // Función para calcular la suma total
-    const calcularTotal = () => {
-      return productos.reduce((acc, producto) => {
-        return acc + producto.producto.precio * producto.cantidad;
-      }, 0);
-    };
+  //   return (
+  //     <button
+  //       disabled={desactivar}
+  //       onClick={EditarProducto}
+  //       className={`${desactivar ? "bg-slate-200" : "bg-red-200"} w-[1.2vw] h-[2vw] flex justify-center items-center rounded`}
+  //     >
+  //       <SlArrowLeft className={`${desactivar ? "text-slate-600" : "text-red-800"} text-[1.4vw]`} />
+  //     </button>
+  //   );
+  // }
 
-    // Calcular el total al inicio o cuando los productos cambian
-    const total = calcularTotal();
+  // const SumaProductos = ({ productos }) => {
+  //   // Función para calcular la suma total
+  //   const calcularTotal = () => {
+  //     return productos.reduce((acc, producto) => {
+  //       return acc + producto.producto.precio * producto.cantidad;
+  //     }, 0);
+  //   };
 
-    return <p className="text-end "> ${total}</p>;
-  };
+  //   // Calcular el total al inicio o cuando los productos cambian
+  //   const total = calcularTotal();
+
+  //   return <p className="text-end "> ${total}</p>;
+  // };
 
   return (
     <div className="grid grid-cols-[70%_30%] grid-rows-[auto_auto_1fr_auto] h-screen">
@@ -154,15 +159,15 @@ export default function Carrito() {
       <aside className="row-start-3 col-start-2 bg-gray-100 px-[1vw] py-[0.5vw] font-poopins">
         <div className="">
           <p className="font-bold text-[1.4vw] border-b mb-[0.5vw] pb-[0.5vw] border-slate-300"> Productos:</p>
-          {carrito.productos.map((producto) => (
-            <div className="grid grid-cols-[75%_25%]">
+          {carrito.productos.map((producto, index) => (
+            <div key={index} className="grid grid-cols-[75%_25%]">
               <p className=" py-[0.3vw] text-slate-800 truncate px-[0.5vw]">{producto.producto.titulo}</p>
               <p className=" py-[0.3vw] text-slate-800 text-end px-[0.5vw]">${producto.producto.precio * producto.cantidad}</p>
             </div>
           ))}
           <div className="grid grid-cols-2 pr-[0.5vw] mt-[0.5vw] py-[0.5vw] text-[1.3vw] border-t border-slate-300">
             <p className="font-semibold">Total:</p>
-            <SumaProductos productos={carrito.productos} />
+            {/* <SumaProductos productos={carrito.productos} /> */}
           </div>
         </div>
 
@@ -172,35 +177,36 @@ export default function Carrito() {
         <div className="bg-slate-50 w-full h-full">
           {/* contenedor */}
           <div className=" space-y-[1vw] justify-items-center p-[2vw]">
-            {carrito.productos && carrito.productos.length === 0 && (carrito.estado === "completado" || carrito.estado === "entregado") ? (
+            {carrito.productos.length === 0 ? (
               <p>El carrito está vacío</p>
             ) : (
-              carrito.productos.map((producto) => (
-                // tarjeta
-                <div key={producto._id} className="border border-slate-300 rounded p-[0.5vw] w-[90%] font-poopins">
-                  {producto.producto ? (
-                    <div className="grid grid-cols-[20%_80%] ">
-                      {/* imagen */}
-                      <div className="w-full h-full">
-                        <img className="w-full h-[18vw]  object-cover" src={producto.producto.imagen} alt="" />
-                      </div>
+              <div className="">
+                {carrito.productos.map((producto, index) => (
+                  // tarjeta
+                  <div key={index} className="border border-slate-300 rounded p-[0.5vw] w-full font-poopins">
+                    {producto.producto ? (
+                      <div className="grid grid-cols-[20%_80%] ">
+                        {/* imagen */}
+                        <div className="w-full h-full">
+                          <img className="w-full h-[18vw]  object-cover" src={producto.producto.imagen} alt="" />
+                        </div>
 
-                      {/* informacion */}
-                      <div className="relative w-full rounded-r-[0.8vw]">
-                        <EliminarProducto idProducto={producto.producto._id} />
-                        <div className="pl-[1vw] space-y-[0.5vw]">
-                          <p className="truncate text-[1.8vw] font-semibold">{producto.producto.titulo}</p>
-                          <p className="text-[1.3vw]">
-                            <span className="text-slate-800 font-medium">Autor: </span>
-                            {producto.producto.autor}
-                          </p>
-                          <p className="text-[1.3vw]">
-                            <span className="font-medium">Precio individual: </span>${producto.producto.precio}
-                          </p>
-                          <p className="text-[1.3vw]">
-                            <span className="font-medium">Total individual: </span>${producto.producto.precio * producto.cantidad}
-                          </p>
-                          <div className="flex gap-[0.5vw] border-[0.1vw] py-[0.3vw] px-[0.3vw] rounded-[0.5vw] absolute right-0 bottom-0">
+                        {/* informacion */}
+                        <div className="relative w-full rounded-r-[0.8vw]">
+                          {/* <EliminarProducto idProducto={producto.producto._id} /> */}
+                          <div className="pl-[1vw] space-y-[0.5vw]">
+                            <p className="truncate text-[1.8vw] font-semibold">{producto.producto.titulo}</p>
+                            <p className="text-[1.3vw]">
+                              <span className="text-slate-800 font-medium">Autor: </span>
+                              {producto.producto.autor}
+                            </p>
+                            <p className="text-[1.3vw]">
+                              <span className="font-medium">Precio individual: </span>${producto.producto.precio}
+                            </p>
+                            <p className="text-[1.3vw]">
+                              <span className="font-medium">Total individual: </span>${producto.producto.precio * producto.cantidad}
+                            </p>
+                            {/* <div className="flex gap-[0.5vw] border-[0.1vw] py-[0.3vw] px-[0.3vw] rounded-[0.5vw] absolute right-0 bottom-0">
                             <MenosUnproducto
                               idProduct={producto.producto._id}
                               cantidad={producto.cantidad}
@@ -213,15 +219,16 @@ export default function Carrito() {
                               cantidad={producto.cantidad}
                               desactivar={producto.cantidad >= producto.producto.stock} // Desactivar si cantidad >= stock
                             />
+                          </div> */}
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <p>Error al cargar producto</p>
-                  )}
-                </div>
-              ))
+                    ) : (
+                      <p>Error al cargar producto</p>
+                    )}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         </div>
