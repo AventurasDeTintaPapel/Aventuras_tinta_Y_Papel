@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import passwordEmail from "./email.controller.js";
 //update users
 export const updatUser = async (req, res) => {
-  const { username, password, email } = req.body;
+  const { nombreUsuario, apellido, fechaNacimiento, email, password, nombre, phone } = req.body;
 
   try {
     const idUser = req.user._id;
@@ -12,7 +12,8 @@ export const updatUser = async (req, res) => {
     if (password) {
       contrasenia = bcrypt.hashSync(password, 10);
     }
-    const userUpdate = { username, contrasenia, email };
+
+    const userUpdate = { nombreUsuario, contrasenia, email, fechaNacimiento, nombre, apellido, phone };
 
     const result = await usuario.findByIdAndUpdate(idUser, userUpdate, { new: true });
 
@@ -22,6 +23,7 @@ export const updatUser = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error", error });
   }
 };
+
 //delete user
 export const deleteUser = async (req, res) => {
   try {
