@@ -35,7 +35,7 @@ export default function AdminMasInfo() {
 
   return (
     <div className=" px-[10vw] py-[2vw] font-poopins">
-      <div className="grid grid-cols-[20%_80%] grid-rows-[auto_auto_auto] gap-[1vw] bg-green-400 p-[1vw]">
+      <div className="grid grid-cols-[20%_80%] grid-rows-[auto_auto_auto] gap-[1vw] bg-purple-200 p-[1vw]">
         <div className="col-start-1 row-start-1">
           <img className="w-full h-full" src={producto.imagen} alt="" />
         </div>
@@ -86,11 +86,11 @@ export default function AdminMasInfo() {
                 <div key={comentario.id || index}>
                   {" "}
                   {/* Usa comentario.id si lo tienes, o index como último recurso */}
-                  <p className="bg-red-500 pl-[1vw] text-[1.3vw]">{comentario.body}</p>
+                  <p className="bg-purple-500 pl-[1vw] text-[1.3vw]">{comentario.body}</p>
                 </div>
               ))
             ) : (
-              <p>no hay comentarios</p>
+              <p className="bg-purple-500 pl-[1vw] text-[1.3vw]">no hay comentarios</p>
             )}
           </div>
         </div>

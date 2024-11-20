@@ -63,7 +63,57 @@ export function CatalogoPrueba() {
 
   return (
     <div className="flex gap-[2vw] overflow-x-auto w-[80vw] py-[1vw]">
-      {productos.map((producto) => (
+      {productos.slice(0, 8).map((producto) => (
+        <div
+          key={producto._id}
+          className=" h-[30vw] relative flex flex-col rounded-[0.5vw] shadow-xl hover:outline hover:outline-offset-[0.3vw] outline-purple-800 hover:border-[0.3vw] bg-white border-purple-800 group transition-all ease-in-out duration-150"
+        >
+          {/* imagen */}
+          <div className="w-[15vw] h-[22vw] relative">
+            <img
+              className="w-full h-full rounded-t-lg group-hover:rounded-t-[0.2vw] transition-all ease-in-out duration-150 object-cover"
+              src={producto.imagen}
+              alt={producto.titulo}
+            />
+            <MasInfo
+              id={producto._id}
+              text={"Mas informacion"}
+              estilos={
+                " absolute bottom-[0.5vw] font-breeSerif left-[0.5vw] bg-[#8321d8] bg-opacity-85 text-white hover:text-white text-[0.8vw] rounded-md px-[0.4vw] py-[0.2vw] hover:bg-opacity-100 hover:text-[0.85vw] hover:translate-y-[0.05vw] transition-all ease-in-out duration-300"
+              }
+            />
+          </div>
+          {/* titulo y precio */}
+          <div className=" h-full relative pt-[0.5vw] pl-[1vw]">
+            <div className="truncate w-[10vw] text-[#7950a2] text-[1.3vw]">{producto.titulo}</div>
+            <CorazonFav key={producto._id} producto={producto} estilo={"text-[#5a189a] absolute right-[1vw] top-[0.8vw] text-[1.5vw]"} />
+
+            <p className="text-[1.6vw] text-[#4d2b6c]">Precio: ${producto.precio}</p>
+          </div>
+
+          {/* boton */}
+          <BotonComprar
+            producto={producto}
+            estilos={
+              "bg-[#7c23c9] absolute bottom-0 w-full rounded-b-lg group-hover:rounded-b-[0.2vw] transition-all ease-in-out duration-150 text-slate-100 hover:text-white hover:bg-[#6017a4] h-[2.3vw] text-[1.3vw] hover:text-[1.4vw]"
+            }
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function CatalogoPrueba2() {
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    traerProductos(setProductos);
+  }, []);
+
+  return (
+    <div className="flex gap-[2vw] overflow-x-auto w-[80vw] py-[1vw]">
+      {productos.slice(-6).map((producto) => (
         <div
           key={producto._id}
           className=" h-[30vw] relative flex flex-col rounded-[0.5vw] shadow-xl hover:outline hover:outline-offset-[0.3vw] outline-purple-800 hover:border-[0.3vw] bg-white border-purple-800 group transition-all ease-in-out duration-150"

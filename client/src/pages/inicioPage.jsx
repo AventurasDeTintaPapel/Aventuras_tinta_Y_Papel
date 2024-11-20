@@ -1,5 +1,5 @@
 import React from "react";
-import { CarruselInicio, CatalogoPrueba } from "../components/objetosVariasdos";
+import { CarruselInicio, CatalogoPrueba, CatalogoPrueba2 } from "../components/objetosVariasdos";
 import imgComics from "../assets/img/imgComics.png";
 
 function Separador({ texto }) {
@@ -20,7 +20,7 @@ export default function Inicio() {
         <Separador texto={"LO MAS VENDIDO"} />
 
         {/* contendor de tarjetas y flechas 1 */}
-        <CatalogoPrueba />
+        <CatalogoPrueba2 />
 
         {/* algo */}
         <div className="flex py-[2vw] gap-[1vw] w-auto">

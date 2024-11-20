@@ -57,6 +57,9 @@ export default function AdminPedidos() {
         <option className="" value="Entregado">
           Entregado
         </option>
+        <option className="" value="En proceso">
+          En proceso
+        </option>
         <option className="" value="Cancelado">
           Cancelado
         </option>

@@ -98,7 +98,7 @@ const AdminProductForm = ({ productId, onFormSubmit, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <h2 className="text-2xl font-bold text-indigo-800 mb-6">
+      <h2 className="text-2xl font-bold text-purple-800 mb-6">
         {productId ? 'Editar Producto' : 'Agregar Producto'}
       </h2>
       
@@ -236,8 +236,8 @@ const AdminProductForm = ({ productId, onFormSubmit, onCancel }) => {
               file:mr-4 file:py-2 file:px-4
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
-              file:bg-indigo-50 file:text-indigo-700
-              hover:file:bg-indigo-100"
+              file:bg-purple-50 file:text-purple-700
+              hover:file:bg-purple-100"
           />
         </div>
       </div>
@@ -248,13 +248,13 @@ const AdminProductForm = ({ productId, onFormSubmit, onCancel }) => {
           onClick={handleCancel}
           className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center"
         >
-          <X className="mr-2 h-5 w-5" /> Cancel
+          <X className="mr-2 h-5 w-5" /> Cancelar
         </button>
         <button
           type="submit"
           className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center"
         >
-          <Save className="mr-2 h-5 w-5" /> {productId ? 'Update' : 'Save'}
+          <Save className="mr-2 h-5 w-5" /> {productId ? 'Actualizar' : 'Guardar'}
         </button>
       </div>
     </form>
