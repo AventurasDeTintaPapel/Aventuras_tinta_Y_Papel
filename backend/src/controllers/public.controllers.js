@@ -2,6 +2,7 @@ import cloudinary from "../config.js";
 import mongoose from "mongoose";
 import fs from "fs";
 import publics from "../models/public.models.js";
+import usuario from "../models/usuarios.model.js";
 import { validarJWT } from "../helpers/validadJWT.js";
 // Create public
 export const createPublic = async (req, res) => {
@@ -110,30 +111,27 @@ export const editPublics = async (req, res) => {
 //delet public
 export const deletPublic = async (req, res) => {
   try {
-    // const { idUser } = req.params;
     const { idPublic } = req.body;
     const userId = req.user._id;
-
+    console.log(idPublic)
     const ObjectId = mongoose.Types.ObjectId;
-    const publicFind = await publics.findOne({ idPublic });
-
+    const publicFind = await publics.findById(idPublic);
+          console.log(publicFind);
     if (!publicFind) {
-      res.status(402).json({ msg: "not post" });
+        return res.status(404).json({ msg: "Not post" }); // Se agrega return para detener el flujo
     }
+    const userFind = usuario.findById(userId);
 
-    if ((usuario.rol === "user") & (userId != publicFind.autor)) {
-      res.status(401).json({ msg: "You are not the author of this post" });
+    if (userFind.rol === "user" && userId != publicFind.autor) {
+        return res.status(401).json({ msg: "You are not the author of this post" }); // Se agrega return para detener el flujo
     }
 
     // Eliminamos el post usando el _id directamente
     const result = await publics.findByIdAndDelete(idPublic);
 
-    if (!result) {
-      res.status(304).json({ msg: "Post not delete" });
-    } else {
-      res.status(201).json({ msg: "post delete" });
-    }
-  } catch (error) {
+    return res.status(201).json({ msg: "Post deleted" }); 
+    } catch (error) {
+      console.log(error)
     res.status(500).json({ msg: "Internal Server Error ", error });
   }
 };

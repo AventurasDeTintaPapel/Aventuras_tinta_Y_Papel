@@ -80,8 +80,16 @@ export const uptdaOrder = async (req, res) => {
 export const deletItem = async (req, res) => {
   try {
     const { idProducto } = req.body;
-    console.log(idProducto);
     const idUsuario = req.user._id;
+
+    // Importar ObjectId de mongoose correctamente
+
+    // Usar ObjectId para convertir idProducto en un ObjectId de MongoDB
+    const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: idProducto } } });
+
+    if (!result.modifiedCount) {
+      return res.status(404).json({ msg: "Product not found" });
+    }
 
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
 
@@ -144,7 +152,6 @@ export const updaAmout = async (req, res) => {
   try {
     const { amount, idProduct } = req.body;
     const idUsuario = req.user._id;
-
     const ObjectId = new mongoose.Types.ObjectId();
     const cardFind = await pedidos.findOne({ usuario: idUsuario });
     console.log(cardFind);
