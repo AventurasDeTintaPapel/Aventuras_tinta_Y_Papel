@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from "react"; 
-import { MdOutlineSquare } from "react-icons/md";
-import { FaUser } from "react-icons/fa6";
-import { BsEyeSlashFill } from "react-icons/bs";
-import { IoEyeSharp } from "react-icons/io5";
+import React, { useState, useEffect } from "react";
 import imgPerfilonn from "../assets/img/imgPerfil.png";
 
 export default function Perfil() {
@@ -44,15 +40,7 @@ export default function Perfil() {
   useEffect(() => {
     // Llama la función al montar el componente
     fetchUserData();
-
-    // Configura un intervalo para recargar automáticamente cada 5 segundos (5000 ms)
-    const intervalId = setInterval(() => {
-      fetchUserData();
-    }, 2000);
-
-    // Limpia el intervalo al desmontar el componente
-    return () => clearInterval(intervalId);
-  }, [token]);
+  }, []);
 
   return (
     <main className="row-start-3 relative flex justify-center items-center text-[#3C096C] py-[4vw] bg-[#f5e7e0] h-full ">
@@ -78,23 +66,17 @@ export default function Perfil() {
               <p className="text-[1.4vw] font-medium">Numero de Telefono: </p>
               <span className="text-[1.4vw] text-[#5A189A]">{userData.phone}</span>
             </div>
-         
           </div>
-          <Botonperfil />
+          <Botonperfil fetchUserData={fetchUserData} />
         </div>
       ) : (
-        <img
-          className="absolute top-0 left-0 h-full w-full opacity-80"
-          src={imgPerfilonn}
-          alt=""
-        />
+        <img className="absolute top-0 left-0 h-full w-full opacity-80" src={imgPerfilonn} alt="" />
       )}
     </main>
   );
 }
 
-
-function Botonperfil() {
+function Botonperfil({ fetchUserData }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
 
@@ -125,6 +107,7 @@ function Botonperfil() {
       if (!response.ok) {
         throw new Error("Error al cargar los datos del usuario.");
       }
+      fetchUserData();
 
       const data = await response.json();
       setnombreUsuario(data.nombreUsuario || "");
@@ -255,11 +238,7 @@ function Botonperfil() {
               GUARDAR CAMBIOS
             </button>
 
-            <button
-              onClick={cerrarForm}
-              className="text-[1.5vw] mt-[1vw]"
-              type="button"
-            >
+            <button onClick={cerrarForm} className="text-[1.5vw] mt-[1vw]" type="button">
               Cerrar
             </button>
           </form>
@@ -270,10 +249,7 @@ function Botonperfil() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <p className="text-xl mb-4">Perfil actualizado correctamente</p>
-            <button
-              onClick={confirmarAlerta}
-              className="bg-[#53187e] text-white rounded py-2 px-4 hover:bg-[#732ab6]"
-            >
+            <button onClick={confirmarAlerta} className="bg-[#53187e] text-white rounded py-2 px-4 hover:bg-[#732ab6]">
               Aceptar
             </button>
           </div>
@@ -282,10 +258,3 @@ function Botonperfil() {
     </>
   );
 }
-
-
-
-
-
-
-

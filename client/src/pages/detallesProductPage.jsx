@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useState, useRef, useEffect } from "react";
-import { FaStar } from "react-icons/fa";
-import { FaRegStar } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+
 import { IoIosArrowDown } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +29,7 @@ export default function DetallesProductos() {
   return (
     <main className="row-start-3">
       {/* contenedor general */}
-      <div className="bg-white w-full px-[5vw] h-full grid grid-rows-[auto_auto_auto]">
+      <div className="bg-white w-full px-[5vw] py-[2vw] h-full grid grid-rows-[auto_auto_auto]">
         {/*contenedor de imagen y botones */}
         <div className="row-start-1 p-[1vw] flex shadow-xl ">
           {/* contenedor imagen */}
@@ -53,9 +52,16 @@ export default function DetallesProductos() {
               <span className="font-poopins text-slate-800">Tipo: </span>
               {producto.tipo}
             </p>
+            <p className=" font-baloo text-slate-700 text-[1.5vw] list-item ml-[1.5vw]">
+              <span className="font-poopins text-slate-800">Idioma: </span>
+              {producto.idioma}
+            </p>
             {/* autor */}
             <p className=" font-baloo text-slate-700 text-[1.5vw] list-item ml-[1.5vw]">
               <span className="font-poopins text-slate-800">Autor: </span> {producto.autor}
+            </p>
+            <p className=" font-baloo text-slate-700 text-[1.5vw] list-item ml-[1.5vw]">
+              <span className="font-poopins text-slate-800">Categoria: </span> {producto.categoria}
             </p>
             {/* precio */}
             <p className=" font-baloo text-slate-700 text-[1.5vw] list-item ml-[1.5vw]">
@@ -76,32 +82,61 @@ export default function DetallesProductos() {
         </div>
 
         {/* comentarios */}
-        <div className=" rounded-b-[1vw] space-y-[1vw] pt-[1vw] bg-[#efe3f6]  row-start-3">
-          <div className="flex pl-[1vw] gap-[0.5vw]">
-            <FaStar className="text-[2.5vw]" />
-            <FaStar className="text-[2.5vw]" />
-            <FaStar className="text-[2.5vw]" />
-            <FaRegStar className="text-[2.5vw]" />
-            <FaRegStar className="text-[2.5vw]" />
-          </div>
-          <Comentarios />
-        </div>
+        <div className=" rounded-b-[1vw] space-y-[1vw] pt-[1vw] bg-[#efe3f6]  row-start-3"></div>
       </div>
     </main>
   );
 }
 
 // comentarios
-function Comentarios() {
+
+function Comentarios({ producto, idProducto }) {
   const [comentarios, setComentarios] = useState(false);
   const [estilos, setEstilos] = useState({});
   const [text, setText] = useState("");
-  const textareaRef = useRef(null);
+  const [mensaje, setMensaje] = useState("");
+  const [comentariosLista, setComentariosLista] = useState(producto.comentarios || []);
 
-  // accion del clic
   const manejarClic = () => {
     setComentarios(!comentarios);
     setEstilos(comentarios ? { transition: "transform 0.5s ease" } : { transform: "rotate(-180deg)", transition: "transform 0.5s ease" });
+  };
+
+  const manejarCambioInput = (e) => {
+    setText(e.target.value);
+  };
+
+  const enviarComentario = async () => {
+    if (!text.trim()) {
+      setMensaje("El comentario no puede estar vacío.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3400/api/coments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ idProducto, body: text }),
+      });
+
+      const data = await response.json();
+      console.log("Respuesta del servidor:", data);
+
+      if (!response.ok) {
+        setMensaje(`Error al agregar comentario: ${data.msg}`);
+        return;
+      }
+
+      setMensaje("Comentario añadido con éxito.");
+      setText("");
+      setComentariosLista([...comentariosLista, { body: text }]);
+    } catch (error) {
+      console.error("Error interno del servidor:", error);
+      setMensaje("Error interno del servidor. Intenta de nuevo más tarde.");
+    }
   };
 
   return (
@@ -111,24 +146,40 @@ function Comentarios() {
         <IoIosArrowDown style={estilos} className="text-[1.8vw]" />
       </button>
       <div
-        className={` ${
+        className={`${
           comentarios ? " max-h-[30vw] opacity-100 " : "opacity-0 pointer-events-none max-h-0 "
         } transition-all ease-in-out duration-500 overflow-hidden`}
       >
         <div className="w-full h-[30vw] grid grid-rows-[1fr_auto]">
-          {/* inpur comnetario */}
-          <div className=" bg-[#efe3f6] rounded-b-[1vw] w-full row-start-2 flex items-center gap-[1.5vw] relative ">
-            <div className="w-full h-[5vw] grid grid-cols-[80%_20%] bg-red-400">
-              <div className="flex justify-center items-center">
-                <textarea
-                  placeholder="Escriba un comentario"
-                  className="w-[95%] rounded-[1vw] pl-[1vw] pt-[0.8vw] text-[1.8vw] h-[4vw] tracking-wide"
-                ></textarea>
+          <div>
+            {comentariosLista.length > 0 ? (
+              comentariosLista.map((comentario, index) => (
+                <div key={index}>
+                  <p className="pl-[1vw] text-[1.3vw]">{comentario.body}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-[1.3vw] pl-[1vw]">No hay comentarios</p>
+            )}
+          </div>
+          {/* Input de comentario */}
+          <div className="bg-[#efe3f6] rounded-b-[1vw] w-full row-start-2 flex items-center gap-[1.5vw] relative">
+            <div className="w-full p-[1vw] justify-items-center grid grid-cols-[85%_15%] bg-slate-300">
+              <input
+                type="text"
+                className="w-full rounded text-[1.1vw] px-[1vw]"
+                placeholder="Escribe tu comentario aquí"
+                value={text}
+                onChange={manejarCambioInput}
+              />
+              <div>
+                <button onClick={enviarComentario} className="bg-blue-600 text-white text-[1.5vw] px-[1vw] py-[0.3vw] rounded">
+                  Enviar
+                </button>
               </div>
-              <button>Enviar</button>
             </div>
           </div>
-          <div className="bg-white overflow-y-auto"></div>
+          {mensaje && <div className="bg-white text-center text-red-500 mt-2">{mensaje}</div>}
         </div>
       </div>
     </>
