@@ -27,7 +27,7 @@ export function BotonComprar({ producto, estilos }) {
       if (response.data) {
         console.log("Pedido registrado con éxito:", response.data);
         mostrarAlerta("Producto agregado al carrito exitosamente.");
-        setCarrito((prev) => [...prev, { ...producto, cantidad }]); // Actualiza el estado local si es necesario
+        setCarrito((prev) => [...prev, { ...producto, cantidad }]); //
       }
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);

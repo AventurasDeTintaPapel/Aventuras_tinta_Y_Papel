@@ -2,7 +2,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import React from "react";
 
-export const CorazonFav = ({ producto, estilo }) => {
+export const CorazonFav = ({ producto, estilo, traerFav }) => {
   const [isFavorite, setIsFavorite] = useState(false); // Estado para saber si es favorito
   const [favorites, setFavorites] = useState([]); // Estado para almacenar los favoritos
 
@@ -22,7 +22,8 @@ export const CorazonFav = ({ producto, estilo }) => {
       const data = await response.json();
       setFavorites(data.favorites); // Actualizamos el estado con los favoritos obtenidos
       const isFav = data.favorites.some((fav) => fav.producto._id === producto._id);
-      setIsFavorite(isFav); // Verifica si el producto está marcado como favorito
+      setIsFavorite(isFav);
+      // Verifica si el producto está marcado como favorito
     } catch (error) {
       console.error("Error al obtener favoritos:", error);
     }
@@ -75,6 +76,7 @@ export const CorazonFav = ({ producto, estilo }) => {
       console.log("Producto eliminado de favoritos:", data);
       // Volver a cargar los favoritos después de eliminar uno
       fetchFavorites();
+      traerFav();
     } catch (error) {
       console.error("Error al eliminar favorito:", error);
     }
