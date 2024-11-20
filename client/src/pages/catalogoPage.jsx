@@ -25,6 +25,7 @@ export default function Catalogo() {
       accion: false,
       fantasia: false,
       cienciaficcion: false,
+      Superheroes: false,
     },
   });
 
@@ -146,7 +147,7 @@ export default function Catalogo() {
             />
             <ButtonFilter
               filtroKey="categoria"
-              filtroValue="ciencia ficcion"
+              filtroValue="cienciaficcion"
               activeFilter={activeFilters.categoria.cienciaficcion}
               handleFilterChange={handleFilterChange}
               text="Ciencia ficcion"
@@ -157,6 +158,13 @@ export default function Catalogo() {
               activeFilter={activeFilters.categoria.fantasia}
               handleFilterChange={handleFilterChange}
               text="Fantasia"
+            />
+            <ButtonFilter
+              filtroKey="categoria"
+              filtroValue="Superheroes"
+              activeFilter={activeFilters.categoria.Superheroes}
+              handleFilterChange={handleFilterChange}
+              text="Super heroes"
             />
           </div>
         </div>
