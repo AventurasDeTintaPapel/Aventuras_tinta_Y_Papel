@@ -11,17 +11,13 @@ export function BotonComprar({ producto, estilos }) {
 
   const agregarProductoAlCarrito = async () => {
     const cantidad = 1;
-    // const token = localStorage.getItem("token");
-    // if (!token) {
-    //   console.error("El usuario no está autenticado.");
-    //   return;
-    // }
     try {
       const response = await fetch("http://localhost:3400/api/pedidos/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           idProducto: producto,
           cantidad,

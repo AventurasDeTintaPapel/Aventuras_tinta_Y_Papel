@@ -133,63 +133,66 @@ export default function Carrito() {
     <div className="grid grid-cols-[70%_30%] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"row-start-1 col-span-2"} />
       <Nav colAndrow={"row-start-2 col-span-2"} />
-      <aside className="row-start-3 col-start-2 bg-gray-100 p-[1vw]"></aside>
-      <main className="row-start-3 col-start-1">
-        <div className="bg-blue-50 w-full h-full">
-          <div>
-            <h2>Carrito</h2>
-          </div>
-          <div className="justify-items-center py-[2vw] space-y-[2vw]">
-            {carrito.productos && carrito.productos.length === 0 && (carrito.estado === "completado" || carrito.estado === "entregado") ? (
-              <p>El carrito está vacío</p>
-            ) : (
-              carrito.productos.map((producto) => (
-                <div key={producto._id} className="bg-white shadow-md rounded-[1vw] grid w-[60vw] grid-cols-[20%_80%] p-[1vw]">
-                  {producto.producto ? (
+      <aside></aside>
+
+<main>
+  <div>
+    <div>
+      <h2>Carrito</h2>
+    </div>
+    <div>
+      {carrito.productos && carrito.productos.length === 0 && (carrito.estado === "completado" || carrito.estado === "entregado") ? (
+        <p>El carrito está vacío</p>
+      ) : (
+        carrito.productos.map((producto) => (
+          <div key={producto._id}>
+            {producto.producto ? (
+              <div>
+                <div>
+                  <div>
+                    <img src={producto.producto.imagen} alt="" />
+                  </div>
+                  <div>
                     <div>
-                      <div className="w-full h-[18vw]">
-                        <img className="w-full h-full rounded-[0.8vw] object-cover" src={producto.producto.imagen} alt="" />
-                      </div>
-                      <div className="relative w-full rounded-r-[0.8vw]">
-                        <div className="pl-[1vw] space-y-[0.5vw]">
-                          <p className="truncate text-[1.8vw] font-medium">{producto.producto.titulo}</p>
-                          <p className="text-[1.3vw]">
-                            <span className="text-slate-800 font-medium">Autor: </span>
-                            {producto.producto.autor}
-                          </p>
-                          <p className="text-[1.3vw]">
-                            <span className="text-slate-800 font-medium">Precio individual: </span>${producto.producto.precio}
-                          </p>
-                          <p className="text-[1.3vw]">
-                            <span className="text-slate-800 font-medium">Total: </span>${producto.producto.precio * producto.producto.cantidad}
-                          </p>
-                          <div className="flex gap-[1vw] border-[0.2vw] py-[0.3vw] px-[0.3vw] rounded-[0.5vw] absolute right-0 bottom-0">
-                            <MenosUnproducto
-                              idProduct={producto._id}
-                              cantidad={producto.cantidad}
-                              desactivar={producto.cantidad <= 1} // Desactivar si cantidad <= 1
-                            />
-                            <p className="flex text-[1.7vw] items-center">Cantidad: {producto.cantidad}</p>
-                            <MasUnproducto
-                              idProduct={producto._id}
-                              cantidad={producto.cantidad}
-                              desactivar={producto.cantidad >= producto.producto.stock} // Desactivar si cantidad >= stock
-                            />
-                          </div>
-                        </div>
+                      <p>{producto.producto.titulo}</p>
+                      <p>
+                        <span>Autor: </span>
+                        {producto.producto.autor}
+                      </p>
+                      <p>
+                        <span>Precio individual: </span>${producto.producto.precio}
+                      </p>
+                      <p>
+                        <span>Total: </span>${producto.producto.precio * producto.producto.cantidad}
+                      </p>
+                      <div>
+                        <MenosUnproducto
+                          idProduct={producto._id}
+                          cantidad={producto.cantidad}
+                          desactivar={producto.cantidad <= 1} // Desactivar si cantidad <= 1
+                        />
+                        <p>Cantidad: {producto.cantidad}</p>
+                        <MasUnproducto
+                          idProduct={producto._id}
+                          cantidad={producto.cantidad}
+                          desactivar={producto.cantidad >= producto.producto.stock} // Desactivar si cantidad >= stock
+                        />
                       </div>
                     </div>
-                  ) : (
-                    <p>Error al cargar producto</p>
-                  )}
-                  <ButtonDelete productoId={producto._id} />
+                  </div>
                 </div>
-              ))
-            )}
+              ) : (
+                <p>Error al cargar producto</p>
+              )}
+            <ButtonDelete productoId={producto._id} />
           </div>
-        </div>
-        <PayPalPayment></PayPalPayment>
-      </main>
+        ))
+      )}
+    </div>
+  </div>
+  <PayPalPayment></PayPalPayment>
+</main>
+
 
       <Footer colAndrow={"row-start-4 col-span-2"} />
     </div>

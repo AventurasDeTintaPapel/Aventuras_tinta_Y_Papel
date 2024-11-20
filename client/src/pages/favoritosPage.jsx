@@ -18,13 +18,11 @@ export default function MisFavoritos() {
     const fetchFavorites = async () => {
       try {
         setLoading(true); // Iniciar la carga
-        const response = await axios.get(
-          "http://localhost:3400/api/favoritos/getFav",
-          {
-            withCredentials: true, // Enviar cookies con la solicitud
-          }
-        );
-        setFavorites(response.data.favorites || []); // Actualizar favoritos
+        const response = await axios("http://localhost:3400/api/favoritos/getFav", {
+          withCredentials: true,
+        });
+        setFavorites(response.data);
+        console.log("Se trajo favortios con exito:", response.data);
       } catch (err) {
         setError(err.response?.data?.msg || "Error al cargar favoritos");
       } finally {
@@ -50,10 +48,7 @@ export default function MisFavoritos() {
           ) : favorites.length > 0 ? (
             favorites.map((fav) => (
               // Tarjetas
-              <div
-                key={fav.producto._id}
-                className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[45vw] h-[17vw] p-[0.6vw]"
-              >
+              <div key={fav.producto._id} className="flex relative font-boogaloo rounded-[1vw] shadow-fav w-[45vw] h-[17vw] p-[0.6vw]">
                 <CorazonFav
                   key={fav.producto._id}
                   producto={fav.producto}
@@ -74,9 +69,7 @@ export default function MisFavoritos() {
                   <div>
                     {/* Título */}
                     <div className="w-[25vw]">
-                      <p className="truncate text-[#5F3F73] text-[2.5vw]">
-                        {fav.producto.titulo || "Título desconocido"}
-                      </p>
+                      <p className="truncate text-[#5F3F73] text-[2.5vw]">{fav.producto.titulo || "Título desconocido"}</p>
                     </div>
                     <div className="w-[20vw]">
                       {/* Autor */}

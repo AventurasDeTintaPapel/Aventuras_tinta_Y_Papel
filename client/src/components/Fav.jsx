@@ -1,86 +1,103 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import React from "react";
-import axios from "axios";
-import { useAlertFav } from "../hook/useAlert";
-import Cookies from "js-cookie";
-// Importar cookie.js
 
 export const CorazonFav = ({ producto, estilo }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-  const { Alerta, mostrarAlerta } = useAlertFav();
+  const [isFavorite, setIsFavorite] = useState(false); // Estado para saber si es favorito
+  const [favorites, setFavorites] = useState([]); // Estado para almacenar los favoritos
 
-  useEffect(() => {
-    // Intentar recuperar los favoritos desde las cookies
-    const cookieFavorites = Cookies.get("favorites");
-    if (cookieFavorites) {
-      const parsedFavorites = JSON.parse(cookieFavorites); // Parseamos la cookie
-      setFavorites(parsedFavorites); // Establecemos los favoritos recuperados
-      const isFavorite = parsedFavorites.some((fav) => fav.producto._id === producto._id);
-      setIsFavorite(isFavorite); // Verificamos si el producto está en favoritos
-    } else {
-      fetchFavorites(); // Si no hay cookies, realizar la llamada al backend
-    }
-  }, [producto._id]); // Dependencia para actualizar cuando el producto cambia
-
+  // Función para obtener los favoritos desde la base de datos
   const fetchFavorites = async () => {
     try {
-      const response = await axios.get("http://localhost:3400/api/favoritos/getFav", {
-        withCredentials: true, // Enviar cookies con la solicitud
+      const response = await fetch("http://localhost:3400/api/favoritos/getFav", {
+        method: "GET",
+        credentials: "include",
       });
-      const favoritesData = response.data.favorites;
-      setFavorites(favoritesData);
-      // Guardar los favoritos en las cookies
-      Cookies.set("favorites", JSON.stringify(favoritesData), { expires: 7 });
-      const isFavorite = favoritesData.some((fav) => fav.producto._id === producto._id);
-      setIsFavorite(isFavorite);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.msg || "Error al obtener favoritos");
+      }
+
+      const data = await response.json();
+      setFavorites(data.favorites); // Actualizamos el estado con los favoritos obtenidos
+      const isFav = data.favorites.some((fav) => fav.producto._id === producto._id);
+      setIsFavorite(isFav); // Verifica si el producto está marcado como favorito
     } catch (error) {
-      console.error("Error fetching favorites:", error);
+      console.error("Error al obtener favoritos:", error);
     }
   };
 
-  const handleFavoriteToggle = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return; // Si no hay token, no hacer nada
-
+  // Función para agregar un producto a favoritos
+  const addToFavorites = async (idProduct) => {
     try {
-      if (isFavorite) {
-        // Eliminar de favoritos
-        await axios.delete("http://localhost:3400/api/favoritos/delete", {
-          withCredentials: true, // Enviar cookies con la solicitud
-          data: { idProduct: producto._id }, // Enviar el ID del producto a eliminar
-        });
-        setFavorites((prev) => prev.filter((fav) => fav.producto._id !== producto._id));
-        // Actualizar cookies con los favoritos restantes
-        Cookies.set("favorites", JSON.stringify(favorites), { expires: 7 });
-        console.log("Se eliminó con éxito");
-      } else {
-        // Agregar a favoritos
-        await axios.post("http://localhost:3400/api/favoritos/addFav", {
-          withCredentials: true,
-          idProduct: producto._id,
-        });
-        mostrarAlerta("Se agregó correctamente a favoritos");
-        const updatedFavorites = [...favorites, { producto }];
-        setFavorites(updatedFavorites);
-        // Actualizar cookies con los nuevos favoritos
-        Cookies.set("favorites", JSON.stringify(updatedFavorites), {
-          expires: 7,
-        });
+      const response = await fetch("http://localhost:3400/api/favoritos/addFav", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idProduct }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.msg || "Error al agregar a favoritos");
       }
-      setIsFavorite(!isFavorite);
+
+      const data = await response.json();
+      console.log("Producto agregado a favoritos:", data);
+      // Volver a cargar los favoritos después de agregar uno nuevo
+      fetchFavorites();
     } catch (error) {
-      console.error("Error actualizando favoritos:", error);
+      console.error("Error al agregar favorito:", error);
     }
+  };
+
+  // Función para eliminar un producto de favoritos
+  const removeFromFavorites = async (idProduct) => {
+    try {
+      const response = await fetch("http://localhost:3400/api/favoritos/delete", {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idProduct }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.msg || "Error al eliminar favorito");
+      }
+
+      const data = await response.json();
+      console.log("Producto eliminado de favoritos:", data);
+      // Volver a cargar los favoritos después de eliminar uno
+      fetchFavorites();
+    } catch (error) {
+      console.error("Error al eliminar favorito:", error);
+    }
+  };
+
+  // useEffect para cargar los favoritos cuando el componente se monta
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
+
+  // Alternar entre agregar y eliminar de favoritos
+  const handleFavoriteToggle = () => {
+    if (isFavorite) {
+      removeFromFavorites(producto._id); // Eliminar de favoritos
+    } else {
+      addToFavorites(producto._id); // Agregar a favoritos
+    }
+    setIsFavorite(!isFavorite); // Cambiar el estado de isFavorite
   };
 
   return (
-    <div>
-      {Alerta}
-      <div className={estilo}>
-        <button onClick={handleFavoriteToggle}>{isFavorite ? <FaHeart /> : <FaRegHeart />}</button>
-      </div>
+    <div className={estilo}>
+      <button onClick={handleFavoriteToggle}>{isFavorite ? <FaHeart /> : <FaRegHeart />}</button>
     </div>
   );
 };
