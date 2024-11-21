@@ -18,6 +18,7 @@ export default function App() {
   }
 
   const onApproveOrder = async (data, actions) => {
+    const token = localStorage.getItem("token");
     try {
       const orderId = data.orderID;
 
@@ -31,7 +32,9 @@ export default function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          token: token,
         },
+        credentials: "include",
         body: JSON.stringify({ paypalToken: orderId }),
       });
 
@@ -44,8 +47,7 @@ export default function App() {
   return (
     <PayPalScriptProvider
       options={{
-        clientId:
-          "Ab-GPkTvpSFTaIAjQ8jjFQ_0jqhONBwX8G0McqIQZIvyZvBwnmrvWbeUGKCu5mrQ0cFHN7qiDchPuxpz",
+        clientId: "Ab-GPkTvpSFTaIAjQ8jjFQ_0jqhONBwX8G0McqIQZIvyZvBwnmrvWbeUGKCu5mrQ0cFHN7qiDchPuxpz",
       }}
     >
       <PayPalButtons createOrder={createOrder} onApprove={onApproveOrder} />
