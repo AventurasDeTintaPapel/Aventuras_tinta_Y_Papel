@@ -127,11 +127,11 @@ export default function Contactos() {
 </div>
 
           <div className="mb-4">
-            <label htmlFor="mensaje" className="mb-2 block text-sm font-medium text-purple-900">
+            <label htmlFor="body" className="mb-2 block text-sm font-medium text-purple-900">
               Mensaje:
             </label>
             <textarea
-              id="mensaje"
+              id="body"
               rows={4}
               required
               onChange={handleChange}

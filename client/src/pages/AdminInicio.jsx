@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTraerProductosNormal } from "../hook/useFetchProductos";
 import { MasInfo } from "./catalogoPage";
+import { MasInfoAdmin } from "./AdminProductos";
 
 export default function AdminInicio() {
   const { productos, Loading } = useTraerProductosNormal();
@@ -114,7 +115,7 @@ export default function AdminInicio() {
                     </p>
                   </div>
 
-                  <MasInfo
+                  <MasInfoAdmin
                     id={producto._id}
                     estilos={
                       "font-bold text-[1.3vw] bg-slate-200 text-slate-800 rounded px-[1.2vw] py-[0.5vw] absolute bottom-[0.5vw] left-[0.5vw] hover:scale-105 transition ease-in-out duration-200"

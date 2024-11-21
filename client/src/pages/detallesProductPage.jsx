@@ -27,7 +27,7 @@ export default function DetallesProductos() {
   if (!producto) return <p>Cargando unu</p>;
 
   return (
-    <main className="row-start-3">
+    <main className="row-start-3 font-poopins">
       {/* contenedor general */}
       <div className="bg-white w-full px-[5vw] py-[2vw] h-full grid grid-rows-[auto_auto_auto]">
         {/*contenedor de imagen y botones */}
@@ -81,16 +81,20 @@ export default function DetallesProductos() {
           <p className="w-[95%] text-[#4c197b]  pl-[1vw] pt-[0.5vw] text-[1.3vw]"> {producto.descripcion} </p>
         </div>
 
-        {/* comentarios */}
-        <div className=" rounded-b-[1vw] space-y-[1vw] pt-[1vw] bg-[#efe3f6]  row-start-3"></div>
+        
+        <div className=" rounded-b-[1vw] space-y-[1vw] pt-[1vw] bg-[#efe3f6]  row-start-3">
+          {/* comentarios */}
+        <Comentarios producto={producto} idProducto={id} />
+        </div>
       </div>
     </main>
   );
 }
 
-// comentarios
-
 function Comentarios({ producto, idProducto }) {
+  const token = localStorage.getItem("token");
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [comentarios, setComentarios] = useState(false);
   const [estilos, setEstilos] = useState({});
   const [text, setText] = useState("");
@@ -111,60 +115,117 @@ function Comentarios({ producto, idProducto }) {
       setMensaje("El comentario no puede estar vacío.");
       return;
     }
-
+  
     try {
       const response = await fetch("http://localhost:3400/api/coments", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ idProducto, body: text }),
+        body: JSON.stringify({
+          idProducto,
+          body: text,
+          nombre: userData?.nombre, // Nombre del usuario
+          apellido: userData?.apellido, // Apellido del usuario
+        }),
       });
-
+  
       const data = await response.json();
       console.log("Respuesta del servidor:", data);
-
+  
       if (!response.ok) {
         setMensaje(`Error al agregar comentario: ${data.msg}`);
         return;
       }
-
-      setMensaje("Comentario añadido con éxito.");
+  
+      alert("Comentario añadido con éxito.");
       setText("");
-      setComentariosLista([...comentariosLista, { body: text }]);
+      setComentariosLista([
+        ...comentariosLista,
+        { id: data.id, body: text, nombre: userData?.nombre, apellido: userData?.apellido },
+      ]); // Guardar el nombre y apellido del usuario que hizo el comentario
     } catch (error) {
       console.error("Error interno del servidor:", error);
       setMensaje("Error interno del servidor. Intenta de nuevo más tarde.");
     }
   };
+  
+
+  // Función para obtener los datos del usuario
+  const fetchUserData = () => {
+    if (token) {
+      fetch("http://localhost:3400/api/auth/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        credentials: "include",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error al obtener los datos del usuario");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Datos del usuario recibidos:", data);
+          setUserData(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Llama la función al montar el componente
+    fetchUserData();
+  }, []);
 
   return (
     <>
-      <button onClick={manejarClic} className="text-[#361158] flex items-center gap-[0.3vw] pl-[1.3vw]">
+      <button
+        onClick={manejarClic}
+        className="text-[#361158] flex items-center gap-[0.3vw] pl-[1.3vw]"
+      >
         <span className="text-[1.5vw]">Comentarios</span>
         <IoIosArrowDown style={estilos} className="text-[1.8vw]" />
       </button>
+
       <div
         className={`${
-          comentarios ? " max-h-[30vw] opacity-100 " : "opacity-0 pointer-events-none max-h-0 "
+          comentarios ? "max-h-[30vw] opacity-100" : "opacity-0 pointer-events-none max-h-0"
         } transition-all ease-in-out duration-500 overflow-hidden`}
       >
-        <div className="w-full h-[30vw] grid grid-rows-[1fr_auto]">
+        <div className="w-full h-[30vw] grid grid-rows-[1fr_auto] px-4">
           <div>
-            {comentariosLista.length > 0 ? (
-              comentariosLista.map((comentario, index) => (
-                <div key={index}>
-                  <p className="pl-[1vw] text-[1.3vw]">{comentario.body}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-[1.3vw] pl-[1vw]">No hay comentarios</p>
-            )}
+          {comentariosLista.length > 0 ? (
+  comentariosLista.map((comentario) => (
+    <div key={comentario.id} className="my-4 bg-purple-50 px-4 flex gap-2 py-2">
+      {/* Mostrar el nombre y apellido del usuario que hizo el comentario */}
+      {comentario.nombre && comentario.apellido && (
+        <p className="font-bold text-[1.2vw]">
+          {comentario.nombre} {comentario.apellido} comentó:
+        </p>
+      )}
+      {/* Cuerpo del comentario */}
+      <p>{comentario.body}</p>
+    </div>
+  ))
+) : (
+  <p className="text-[1.3vw] pl-[1vw]">No hay comentarios</p>
+)}
           </div>
+
           {/* Input de comentario */}
           <div className="bg-[#efe3f6] rounded-b-[1vw] w-full row-start-2 flex items-center gap-[1.5vw] relative">
-            <div className="w-full p-[1vw] justify-items-center grid grid-cols-[85%_15%] bg-slate-300">
+            <div className="w-full p-[1vw] justify-items-center grid grid-cols-[85%_15%] bg-purple-300">
               <input
                 type="text"
                 className="w-full rounded text-[1.1vw] px-[1vw]"
@@ -173,18 +234,34 @@ function Comentarios({ producto, idProducto }) {
                 onChange={manejarCambioInput}
               />
               <div>
-                <button onClick={enviarComentario} className="bg-blue-600 text-white text-[1.5vw] px-[1vw] py-[0.3vw] rounded">
+                <button
+                  onClick={enviarComentario}
+                  className="bg-purple-600 text-white text-[1.5vw] px-[1vw] py-[0.3vw] rounded"
+                >
                   Enviar
                 </button>
               </div>
             </div>
           </div>
-          {mensaje && <div className="bg-white text-center text-red-500 mt-2">{mensaje}</div>}
+
+          {mensaje && (
+            <div className="bg-white text-center text-red-500 mt-2">
+              {mensaje}
+            </div>
+          )}
+
+          {/* Mostrar mensaje de carga si se está esperando la respuesta */}
+          {loading && (
+            <div className="text-center mt-2">
+              <p className="text-[1.3vw]">Cargando comentarios...</p>
+            </div>
+          )}
         </div>
       </div>
     </>
   );
 }
+  
 
 // boton volver
 function Volver() {

@@ -44,7 +44,7 @@ export default function AdminProductos() {
   );
 }
 
-function MasInfoAdmin({ id }) {
+export function MasInfoAdmin({ id }) {
   const navigate = useNavigate();
 
   const handleNavigate = () => {

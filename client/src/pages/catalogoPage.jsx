@@ -7,10 +7,12 @@ import { Header } from "../components/Header";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { BotonComprar } from "../components/objetosVariasdos";
+ // Asumo que tienes este hook para obtener los productos
 
 export default function Catalogo() {
   const { Product, setFilters, loading, error } = useFetchProductos();
 
+  const [buscarProducto, setBuscarProducto] = useState("");
   const [activeFilters, setActiveFilters] = useState({
     tipo: {
       todo: true,
@@ -26,6 +28,7 @@ export default function Catalogo() {
       fantasia: false,
       cienciaficcion: false,
       Superheroes: false,
+      juvenil: false,
     },
   });
 
@@ -53,25 +56,28 @@ export default function Catalogo() {
           filterCategory[key] = key === "todo";
         });
       } else {
-        // Si seleccionamos un filtro específico, solo activamos ese filtro
         Object.keys(filterCategory).forEach((key) => {
           filterCategory[key] = key === filtroValue;
         });
-        // Desactivamos "todo" para evitar que quede seleccionado junto con un filtro específico
         filterCategory.todo = false;
       }
 
       return updatedFilters;
     });
 
-    // Actualizamos los filtros globales para el fetch de productos
     setFilters((prev) => ({
       ...prev,
       [filtroKey]: filtroValue === "" ? "" : filtroValue,
     }));
   };
 
-  // retorna el ASIDE Y MAIN
+  // Función de filtrado para el campo de búsqueda
+  const filtroProductos = Product.filter(
+    (producto) =>
+      producto.titulo.toLowerCase().includes(buscarProducto.toLowerCase()) ||
+      producto.tipo.toLowerCase().includes(buscarProducto.toLowerCase())
+  );
+
   return (
     <div className="grid grid-cols-[20%_80%] grid-rows-[auto_auto_1fr_auto] h-screen">
       <Header colAndrow={"col-span-2 row-start-1"} />
@@ -80,6 +86,16 @@ export default function Catalogo() {
       {/* aside filtros */}
       <aside className=" col-start-1 row-start-3 w-[20vw] space-y-[2vw] mb-[2vw] pl-[1vw] pt-[0.5vw]">
         <div className="">
+        <p className="font-poopins font-bold tracking-wide text-[1.8vw]">Buscador</p>
+          <input
+            className="border text-[1vw] border-slate-400 rounded w-full px-[1vw] py-[0.5vw]"
+            type="text"
+            value={buscarProducto}
+            placeholder="Buscar producto por nombre o tipo ..."
+            onChange={(e) => setBuscarProducto(e.target.value)}
+          />
+        </div>
+        <div>
           <p className="font-baloo text-[1.5vw]">Tipos:</p>
           <div className="flex flex-col gap-2">
             <ButtonFilter
@@ -117,11 +133,12 @@ export default function Catalogo() {
               handleFilterChange={handleFilterChange}
               text="Mercancia"
             />
+         
           </div>
         </div>
 
         {/* Categorías */}
-        <div className="">
+        <div>
           <p className="font-baloo text-[1.5vw]">Categorías:</p>
           <div className="flex flex-col gap-2">
             <ButtonFilter
@@ -166,12 +183,20 @@ export default function Catalogo() {
               handleFilterChange={handleFilterChange}
               text="Super heroes"
             />
+                  <ButtonFilter
+              filtroKey="categoria"
+              filtroValue="juvenil"
+              activeFilter={activeFilters.categoria.juvenil}
+              handleFilterChange={handleFilterChange}
+              text="Juvenil"
+            />
           </div>
         </div>
       </aside>
 
       <main className="col-start-2 row-start-3 flex flex-col">
         <div>
+         
           {loading && <p className="text-[#5f4d65] text-[2vw] font-baloo text-center mt-[2vw]">Cargando productos...</p>}
           {error && <p className="text-red-500 text-[2vw] font-baloo text-center mt-[2vw]">Error al traer los productos intentelo mas tarde</p>}
 
@@ -179,8 +204,7 @@ export default function Catalogo() {
           <div className="grid grid-cols-4 px-[3vw] justify-items-center py-[2vw] gap-[2vw] ">
             {!loading &&
               !error &&
-              Product.map((producto) => (
-                // tarjeta
+              filtroProductos.map((producto) => (
                 <div
                   key={producto._id}
                   className="w-[16vw] relative h-[29.5vw] flex flex-col rounded shadow-lg overflow-hidden group transform hover:scale-105 transition-all ease-in-out duration-300"
