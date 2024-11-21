@@ -69,7 +69,7 @@ const AdminPanel = () => {
           <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Panel de Administrador</h1>
           <button
             onClick={handleAddProduct}
-            className="mb-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out flex items-center"
+            className="mb-8 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out flex items-center"
           >
             <PlusCircle className="mr-2 h-5 w-5" />
             Agregar un nuevo producto
