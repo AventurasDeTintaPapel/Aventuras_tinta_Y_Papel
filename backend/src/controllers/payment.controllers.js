@@ -22,9 +22,7 @@ export const createOrder = async (req, res) => {
     });
 
     if (!pedido) {
-      return res
-        .status(404)
-        .json({ msg: "No se encontró un pedido para este usuario." });
+      return res.status(404).json({ msg: "No se encontró un pedido para este usuario." });
     }
 
     // Buscar pedidos anteriores completados o entregados para aplicar descuento adicional si es necesario
@@ -49,9 +47,7 @@ export const createOrder = async (req, res) => {
 
       // Verificar stock disponible
       if (producto.stock < cantidad) {
-        throw new Error(
-          `Stock insuficiente para el producto: ${producto.nombre}`
-        );
+        throw new Error(`Stock insuficiente para el producto: ${producto.nombre}`);
       }
     }
     if (precioFinal > 100.0 || oldsOrder.length > 10) {
@@ -94,22 +90,17 @@ export const createOrder = async (req, res) => {
     const accessToken = data.access_token;
 
     // Crear la orden de PayPal
-    const response = await axios.post(
-      `${PAYPAL_API}/v2/checkout/orders`,
-      order,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     res.json({
       msg: "Orden creada correctamente",
       orderId: response.data.id,
-      approvalUrl: response.data.links.find((link) => link.rel === "approve")
-        .href,
+      approvalUrl: response.data.links.find((link) => link.rel === "approve").href,
     });
   } catch (error) {
     console.error(error);
@@ -120,20 +111,20 @@ export const createOrder = async (req, res) => {
 export const captOrder = async (req, res) => {
   const { paypalToken } = req.body;
   try {
-    const token = req.headers.token;
+    // const token = req.headers.token;
+    // console.log(token);
+    // // if (!token) {
+    // //   console.log("not token");
+    // //   return res.status(401).json({ msg: "You must register to be able to perform this task" });
+    // // }
 
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
-    }
+    // const usuario = await validarJWT(token);
+    // if (!usuario) {
+    //   console.log("no usuario");
+    // }
 
-    const usuario = await validarJWT(token);
-    if (!usuario) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-
-    const idUsuario = usuario._id;
+    // const idUsuario = usuario._id;
+    const idUsuario = req.user._id;
     const ObjectId = new mongoose.Types.ObjectId();
     // Capturar el pago con PayPal
     const response = await axios.post(
@@ -149,6 +140,7 @@ export const captOrder = async (req, res) => {
     console.log(response.data);
     const pedido = await pedidos.findOne({
       usuario: new mongoose.Types.ObjectId(idUsuario),
+      estado: "incompleto",
     });
 
     if (!pedido) {
@@ -170,9 +162,7 @@ export const captOrder = async (req, res) => {
       }
       // Verificar si el producto tiene stock
       if (typeof producto.stock === "undefined") {
-        throw new Error(
-          `El producto con ID ${productoId} no tiene campo de stock`
-        );
+        throw new Error(`El producto con ID ${productoId} no tiene campo de stock`);
       }
       console.log("prod stock", producto.stock);
       const newStock = producto.stock - cantidad;

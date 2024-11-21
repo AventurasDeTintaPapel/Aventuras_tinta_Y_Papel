@@ -6,8 +6,8 @@ export const payrouter = Router();
 payrouter.get("/create-order", validateJwt, createOrder);
 payrouter.post("/create-order", validateJwt, createOrder);
 
-payrouter.post("/capture-order", captOrder);
-payrouter.get("/capture-order", captOrder);
+payrouter.post("/capture-order", validateJwt, captOrder);
+payrouter.get("/capture-order", validateJwt, captOrder);
 
 payrouter.get("/", (req, res) => {
   res.send("hello");

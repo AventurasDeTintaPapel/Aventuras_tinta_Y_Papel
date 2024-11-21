@@ -1,5 +1,6 @@
 import pedidos from "../models/pedidos.model.js";
 import mongoose from "mongoose";
+const { ObjectId } = mongoose.Types;
 import usuario from "../models/usuarios.model.js";
 import producto from "../models/productos.model.js";
 import { validarJWT } from "../helpers/validadJWT.js";
@@ -16,37 +17,38 @@ export const addCart = async (req, res) => {
       return res.status(404).json({ msg: "product not find" });
     }
 
-    const cardFind = await pedidos.findOne({ usuario: idUsuario });
+    const cardFind = await pedidos.find({ usuario: idUsuario }); // Devuelve un array
+    // Encuentra el pedido del usuario en estado "incompleto"
+    const pedido = await pedidos.findOne({
+      usuario: idUsuario,
+      estado: "incompleto",
+    });
 
-    //create new card
-    if (!cardFind || cardFind.estado == "completo" || cardFind.stado == "entregado") {
+    // Si no hay un pedido incompleto, crea uno nuevo
+    if (!pedido) {
       const newPedido = new pedidos({
-        productos: [
-          {
-            producto: idProducto,
-            cantidad: cantidad,
-          },
-        ],
+        productos: [{ producto: idProducto, cantidad }],
         usuario: idUsuario,
+        estado: "incompleto",
       });
 
       await newPedido.save();
-      return res.json(newPedido);
-    } else {
-      const prodFind = cardFind.productos.find((p) => p.producto && p.producto.toString() === idProducto);
-
-      if (prodFind) {
-        prodFind.cantidad += cantidad;
-      } else {
-        cardFind.productos.push({
-          producto: idProducto,
-          cantidad: cantidad,
-        });
-      }
-
-      await cardFind.save();
-      return res.json(cardFind);
+      return console.log("Nuevo pedido creado:", newPedido);
     }
+
+    // Si ya existe un pedido incompleto, actualiza o añade el producto
+    const productoExistente = pedido.productos.find((p) => p.producto.toString() === idProducto);
+
+    if (productoExistente) {
+      // Incrementa la cantidad del producto si ya está en el pedido
+      productoExistente.cantidad += cantidad;
+    } else {
+      // Agrega un nuevo producto al pedido
+      pedido.productos.push({ producto: idProducto, cantidad });
+    }
+
+    await pedido.save();
+    console.log("Pedido actualizado:", pedido);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Internal server error" });
@@ -81,30 +83,30 @@ export const deletItem = async (req, res) => {
   try {
     const { idProducto } = req.body;
     const idUsuario = req.user._id;
+    console.log("ID Producto recibido:", idProducto);
 
-    // Importar ObjectId de mongoose correctamente
+    // Asegurarse de que el ID es un ObjectId válido
+    const objectIdProducto = new mongoose.Types.ObjectId(idProducto);
 
-    // Usar ObjectId para convertir idProducto en un ObjectId de MongoDB
-    const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: idProducto } } });
+    // Buscar el pedido
+    const cardFind = await pedidos.findOne({ usuario: idUsuario, estado: "incompleto" });
+    console.log("Pedido encontrado:", cardFind);
 
-    if (!result.modifiedCount) {
-      return res.status(404).json({ msg: "Product not found" });
+    // Actualizar el pedido para eliminar el producto
+    const result = await pedidos.updateOne(
+      { usuario: idUsuario, "productos.producto": objectIdProducto },
+      { $pull: { productos: { producto: objectIdProducto } } }
+    );
+
+    console.log("Resultado de updateOne:", result);
+
+    if (result.modifiedCount > 0) {
+      return res.status(200).json({ msg: "The product was eliminated" });
+    } else {
+      return res.status(404).json({ msg: "Product not found in the cart" });
     }
-
-    const cardFind = await pedidos.findOne({ usuario: idUsuario });
-
-    if (cardFind.estado === "incompleto") {
-      const result = await pedidos.updateOne({ usuario: idUsuario }, { $pull: { productos: { producto: idProducto } } });
-
-      console.log(result);
-      if (result.modifiedCount > 0) {
-        return res.status(200).json({ msg: "The product was eliminated" });
-      }
-    }
-
-    return res.status(404).json({ msg: "Product not found" });
   } catch (error) {
-    console.error(error);
+    console.error("Error al eliminar producto:", error);
     return res.status(500).json({ msg: "Internal Server Error" });
   }
 };
@@ -134,7 +136,7 @@ export const getOrder = async (req, res) => {
     const idUsuario = req.user._id;
     const ObjectId = new mongoose.Types.ObjectId();
     // Buscar el pedido y poblar los productos
-    const result = await pedidos.findOne({ usuario: new mongoose.Types.ObjectId(idUsuario) }).populate("productos.producto");
+    const result = await pedidos.find({ usuario: new mongoose.Types.ObjectId(idUsuario) }).populate("productos.producto");
 
     if (!result) {
       return res.status(404).json({ msg: "order not find" });
