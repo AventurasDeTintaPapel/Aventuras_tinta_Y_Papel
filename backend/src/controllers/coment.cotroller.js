@@ -1,28 +1,27 @@
 import Producto from "../models/productos.model.js";
-import Usuario from "../models/usuarios.model.js";
 import mongoose from "mongoose"; // Para usar ObjectId
-
+import usuario from "../models/usuarios.model.js";
 const { ObjectId } = mongoose;
 
 //create coments
 export const creatcoment = async (req, res) => {
   try {
     const { idProducto, body } = req.body;
+    console.log(idProducto)
     const idUsuario = req.user._id;
     // Encuentra el usuario y el producto
-    const usuarioEncontrado = await Usuario.findById(idUsuario);
     const prodFind = await Producto.findById(idProducto);
 
     if (!prodFind) {
       return res.status(404).json({ msg: "Usuario o producto no encontrado" });
     }
-    if (!usuarioEncontrado) {
-      return res.status(404).json({ msg: "Usuario  no encontrado" });
-    }
+    // if (!usuarioEncontrado) {
+    //   return res.status(404).json({ msg: "Usuario  no encontrado" });
+    // }
 
     // Agregar comentario al array de comentarios del producto
     prodFind.comentarios.push({
-      usuario: usuarioEncontrado._id,
+      usuario: idUsuario,
       body: body,
     });
 
@@ -31,61 +30,72 @@ export const creatcoment = async (req, res) => {
 
     res.status(200).json({ msg: "Comentario añadido con éxito" });
   } catch (error) {
+    console.log('error', error);
     res.status(500).json({ msg: "Error interno del servidor", error });
+  }
+};
+export const getComent = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const {idProducto} = req.body;
+    console.log(userId);
+    console.log(idProducto);
+    const result = await Producto.findById(idProducto).populate("comentarios.usuario");
+
+    if (!result) {
+      return res.status(404).json({ msg: "coment not find" });
+    }
+
+    res.status(200).json({result });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "internal server error ", error });
   }
 };
 
 //delete coment
 export const delComent = async (req, res) => {
   try {
-    const { idProducto } = req.body;
-    const token = req.headers.token;
+    const { idComentario, idProducto } = req.body;
+    const idUsuario = req.user._id;
 
-    if (!token) {
-      return res
-        .status(401)
-        .json({ msg: "You must register to be able to perform this task" });
+    // Validar los IDs
+    if (!mongoose.Types.ObjectId.isValid(idComentario) || !mongoose.Types.ObjectId.isValid(idProducto)) {
+      return res.status(400).json({ msg: "IDs inválidos" });
     }
 
-    const usuario = await validarJWT(token);
-    if (!usuario) {
-      return res.status(401).json({ msg: "Invalid Token" });
-    }
-
-    const idUsuario = usuario._id;
-    const ObjectId = new mongoose.Types.ObjectId();
-
-    // Encuentra el producto
+    // Buscar el producto
     const prodFind = await Producto.findById(idProducto);
 
     if (!prodFind) {
-      return res.status(404).json({ msg: "Product not find" });
+      return res.status(404).json({ msg: "Producto no encontrado" });
     }
 
-    const userFind = await usuario.findById(idUsuario);
-    // Encuentra el comentario dentro del array de comentarios
-    const comentFind = prodFind.comentarios.find(
-      (comentario) =>
-        comentario.usuario && comentario.usuario.toString() === idUsuario
+    // Verificar si el comentario existe en el array
+    const comentarioIndex = prodFind.comentarios.findIndex(
+      (comentario) => comentario._id.toString() === idComentario
     );
 
-    if (!comentFind) {
-      return res.status(404).json({ msg: "coment not find" });
+    if (comentarioIndex === -1) {
+      return res.status(404).json({ msg: "Comentario no encontrado" });
     }
-    if (!comentFind || !userFind.admin) {
-      res
-        .status(401)
-        .json({ msg: "You are not authorized to perform the following task" });
+
+    // Verificar si el usuario es el autor del comentario
+    const comentario = prodFind.comentarios[comentarioIndex];
+    if (comentario.usuario.toString() !== idUsuario.toString()) {
+      return res.status(403).json({ msg: "No tienes permiso para eliminar este comentario" });
     }
-    // Elimina el comentario del array utilizando su _id
+
+    // Eliminar el comentario utilizando $pull
     await Producto.updateOne(
       { _id: idProducto },
-      { $pull: { comentarios: { _id: comentFind._id } } }
+      { $pull: { comentarios: { _id: idComentario } } }
     );
 
-    res.status(200).json({ msg: "comment deleted successfully" });
+    return res.status(200).json({ msg: "Comentario eliminado con éxito" });
   } catch (error) {
-    res.status(500).json({ msg: "Interval server error ", error });
+    console.error("Error al eliminar comentario:", error);
+    return res.status(500).json({ msg: "Error interno del servidor", error });
   }
 };
 

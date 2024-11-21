@@ -58,7 +58,7 @@ const productos = new Schema(
         },
         usuario: {
           type: Schema.Types.ObjectId,
-          ref: "usuarios",
+          ref: "usuario",
         },
       },
     ],
